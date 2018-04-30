@@ -44,7 +44,7 @@
 
 
 
-		<form action="<?php echo base_url() ?>auth/login" method="post">
+		<form action="<?php echo base_url() ?>auth/login" mesthod="post">
 			<div class="form-group has-feedback">
 				<!--<input type="email" class="form-control" placeholder="Email">-->
 				<?php
@@ -59,7 +59,9 @@
 				<?php
 				$password['class']='form-control';
 				$password['placeholder'] = 'Password';
-				echo form_input($password);?>
+				echo form_input($password);
+				?>
+
 				<span class="glyphicon -lock form-control-feedback"></span>
 			</div>
 

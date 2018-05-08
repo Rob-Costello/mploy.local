@@ -44,7 +44,7 @@
 
 
 
-		<form action="<?php echo base_url() ?>auth/login" mesthod="post">
+		<form action="<?php echo base_url() ?>auth/login" method="post">
 			<div class="form-group has-feedback">
 				<!--<input type="email" class="form-control" placeholder="Email">-->
 				<?php

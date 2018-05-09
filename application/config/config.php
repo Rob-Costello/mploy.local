@@ -1,6 +1,19 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+
+/*
+ * -------------------------------------------------------------------------
+ * Admin Email Address for password resets and system notifications
+ *--------------------------------------------------------------------------
+ */
+$config['admin_email'] = 'admin@mploy.local';
+
+
+
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Base Site URL

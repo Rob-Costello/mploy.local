@@ -1,0 +1,26 @@
+.activePage{
+
+	display:inline;
+	vertical-align: -webkit-baseline-middle;
+	background: #f337ab7;
+	color: #fff;
+	padding: 6px 9px;
+	font-size: 12px;
+	line-height: 1.5;
+	position: relative;
+	float: left;
+	margin-left: -1px;
+	line-height: 1.43857143;
+	color: #fff;
+	text-decoration: none;
+	background-color: #337ab7;
+	border: 1px solid #ddd;
+}
+
+.form-row{
+	
+	padding-top: 15px; 
+     	 
+    	
+}
+

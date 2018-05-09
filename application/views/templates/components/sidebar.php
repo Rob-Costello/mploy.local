@@ -17,18 +17,32 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">MAIN NAVIGATION</li>
-            <li class="active treeview">
+			<li><a href="#"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+			<li><a href="#"><i class="fa fa-users"></i> <span>Customers</span></a></li>
+			<li><a href="#"><i class="fa fa-graduation-cap"></i> <span>Schools</span></a></li>
+			<li><a href="#"><i class="fa fa-building"></i> <span>Companies</span></a></li>
+			<li><a href="#"><i class="fa fa-user"></i> <span>Young People</span></a></li>
+			<li><a href="#"><i class="fa fa-briefcase"></i> <span>Campaigns</span></a></li>
+			<li><a href="#"><i class="fa fa-puzzle-piece"></i> <span>Events</span></a></li>
+			<li><a href="#"><i class="fa fa-industry"></i> <span>Careers</span></a></li>
+			<li><a href="#"><i class="fa fa-gears"></i> <span>Admin</span></a></li>
+			<li><a href="#"><i class="fa fa-file"></i> <span>Reports</span></a></li>
+			<li><a href="#"><i class="fa fa-power-off"></i> <span>Logout</span></a></li>
+
+
+			<li class="active treeview">
                 <a href="#">
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                     <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
+              			<i class="fa fa-angle-left pull-right"></i>
+            		</span>
                 </a>
                 <ul class="treeview-menu">
                     <li class="active"><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
                     <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
                 </ul>
             </li>
+
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-files-o"></i>
@@ -44,11 +58,6 @@
                     <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
                 </ul>
             </li>
-
-
-
-
-
             <li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
             <li class="header">LABELS</li>
             <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>

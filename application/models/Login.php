@@ -1,4 +1,5 @@
 <?php
+
 class login extends CI_Model{
 
 	function login_check($time = NULL, $group = NULL){

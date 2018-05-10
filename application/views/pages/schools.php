@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 
 <?php $this->load->view('templates/header'); ?>
@@ -100,3 +101,12 @@
 
 
 
+=======
+<?= $title ?>
+
+<?php foreach($schools['data'] as $school): ?>
+
+<?php echo $school->name; ?>
+
+<?php endforeach ?>
+>>>>>>> 64916ca90566c848cc2ddfb6aa941450ffa895a4

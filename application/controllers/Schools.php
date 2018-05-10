@@ -1,5 +1,6 @@
 <?php
 
+
 class Schools extends CI_Controller
 {
 
@@ -85,3 +86,5 @@ class Schools extends CI_Controller
 
 
 }
+
+

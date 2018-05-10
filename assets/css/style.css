@@ -1,5 +1,4 @@
 .activePage{
-
 	display:inline;
 	vertical-align: -webkit-baseline-middle;
 	background: #f337ab7;
@@ -17,10 +16,7 @@
 	border: 1px solid #ddd;
 }
 
-.form-row{
-	
+.form-row{	
 	padding-top: 15px; 
-     	 
-    	
 }
 

@@ -8,7 +8,7 @@ class Schools extends CI_Controller
 
 		parent::__construct();
 		$this->load->model('login');
-		$this->load->model('messages');
+		//$this->load->model('messages');
 		$this->load->library('ion_auth');
 		$this->load->model('Schools_model');
 		$this->login->login_check_force();

@@ -13,23 +13,7 @@
 			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
 			<li class="active">School Details</li>
 		</ol>
-		<div class="row">
-			<div class="col-md-12">
-				<?php if( $messages != '' ) { ?>
-					<div class="alert alert-success alert-dismissable">
-						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-						<?php echo $messages; ?>
-					</div>
-				<?php } ?>
-
-				<?php if( $errors != '' ) { ?>
-					<div class="alert alert-danger alert-dismissable">
-						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-						<?php echo $errors; ?>
-					</div>
-				<?php } ?>
-			</div>
-		</div>
+		<?php //$this->load->view('/templates/components/notification') ?>
 	</section>
 
 
@@ -74,7 +58,7 @@
 							<div class="form-group">
 
 								<label class=" ">
-								
+
 								</label>
 								<input type="text" name="name" class="form-control" value="<?php echo $table['name']; ?>" placeholder="Doe" disabled="">
 

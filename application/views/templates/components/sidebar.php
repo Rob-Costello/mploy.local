@@ -17,19 +17,17 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">MAIN NAVIGATION</li>
-			<li><a href="#"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
-			<li><a href="#"><i class="fa fa-users"></i> <span>Customers</span></a></li>
-			<li><a href="#"><i class="fa fa-graduation-cap"></i> <span>Schools</span></a></li>
-			<li><a href="#"><i class="fa fa-building"></i> <span>Companies</span></a></li>
-			<li><a href="#"><i class="fa fa-user"></i> <span>Young People</span></a></li>
-			<li><a href="#"><i class="fa fa-briefcase"></i> <span>Campaigns</span></a></li>
-			<li><a href="#"><i class="fa fa-puzzle-piece"></i> <span>Events</span></a></li>
-			<li><a href="#"><i class="fa fa-industry"></i> <span>Careers</span></a></li>
-			<li><a href="#"><i class="fa fa-gears"></i> <span>Admin</span></a></li>
-			<li><a href="#"><i class="fa fa-file"></i> <span>Reports</span></a></li>
-			<li><a href="#"><i class="fa fa-power-off"></i> <span>Logout</span></a></li>
-
-
+			<li><a href="/dashboard"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+			<li><a href="/customers"><i class="fa fa-users"></i> <span>Customers</span></a></li>
+			<li><a href="/schools"><i class="fa fa-graduation-cap"></i> <span>Schools</span></a></li>
+			<li><a href="/companies"><i class="fa fa-building"></i> <span>Companies</span></a></li>
+			<li><a href="/young-people"><i class="fa fa-user"></i> <span>Young People</span></a></li>
+			<li><a href="/campaigns"><i class="fa fa-briefcase"></i> <span>Campaigns</span></a></li>
+			<li><a href="/events"><i class="fa fa-puzzle-piece"></i> <span>Events</span></a></li>
+			<li><a href="/careers"><i class="fa fa-industry"></i> <span>Careers</span></a></li>
+			<li><a href="/admin"><i class="fa fa-gears"></i> <span>Admin</span></a></li>
+			<li><a href="/reports"><i class="fa fa-file"></i> <span>Reports</span></a></li>
+			<li><a href="/auth/logout"><i class="fa fa-power-off"></i> <span>Logout</span></a></li>
 			<li class="active treeview">
                 <a href="#">
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span>

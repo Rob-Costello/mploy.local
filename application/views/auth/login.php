@@ -16,7 +16,7 @@
 	<link rel="stylesheet" href="<?php echo base_url()."assets/";?>dist/css/AdminLTE.min.css">
 	<!-- iCheck -->
 	<link rel="stylesheet" href="<?php echo base_url()."assets/";?>plugins/iCheck/square/blue.css">
-
+	<link rel="stylesheet" href="<?php echo base_url()."assets/";?>css/style.css">
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
@@ -29,13 +29,12 @@
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
-	<div class="login-logo">
-		<a href="<?php echo base_url()."assets/";?>../../index2.html"><b>Mploy</b></a>
-	</div>
+
 	<!-- /.login-logo -->
 	<div class="login-box-body">
-		<p class="login-box-msg">Sign in to start your session</p>
-
+		<div class="login-title">
+			<img  class="login-image" src="<?php echo base_url()?>assets/images/logo.png">
+		</div>
 
 		</p>
 
@@ -62,7 +61,7 @@
 				echo form_input($password);
 				?>
 
-				<span class="glyphicon -lock form-control-feedback"></span>
+				<span class="glyphicon -lock form-control-feedback"></span>:q
 			</div>
 
 			<div class="row">
@@ -74,24 +73,22 @@
 					</div>
 				</div>
 				<!-- /.col -->
-				<div class="col-xs-4">
-					<button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+				<div class="col-xs-12">
+
+
+					<button class="btn btn-primary btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Log In</button>
+
+
 				</div>
 				<!-- /.col -->
 			</div>
 		</form>
 
-		<!--<div class="social-auth-links text-center">
-			<p>- OR -</p>
-			<a href="<?php echo base_url()."assets/";?>#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using
-				Facebook</a>
-			<a href="<?php echo base_url()."assets/";?>#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using
-				Google+</a>
-		</div>
-		<!-- /.social-auth-links -->
 
-		<a href="<?php echo base_url()."assets/";?>#">I forgot my password</a><br>
-		<a href="<?php echo base_url()."assets/";?>register.html" class="text-center">Register a new membership</a>
+
+		<div class="login-footer">
+			<a href="<?php echo base_url()."assets/";?>#">I forgot my password</a><br>
+		</div>
 
 	</div>
 	<!-- /.login-box-body -->

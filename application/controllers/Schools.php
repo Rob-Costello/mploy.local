@@ -74,8 +74,8 @@ class Schools extends CI_Controller
 		$school= new schools_model();
 
 		$data['table']= $school->get_school($id);
-		$data['errors'] = $this->messages->get_errors();
-		$data['messages'] = $this->messages->get_messages();
+		//$data['errors'] = $this->messages->get_errors();
+		//$data['messages'] = $this->messages->get_messages();
 
 
 		$this->load->view('pages/schools_view',$data);

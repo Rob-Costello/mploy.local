@@ -19,11 +19,24 @@
 
 
 
-	<!-- Main content -->
+
 	<section class="content">
 
-
+		<!-- Main content School Details-->
 		<div class="box box-primary">
+			<div class="box-header with-border">
+				<div class="col-md-3">
+					<button class="btn btn-warning">School Details</button>
+				</div>
+
+
+
+				<div class="col-md-3">
+					<button class="btn btn-warning">School Contacts</button>
+				</div>
+
+			</div>
+
 			<div class="box-header with-border">
 				<h3 class="box-title">School Information</h3>
 			</div>
@@ -87,6 +100,74 @@
 			</div>
 		</div>
 
+
+<!--- Schools contacts -->
+
+		<div class="box box-primary">
+
+
+			<div class="box-header with-border">
+				<h3 class="box-title">School Information</h3>
+			</div>
+			<!-- /.box-header -->
+			<div class="box-body">
+				<form role="form">
+					<!-- text input -->
+
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+
+								<label class=" ">School Name</label>
+								<input type="text" name="name" class="form-control" value="<?php echo $table['name']; ?>" placeholder="Doe" disabled="">
+
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+
+								<div class="">
+									<label >School Type</label>
+									<input type="tel" name="type" class="form-control" value="<?php echo $table['type'] ?>" placeholder="0123 456789" autocomplete="off" disabled="">
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+					</div>
+
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+
+								<label class=" ">
+
+								</label>
+								<input type="text" name="name" class="form-control" value="<?php echo $table['name']; ?>" placeholder="Doe" disabled="">
+
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+
+								<div class="">
+									<label >School Type</label>
+									<input type="tel" name="type" class="form-control" value="<?php echo $table['type'] ?>" placeholder="0123 456789" autocomplete="off" disabled="">
+								</div>
+
+							</div>
+						</div>
+						<!--/span-->
+					</div>
+
+
+
+
+
+				</form>
+
+
+			</div>
+		</div>
 
 
 	</section>

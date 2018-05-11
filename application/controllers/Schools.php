@@ -26,6 +26,7 @@ class Schools extends CI_Controller
 		$this->load->library('pagination');
 
 		$schools = new schools_model();
+
 		$perPage = 1;
 		$offset = 0;
 
@@ -34,32 +35,10 @@ class Schools extends CI_Controller
 		}
 
 		$data['schools'] = $schools->get_schools(null, null, $perPage, $offset);
-		$pagConfig['full_tag_open'] = '<ul class="pagination pagination-sm no-margin pull-right">';
-		$pagConfig['full_tag_close'] = '</ul>';
-		$pagConfig['base_url'] = '/schools/';
-		$pagConfig['total_rows'] = $data['schools']['count'];
-		$pagConfig['per_page'] = $perPage;
-		$pagConfig['num_tag_open'] = '<li class="paginate_button">';
-		$pagConfig['num_tag_close'] = '</li>';
-		$pagConfig['cur_tag_open'] = '<li class="paginate_button activePage">';
-		$pagConfig['cur_tag_close'] = '</li>';
-		$pagConfig['prev_link'] = 'Previous';
-		$pagConfig['prev_tag_open'] = '<li class="paginate_button previous">';
-		$pagConfig['prev_tag_close'] = '</li>';
 
-		$pagConfig['next_link'] = 'Next';
-		$pagConfig['next_tag_open'] = '<li class="paginate_button next">';
-		$pagConfig['next_tag_close'] = '</li>';
+		$page = $this->page($data['schools'],$id,$perPage,$offset);
 
-		$this->pagination->initialize($pagConfig);
-
-		$data['pagination_start'] = $offset + 1;
-		$data['pagination_end'] = $data['pagination_start'] + $perPage;
-
-		if($data['pagination_end'] > $data['schools']['count']) {
-			$data['pagination_end'] = $data['schools']['count'];
-		}
-
+		$data = array_merge($page,$data);
 		$data['pagination'] = $this->pagination->create_links();
 		$data['user'] = $this->user;
 		$data['title'] = 'Schools';
@@ -69,7 +48,53 @@ class Schools extends CI_Controller
 	}
 
 
+
+
+
+	function page($model,$page,$baseurl,$perPage=1,$offset = 0){
+
+
+		$data=[];
+
+		if($page > 0){
+			$offset = $page * $perPage;
+		}
+
+		$pagConfig['full_tag_open'] = '<ul class="pagination pagination-sm no-margin pull-right">';
+		$pagConfig['full_tag_close'] = '</ul>';
+		$pagConfig['base_url'] = $baseurl;
+		$pagConfig['total_rows'] = $model['count'];
+		$pagConfig['per_page'] = $perPage;
+		$pagConfig['num_tag_open'] = '<li class="paginate_button">';
+		$pagConfig['num_tag_close'] = '</li>';
+		$pagConfig['cur_tag_open'] = '<li class="paginate_button activePage">';
+		$pagConfig['cur_tag_close'] = '</li>';
+		$pagConfig['prev_link'] = 'Previous';
+		$pagConfig['prev_tag_open'] = '<li class="paginate_button previous">';
+		$pagConfig['prev_tag_close'] = '</li>';
+		$pagConfig['next_link'] = 'Next';
+		$pagConfig['next_tag_open'] = '<li class="paginate_button next">';
+		$pagConfig['next_tag_close'] = '</li>';
+
+		$this->pagination->initialize($pagConfig);
+
+		$data['pagination_start'] = $offset + 1;
+		$data['pagination_end'] = $data['pagination_start'] + $perPage;
+
+		if($data['pagination_end'] > $model['count']) {
+			$data['pagination_end'] = $model['count'];
+		}
+
+	return $data;
+
+
+	}
+
+
+
 	function view($id =1){
+
+
 
 		$school= new schools_model();
 
@@ -82,6 +107,9 @@ class Schools extends CI_Controller
 
 
 	}
+
+
+
 
 
 

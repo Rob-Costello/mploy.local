@@ -22,6 +22,7 @@
 
 
 		<div class="box">
+			<div class="box-header"></div>
 			<div class="box-header">
 				<h2 class="box-title">
 					<?= $title; ?>

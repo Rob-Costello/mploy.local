@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 30, 2018 at 03:59 PM
+-- Generation Time: May 11, 2018 at 04:05 PM
 -- Server version: 5.6.38
 -- PHP Version: 7.2.1
 
@@ -12,27 +12,7 @@ SET time_zone = "+00:00";
 
 --
 -- Database: `hyperext_mploy_crm`
---
-
--- --------------------------------------------------------
-
---
--- Table structure for table `companies`
---
-
-CREATE TABLE `companies` (
-  `id` int(20) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `phone number` varchar(30) NOT NULL,
-  `industry` varchar(255) NOT NULL,
-  `address1` varchar(255) NOT NULL,
-  `address2` varchar(255) NOT NULL,
-  `town` varchar(255) NOT NULL,
-  `county` varchar(255) NOT NULL,
-  `country` varchar(255) NOT NULL,
-  `postcode` varchar(30) NOT NULL,
-  `comp_id` int(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+--a
 
 -- --------------------------------------------------------
 
@@ -70,6 +50,34 @@ CREATE TABLE `login_attempts` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `mploy_companies`
+--
+
+CREATE TABLE `mploy_companies` (
+  `id` int(20) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `phone number` varchar(30) NOT NULL,
+  `industry` varchar(255) NOT NULL,
+  `address1` varchar(255) NOT NULL,
+  `address2` varchar(255) NOT NULL,
+  `town` varchar(255) NOT NULL,
+  `county` varchar(255) NOT NULL,
+  `country` varchar(255) NOT NULL,
+  `postcode` varchar(30) NOT NULL,
+  `comp_id` int(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `mploy_companies`
+--
+
+INSERT INTO `mploy_companies` (`id`, `name`, `phone number`, `industry`, `address1`, `address2`, `town`, `county`, `country`, `postcode`, `comp_id`) VALUES
+(1, 'Rob Costello', '07391723283', 'Web', '177 Windle Hall Drive', '', 'St Helens', 'Merseyside', 'United Kingdom', 'WA10 6PY', 1),
+(2, 'Robert Costello', '07598516341', 'Tech', '51 Rodney Street', '', 'St Helens', 'Merseyside', 'United Kingdom', 'WA10 6PY', 2);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `mploy_posts`
 --
 
@@ -91,10 +99,10 @@ INSERT INTO `mploy_posts` (`id`, `name`, `slug`, `date`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `schools`
+-- Table structure for table `mploy_schools`
 --
 
-CREATE TABLE `schools` (
+CREATE TABLE `mploy_schools` (
   `id` int(20) NOT NULL,
   `name` varchar(255) NOT NULL,
   `type` varchar(100) NOT NULL,
@@ -116,13 +124,21 @@ CREATE TABLE `schools` (
   `school_id` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `mploy_schools`
+--
+
+INSERT INTO `mploy_schools` (`id`, `name`, `type`, `phone_number`, `address1`, `address2`, `town`, `county`, `country`, `postcode`, `dfe_urn`, `linked_course_codes`, `website`, `allow_student_sub`, `allow_student_reg`, `allow_student_search`, `attendance`, `price`, `school_id`) VALUES
+(1, 'Test School', 'Primary School', '01744 222222', 'Ruskin Drive', 'Eccleston', 'St Helens', 'Merseyside', 'United Kingdom', 'WA10 6PY', '', '', '', '', '', '', '', '', 1),
+(2, 'Test School2', 'Primary School2', '01744 2222222', 'Ruskin Drive2', 'Eccleston2', 'St Helens2', 'Merseyside2', 'United Kingdom2', 'WA10 6PY', '', '', '', '', '', '', '', '', 1);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `students`
+-- Table structure for table `mploy_students`
 --
 
-CREATE TABLE `students` (
+CREATE TABLE `mploy_students` (
   `id` int(20) NOT NULL,
   `member_id` int(20) NOT NULL,
   `upn` int(20) NOT NULL,
@@ -191,7 +207,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-(1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, 1524838611, 1, 'Admin', 'istrator', 'ADMIN', '0');
+(1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, 1526045244, 1, 'Admin', 'istrator', 'ADMIN', '0');
 
 -- --------------------------------------------------------
 
@@ -218,12 +234,6 @@ INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 --
 
 --
--- Indexes for table `companies`
---
-ALTER TABLE `companies`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `groups`
 --
 ALTER TABLE `groups`
@@ -236,21 +246,27 @@ ALTER TABLE `login_attempts`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `mploy_companies`
+--
+ALTER TABLE `mploy_companies`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `mploy_posts`
 --
 ALTER TABLE `mploy_posts`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `schools`
+-- Indexes for table `mploy_schools`
 --
-ALTER TABLE `schools`
+ALTER TABLE `mploy_schools`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `students`
+-- Indexes for table `mploy_students`
 --
-ALTER TABLE `students`
+ALTER TABLE `mploy_students`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -273,12 +289,6 @@ ALTER TABLE `users_groups`
 --
 
 --
--- AUTO_INCREMENT for table `companies`
---
-ALTER TABLE `companies`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
@@ -291,21 +301,27 @@ ALTER TABLE `login_attempts`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `mploy_companies`
+--
+ALTER TABLE `mploy_companies`
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `mploy_posts`
 --
 ALTER TABLE `mploy_posts`
   MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `schools`
+-- AUTO_INCREMENT for table `mploy_schools`
 --
-ALTER TABLE `schools`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `mploy_schools`
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `students`
+-- AUTO_INCREMENT for table `mploy_students`
 --
-ALTER TABLE `students`
+ALTER TABLE `mploy_students`
   MODIFY `id` int(20) NOT NULL AUTO_INCREMENT;
 
 --
@@ -330,3 +346,4 @@ ALTER TABLE `users_groups`
 ALTER TABLE `users_groups`
   ADD CONSTRAINT `fk_users_groups_groups1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_users_groups_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+

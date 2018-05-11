@@ -61,7 +61,7 @@
 				echo form_input($password);
 				?>
 
-				<span class="glyphicon -lock form-control-feedback"></span>:q
+				<span class="glyphicon -lock form-control-feedback"></span>
 			</div>
 
 			<div class="row">

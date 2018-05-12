@@ -13,7 +13,9 @@ class Schools extends CI_Controller
 		$this->load->model('Schools_model');
 		$this->login->login_check_force();
 		$this->user = $this->ion_auth->user()->row();
-
+        $this->perPage =1;
+        $this->offset =0;
+        $this->page=0;
 	}
 
 
@@ -22,43 +24,35 @@ class Schools extends CI_Controller
 
 		$page = $id;
 		$data['headings'] = ['Name','Address','Town','County','Postcode','phone_number','Type of Institution','Funding Model'];
-
 		$this->load->library('pagination');
-
 		$schools = new schools_model();
 
-		$perPage = 1;
-		$offset = 0;
-
+        $offset=$this->offset;
 		if($page > 0){
-			$offset = $page * $perPage;
+			$offset = $this->page * $this->perPage;
 		}
 
-		$data['schools'] = $schools->get_schools(null, null, $perPage, $offset);
+		$data['schools'] = $schools->get_schools(null, null, $this->perPage, $offset);
 
-		$page = $this->page($data['schools'],$id,$perPage,$offset);
-
-		$data = array_merge($page,$data);
-		$data['pagination'] = $this->pagination->create_links();
+		$page = $this->page($data['schools'],'/schools',$this->perPage);
+        $this->pagination->initialize($page);
+        $data['pagination_start'] = $offset + 1;
+        $data['pagination_end'] = $data['pagination_start'] + $this->perPage;
+        if($data['pagination_end'] > $data['schools']['count']) {
+            $data['pagination_end'] = $data['schools']['count'];
+        }
+        $data['pagination'] = $this->pagination->create_links();
 		$data['user'] = $this->user;
 		$data['title'] = 'Schools';
 		$data['nav'] = 'schools';
 		$this->load->view('pages/schools', $data);
-
 	}
 
 
 
 
 
-	function page($model,$page,$baseurl,$perPage=1,$offset = 0){
-
-
-		$data=[];
-
-		if($page > 0){
-			$offset = $page * $perPage;
-		}
+	function page($model,$baseurl,$perPage=1){
 
 		$pagConfig['full_tag_open'] = '<ul class="pagination pagination-sm no-margin pull-right">';
 		$pagConfig['full_tag_close'] = '</ul>';
@@ -76,35 +70,34 @@ class Schools extends CI_Controller
 		$pagConfig['next_tag_open'] = '<li class="paginate_button next">';
 		$pagConfig['next_tag_close'] = '</li>';
 
-		$this->pagination->initialize($pagConfig);
-
-		$data['pagination_start'] = $offset + 1;
-		$data['pagination_end'] = $data['pagination_start'] + $perPage;
-
-		if($data['pagination_end'] > $model['count']) {
-			$data['pagination_end'] = $model['count'];
-		}
-
-	return $data;
+	return $pagConfig;
 
 
 	}
 
+    function contacts(){
 
+        $school= new schools_model();
+        $header = ['name','position','phone','email'];
+        $pretty=[];
+        array_walk($header,function($item,$key) use(&$pretty){
+            $pretty[] = ucwords(str_replace('_',' ',$item));
+        });
+        $data['fields']=$header;
+        $data['table_header']=$pretty;
+        $data['contacts'] = $school->get_contacts(null, null, $this->perPage, $this->offset);
+        return $data;
+    }
 
-	function view($id =1){
-
-
-
-		$school= new schools_model();
-
+	function view($id){
+        $data['contacts'] = $this->contacts();
+	    $school= new schools_model();
+        if(!empty($_POST)){
+            $success = $school->update_school($id,$this->input->post());
+            $data['message'] = "Information updated";
+        }
 		$data['table']= $school->get_school($id);
-		//$data['errors'] = $this->messages->get_errors();
-		//$data['messages'] = $this->messages->get_messages();
-
-
 		$this->load->view('pages/schools_view',$data);
-
 
 	}
 

@@ -19,16 +19,7 @@
     <div class="container-fluid ">
         <div class=" ">
             <div id="exTab1" class="">
-                <ul  class="nav nav-pills nav-background">
-                    <li class="active"><a  href="/schools/view/<?php echo $id ;?>" >School Information</a>
-                    </li>
-                    <li><a href="/schools/contacts/" >School Contacts</a>
-                    </li>
-                    <li><a href="/schools/history" >History</a>
-                    </li>
-                    <li><a href="/schools/placements" >Placements</a>
-                    </li>
-                </ul>
+
 
 
 
@@ -60,8 +51,8 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
 
-                                                    <label class=" ">School Name *</label>
-                                                    <input type="text" name="name" class="form-control" value="<?php echo $table['name']; ?>" placeholder="School Name" >
+                                                    <label class=" ">Date</label>
+                                                    <input type="text" name="date" class="form-control" value="" placeholder="date" >
 
                                                 </div>
                                             </div>
@@ -69,8 +60,8 @@
                                                 <div class="form-group">
 
                                                     <div class="">
-                                                        <label >Type of Institution</label>
-                                                        <input type="tel" name="type" class="form-control" value="<?php echo $table['type'] ?>" placeholder="0123 456789" autocomplete="off" >
+                                                        <label >Time</label>
+                                                        <input type="text" name="time" class="form-control" value="" placeholder="Time" autocomplete="off" >
                                                     </div>
                                                 </div>
                                             </div>
@@ -82,17 +73,23 @@
                                                 <div class="form-group">
 
                                                     <label class=" ">
-                                                        Address 1
+                                                        Caller
                                                     </label>
-                                                    <input type="text" name="address1" class="form-control" value="<?php echo $table['address1']; ?>" placeholder="Doe" >
+                                                    <select name="caller" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                                        <?php foreach($contacts['data'] as $row):?>
+                                                        <option value="<?php echo $row->name; ?>"> <?php echo $row->name; ?> </option>
+                                                        <?php  endforeach  ?>
+                                                    </select>
+
+
 
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
 
-                                                    <label >Address 2</label>
-                                                    <input type="tel" name="address2" class="form-control" value="<?php echo $table['address2'] ?>" placeholder="0123 456789" autocomplete="off" >
+                                                    <label >Receiver</label>
+                                                    <input type="text" name="receiver" class="form-control" value="" placeholder="Name" autocomplete="off" >
                                                 </div>
 
 
@@ -101,68 +98,33 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-3">
                                                 <div class="form-group">
 
-                                                    <label class=" ">
-                                                        Town
-                                                    </label>
-                                                    <input type="text" name="town" class="form-control" value="<?php echo $table['town']; ?>" placeholder="Doe" >
+                                                    <label >Origin</label>
+                                                    <select name="origin" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                                        <option value="In">In</option>
+                                                        <option value="In">In</option>
+                                                    </select>
+
 
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class=" ">
-                                                        County
-                                                    </label>
 
-
-                                                    <input type="tel" name="county" class="form-control" value="<?php echo $table['county'] ?>" placeholder="0123 456789" autocomplete="off" >
-
-
+                                                    <label >Call Notes</label>
+                                                    <textarea style="width:100%" class="form-control" type="textarea" name="receiver" class="form-control" value="" placeholder="Name" autocomplete="off" ></textarea>
                                                 </div>
-                                            </div>
-                                            <!--/span-->
-                                        </div>
 
 
-
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-
-                                                    <label class=" ">
-                                                        Postcode
-                                                    </label>
-                                                    <input type="text" name="postcode" class="form-control" value="<?php echo $table['postcode']; ?>" placeholder="Doe" >
-
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class=" ">
-                                                        Phone Number
-                                                    </label>
-
-
-                                                    <input type="tel" name="phone_number" class="form-control" value="<?php echo $table['phone_number'] ?>" placeholder="0123 456789" autocomplete="off" >
-
-
-                                                </div>
                                             </div>
                                             <!--/span-->
                                         </div>
-
-
-
-
-
-
 
                                 </div>
                                 <input type="submit" class="btn btn-success" value="Save Changes">
-                                <input type="button" class="btn btn-danger" value="Cancel">
+                                <input type="button" class="btn btn-danger" value="Cancel" onclick="window.location.replace('/schools/contacts')">
                                 </form>
                             </div>
 

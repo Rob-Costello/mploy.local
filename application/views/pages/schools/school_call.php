@@ -32,7 +32,7 @@
 
                         <section class="">
 
-                            <!-- Main content School Details-->
+							<!-- Main content School Details-->
                             <!--- Schools contacts -->
 
                             <div class="box">

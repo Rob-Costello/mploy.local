@@ -22,19 +22,36 @@
 
 
 		<div class="box">
-			<div class="box-header"></div>
+
+
 			<div class="box-header">
-				<h2 class="box-title">
+				<div class="col-md-3"><h2 class="box-title">
 					<?= $title; ?>
-				</h2>
+					</h2></div>
+				<div class="col-md-offset-3 col-md-6">
+					<form class="form-horizontal" method="POST">
+						<div class="col-md-6">
+							<label style="float:right;" class="control-label">Sort By</label></div>
+						<div class="col-md-6">
+							<select onchange="this.form.submit()" name="sort" class="form-control select2 select2-hidden-accessible">
+							<?php foreach($headings as $key =>$val): ?>
+
+
+								<option value="<?php echo $val;?>" <?php if($val == $sortby) echo " selected" ?> ><?php echo $key; ?></option>
+
+							<?php endforeach ?>
+							</select>
+						</div>
+					</form>
+				</div>
 			</div>
 			<!-- /.box-header -->
 			<div class="box-body">
 				<table id="example2" class="table table-bordered table-striped">
 					<thead>
 					<tr>
-						<?php foreach($headings as $heading):?>
-						<th><?php echo $heading; ?> </th>
+						<?php foreach($headings as $k => $heading):?>
+						<th><?php echo $k; ?> </th>
 						<?php endforeach;?>
 					<th></th>
 					</tr>

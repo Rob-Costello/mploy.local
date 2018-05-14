@@ -22,17 +22,11 @@ class YoungPeople extends CI_Controller
 
 	public function index($id=0){
 
-
-
 		$youngPeople = new youngpeople_model();
-		//$data['people']=$youngPeople->get_youngpeople();
-
 
 		$page = $id;
-		$data['headings'] = ['Name','Address','Town','County','Postcode','phone_number','Type of Institution','Funding Model'];
-
-		//$schools = new schools_model();
-
+		//$data['headings'] = ['Name','Address','Town','County','Postcode','phone_number','Type of Institution','Funding Model'];
+		$data['headings'] = ['first_name'=>'First Name', 'last_name' => 'Last Name', 'phone' =>'Phone Number','carer' => 'Parent / Carer'];
 		$offset=0;
 
 		if($page > 0){
@@ -52,7 +46,7 @@ class YoungPeople extends CI_Controller
 		$data['user'] = $this->user;
 		$data['title'] = 'Schools';
 		$data['nav'] = 'schools';
-		$this->load->view('pages/schools', $data);
+		$this->load->view('pages/young_people/young_people', $data);
 
 	}
 

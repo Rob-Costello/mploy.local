@@ -22,8 +22,25 @@ class Schools extends CI_Controller
 	function index($id=0)
 	{
 
+		$sortby=null;
+		if(!empty($_POST)){
+
+			$sortby =$this->input->post('sort');
+
+		}
+
+		//$data['user'] = $this->user->username;
 		$page = $id;
-		$data['headings'] = ['Name','Address','Town','County','Postcode','phone_number','Type of Institution','Funding Model'];
+
+		$data['headings'] = ['Name'=>'name',
+			                 'Address'=>'address1',
+							'Town'=>'town',
+							'County'=>'county',
+							'Postcode' =>'postcode',
+							'Phone Number'=>'phone_number',
+							'Type of Institution'=>'type',
+							'Funding Model'=>'price'];
+
 		$schools = new schools_model();
         $offset=0;
 
@@ -31,7 +48,7 @@ class Schools extends CI_Controller
 			$offset = $page * $this->perPage;
 		}
 
-		$data['schools'] = $schools->get_schools(null, null, $this->perPage, $offset);
+		$data['schools'] = $schools->get_schools(null, null, $this->perPage, $offset,$sortby);
 		$page = $this->page($data['schools'],'/schools',$this->perPage);
         $this->pagination->initialize($page);
         $data['pagination_start'] = $offset + 1;
@@ -41,6 +58,7 @@ class Schools extends CI_Controller
             $data['pagination_end'] = $data['schools']['count'];
         }
 
+        $data['sortby']=$sortby;
         $data['pagination'] = $this->pagination->create_links();
 		$data['user'] = $this->user;
 		$data['title'] = 'Schools';
@@ -108,7 +126,7 @@ class Schools extends CI_Controller
         });
         $data['fields'] = $header;
         $data['table_header'] = $pretty;
-
+		$data['user'] = $this->user;
         $this->load->view('pages/schools/schools_contacts',$data);
     }
 
@@ -124,6 +142,7 @@ class Schools extends CI_Controller
             $data['message'] = "Information updated";
         }
         $data['table']= $school->get_school_contact($id);
+		$data['user'] = $this->user;
         $this->load->view('pages/schools/school_contact_details',$data);
 
     }
@@ -139,15 +158,14 @@ class Schools extends CI_Controller
             $success = $school->update_school($id,$this->input->post());
             $data['message'] = "Information updated";
         }
-		$data['table']= $school->get_school($id);
+		$data['user'] = $this->user;
+        $data['table']= $school->get_school($id);
 		$this->load->view('pages/schools/schools_view',$data);
 
 	}
 
     function history($page=0)
     {
-
-
         $data['id']=$this->session->schoolid;
         $school = new schools_model();
 
@@ -166,9 +184,6 @@ class Schools extends CI_Controller
             $data['pagination_end'] = $data['contacts']['count'];
         }
         $data['pagination'] = $this->pagination->create_links();
-
-
-
         $header = ['date', 'time', 'caller', 'receiver','origin','call_notes'];
         $pretty = [];
         array_walk($header, function ($item, $key) use (&$pretty) {
@@ -176,7 +191,7 @@ class Schools extends CI_Controller
         });
         $data['fields'] = $header;
         $data['table_header'] = $pretty;
-
+		$data['user'] = $this->user;
         $this->load->view('pages/schools/school_history',$data);
     }
 
@@ -191,7 +206,7 @@ class Schools extends CI_Controller
         }
 
 
-
+		$data['user'] = $this->user;
         $this->load->view('pages/schools/school_call',$data);
 
     }
@@ -207,7 +222,8 @@ class Schools extends CI_Controller
 		$data['fields'] = $header;
 		$school= new schools_model();
 		$data['active'] = $school->get_placements("status not like '%complete%'");
-	    $this->load->view('pages/schools/school_placements',$data);
+		$data['user'] = $this->user;
+		$this->load->view('pages/schools/school_placements',$data);
 
     }
 
@@ -221,7 +237,7 @@ class Schools extends CI_Controller
 			$success = $school->create_call($this->input->post());
 			$data['message'] = "Information updated";
 		}
-
+		$data['user'] = $this->user;
 		$this->load->view('pages/schools/schools_new_placement',$data);
 
 	}

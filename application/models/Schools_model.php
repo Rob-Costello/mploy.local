@@ -28,7 +28,8 @@ class Schools_model extends CI_Model
     }
 
 
-    public function update_school_contact($id,$data){
+    public function update_school_contact($id,$data)
+	{
 
         $this->db->trans_start();
         $this->db->where('id', $id);
@@ -39,7 +40,8 @@ class Schools_model extends CI_Model
     }
 
 
-    public function get_school_contact($id){
+    public function get_school_contact($id)
+	{
 
         $query = $this->db->get_where('mploy_school_contacts','id ='.$id);
         return $query->row_array();
@@ -49,16 +51,21 @@ class Schools_model extends CI_Model
 
 
 
-	function get_schools($where = null, $request = null, $limit = null, $offset = null)
+	function get_schools($where = null, $request = null, $limit = null, $offset = null,$orderby='id')
 	{
-
 		$this->db->select('*');
 		$this->db->limit($limit, $offset);
+
 		if( $where == null ) {
-			$query = $this->db->get('mploy_schools');
+			//$query = $this->db->get('mploy_schools');
+			$this->db->from('mploy_schools');
+			$this->db->order_by($orderby);
+			$query = $this->db->get();
 			$count = $this->db->from('mploy_schools')->count_all_results();
 		} else {
-			$query = $this->db->get_where('mploy_schools', $where);
+			 $query=$this->db->where('mploy_schools', $where);
+			 $query=$this->db->order_by($orderby);
+			$query = $this->db->get();
 			$count = $this->db->from('mploy_schools')->where($where)->count_all_results();
 		}
 		return array('data' => $query->result(), 'count' => $count);

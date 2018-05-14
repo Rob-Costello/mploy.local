@@ -38,19 +38,15 @@
 					</tr>
 					</thead>
 					<tbody>
-					<?php foreach($schools['data'] as $school): ?>
+					<?php $id =""; ?>
+					<?php foreach($headings as $key => $val): ?>
 						<tr>
-							<td><?php echo $school->name; ?></td>
-							<td><?php echo $school->address1." ". $school->address2 ?></td>
-							<td><?php echo $school->town; ?></td>
-							<td><?php echo $school->county; ?></td>
-							<td><?php echo $school->postcode; ?></td>
-							<td><?php echo $school->phone_number; ?></td>
-							<td><?php echo $school->type; ?></td>
-							<td><?php echo $school->price; ?></td>
-							<td><a class="" href="/schools/view/<?php echo $school->id;?>"> <i class="fa fa-edit"></i> </a></td>
-
-						</tr>
+						<?php foreach($people['data'] as $person): ?>
+								<td><?php echo $person->$key; ?></td>
+						<?php $id = $people->id; ?>
+						<?php endforeach ?>
+							<td><a class="" href="/schools/view/<?php echo $id;?>"> <i class="fa fa-edit"></i> </a></td>
+					</tr>
 					<?php endforeach ?>
 					</tbody>
 
@@ -63,7 +59,7 @@
 		<!-- /.box -->
 		<div class="box-footer clearfix">
 			<div class="dataTables_info" id="example23_info" role="status" aria-live="polite">
-				Showing <?php echo $pagination_start; ?> to <?php echo $pagination_end; ?> of <?php $schools['count']; ?> entries</div>
+				Showing <?php echo $pagination_start; ?> to <?php echo $pagination_end; ?> of <?php $people['count']; ?> entries</div>
 			<div class="dataTables_paginate paging_simple_numbers">
 				<?php echo $pagination; ?>
 			</div>

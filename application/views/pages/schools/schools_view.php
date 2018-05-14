@@ -46,9 +46,6 @@
 
                             <div class="box">
 
-                                <div class="box-header with-border">
-                                    <h3 class="box-title">School Information</h3>
-                                </div>
 
 
                                 <!-- /.box-header -->

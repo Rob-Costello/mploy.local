@@ -1,22 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.7.7
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: May 13, 2018 at 10:28 PM
--- Server version: 10.1.30-MariaDB
+-- Host: localhost:3306
+-- Generation Time: May 14, 2018 at 11:10 AM
+-- Server version: 5.6.38
 -- PHP Version: 7.2.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `hyperext_mploy_crm`
@@ -75,20 +67,13 @@ CREATE TABLE `mploy_companies` (
   `comp_id` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `mploy_contacts`
+-- Dumping data for table `mploy_companies`
 --
 
-CREATE TABLE `mploy_contacts` (
-  `id` int(20) NOT NULL,
-  `name` varchar(200) NOT NULL,
-  `position` varchar(200) NOT NULL,
-  `phone` varchar(50) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `school_id` int(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO `mploy_companies` (`id`, `name`, `phone number`, `industry`, `address1`, `address2`, `town`, `county`, `country`, `postcode`, `comp_id`) VALUES
+(1, 'Rob Costello', '07391723283', 'Web', '177 Windle Hall Drive', '', 'St Helens', 'Merseyside', 'United Kingdom', 'WA10 6PY', 1),
+(2, 'Robert Costello', '07598516341', 'Tech', '51 Rodney Street', '', 'St Helens', 'Merseyside', 'United Kingdom', 'WA10 6PY', 2);
 
 -- --------------------------------------------------------
 
@@ -97,18 +82,19 @@ CREATE TABLE `mploy_contacts` (
 --
 
 CREATE TABLE `mploy_posts` (
-  `id` int(30) NOT NULL,
+  `id` int(20) NOT NULL,
   `name` varchar(255) NOT NULL,
   `slug` varchar(255) NOT NULL,
   `date` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `mploy_posts`
 --
 
 INSERT INTO `mploy_posts` (`id`, `name`, `slug`, `date`) VALUES
-(1, 'test', 'testslug', '2018-04-10');
+(1, 'test', 'testslug', '2018-04-03'),
+(2, 'test2', 'testslug2', '2018-04-04');
 
 -- --------------------------------------------------------
 
@@ -143,8 +129,8 @@ CREATE TABLE `mploy_schools` (
 --
 
 INSERT INTO `mploy_schools` (`id`, `name`, `type`, `phone_number`, `address1`, `address2`, `town`, `county`, `country`, `postcode`, `dfe_urn`, `linked_course_codes`, `website`, `allow_student_sub`, `allow_student_reg`, `allow_student_search`, `attendance`, `price`, `school_id`) VALUES
-(1, 'Test School', 'Primary School', '01744123232', '12 thorn road', 'Eccleston', 'St Helens', 'Merseyside', 'United Kingdom', 'WA10 6PY', '', '', '', '', '', '', '', '', 0),
-(2, 'Test School', 'Primary', '01744123232', '12 thorn road', '', 'St Helens', 'Merseyside', 'United Kingdom', 'WA10 6PY', '', '', '', '', '', '', '', '', 0);
+(1, 'Test School', 'Primary School', '01744 222222', 'Ruskin Drive', 'Eccleston', 'St Helens', 'Merseyside', 'United Kingdom', 'WA10 6PY', '', '', '', '', '', '', '', '', 1),
+(2, 'Test School2', 'Primary School2', '01744 2222222', 'Ruskin Drive2', 'Eccleston2', 'St Helens2', 'Merseyside2', 'United Kingdom2', 'WA10 6PY', '', '', '', '', '', '', '', '', 1);
 
 -- --------------------------------------------------------
 
@@ -198,6 +184,31 @@ INSERT INTO `mploy_school_history` (`id`, `date`, `time`, `caller`, `receiver`, 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `mploy_school_placements`
+--
+
+CREATE TABLE `mploy_school_placements` (
+  `id` int(11) NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` date NOT NULL,
+  `class` varchar(200) NOT NULL,
+  `mploy_self` varchar(20) NOT NULL,
+  `placed` varchar(255) NOT NULL,
+  `status` varchar(50) NOT NULL,
+  `student_id` int(20) NOT NULL,
+  `placement_type` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `mploy_school_placements`
+--
+
+INSERT INTO `mploy_school_placements` (`id`, `start_date`, `end_date`, `class`, `mploy_self`, `placed`, `status`, `student_id`, `placement_type`) VALUES
+(1, '2018-05-01', '2018-05-02', 'Year 10', '100/10', '7/10', 'matching', 1, 'Work Experience');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `mploy_students`
 --
 
@@ -230,15 +241,14 @@ CREATE TABLE `mploy_students` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `posts`
+-- Table structure for table `to_do_lists`
 --
 
-CREATE TABLE `posts` (
+CREATE TABLE `to_do_lists` (
   `id` int(20) NOT NULL,
-  `name` varchar(500) NOT NULL,
-  `slug` varchar(500) NOT NULL,
-  `date` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `member_id` int(20) NOT NULL,
+  `list_item` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -271,7 +281,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-(1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, 1526230783, 1, 'Admin', 'istrator', 'ADMIN', '0');
+(1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, 1526280266, 1, 'Admin', 'istrator', 'ADMIN', '0');
 
 -- --------------------------------------------------------
 
@@ -310,15 +320,33 @@ ALTER TABLE `login_attempts`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `mploy_school_contacts`
+-- Indexes for table `mploy_companies`
 --
-ALTER TABLE `mploy_school_contacts`
+ALTER TABLE `mploy_companies`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `mploy_school_history`
+-- Indexes for table `mploy_posts`
 --
-ALTER TABLE `mploy_school_history`
+ALTER TABLE `mploy_posts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `mploy_schools`
+--
+ALTER TABLE `mploy_schools`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `mploy_school_placements`
+--
+ALTER TABLE `mploy_school_placements`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `mploy_students`
+--
+ALTER TABLE `mploy_students`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -353,16 +381,34 @@ ALTER TABLE `login_attempts`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `mploy_school_contacts`
+-- AUTO_INCREMENT for table `mploy_companies`
 --
-ALTER TABLE `mploy_school_contacts`
+ALTER TABLE `mploy_companies`
   MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `mploy_school_history`
+-- AUTO_INCREMENT for table `mploy_posts`
 --
-ALTER TABLE `mploy_school_history`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `mploy_posts`
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `mploy_schools`
+--
+ALTER TABLE `mploy_schools`
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `mploy_school_placements`
+--
+ALTER TABLE `mploy_school_placements`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `mploy_students`
+--
+ALTER TABLE `mploy_students`
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -386,8 +432,3 @@ ALTER TABLE `users_groups`
 ALTER TABLE `users_groups`
   ADD CONSTRAINT `fk_users_groups_groups1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_users_groups_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

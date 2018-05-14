@@ -9,14 +9,12 @@ class Schools extends CI_Controller
 		parent::__construct();
 		$this->load->model('login');
         $this->load->library('session');
-		//$this->load->model('messages');
 		$this->load->library('ion_auth');
 		$this->load->model('Schools_model');
 		$this->login->login_check_force();
 		$this->user = $this->ion_auth->user()->row();
         $this->perPage =1;
         $this->offset =0;
-
         $this->load->library('pagination');
 	}
 
@@ -26,9 +24,7 @@ class Schools extends CI_Controller
 
 		$page = $id;
 		$data['headings'] = ['Name','Address','Town','County','Postcode','phone_number','Type of Institution','Funding Model'];
-
 		$schools = new schools_model();
-
         $offset=0;
 
         if($page > 0){
@@ -36,19 +32,20 @@ class Schools extends CI_Controller
 		}
 
 		$data['schools'] = $schools->get_schools(null, null, $this->perPage, $offset);
-
 		$page = $this->page($data['schools'],'/schools',$this->perPage);
         $this->pagination->initialize($page);
         $data['pagination_start'] = $offset + 1;
         $data['pagination_end'] = $data['pagination_start'] + $this->perPage;
+
         if($data['pagination_end'] > $data['schools']['count']) {
             $data['pagination_end'] = $data['schools']['count'];
         }
+
         $data['pagination'] = $this->pagination->create_links();
 		$data['user'] = $this->user;
 		$data['title'] = 'Schools';
 		$data['nav'] = 'schools';
-		$this->load->view('pages/schools', $data);
+		$this->load->view('pages/schools/schools', $data);
 	}
 
 
@@ -73,7 +70,7 @@ class Schools extends CI_Controller
 		$pagConfig['next_tag_open'] = '<li class="paginate_button next">';
 		$pagConfig['next_tag_close'] = '</li>';
 
-	return $pagConfig;
+		return $pagConfig;
 
 
 	}
@@ -83,7 +80,6 @@ class Schools extends CI_Controller
 
     function contacts($page=0)
     {
-
 
         $data['id']=$this->session->schoolid;
         $school = new schools_model();
@@ -113,8 +109,10 @@ class Schools extends CI_Controller
         $data['fields'] = $header;
         $data['table_header'] = $pretty;
 
-        $this->load->view('pages/schools_contacts',$data);
+        $this->load->view('pages/schools/schools_contacts',$data);
     }
+
+
 
     function contact_details($id){
 
@@ -126,12 +124,13 @@ class Schools extends CI_Controller
             $data['message'] = "Information updated";
         }
         $data['table']= $school->get_school_contact($id);
-        $this->load->view('pages/school_contact_details',$data);
+        $this->load->view('pages/schools/school_contact_details',$data);
 
     }
 
 
 	function view($id){
+
         $_SESSION['schoolid'] =$id;
         $this->session->set_userdata('schoolid',$id);
 	    $data['id']=$id;
@@ -141,7 +140,7 @@ class Schools extends CI_Controller
             $data['message'] = "Information updated";
         }
 		$data['table']= $school->get_school($id);
-		$this->load->view('pages/schools_view',$data);
+		$this->load->view('pages/schools/schools_view',$data);
 
 	}
 
@@ -178,7 +177,7 @@ class Schools extends CI_Controller
         $data['fields'] = $header;
         $data['table_header'] = $pretty;
 
-        $this->load->view('pages/school_history',$data);
+        $this->load->view('pages/schools/school_history',$data);
     }
 
     function call(){
@@ -193,7 +192,7 @@ class Schools extends CI_Controller
 
 
 
-        $this->load->view('pages/school_call',$data);
+        $this->load->view('pages/schools/school_call',$data);
 
     }
 
@@ -208,7 +207,7 @@ class Schools extends CI_Controller
 		$data['fields'] = $header;
 		$school= new schools_model();
 		$data['active'] = $school->get_placements("status not like '%complete%'");
-	    $this->load->view('pages/school_placements',$data);
+	    $this->load->view('pages/schools/school_placements',$data);
 
     }
 
@@ -223,7 +222,7 @@ class Schools extends CI_Controller
 			$data['message'] = "Information updated";
 		}
 
-		$this->load->view('pages/schools_new_placement',$data);
+		$this->load->view('pages/schools/schools_new_placement',$data);
 
 	}
 

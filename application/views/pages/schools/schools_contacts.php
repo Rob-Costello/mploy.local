@@ -7,7 +7,7 @@
     <section class="content-header">
         <h3>
 
-            Contacts
+           Contacts
         </h3>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -22,19 +22,17 @@
                 <ul  class="nav nav-pills nav-background">
                     <li ><a  href="/schools/view/<?php echo $id; ?>" >School Information</a>
                     </li>
-                    <li ><a href="/schools/contacts/" >School Contacts</a>
+                    <li class="active"><a href="/schools/contacts/" >School Contacts</a>
                     </li>
-                    <li class="active"><a  href="/schools/history" >History</a>
+                    <li><a href="/schools/history" >History</a>
                     </li>
                     <li><a href="/schools/placements" >Placements</a>
                     </li>
                 </ul>
 
                 <div class="tab-content clearfix">
-                    <button class="  btn btn-info waves-effect waves-light" style="float:right" onclick="window.location.replace('/schools/call')"><i class="fa fa-plus"></i>
-                        <span class="buttonText"> New Call</span></button>
                     <div class="" >
-                        <h3>Contacts</h3>
+
                         <section class="content">
                             <div class="box box-primary">
 
@@ -48,7 +46,7 @@
                                             <?php foreach($table_header as $heading):?>
                                                 <th><?php echo $heading; ?> </th>
                                             <?php endforeach;?>
-
+                                            <th></th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -61,7 +59,7 @@
 
                                                 <?php endforeach ?>
 
-
+                                            <td><a  href="/schools/contact_details/<?php echo $school->id;?>"> <i class="fa fa-edit"></i> </a></td></td>
                                             </tr>
                                         <?php endforeach ?>
                                         </tbody>
@@ -84,7 +82,7 @@
 
                     </div>
 
-                    <!-- end tab -->
+                     <!-- end tab -->
 
 
 

@@ -104,13 +104,13 @@
                                                     <label >Origin</label>
                                                     <select name="origin" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
                                                         <option value="In">In</option>
-                                                        <option value="In">In</option>
+                                                        <option value="In">Out</option>
                                                     </select>
 
 
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-9">
                                                 <div class="form-group">
 
                                                     <label >Call Notes</label>

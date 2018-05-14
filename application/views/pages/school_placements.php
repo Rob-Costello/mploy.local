@@ -24,15 +24,15 @@
                     </li>
                     <li ><a href="/schools/contacts/" >School Contacts</a>
                     </li>
-                    <li class="active"><a  href="/schools/history" >History</a>
+                    <li ><a  href="/schools/history" >History</a>
                     </li>
-                    <li><a href="/schools/placements" >Placements</a>
+                    <li class="active"><a href="/schools/placements" >Placements</a>
                     </li>
                 </ul>
 
                 <div class="tab-content clearfix">
-                    <button class="  btn btn-info waves-effect waves-light" style="float:right" onclick="window.location.replace('/schools/call')"><i class="fa fa-plus"></i>
-                        <span class="buttonText"> New Call</span></button>
+					<button class="  btn btn-info waves-effect waves-light" style="float:right" onclick="window.location.replace('/schools/newplacement')"><i class="fa fa-plus"></i>
+						<span class="buttonText">New Placement</span></button>
                     <div class="" >
                         <h3>Contacts</h3>
                         <section class="content">
@@ -52,7 +52,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <?php foreach($contacts['data'] as $school): ?>
+                                        <?php foreach($active['data'] as $school): ?>
                                             <tr>
 
                                                 <?php foreach($fields as $contact): ?>
@@ -70,14 +70,7 @@
 
                                 </div>
                             </div>
-                            <div class="box-footer clearfix">
-                                <div class="dataTables_info" id="example23_info" role="status" aria-live="polite">
-                                    Showing <?php echo $pagination_start; ?> to <?php echo $pagination_end; ?> of <?php $contacts['count']; ?> entries</div>
-                                <div class="dataTables_paginate paging_simple_numbers">
-                                    <?php echo $pagination; ?>
-                                </div>
 
-                            </div>
 
                         </section>
 

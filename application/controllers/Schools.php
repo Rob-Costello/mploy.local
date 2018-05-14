@@ -87,14 +87,14 @@ class Schools extends CI_Controller
 
         $data['id']=$this->session->schoolid;
         $school = new schools_model();
-        $data['contacts'] = $school->get_contacts(array('school_id'=>$data['id']), null, $this->perPage, $this->offset);
+
         $offset=0;
 
         if($page > 0){
             $offset = $page * $this->perPage;
         }
-
-        $page = $this->page($data['contacts'],'/schools/contacts/',$this->perPage);
+		$data['contacts'] = $school->get_contacts(array('school_id'=>$data['id']), null, $this->perPage, $offset);
+        $page = $this->page($data['contacts'],'/schools/contacts/',$this->perPage,$offset);
         $this->pagination->initialize($page);
         $data['pagination_start'] = $offset + 1;
         $data['pagination_end'] = $data['pagination_start'] + $this->perPage;
@@ -151,13 +151,14 @@ class Schools extends CI_Controller
 
         $data['id']=$this->session->schoolid;
         $school = new schools_model();
-        $data['contacts'] = $school->get_history(['school_id'=>$data['id']], null, $this->perPage, $this->offset);
+
         $offset=0;
 
         if($page > 0){
             $offset = $page * $this->perPage;
         }
 
+		$data['contacts'] = $school->get_history(['school_id'=>$data['id']], null, $this->perPage, $offset);
         $page = $this->page($data['contacts'],'/schools/contacts/',$this->perPage);
         $this->pagination->initialize($page);
         $data['pagination_start'] = $offset + 1;
@@ -197,12 +198,34 @@ class Schools extends CI_Controller
     }
 
     function placements(){
-
-
-	    $this->load->view('pages/school_placements');
+		$header = ['placement_type', 'start_date', 'end_date', 'class','mploy_self','placed','status','student_id'];
+		$pretty = [];
+		array_walk($header, function ($item, $key) use (&$pretty) {
+			$pretty[] = ucwords(str_replace('_', ' ', $item));
+		});
+		$data['id'] = $this->session->schoolid;
+		$data['table_header'] = $pretty;
+		$data['fields'] = $header;
+		$school= new schools_model();
+		$data['active'] = $school->get_placements("status not like '%complete%'");
+	    $this->load->view('pages/school_placements',$data);
 
     }
 
+	function newplacement(){
+
+		$school = new schools_model();
+		$data['id']=$this->session->schoolid;
+		$data['contacts']=$school->get_contacts(array('school_id'=>$data['id']));
+
+		if(!empty($_POST)){
+			$success = $school->create_call($this->input->post());
+			$data['message'] = "Information updated";
+		}
+
+		$this->load->view('pages/schools_new_placement',$data);
+
+	}
 
 }
 

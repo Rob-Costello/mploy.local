@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 14, 2018 at 11:10 AM
+-- Generation Time: May 14, 2018 at 02:35 PM
 -- Server version: 5.6.38
 -- PHP Version: 7.2.1
 
@@ -235,7 +235,11 @@ CREATE TABLE `mploy_students` (
   `placement_company_id` int(20) NOT NULL,
   `placement_start_date` date NOT NULL,
   `placement_end_date` date NOT NULL,
-  `uln` int(30) NOT NULL
+  `uln` int(30) NOT NULL,
+  `carer` varchar(200) NOT NULL,
+  `status` varchar(200) NOT NULL,
+  `last_updated` date NOT NULL,
+  `phone` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------

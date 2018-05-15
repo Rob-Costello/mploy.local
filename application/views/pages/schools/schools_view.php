@@ -22,11 +22,11 @@
                 <ul  class="nav nav-pills nav-background">
                     <li class="active"><a  href="/schools/view/<?php echo $id ;?>" >School Information</a>
                     </li>
-                    <li><a href="/schools/contacts/" >School Contacts</a>
+                    <li><a href="/schools/view/<?php echo $id ;?>/contacts/">School Contacts</a>
                     </li>
-                    <li><a href="/schools/history" >History</a>
+                    <li><a href="/schools/view/<?php echo $id ;?>/history/">History</a>
                     </li>
-                    <li><a href="/schools/placements" >Placements</a>
+                    <li><a href="/schools/view/<?php echo $id ;?>/placements/">Placements</a>
                     </li>
                 </ul>
 

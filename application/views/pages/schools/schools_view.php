@@ -44,7 +44,7 @@
                             <!-- Main content School Details-->
                             <!--- Schools contacts -->
 
-                            <div class="box">
+                            <div class="">
 
 
 

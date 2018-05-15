@@ -59,7 +59,7 @@
 
                                                 <?php endforeach ?>
 
-                                            <td><a  href="/schools/contact_details/<?php echo $school->id;?>"> <i class="fa fa-edit"></i> </a></td></td>
+                                            <td><a  href="/schools/contactdetails/<?php echo $school->id;?>"> <i class="fa fa-edit"></i> </a></td></td>
                                             </tr>
                                         <?php endforeach ?>
                                         </tbody>

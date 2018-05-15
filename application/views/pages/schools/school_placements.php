@@ -31,13 +31,17 @@
                 </ul>
 
                 <div class="tab-content clearfix">
-					<button class="  btn btn-info waves-effect waves-light" style="float:right" onclick="window.location.replace('/schools/newplacement')"><i class="fa fa-plus"></i>
-						<span class="buttonText">New Placement</span></button>
-                    <div class="" >
-                        <h3>Contacts</h3>
-                        <section class="content">
-                            <div class="box box-primary">
 
+
+					<div class="" >
+
+                        <section class="content">
+                            <div class=" box-primary">
+								<div  class="addButton col-md-offset-9 col-md-3">
+
+									<button class="  btn btn-info waves-effect waves-light" style="float:right" onclick="window.location.replace('/schools/newplacement')"><i class="fa fa-plus"></i>
+									<span class="buttonText">New Placement</span></button>
+								</div>
 
 
                                 <!-- /.box-header -->

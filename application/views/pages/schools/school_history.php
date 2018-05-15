@@ -7,7 +7,7 @@
     <section class="content-header">
         <h3>
 
-            Contacts
+            Call History
         </h3>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -22,7 +22,7 @@
                 <ul  class="nav nav-pills nav-background">
                     <li ><a  href="/schools/view/<?php echo $id; ?>" >School Information</a>
                     </li>
-                    <li ><a href="/schools/contacts/" >School Contacts</a>
+                    <li ><a href="/schools/contacts" >School Contacts</a>
                     </li>
                     <li class="active"><a  href="/schools/history" >History</a>
                     </li>
@@ -31,15 +31,19 @@
                 </ul>
 
                 <div class="tab-content clearfix">
-                    <div style="display:inline-block;">
 
-						<button class="  btn btn-info waves-effect waves-light" style="float:right" onclick="window.location.replace('/schools/call')"><i class="fa fa-plus"></i>
-                        <span class="buttonText"> New Call</span></button>
 
-					</div>
+
 
                         <section class="content">
-                            <div class="box box-primary">
+							<div  class="addButton col-md-offset-9 col-md-3">
+								<button class="  btn btn-info waves-effect waves-light" style="float:right;"  onclick="window.location.replace('/schools/call')"><i class="fa fa-plus"></i>
+									<span class="buttonText">New Call</span></button>
+
+
+							</div>
+
+							<div class="box-primary">
 
 
 

@@ -11,7 +11,7 @@
 			<small></small>
 		</h1>
 		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+			<li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
 			<li class="active"><?=$title; ?></li>
 		</ol>
 	</section>
@@ -21,13 +21,13 @@
 
 
 
-		<div class="box">
+		<div class="">
 
 
 			<div class="box-header">
 				<div class="col-md-3"><h2 class="box-title">
 					<?= $title; ?>
-					</h2></div>
+				</h2></div>
 				<div class="col-md-offset-3 col-md-6">
 					<form class="form-horizontal" method="POST">
 						<div class="col-md-6">

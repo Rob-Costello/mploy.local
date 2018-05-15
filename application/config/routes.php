@@ -5,6 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 //$route['schools/']
 //$route['schools/(:any)'] = 'schools/index/$1';
 $route['(:any)/(:num)'] = "$1/index/$2";
+$route['(:any)/(:num)/(:num)'] = "$1/index/$2/$3";
 $route['(:any)'] = "$1";
 $route['auth'] = 'auth';
 

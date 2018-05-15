@@ -38,15 +38,20 @@
 					</tr>
 					</thead>
 					<tbody>
-					<?php $id =""; ?>
+					<?php
+					$id = "";
+					$i = 0;
+					?>
 					<?php foreach($headings as $key => $val): ?>
-						<tr>
-						<?php foreach($people['data'] as $person): ?>
-								<td><?php echo $person->$key; ?></td>
-						<?php $id = $people->id; ?>
-						<?php endforeach ?>
+						<td>
+
+						<?php //foreach($people['data'] as $person): ?>
+								<td><?php //echo $person->$key; ?></td>
+							<td><?php //$id = $person->id; ?></td>
+						<?php // endforeach ?>
 							<td><a class="" href="/schools/view/<?php echo $id;?>"> <i class="fa fa-edit"></i> </a></td>
 					</tr>
+					<?php $i++; ?>
 					<?php endforeach ?>
 					</tbody>
 

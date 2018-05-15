@@ -1,6 +1,6 @@
 <?php
 
-class Schools_model extends CI_Model
+class SchoolsModel extends CI_Model
 {
 
 
@@ -11,9 +11,8 @@ class Schools_model extends CI_Model
 	}
 
 
-    function get_contacts($where = null, $request = null, $limit = null, $offset = null)
+    function getContacts($where = null, $request = null, $limit = null, $offset = null)
     {
-
         $this->db->select('*');
         $this->db->limit($limit, $offset);
         if( $where == null ) {
@@ -23,12 +22,13 @@ class Schools_model extends CI_Model
             $query = $this->db->get_where('mploy_school_contacts', $where);
             $count = $this->db->from('mploy_school_contacts')->where($where)->count_all_results();
         }
+
         return array('data' => $query->result(), 'count' => $count);
 
     }
 
 
-    public function update_school_contact($id,$data)
+    public function updateSchoolContact($id,$data)
 	{
 
         $this->db->trans_start();
@@ -40,7 +40,7 @@ class Schools_model extends CI_Model
     }
 
 
-    public function get_school_contact($id)
+    public function getSchoolContact($id)
 	{
 
         $query = $this->db->get_where('mploy_school_contacts','id ='.$id);
@@ -51,7 +51,7 @@ class Schools_model extends CI_Model
 
 
 
-	function get_schools($where = null, $request = null, $limit = null, $offset = null,$orderby='id')
+	function getSchools($where = null, $request = null, $limit = null, $offset = null,$orderby='id')
 	{
 		$this->db->select('*');
 		$this->db->limit($limit, $offset);
@@ -72,7 +72,8 @@ class Schools_model extends CI_Model
 
 	}
 
-	public function update_school($id,$data){
+	public function updateSchool($id,$data)
+	{
 
             $this->db->trans_start();
             $this->db->where('id', $id);
@@ -83,7 +84,7 @@ class Schools_model extends CI_Model
     }
 
 
-	public function get_school($id){
+	public function getSchool($id){
 
 		$query = $this->db->get_where('mploy_schools','id ='.$id);
 		return $query->row_array();
@@ -91,7 +92,7 @@ class Schools_model extends CI_Model
 	}
 
 
-    function get_history($where = null, $request = null, $limit = null, $offset = null)
+    function getHistory($where = null, $request = null, $limit = null, $offset = null)
     {
         $this->db->select('*');
         $this->db->limit($limit, $offset);
@@ -106,14 +107,14 @@ class Schools_model extends CI_Model
 
     }
 
-    function create_call($data){
+    function createCall($data){
 
 
         $this->db->insert('mploy_school_history', $data);
 
     }
 
-	function get_placements($where = null, $request = null, $limit = null, $offset = null)
+	function getPlacements($where = null, $request = null, $limit = null, $offset = null)
 	{
 		$this->db->select('*');
 		$this->db->limit($limit, $offset);

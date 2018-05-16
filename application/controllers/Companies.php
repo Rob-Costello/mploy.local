@@ -71,6 +71,7 @@ class Companies extends CI_Controller
     {
         $data['id']=$id;
         $data['page'] = 'contacts';
+        $data['user']=$this->user;
         $company = new CompaniesModel();
 
         $offset=0;
@@ -153,6 +154,7 @@ class Companies extends CI_Controller
 
         $data['id']=$id;
         $data['page'] = 'history';
+        $data['user']=$this->user;
         $company = new CompaniesModel();
 
         $offset=0;

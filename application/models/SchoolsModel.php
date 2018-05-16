@@ -28,8 +28,10 @@ class SchoolsModel extends CI_Model
     }
 
 
+
     public function updateSchoolContact($id,$data)
 	{
+
 
         $this->db->trans_start();
         $this->db->where('id', $id);
@@ -40,13 +42,16 @@ class SchoolsModel extends CI_Model
     }
 
 
+
     public function getSchoolContact($id)
 	{
+
 
         $query = $this->db->get_where('mploy_school_contacts','id ='.$id);
         return $query->row_array();
 
     }
+
 
 
 
@@ -71,6 +76,7 @@ class SchoolsModel extends CI_Model
 		return array('data' => $query->result(), 'count' => $count);
 
 	}
+
 
 	public function updateSchool($id,$data)
 	{

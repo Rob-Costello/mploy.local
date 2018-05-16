@@ -8,7 +8,7 @@
         <li class="user-header">
             <img src="<?php echo base_url()."assets/";?>dist/img/user.png" class="img-circle" alt="User Image">
 
-            <p>
+            <p style="color:#000" >
 				<?php echo ucwords($user->username); ?>
 
             </p>

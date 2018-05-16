@@ -19,17 +19,17 @@
     <div class="container-fluid ">
         <div class=" ">
             <div id="exTab1" class="">
-                <ul  class="nav nav-pills nav-background">
-                    <li class="active"><a  href="/schools/view/<?php echo $id ;?>" >School Information</a>
-                    </li>
-                    <li><a href="/schools/contacts/" >School Contacts</a>
-                    </li>
-                    <li><a href="/schools/history" >History</a>
-                    </li>
-                    <li><a href="/schools/placements" >Placements</a>
-                    </li>
-                </ul>
+				<ul  class="nav nav-pills nav-background">
+					<li class="active"><a  href="/schools/view/<?php echo $id; ?>" >School Information</a>
+					</li>
+					<li ><a href="/schools/view/<?php echo $id;?>/contacts" >School Contacts</a>
+					</li>
+					<li><a href="/schools/view/<?php echo $id;?>/placements" >School Placements</a>
+					</li>
+					<li ><a  href="/schools/view/<?php echo $id;?>/history" >School Call History</a>
+					</li>
 
+				</ul>
 
 
 
@@ -158,8 +158,8 @@
 
 
                                 </div>
-                                <input type="submit" class="btn btn-success" value="Save Changes">
-                                <input type="button" class="btn btn-danger" value="Cancel">
+								<input type="submit" class="btn btn-success" value="Save Changes">
+								<input type="button" class="btn btn-danger" value="Cancel" onclick="window.location.replace('/schools')">
                                 </form>
                             </div>
 

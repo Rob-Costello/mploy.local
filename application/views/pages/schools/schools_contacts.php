@@ -19,16 +19,7 @@
     <div class="container-fluid ">
         <div class=" ">
             <div id="exTab1" class="">
-                <ul  class="nav nav-pills nav-background">
-                    <li ><a  href="/schools/view/<?php echo $id; ?>" >School Information</a>
-                    </li>
-                    <li class="active"><a href="/schools/contacts/" >School Contacts</a>
-                    </li>
-                    <li><a href="/schools/history" >History</a>
-                    </li>
-                    <li><a href="/schools/placements" >Placements</a>
-                    </li>
-                </ul>
+				<?php $this->load->view('/pages/schools/school_components/school_tabs') ?>
 
                 <div class="tab-content clearfix">
                     <div class="" >

@@ -12,7 +12,7 @@
 		</h1>
 		<ol class="breadcrumb">
 			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-			<li class="active"><?=$title; ?></li>
+			<li class="active">Student Details</li>
 		</ol>
 	</section>
 
@@ -22,9 +22,24 @@
 		<div class="box">
 			<div class="box-header"></div>
 			<div class="box-header">
+				<div class="col-md-3">
 				<h2 class="box-title">
-					<?= $title; ?>
+					Student Details
 				</h2>
+				</div>
+				<div class="col-md-offset-3 col-md-6">
+					<div class="box-header with-border">
+						<h3 style="float:right;" class="box-title">Search</h3>
+						<div class="box-tools pull-right">
+							<form method="POST">
+							<div class="has-feedback">
+								<input type="text" class="form-control input-sm" placeholder="Search...">
+								<span class="glyphicon glyphicon-search form-control-feedback"></span>
+							</div>
+							</form>
+						</div><!-- /.box-tools -->
+					</div><!-- /.box-header -->
+				</div>
 			</div>
 			<!-- /.box-header -->
 			<div class="box-body">
@@ -38,21 +53,21 @@
 					</tr>
 					</thead>
 					<tbody>
-					<?php
-					$id = "";
-					$i = 0;
-					?>
-					<?php foreach($headings as $key => $val): ?>
-						<td>
 
-						<?php //foreach($people['data'] as $person): ?>
-								<td><?php //echo $person->$key; ?></td>
-							<td><?php //$id = $person->id; ?></td>
-						<?php // endforeach ?>
-							<td><a class="" href="/schools/view/<?php echo $id;?>"> <i class="fa fa-edit"></i> </a></td>
-					</tr>
-					<?php $i++; ?>
+					<tr>
+					<?php foreach($headings as $key => $val): ?>
+
+
+						<?php foreach($people['data'] as $person): ?>
+								<td><?php echo $person->$key; ?></td>
+
+						<?php  endforeach ?>
+
+
+
 					<?php endforeach ?>
+						<td><a class="" href="/youngpeople/view/<?php echo $person->id;?>"> <i class="fa fa-edit"></i> </a></td>
+					</tr>
 					</tbody>
 
 				</table>

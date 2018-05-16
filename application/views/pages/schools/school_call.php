@@ -7,13 +7,12 @@
     <section class="content-header">
         <h3>
 
-            School Details
+
         </h3>
-        <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">School Details</li>
-        </ol>
-        <?php //$this->load->view('/templates/components/notification') ?>
+
+
+
+			<?php //$this->load->view('/templates/components/notification') ?>
     </section>
 
     <div class="container-fluid ">
@@ -124,7 +123,7 @@
 
                                 </div>
                                 <input type="submit" class="btn btn-success" value="Save Changes">
-                                <input type="button" class="btn btn-danger" value="Cancel" onclick="window.location.replace('/schools/contacts')">
+                                <input type="button" class="btn btn-danger" value="Cancel" onclick="window.location.replace('/schools/view/<?php echo $id ?>/history')">
                                 </form>
                             </div>
 

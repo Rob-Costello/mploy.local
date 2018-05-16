@@ -21,11 +21,11 @@
 
 
 
-		<div class="">
+		<div class="box">
 
 
 			<div class="box-header">
-				<div class="col-md-3"><h2 class="box-title">
+				<div class="col-md-3"><h2 class="">
 					<?= $title; ?>
 				</h2></div>
 				<div class="col-md-offset-3 col-md-6">

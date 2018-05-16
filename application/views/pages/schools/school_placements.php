@@ -7,7 +7,7 @@
     <section class="content-header">
         <h3>
 
-            Contacts
+            Placements
         </h3>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -19,25 +19,21 @@
     <div class="container-fluid ">
         <div class=" ">
             <div id="exTab1" class="">
-                <ul  class="nav nav-pills nav-background">
-                    <li ><a  href="/schools/view/<?php echo $id; ?>" >School Information</a>
-                    </li>
-                    <li ><a href="/schools/view/<?php echo $id; ?>/contacts/" >School Contacts</a>
-                    </li>
-                    <li ><a  href="/schools/view/<?php echo $id; ?>/history" >History</a>
-                    </li>
-                    <li class="active"><a href="/schools/view/<?php echo $id; ?>/placements" >Placements</a>
-                    </li>
-                </ul>
+
+				<?php $this->load->view('/pages/schools/school_components/school_tabs') ?>
 
                 <div class="tab-content clearfix">
-					<button class="  btn btn-info waves-effect waves-light" style="float:right" onclick="window.location.replace('/schools/newplacement')"><i class="fa fa-plus"></i>
-						<span class="buttonText">New Placement</span></button>
-                    <div class="" >
-                        <h3>Contacts</h3>
-                        <section class="content">
-                            <div class="box box-primary">
 
+
+					<div class="" >
+
+                        <section class="content">
+                            <div class=" box-primary">
+								<div  class="addButton col-md-offset-9 col-md-3">
+
+									<button class="  btn btn-info waves-effect waves-light" style="float:right" onclick="window.location.replace('/schools/newplacement/<?php echo $id ?>')"><i class="fa fa-plus"></i>
+									<span class="buttonText">New Placement</span></button>
+								</div>
 
 
                                 <!-- /.box-header -->

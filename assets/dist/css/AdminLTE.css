@@ -162,7 +162,7 @@ h6,
 }
 /* General Links */
 a {
-  color: #3c8dbc;
+  color:#000;
 }
 a:hover,
 a:active,
@@ -3640,6 +3640,7 @@ table.text-center th {
 .open > .dropdown-toggle.btn-flickr {
   background-image: none;
 }
+
 .btn-flickr .badge {
   color: #ff0084;
   background-color: #ffffff;

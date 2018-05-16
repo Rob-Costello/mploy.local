@@ -12,7 +12,7 @@
 		</h1>
 		<ol class="breadcrumb">
 			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-			<li class="active"><?=$title; ?></li>
+			<li class="active">Student Details</li>
 		</ol>
 	</section>
 
@@ -22,9 +22,24 @@
 		<div class="box">
 			<div class="box-header"></div>
 			<div class="box-header">
+				<div class="col-md-3">
 				<h2 class="box-title">
-					<?= $title; ?>
+					Student Details
 				</h2>
+				</div>
+				<div class="col-md-offset-3 col-md-6">
+					<div class="box-header with-border">
+						<h3 style="float:right;" class="box-title">Search</h3>
+						<div class="box-tools pull-right">
+							<form method="POST">
+							<div class="has-feedback">
+								<input type="text" class="form-control input-sm" placeholder="Search...">
+								<span class="glyphicon glyphicon-search form-control-feedback"></span>
+							</div>
+							</form>
+						</div><!-- /.box-tools -->
+					</div><!-- /.box-header -->
+				</div>
 			</div>
 			<!-- /.box-header -->
 			<div class="box-body">
@@ -38,20 +53,21 @@
 					</tr>
 					</thead>
 					<tbody>
-					<?php foreach($schools['data'] as $school): ?>
-						<tr>
-							<td><?php echo $school->name; ?></td>
-							<td><?php echo $school->address1." ". $school->address2 ?></td>
-							<td><?php echo $school->town; ?></td>
-							<td><?php echo $school->county; ?></td>
-							<td><?php echo $school->postcode; ?></td>
-							<td><?php echo $school->phone_number; ?></td>
-							<td><?php echo $school->type; ?></td>
-							<td><?php echo $school->price; ?></td>
-							<td><a class="" href="/schools/view/<?php echo $school->id;?>"> <i class="fa fa-edit"></i> </a></td>
 
-						</tr>
+					<tr>
+					<?php foreach($headings as $key => $val): ?>
+
+
+						<?php foreach($people['data'] as $person): ?>
+								<td><?php echo $person->$key; ?></td>
+
+						<?php  endforeach ?>
+
+
+
 					<?php endforeach ?>
+						<td><a class="" href="/youngpeople/view/<?php echo $person->id;?>"> <i class="fa fa-edit"></i> </a></td>
+					</tr>
 					</tbody>
 
 				</table>
@@ -63,7 +79,7 @@
 		<!-- /.box -->
 		<div class="box-footer clearfix">
 			<div class="dataTables_info" id="example23_info" role="status" aria-live="polite">
-				Showing <?php echo $pagination_start; ?> to <?php echo $pagination_end; ?> of <?php $schools['count']; ?> entries</div>
+				Showing <?php echo $pagination_start; ?> to <?php echo $pagination_end; ?> of <?php $people['count']; ?> entries</div>
 			<div class="dataTables_paginate paging_simple_numbers">
 				<?php echo $pagination; ?>
 			</div>

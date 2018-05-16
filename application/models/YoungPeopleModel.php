@@ -1,6 +1,6 @@
 <?php
 
-class YoungPeople_model extends CI_Model
+class YoungPeopleModel extends CI_Model
 {
 
 	public function __construct()
@@ -10,8 +10,9 @@ class YoungPeople_model extends CI_Model
 	}
 
 
-	function get_youngpeople($where = null, $request = null, $limit = null, $offset = null)
+	function getYoungPeople($where = null, $request = null, $limit = null, $offset = null)
 	{
+
 
 		$this->db->select('*');
 		$this->db->limit($limit, $offset);
@@ -26,12 +27,19 @@ class YoungPeople_model extends CI_Model
 
 	}
 
+	public function getYoungPerson($id){
 
-	public function update_school_contact($id,$data){
+		$query = $this->db->get_where('mploy_students','id ='.$id);
+		return $query->row_array();
+
+	}
+
+
+	public function updateYoungPerson($id,$data){
 
 		$this->db->trans_start();
 		$this->db->where('id', $id);
-		$this->db->update('mploy_school_contacts', $data);
+		$this->db->update('mploy_students', $data);
 		$this->db->trans_complete();
 		return $this->db->trans_status();
 

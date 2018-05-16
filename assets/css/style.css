@@ -1,3 +1,16 @@
+
+
+
+.sidebar-orange{
+	color:#54667a;
+
+}
+
+.sidebar-links {
+	color:#000 ;
+}
+
+
 .activePage{
 	display:inline;
 	vertical-align: -webkit-baseline-middle;
@@ -80,6 +93,13 @@ margin-top:30px;
 .box{
 	border:0 !important;
 }
+
+.addButton{
+	padding-bottom:30px;
+
+}
+
+
 	
 .buttonText{
 	

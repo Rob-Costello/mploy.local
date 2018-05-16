@@ -13,7 +13,6 @@ class SchoolsModel extends CI_Model
 
     function getContacts($where = null, $request = null, $limit = null, $offset = null)
     {
-
         $this->db->select('*');
         $this->db->limit($limit, $offset);
         if( $where == null ) {
@@ -23,12 +22,16 @@ class SchoolsModel extends CI_Model
             $query = $this->db->get_where('mploy_school_contacts', $where);
             $count = $this->db->from('mploy_school_contacts')->where($where)->count_all_results();
         }
+
         return array('data' => $query->result(), 'count' => $count);
 
     }
 
 
-    public function updateSchoolContact($id,$data){
+
+    public function updateSchoolContact($id,$data)
+	{
+
 
         $this->db->trans_start();
         $this->db->where('id', $id);
@@ -39,7 +42,10 @@ class SchoolsModel extends CI_Model
     }
 
 
-    public function getSchoolContact($id){
+
+    public function getSchoolContact($id)
+	{
+
 
         $query = $this->db->get_where('mploy_school_contacts','id ='.$id);
         return $query->row_array();
@@ -49,23 +55,31 @@ class SchoolsModel extends CI_Model
 
 
 
-	function getSchools($where = null, $request = null, $limit = null, $offset = null)
-	{
 
+	function getSchools($where = null, $request = null, $limit = null, $offset = null,$orderby='id')
+	{
 		$this->db->select('*');
 		$this->db->limit($limit, $offset);
+
 		if( $where == null ) {
-			$query = $this->db->get('mploy_schools');
+			//$query = $this->db->get('mploy_schools');
+			$this->db->from('mploy_schools');
+			$this->db->order_by($orderby);
+			$query = $this->db->get();
 			$count = $this->db->from('mploy_schools')->count_all_results();
 		} else {
-			$query = $this->db->get_where('mploy_schools', $where);
+			 $query=$this->db->where('mploy_schools', $where);
+			 $query=$this->db->order_by($orderby);
+			$query = $this->db->get();
 			$count = $this->db->from('mploy_schools')->where($where)->count_all_results();
 		}
 		return array('data' => $query->result(), 'count' => $count);
 
 	}
 
-	public function updateSchool($id,$data){
+
+	public function updateSchool($id,$data)
+	{
 
             $this->db->trans_start();
             $this->db->where('id', $id);

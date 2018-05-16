@@ -19,16 +19,7 @@
     <div class="container-fluid ">
         <div class=" ">
             <div id="exTab1" class="">
-                <ul  class="nav nav-pills nav-background">
-                    <li ><a  href="/schools/view/<?php echo $id; ?>" >School Information</a>
-                    </li>
-                    <li class="active"><a href="/schools/view/<?php echo $id; ?>/contacts/" >School Contacts</a>
-                    </li>
-                    <li><a href="/schools/view/<?php echo $id; ?>/history/" >History</a>
-                    </li>
-                    <li><a href="/schools/view/<?php echo $id; ?>/placements/" >Placements</a>
-                    </li>
-                </ul>
+				<?php $this->load->view('/pages/schools/school_components/school_tabs') ?>
 
                 <div class="tab-content clearfix">
                     <div class="" >
@@ -59,7 +50,7 @@
 
                                                 <?php endforeach ?>
 
-                                            <td><a  href="/schools/contact_details/<?php echo $school->id;?>"> <i class="fa fa-edit"></i> </a></td></td>
+                                            <td><a  href="/schools/contactdetails/<?php echo $school->id;?>"> <i class="fa fa-edit"></i> </a></td></td>
                                             </tr>
                                         <?php endforeach ?>
                                         </tbody>

@@ -16,6 +16,7 @@ Class Pages extends CI_Controller{
         $this->login->login_check_force();
         $this->user = $this->ion_auth->user()->row();
 
+
 	}
 
 
@@ -24,9 +25,10 @@ Class Pages extends CI_Controller{
 
         $data['title'] = ucfirst($page);
         $data['posts'] = $this->post_model->get_posts();
-        $this->load->view('templates/header');
-        $this->load->view('pages/'.$page, $data);
-        $this->load->view('templates/footer');
+        //$this->load->view('templates/header');
+		$data['user'] = $this->user;
+		$this->load->view('pages/'.$page, $data);
+        //$this->load->view('templates/footer');
 
 	}
 

@@ -34,7 +34,7 @@
 
 
 
-							<div class="box">
+							<div class="">
 
 								<div class="box-header with-border">
 									<h3 class="box-title">School Information</h3>

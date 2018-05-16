@@ -13,7 +13,8 @@
 	<div class="container-fluid ">
 		<div class=" ">
 			<div id="exTab1" class="">
-				<?php //$this->load->view('/pages/schools/school_components/school_tabs') ?>
+
+				<?php $this->load->view('/pages/young_people/young_people_components/young_people_tabs') ?>
 
 
 
@@ -138,15 +139,10 @@
 											<!--/span-->
 										</div>
 
-
-
-
-
-
-
+										<input type="submit" class="btn btn-mploy-submit" value="Save Changes">
+										<input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/youngpeople')">
 								</div>
-								<input type="submit" class="btn btn-success" value="Save Changes">
-								<input type="button" class="btn btn-danger" value="Cancel" onclick="window.location.replace('/youngpeople')">
+
 								</form>
 							</div>
 

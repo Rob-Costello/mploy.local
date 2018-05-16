@@ -1,6 +1,24 @@
 
 
 
+.btn-mploy-submit{
+	background:#86d0f5;
+	color:#fff;
+
+}
+
+.btn-mploy-cancel{
+	background:#737270;
+	color:#fff;
+
+}
+
+.btn-mploy{
+
+	background:#54667a;
+	color:#fff;
+}
+
 .sidebar-orange{
 	color:#54667a;
 

@@ -18,7 +18,7 @@ class YoungPeople extends CI_Controller
 		$this->perPage = 1;
 		$this->offset = 0;
 		$this->load->library('pagination');
-		$this->tabs = [];
+		$this->tabs = ['Person\'s Details' => '', 'Membership'=>'membership','History'=>'history','Login Details'=>'login',];
 
 	}
 
@@ -126,6 +126,17 @@ class YoungPeople extends CI_Controller
 	}
 
 
+
+	function membership($id,$page=null){
+
+		if(!empty($this->post())){
+
+
+
+		}
+
+
+	}
 
 
 

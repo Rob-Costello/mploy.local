@@ -158,8 +158,8 @@
 
 
                                 </div>
-								<input type="submit" class="btn btn-success" value="Save Changes">
-								<input type="button" class="btn btn-danger" value="Cancel" onclick="window.location.replace('/schools')">
+								<input type="submit" class="btn btn-mploy-submit" value="Save Changes">
+								<input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/schools')">
                                 </form>
                             </div>
 

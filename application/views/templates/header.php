@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 | Dashboard</title>
+    <title>Mploy CRM</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -64,22 +64,21 @@
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                     <!-- Messages: style can be found in dropdown.less-->
-                    <li class="dropdown messages-menu">
+                    <!--<li class="dropdown messages-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-envelope-o"></i>
                             <span class="label label-success">4</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <?php $this->load->view('templates/components/messages') ?>
+                        </a>-->
+                       <!-- <ul class="dropdown-menu"> -->
+                            <?php //$this->load->view('templates/components/messages') ?>
                     <!-- Notifications: style can be found in dropdown.less -->
-                            <?php $this->load->view('templates/components/alerts') ?>
+                            <?php //$this->load->view('templates/components/alerts') ?>
                     <!-- Tasks: style can be found in dropdown.less -->
-                            <?php $this->load->view('templates/components/tasks')?>
+                            <?php //$this->load->view('templates/components/tasks')?>
                     <!-- User Account: style can be found in dropdown.less -->
                             <?php $this->load->view('templates/components/user')?>
                     <!-- Control Sidebar Toggle Button -->
-
-                </ul>
+						<!--</ul>-->
             </div>
 
 		</nav>

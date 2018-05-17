@@ -24,29 +24,37 @@
 		<div class="box">
 
 
-			<div class="box-header">
+			<div style="padding-bottom:50px;" class="box-header">
 				<div class="col-md-3"><h2 class="">
 					<?= $title; ?>
 				</h2></div>
-				<div class="col-md-offset-3 col-md-6">
+
+				<div  class="addButton col-md-offset-6 col-md-3">
+
+					<button class="  btn btn-mploy-submit waves-effect waves-light" style="float:right" onclick="window.location.replace('/schools/newschool')"><i class="fa fa-plus"></i>
+						<span class="buttonText">Add School</span></button>
+				</div>
+
+			</div>
+			<!-- /.box-header -->
+
+			<div class="box-body">
+				<div style="padding-right:0px;" class="col-md-offset-6 col-md-6">
 					<form class="form-horizontal" method="POST">
 						<div class="col-md-6">
 							<label style="float:right;" class="control-label">Sort By</label></div>
-						<div class="col-md-6">
+						<div  class=" pull-right col-md-6">
 							<select onchange="this.form.submit()" name="sort" class="form-control select2 select2-hidden-accessible">
-							<?php foreach($headings as $key =>$val): ?>
+								<?php foreach($headings as $key =>$val): ?>
 
 
-								<option value="<?php echo $val;?>" <?php if($val == $sortby) echo " selected" ?> ><?php echo $key; ?></option>
+									<option value="<?php echo $val;?>" <?php if($val == $sortby) echo " selected" ?> ><?php echo $key; ?></option>
 
-							<?php endforeach ?>
+								<?php endforeach ?>
 							</select>
 						</div>
 					</form>
 				</div>
-			</div>
-			<!-- /.box-header -->
-			<div class="box-body">
 				<table id="example2" class="table table-bordered table-striped">
 					<thead>
 					<tr>

@@ -65,18 +65,12 @@
 			</div>
 
 			<div class="row">
-				<div class="col-xs-8">
-					<div class="checkbox icheck">
-						<label>
-							<input type="checkbox"> Remember Me
-						</label>
-					</div>
-				</div>
+
 				<!-- /.col -->
 				<div class="col-xs-12">
 
 
-					<button class="btn btn-primary btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Log In</button>
+					<button class="btn btn-mploy btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Log In</button>
 
 
 				</div>

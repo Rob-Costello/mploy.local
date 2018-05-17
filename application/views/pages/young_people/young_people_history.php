@@ -14,17 +14,7 @@
 		<div class=" ">
 			<div id="exTab1" class="">
 
-				<ul  class="nav nav-pills nav-background">
-					<li class="active"><a  href="/schools/view/<?php echo $id; ?>" >Person's Details</a>
-					</li>
-					<li ><a href="/youngpeople/view/<?php echo $id;?>/membership" >Membership</a>
-					</li>
-					<li><a href="/youngpeople/view/<?php echo $id;?>/history" >History</a>
-					</li>
-					<li ><a  href="/youngpeople/view/<?php echo $id;?>/login" >Login Details</a>
-					</li>
-
-				</ul>
+				<?php $this->load->view('young-people/young_people_components/young_people_tabs') ?>
 
 
 
@@ -102,16 +92,16 @@
 													<label for="gender">Gender</label><br>
 
 													<div class="col-md-4">
-													<label class="checkcontainer">Male
-													<input type="radio" checked="checked" name="gender">
-													<span class="radiobtn"></span>
-													</label>
+														<label class="checkcontainer">Male
+															<input type="radio" checked="checked" name="gender">
+															<span class="radiobtn"></span>
+														</label>
 													</div>
 													<div class="col-md-4">
-													<label class="checkcontainer">Female
-													<input type="radio"  name="gender">
-													<span class="radiobtn"></span>
-													</label>
+														<label class="checkcontainer">Female
+															<input type="radio"  name="gender">
+															<span class="radiobtn"></span>
+														</label>
 													</div>
 
 												</div>
@@ -168,13 +158,13 @@
 											<!--/span-->
 										</div>
 										<div class="form-row">
-										<input type="submit" class="btn btn-mploy-submit" value="Save Changes">
-										<input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/youngpeople')">
-										<div>
-										</div>
+											<input type="submit" class="btn btn-mploy-submit" value="Save Changes">
+											<input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/youngpeople')">
+											<div>
+											</div>
 
-								</form>
-							</div>
+									</form>
+								</div>
 
 
 						</section>

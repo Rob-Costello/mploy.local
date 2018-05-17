@@ -8,6 +8,7 @@ $route['(:any)/(:num)'] = "$1/index/$2";
 $route['(:any)/(:num)/(:num)'] = "$1/index/$2/$3";
 $route['(:any)'] = "$1";
 $route['auth'] = 'auth';
+$route['customers/register']='auth/create_user';
 
 $route['schools'] = 'schools/index';
 

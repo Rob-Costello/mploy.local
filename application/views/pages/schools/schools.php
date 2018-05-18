@@ -24,12 +24,16 @@
 		<div class="box">
 
 
-			<div style="padding-bottom:50px;" class="box-header">
-				<div class="col-md-3"><h2 class="">
-					<?= $title; ?>
-				</h2></div>
+			<div style="" class="box-header">
+				<div class="box-header">
+					<h2 class="box-title">
+						<?= $title; ?>
+					</h2>
+				</div>
 
-				<div  class="addButton col-md-offset-6 col-md-3">
+
+
+				<div  class="addButton col-md-offset-9 col-md-3">
 
 					<button class="  btn btn-mploy-submit waves-effect waves-light" style="float:right" onclick="window.location.replace('/schools/newschool')"><i class="fa fa-plus"></i>
 						<span class="buttonText">Add School</span></button>
@@ -39,22 +43,7 @@
 			<!-- /.box-header -->
 
 			<div class="box-body">
-				<div style="padding-right:0px;" class="col-md-offset-6 col-md-6">
-					<form class="form-horizontal" method="POST">
-						<div class="col-md-6">
-							<label style="float:right;" class="control-label">Sort By</label></div>
-						<div  class=" pull-right col-md-6">
-							<select onchange="this.form.submit()" name="sort" class="form-control select2 select2-hidden-accessible">
-								<?php foreach($headings as $key =>$val): ?>
 
-
-									<option value="<?php echo $val;?>" <?php if($val == $sortby) echo " selected" ?> ><?php echo $key; ?></option>
-
-								<?php endforeach ?>
-							</select>
-						</div>
-					</form>
-				</div>
 				<table id="example2" class="table table-bordered table-striped">
 					<thead>
 					<tr>

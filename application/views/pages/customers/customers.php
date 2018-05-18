@@ -24,12 +24,16 @@
 		<div class="box">
 
 
-			<div style="padding-bottom:50px;" class="box-header">
-				<div class="col-md-3"><h3 class="">
-						<?= $title; ?>
-					</h3></div>
+			<div style="" class="box-header">
 
-				<div  class="addButton col-md-offset-6 col-md-3">
+					<div class="box-header">
+						<h2 class="box-title">
+							<?= $title; ?>
+						</h2>
+
+					</div>
+
+				<div  class="addButton col-md-offset-9 col-md-3">
 
 					<button class="  btn btn-mploy-submit waves-effect waves-light" style="float:right" onclick="window.location.replace('/customers/register')"><i class="fa fa-plus"></i>
 						<span class="buttonText">Add Customer</span></button>

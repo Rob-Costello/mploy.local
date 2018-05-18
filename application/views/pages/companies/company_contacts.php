@@ -5,14 +5,7 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h3>
 
-           Contacts
-        </h3>
-        <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Company Details</li>
-        </ol>
         <?php //$this->load->view('/templates/components/notification') ?>
     </section>
 

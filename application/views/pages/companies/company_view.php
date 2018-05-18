@@ -5,14 +5,8 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h3>
 
-            Company Details
-        </h3>
-        <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Company Details</li>
-        </ol>
+
     </section>
 
     <div class="container-fluid ">
@@ -260,8 +254,8 @@
 
 
                                 </div>
-                                <input type="submit" class="btn btn-success" value="Save Changes">
-                                <input type="button" class="btn btn-danger" value="Cancel">
+                                <input type="submit" class="btn btn-mploy-submit" value="Save Changes">
+                                <input type="button" class="btn btn-mploy-cancel" value="Cancel">
                                 </form>
                             </div>
 

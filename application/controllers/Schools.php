@@ -96,10 +96,11 @@ class Schools extends CI_Controller
 		$data['id']=$id;
 		$data['user']=$this->user;
 		$school= new SchoolsModel();
+		$data['messages']='';
 		if(!empty($_POST))
 		{
 			$success = $school->updateSchool($id,$this->input->post());
-			$data['message'] = "Information updated";
+			$data['messages'] = "Information updated";
 		}
 
 		switch ($page)
@@ -174,11 +175,11 @@ class Schools extends CI_Controller
 	function newSchool(){
 		$school = new SchoolsModel();
 		$data['user'] = $this->user;
-
+		$data['messages'] = '';
 		if(!empty($_POST)){
 
 			$school->newSchool($this->input->post());
-
+			$data['messages']='Successfully added school!';
 		}
 
 		$this->load->view('pages/schools/schools_new_school',$data);
@@ -192,10 +193,11 @@ class Schools extends CI_Controller
 		$data['user']=$this->user;
 		$data['id']=$id;
 		$school= new SchoolsModel();
+		$data['messages'] = '';
 		if(!empty($_POST))
 		{
 			$success = $school->updateSchoolContact($id,$this->input->post());
-			$data['message'] = "Information updated";
+			$data['messages'] = "Information updated";
 		}
 		$data['table']= $school->getSchoolContact($id);
 
@@ -250,10 +252,10 @@ class Schools extends CI_Controller
 		$data['id'] = $id;
 		//$data['id']=$this->session->schoolid;
 		$data['contacts']=$school->getContacts(array('school_id'=>$data['id']));
-
+		$data['messages']='';
 		if(!empty($_POST)){
 			$success = $school->createCall($this->input->post());
-			$data['message'] = "Information updated";
+			$data['messages'] = "Call Added";
 		}
 
 		$this->load->view('pages/schools/school_call',$data);
@@ -283,11 +285,11 @@ class Schools extends CI_Controller
 		$school = new SchoolsModel();
 		$data['id']=$id;
 		$data['contacts']=$school->getContacts(array('school_id'=>$id));
-
+		$data['messages']='';
 		if(!empty($_POST))
 		{
 			$success = $school->createCall($this->input->post());
-			$data['message'] = "Information updated";
+			$data['messages'] = "Information updated";
 		}
 
 		$this->load->view('pages/schools/schools_new_placement',$data);

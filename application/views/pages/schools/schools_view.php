@@ -5,19 +5,20 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h3>
 
-            School Details
-        </h3>
-        <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">School Details</li>
-        </ol>
-        <?php //$this->load->view('/templates/components/notification') ?>
+			<?php //$this->load->view('/templates/components/notification') ?>
     </section>
 
     <div class="container-fluid ">
-        <div class=" ">
+		<div class="col-md-12">
+			<?php if( $messages != '' ) { ?>
+				<div class="alert alert-success alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+					<?php echo $messages; ?>
+				</div>
+			<?php } ?>
+		</div>
+		<div class=" ">
             <div id="exTab1" class="">
 				<ul  class="nav nav-pills nav-background">
 					<li class="active"><a  href="/schools/view/<?php echo $id; ?>" >School Information</a>

@@ -16,9 +16,11 @@
 
 				<div class="tab-content clearfix">
 
-					<h3 class="box-title">
-						Edit User
-					</h3>
+					<div class="box-header">
+						<h2 class="box-title">
+							<?= $title; ?>
+						</h2>
+					</div>
 					<div class="tab-pane active" id="1a">
 
 

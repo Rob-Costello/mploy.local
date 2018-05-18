@@ -6,16 +6,20 @@
 	<!-- Content Header (Page header) -->
 	<section class="content-header">
 
-		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-			<li class="active">School Details</li>
-		</ol>
 		<?php //$this->load->view('/templates/components/notification') ?>
 	</section>
 
 	<div class="container-fluid ">
-		<div class=" ">
-			<div id="exTab1" class="">
+		<div class="col-md-12">
+			<?php if( $messages != '' ) { ?>
+				<div class="alert alert-success alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+					<?php echo $messages; ?>
+				</div>
+			<?php } ?>
+		</div>
+			<div class=" ">
+			<div id="exTab1" class="content">
 
 
 
@@ -28,10 +32,10 @@
 
 						<section class="">
 
-							<h3>
+							<h4>
 
 								School Details
-							</h3>
+							</h4>
 							<div class="">
 
 

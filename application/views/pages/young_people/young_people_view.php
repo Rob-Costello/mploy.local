@@ -31,9 +31,9 @@
 
 				<div class="tab-content clearfix">
 
-					<h3 class="box-title">
+					<h4 class="box-title">
 						Student Details
-					</h3>
+					</h4>
 					<div class="tab-pane active" id="1a">
 
 

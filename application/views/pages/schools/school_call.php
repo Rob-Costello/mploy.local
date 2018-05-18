@@ -3,12 +3,12 @@
 
 
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
+
+
+
+	<!-- Content Header (Page header) -->
     <section class="content-header">
-        <h3>
 
-
-        </h3>
 
 
 
@@ -16,9 +16,17 @@
     </section>
 
     <div class="container-fluid ">
+		<div class="col-md-12">
+			<?php if( $messages != '' ) { ?>
+				<div class="alert alert-success alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+					<?php echo $messages; ?>
+				</div>
+			<?php } ?>
+		</div>
+
         <div class=" ">
             <div id="exTab1" class="">
-
 
 
 
@@ -34,7 +42,7 @@
 							<!-- Main content School Details-->
                             <!--- Schools contacts -->
 
-                            <div class="box">
+                            <div class="">
 
                                 <div class="box-header with-border">
                                     <h3 class="box-title">School Information</h3>

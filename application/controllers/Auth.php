@@ -49,7 +49,7 @@ class Auth extends CI_Controller
 			}
 				$this->data['user'] = $this->ion_auth->user()->row();
 
-			$this->_render_page('pages/dashboard', $this->data);
+			$this->_render_page('pages/customers', $this->data);
 		}
 	}
 
@@ -487,12 +487,13 @@ class Auth extends CI_Controller
 				'phone' => $this->input->post('phone'),
 			);
 		}
-		if ($this->form_validation->run() === TRUE && $this->ion_auth->register($identity, $password, $email, $additional_data))
+		if ($this->form_validation->run() === TRUE && $this->ion_auth->register($identity, $password, $email, $additional_data,'1'))
 		{
 			// check to see if we are creating the user
 			// redirect them back to the admin page
 			$this->session->set_flashdata('message', $this->ion_auth->messages());
-			redirect("auth", 'refresh');
+
+			redirect("/users", 'refresh');
 		}
 		else
 		{

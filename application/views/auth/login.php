@@ -39,7 +39,7 @@
 		</p>
 
 		<p>
-			<?php echo lang('login_password_label', 'password');?>
+
 
 
 

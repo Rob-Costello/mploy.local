@@ -38,7 +38,7 @@
 						<th></th>
 					</tr>
 					</thead>
-					<tbody>s
+					<tbody>
 					<?php foreach($schools['data'] as $school): ?>
 						<tr>
 							<td><?php echo $school->name; ?></td>

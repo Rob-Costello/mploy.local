@@ -21,7 +21,7 @@
                 <a href="#" class="btn btn-mploy-submit btn-flat">Profile</a>
             </div>
             <div class="pull-right">
-                <a href="auth/logout" class="btn btn-mploy-cancel btn-flat">Sign out</a>
+                <a href="/auth/logout" class="btn btn-mploy-cancel btn-flat">Sign out</a>
             </div>
         </li>
     </ul>

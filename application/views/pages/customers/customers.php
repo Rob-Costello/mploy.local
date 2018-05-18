@@ -36,7 +36,7 @@
 				<div  class="addButton col-md-offset-9 col-md-3">
 
 					<button class="  btn btn-mploy-submit waves-effect waves-light" style="float:right" onclick="window.location.replace('/users/register')"><i class="fa fa-plus"></i>
-						<span class="buttonText">Add Customer</span></button>
+						<span class="buttonText">Add User</span></button>
 				</div>
 
 			</div>
@@ -53,29 +53,18 @@
 					</tr>
 					</thead>
 					<tbody>
+					<?php foreach($users['data'] as $school): ?>
+						<tr>
+							<td><?php echo $school->first_name; ?></td>
+							<td><?php echo $school->email;?></td>
+							<td><?php echo $school->username; ?></td>
+							<td><?php echo $school->phone; ?></td>
+							<td><?php echo $school->company; ?></td>
 
-					<tr>
-						<?php foreach($headings as $key => $val): ?>
+							<td><a class="" href="/users/edit/<?php echo $school->id;?>"> <i class="fa fa-edit"></i> </a></td>
 
-
-							<?php foreach($users['data'] as $person): ?>
-								<td>
-									<?php if(is_array($val)): ?>
-									<?php foreach($val as $v): ?>
-										<?php echo $person->$v." "; ?>
-									<?php endforeach ?>
-									<?php else: ?>
-									<?php echo $person->$val; ?>
-									<?php endif ?>
-								</td>
-
-							<?php  endforeach ?>
-
-
-
-						<?php endforeach ?>
-						<td><a class="" href="/users/edit/<?php echo $person->id;?>"> <i class="fa fa-edit"></i> </a></td>
-					</tr>
+						</tr>
+					<?php endforeach ?>
 					</tbody>
 
 				</table>

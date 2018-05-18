@@ -15,7 +15,7 @@ $route['schools'] = 'schools/index';
 
 
 $route['posts'] = 'posts/index';
-$route['default_controller'] = 'auth';
+$route['default_controller'] = 'dashboard';
 $route['404_override'] = '';
 //$route['(:any)'] = 'pages/view/$1';
 $route['translate_uri_dashes'] = FALSE;

@@ -22,7 +22,7 @@
 			<li><a style="color:#54667a" href="/companies"><i style="color:#f88a00" class="fa fa-building"></i> <span>Companies</span> <span class=" pull-right-container">
               			<i style="color:#f88a00" class="fa fa-angle-right pull-right"></i>
             		</span></a></li>
-			<li><a style="color:#54667a" href="/youngpeople"><i style="color:#f88a00" class="fa fa-user"></i> <span>Young People</span><span class=" pull-right-container">
+			<li><a style="color:#54667a" href="/#"><i style="color:#f88a00" class="fa fa-user"></i> <span>Young People</span><span class=" pull-right-container">
               			<i style="color:#f88a00" class="fa fa-angle-right pull-right"></i>
             		</span> </a></li>
 			<li><a style="color:#54667a" href="/#"><i style="color:#f88a00" class="fa fa-briefcase"></i> <span>Campaigns</span><span class=" pull-right-container">

@@ -121,6 +121,7 @@ class SchoolsModel extends CI_Model
 
         $this->db->insert('mploy_school_history', $data);
 
+
     }
 
 	function getPlacements($where = null, $request = null, $limit = null, $offset = null)

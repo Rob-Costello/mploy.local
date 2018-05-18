@@ -70,7 +70,7 @@
 
 
 						<?php endforeach ?>
-						<td><a class="" href="/youngpeople/view/<?php echo $person->id;?>"> <i class="fa fa-edit"></i> </a></td>
+						<td><a class="" href="/customers/edit/<?php echo $person->id;?>"> <i class="fa fa-edit"></i> </a></td>
 					</tr>
 					</tbody>
 

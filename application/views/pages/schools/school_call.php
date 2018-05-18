@@ -113,10 +113,10 @@
                                                 <div class="form-group">
 
                                                     <label >Call Notes</label>
-                                                    <textarea style="width:100%" class="form-control" type="textarea" name="receiver" class="form-control" value="" placeholder="Name" autocomplete="off" ></textarea>
+                                                    <textarea style="width:100%" class="form-control" type="textarea" name="call_notes" class="form-control" value="" placeholder="Name" autocomplete="off" ></textarea>
                                                 </div>
 
-
+												<input type="hidden" value="<?php echo $id; ?>" name="school_id">
                                             </div>
                                             <!--/span-->
                                         </div>

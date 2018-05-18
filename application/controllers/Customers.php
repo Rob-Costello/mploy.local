@@ -68,11 +68,6 @@ class Customers extends CI_Controller
 		$this->load->view('pages/customers/customers', $data);
 	}
 
-	function view(){
 
-
-
-
-	}
 
 }

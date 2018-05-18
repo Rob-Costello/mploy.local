@@ -281,7 +281,7 @@ class Schools extends CI_Controller
 	function newplacement($id){
 		$data['user']=$this->user;
 		$school = new SchoolsModel();
-		$data['id']=$this->session->schoolid;
+		$data['id']=$id;
 		$data['contacts']=$school->getContacts(array('school_id'=>$id));
 
 		if(!empty($_POST))

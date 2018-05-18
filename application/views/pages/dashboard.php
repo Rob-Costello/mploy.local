@@ -10,7 +10,7 @@
 		</h1>
 		<ol class="breadcrumb">
 			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-			<li class="active">Dashboard</li>
+			<li class="active">Under Development </li>
 		</ol>
 	</section>
 
@@ -22,7 +22,7 @@
 		<div class="box">
 			<div class="box-header">
 				<h2 class="box-title">
-					Dashboard
+					Under Development
 				</h2>
 			</div>
 

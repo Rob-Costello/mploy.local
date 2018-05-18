@@ -5,10 +5,7 @@
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
 	<section class="content-header">
-		<h3>
 
-			School Details
-		</h3>
 		<ol class="breadcrumb">
 			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
 			<li class="active">School Details</li>
@@ -23,7 +20,6 @@
 
 
 
-
 				<div class="tab-content clearfix">
 
 
@@ -32,13 +28,12 @@
 
 						<section class="">
 
+							<h3>
 
-
+								School Details
+							</h3>
 							<div class="">
 
-								<div class="box-header with-border">
-									<h3 class="box-title">School Information</h3>
-								</div>
 
 
 								<!-- /.box-header -->
@@ -50,8 +45,8 @@
 											<div class="col-md-6">
 												<div class="form-group">
 
-													<label class=" ">Start Date</label>
-													<input type="text" name="start_date" class="form-control" value="" placeholder="date" >
+													<label class=" ">School Name</label>
+													<input type="text" name="name" class="form-control"  placeholder="School Name" >
 
 												</div>
 											</div>
@@ -59,8 +54,8 @@
 												<div class="form-group">
 
 													<div class="">
-														<label >End Date</label>
-														<input type="text" name="end_date" class="form-control" value="" placeholder="Time" autocomplete="off" >
+														<label >Type of Institution</label>
+														<input type="text" name="type" class="form-control"  placeholder="Secondary School" autocomplete="off" >
 													</div>
 												</div>
 											</div>
@@ -71,22 +66,18 @@
 											<div class="col-md-6">
 												<div class="form-group">
 
-
-													<div class="">
-														<label >Group</label>
-														<input type="text" name="end_date" class="form-control" value="" placeholder="Time" autocomplete="off" >
-													</div>
-
-
-
+													<label class=" ">
+														Address 1
+													</label>
+													<input type="text" name="address1" class="form-control" " placeholder="123 Fake Street" >
 
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
 
-													<label >Mploy / Self</label>
-													<input type="text" name="mploy_self" class="form-control" value="" placeholder="Name" autocomplete="off" >
+													<label >Address 2</label>
+													<input type="tel" name="address2" class="form-control"  placeholder="Fake Road" autocomplete="off" >
 												</div>
 
 
@@ -98,28 +89,65 @@
 											<div class="col-md-6">
 												<div class="form-group">
 
-													<label >Placed</label>
-													<input type="text" name="mploy_self" class="form-control" value="" placeholder="Name" autocomplete="off" >
-
-
+													<label class=" ">
+														Town
+													</label>
+													<input type="text" name="town" class="form-control"  placeholder="Fake Town" >
 
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
+													<label class=" ">
+														County
+													</label>
 
-													<label >Call Notes</label>
-													<textarea style="width:100%" class="form-control" type="textarea" name="receiver" class="form-control" value="" placeholder="Name" autocomplete="off" ></textarea>
+
+													<input type="tel" name="county" class="form-control"  placeholder="Merseyside" autocomplete="off" >
+
+
 												</div>
-
-
 											</div>
 											<!--/span-->
 										</div>
+
+
+
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+
+													<label class=" ">
+														Postcode
+													</label>
+													<input type="text" name="postcode" class="form-control"  placeholder="WA10 1PP" >
+
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label class=" ">
+														Phone Number
+													</label>
+
+
+													<input type="tel" name="phone_number" class="form-control"  placeholder="0123 456789" autocomplete="off" >
+
+
+												</div>
+											</div>
+											<!--/span-->
+										</div>
+
+
+
+
+
+
 
 								</div>
 								<input type="submit" class="btn btn-mploy-submit" value="Save Changes">
-								<input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/schools/view/<?php echo $id; ?>/placements/')">
+								<input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/schools')">
 								</form>
 							</div>
 

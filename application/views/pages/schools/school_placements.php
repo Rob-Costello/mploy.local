@@ -31,7 +31,7 @@
                             <div class=" box-primary">
 								<div  class="addButton col-md-offset-9 col-md-3">
 
-									<button class="  btn btn-info waves-effect waves-light" style="float:right" onclick="window.location.replace('/schools/newplacement/<?php echo $id ?>')"><i class="fa fa-plus"></i>
+									<button class="  btn btn-mploy-submit waves-effect waves-light" style="float:right" onclick="window.location.replace('/schools/newplacement/<?php echo $id ?>')"><i class="fa fa-plus"></i>
 									<span class="buttonText">New Placement</span></button>
 								</div>
 

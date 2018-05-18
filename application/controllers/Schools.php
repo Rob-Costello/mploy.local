@@ -117,6 +117,9 @@ class Schools extends CI_Controller
 				$this->placements($id, $pagenumber);
 				break;
 
+			case 'studentupload':
+				$this->studentUpload($id);
+				break;
 
 
 
@@ -167,6 +170,20 @@ class Schools extends CI_Controller
 		$this->load->view('pages/schools/schools_contacts',$data);
 	}
 
+
+	function newSchool(){
+		$school = new SchoolsModel();
+		$data['user'] = $this->user;
+
+		if(!empty($_POST)){
+
+			$school->newSchool($this->input->post());
+
+		}
+
+		$this->load->view('pages/schools/schools_new_school',$data);
+
+	}
 
 
 	function contactDetails($id)
@@ -264,7 +281,7 @@ class Schools extends CI_Controller
 	function newplacement($id){
 		$data['user']=$this->user;
 		$school = new SchoolsModel();
-		$data['id']=$this->session->schoolid;
+		$data['id']=$id;
 		$data['contacts']=$school->getContacts(array('school_id'=>$id));
 
 		if(!empty($_POST))
@@ -276,6 +293,68 @@ class Schools extends CI_Controller
 		$this->load->view('pages/schools/schools_new_placement',$data);
 
 	}
+
+
+	function checkFile($file){
+
+		$school = new SchoolsModel();
+		$path_parts = pathinfo($file);
+		$extension =$path_parts['extension'];
+		if($extension == 'csv'){
+
+			$csv = array_map('str_getcsv', file($file));
+			array_walk($csv, function(&$a) use ($csv) {
+				$a = array_combine($csv[0], $a);
+			});
+			$header = $csv[0];
+			array_shift($csv);
+			$data['header']=$school->getStudentsTableHeader();
+			$data['csv']= $csv;
+			return $data;
+		}
+
+
+
+	}
+
+
+
+	function studentUpload($id){
+
+		$data['user'] = $this->user;
+		$data['id'] = $id;
+		$school = new SchoolsModel();
+		$data['message']=null;
+
+		if(!empty($_POST)){
+			$config['upload_path']          =  realpath(APPPATH . '../files');
+			$config['allowed_types']        = 'csv|xls|xlsx';
+			$config['max_size']             = 100;
+			$config['max_width']            = 1024;
+			$config['max_height']           = 768;
+
+			$this->load->library('upload', $config);
+
+			if ( ! $this->upload->do_upload('myfile'))
+			{
+
+				$error = array('error' => $this->upload->display_errors());
+				$this->load->view('upload_form', $error);
+			}
+			else
+			{
+
+				$data = array('upload_data' => $this->upload->data());
+				var_dump($data['upload_data']);
+				$data['message'] ='Students upload successful';
+			}
+
+		}
+
+		$this->load->view('pages/schools/schools_upload_students',$data);
+
+	}
+
 
 }
 

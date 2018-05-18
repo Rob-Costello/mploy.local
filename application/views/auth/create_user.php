@@ -1,7 +1,44 @@
-<h1><?php echo lang('create_user_heading');?></h1>
-<p><?php echo lang('create_user_subheading');?></p>
+<?php $this->load->view('templates/header'); ?>
 
-<div id="infoMessage"><?php echo $message;?></div>
+
+<div class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+
+
+		<?php //$this->load->view('/templates/components/notification') ?>
+	</section>
+
+	<div class="container-fluid ">
+		<div class=" ">
+			<div id="exTab1" class="">
+
+
+
+
+
+
+				<div class="tab-content clearfix">
+
+					<h3 class="box-title">
+						Create New Customer
+					</h3>
+					<div class="tab-pane active" id="1a">
+
+
+						<section class="box">
+
+							<!-- Main content School Details-->
+							<!--- Schools contacts -->
+
+							<div class="">
+
+
+
+								<!-- /.box-header -->
+								<div class="box-body">
+
+								<div id="infoMessage"><?php echo $message;?></div>
 
 <?php echo form_open("auth/create_user");?>
 
@@ -52,6 +89,52 @@
       </p>
 
 
-      <p><?php echo form_submit('submit', lang('create_user_submit_btn'));?></p>
+								</div>
+								<div class="form-row">
+									<input type="submit" class="btn btn-mploy-submit" value="Save Changes">
+									<input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/customers')">
+								</div>
+								<?php echo form_close();?>
 
-<?php echo form_close();?>
+
+
+								<!--/span-->
+							</div>
+
+
+
+						</section>
+
+
+
+					</div>
+
+
+
+
+
+
+
+
+				</div> <!-- end tab content -->
+
+
+
+			</div>
+		</div>
+	</div> <!-- end tab container -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<?php $this->load->view('templates/footer'); ?>

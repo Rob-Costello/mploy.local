@@ -18,7 +18,7 @@ class YoungPeople extends CI_Controller
 		$this->perPage = 1;
 		$this->offset = 0;
 		$this->load->library('pagination');
-		$this->tabs = [];
+		$this->tabs = ['Person\'s Details' => '', 'Membership'=>'membership','History'=>'history','Login Details'=>'login',];
 
 	}
 
@@ -105,18 +105,18 @@ class YoungPeople extends CI_Controller
 		switch ($page)
 		{
 
-			/*case 'contacts':
-				$this->contacts($id, $pagenumber);
+			case 'membership':
+				$this->membership($id, $pagenumber);
 				break;
 
 			case 'history':
 				$this->history($id, $pagenumber);
 				break;
 
-			case 'placements':
+			case 'login':
 				$this->placements($id, $pagenumber);
 				break;
-			*/
+
 			default:
 				$data['tabs'] = $this->tabs;
 				$data['table'] = $youngpeople->getYoungPerson($id);
@@ -126,6 +126,51 @@ class YoungPeople extends CI_Controller
 	}
 
 
+
+	function addStudent(){
+
+
+
+	}
+
+	function membership($id,$page=null){
+		$data['user']=$this->user;
+		$youngpeople = new YoungPeopleModel();
+
+		if(!empty($_POST)){
+
+			$youngpeople->updateMemebership($id,$this->input->post());
+
+		}
+		$data['id'] = $id;
+		$data['tabs'] = $this->tabs;
+		$data['table'] = $youngpeople->getYoungPerson($id);
+		$this->load->view('pages/young_people/young_people_membership', $data);
+
+	}
+
+
+
+
+	function history($id,$page=null){
+		$data['user']=$this->user;
+		$youngpeople = new YoungPeopleModel();
+		$data['id'] = $id;
+
+		$data['tabs'] = $this->tabs;
+		$data['table'] = $youngpeople->getYoungPerson($id);
+		$this->load->view('pages/young_people/young_people_view', $data);
+
+	}
+
+	function placements($id,$page=null){
+		$data['user']=$this->user;
+		$youngpeople = new YoungPeopleModel();
+
+		$data['tabs'] = $this->tabs;
+		$data['table'] = $youngpeople->getYoungPerson($id);
+		$this->load->view('pages/young_people/young_people_view', $data);
+	}
 
 
 

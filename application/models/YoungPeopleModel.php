@@ -45,6 +45,19 @@ class YoungPeopleModel extends CI_Model
 
 	}
 
+	public function updateMemebership($id, $data){
+
+
+
+			$this->db->trans_start();
+			$this->db->where('id', $id);
+			$this->db->update('mploy_students', $data);
+			$this->db->trans_complete();
+			return $this->db->trans_status();
+
+
+
+	}
 
 
 

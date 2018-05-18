@@ -27,7 +27,10 @@ class SchoolsModel extends CI_Model
 
     }
 
+	public function newSchool($data){
+		$this->db->insert('mploy_schools', $data);
 
+	}
 
     public function updateSchoolContact($id,$data)
 	{
@@ -118,6 +121,7 @@ class SchoolsModel extends CI_Model
 
         $this->db->insert('mploy_school_history', $data);
 
+
     }
 
 	function getPlacements($where = null, $request = null, $limit = null, $offset = null)
@@ -135,7 +139,12 @@ class SchoolsModel extends CI_Model
 
 	}
 
+	function getStudentsTableHeader(){
 
+		$query = $this->db->list_fields('mploy_students');
+		return array('data'=>$query->result());
+
+	}
 
 
 }

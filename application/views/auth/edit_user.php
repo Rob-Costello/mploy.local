@@ -91,7 +91,7 @@
 								</div>
 								<div class="form-row">
 									<input type="submit" class="btn btn-mploy-submit" value="Save Changes">
-									<input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/customers')">
+									<input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/users')">
 								</div>
 								<?php echo form_close();?>
 

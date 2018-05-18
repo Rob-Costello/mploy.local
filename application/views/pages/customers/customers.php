@@ -35,7 +35,7 @@
 
 				<div  class="addButton col-md-offset-9 col-md-3">
 
-					<button class="  btn btn-mploy-submit waves-effect waves-light" style="float:right" onclick="window.location.replace('/customers/register')"><i class="fa fa-plus"></i>
+					<button class="  btn btn-mploy-submit waves-effect waves-light" style="float:right" onclick="window.location.replace('/users/register')"><i class="fa fa-plus"></i>
 						<span class="buttonText">Add Customer</span></button>
 				</div>
 
@@ -58,7 +58,7 @@
 						<?php foreach($headings as $key => $val): ?>
 
 
-							<?php foreach($customers['data'] as $person): ?>
+							<?php foreach($users['data'] as $person): ?>
 								<td>
 									<?php if(is_array($val)): ?>
 									<?php foreach($val as $v): ?>
@@ -74,7 +74,7 @@
 
 
 						<?php endforeach ?>
-						<td><a class="" href="/customers/edit/<?php echo $person->id;?>"> <i class="fa fa-edit"></i> </a></td>
+						<td><a class="" href="/users/edit/<?php echo $person->id;?>"> <i class="fa fa-edit"></i> </a></td>
 					</tr>
 					</tbody>
 
@@ -87,7 +87,7 @@
 		<!-- /.box -->
 		<div class="box-footer clearfix">
 			<div class="dataTables_info" id="example23_info" role="status" aria-live="polite">
-				Showing <?php echo $pagination_start; ?> to <?php echo $pagination_end; ?> of <?php $customers['count']; ?> entries</div>
+				Showing <?php echo $pagination_start; ?> to <?php echo $pagination_end; ?> of <?php $users['count']; ?> entries</div>
 			<div class="dataTables_paginate paging_simple_numbers">
 				<?php echo $pagination; ?>
 			</div>

@@ -17,11 +17,11 @@ class CompaniesModel extends CI_Model
         $this->db->select('*');
         $this->db->limit($limit, $offset);
         if( $where == null ) {
-            $query = $this->db->get('mploy_company_contacts');
-            $count = $this->db->from('mploy_company_contacts')->count_all_results();
+            $query = $this->db->get('mploy_contacts');
+            $count = $this->db->from('mploy_contacts')->count_all_results();
         } else {
-            $query = $this->db->get_where('mploy_company_contacts', $where);
-            $count = $this->db->from('mploy_company_contacts')->where($where)->count_all_results();
+            $query = $this->db->get_where('mploy_contacts', $where);
+            $count = $this->db->from('mploy_contacts')->where($where)->count_all_results();
         }
         return array('data' => $query->result(), 'count' => $count);
 
@@ -52,11 +52,11 @@ class CompaniesModel extends CI_Model
     function getCompanies($where = null, $request = null, $limit = null, $offset = null)
     {
 
-        $this->db->select('mcc.name AS main_contact, mc.*');
+        $this->db->select('*');
         $this->db->limit($limit, $offset);
-        $this->db->join('mploy_company_contacts mcc', 'mcc.id = mc.contact_id', 'left');
+        //$this->db->join('mploy_company_contacts mcc', 'mcc.id = mc.contact_id', 'left');
         if( $where == null ) {
-            $query = $this->db->get('mploy_companies mc');
+            $query = $this->db->get('mploy_companies');
             $count = $this->db->from('mploy_companies')->count_all_results();
         } else {
             $query = $this->db->get_where('mploy_companies mc', $where);

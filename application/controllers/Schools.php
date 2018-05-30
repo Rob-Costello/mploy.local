@@ -6,12 +6,12 @@ class Schools extends CI_Controller
 
 	public function __construct()
 	{
-
 		parent::__construct();
 		$this->load->model('login');
 		$this->load->library('session');
 		$this->load->library('ion_auth');
 		$this->load->model('SchoolsModel');
+		$this->load->model('StudentsModel');
 		$this->login->login_check_force();
 		$this->user = $this->ion_auth->user()->row();
 		$this->perPage =5;
@@ -47,8 +47,9 @@ class Schools extends CI_Controller
 		{
 			$offset = $page * $this->perPage;
 		}
-
-		$data['schools'] = $schools->getSchools(null, null, $this->perPage, $offset,$sortby);
+		//set organisation type to 1 for school
+		$where = 'organisation_type_id =1';
+		$data['schools'] = $schools->getSchools($where, null, $this->perPage, $offset,$sortby);
 		$page = $this->page($data['schools'],'/schools',$this->perPage);
 		$this->pagination->initialize($page);
 		$data['pagination_start'] = $offset + 1;
@@ -155,9 +156,6 @@ class Schools extends CI_Controller
 			$data['pagination_end'] = $data['contacts']['count'];
 		}
 		$data['pagination'] = $this->pagination->create_links();
-
-
-
 		$header = ['name', 'position', 'phone', 'email'];
 		$pretty = [];
 		array_walk($header, function ($item, $key) use (&$pretty)
@@ -319,7 +317,11 @@ class Schools extends CI_Controller
 
 	}
 
+	function showStudents(){
 
+		$student = new StudentsModel();
+		$student->getStudents();
+	}
 
 	function studentUpload($id){
 

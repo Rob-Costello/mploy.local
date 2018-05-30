@@ -10,10 +10,7 @@ $route['(:any)'] = "$1";
 $route['auth'] = 'auth';
 $route['users/register']='auth/create_user';
 $route['users/edit/(:num)']='auth/edit_user/$1';
-
 $route['schools'] = 'schools/index';
-
-
 $route['posts'] = 'posts/index';
 $route['default_controller'] = 'dashboard';
 $route['404_override'] = '';

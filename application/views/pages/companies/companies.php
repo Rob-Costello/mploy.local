@@ -43,11 +43,11 @@
 					<?php foreach($companies['data'] as $company): ?>
 					<tr>
 						<td><?php echo $company->name; ?>, <?php echo $company->town; ?></td>
-						<td><?php echo $company->last_modified; ?></td>
-						<td><?php echo $company->phone_number; ?></td>
-						<td><?php echo $company->main_contact; ?></td>
-						<td><?php echo $company->status; ?></td>
-						<td><a class="" href="/companies/view/<?php echo $company->id;?>"> <i class="fa fa-edit"></i> </a></td>
+						<td><?php echo $company->date_time; ?></td>
+						<td><?php echo $company->phone; ?></td>
+						<td><?php echo $company->first_name .' '.$company->last_name ; ?></td>
+						<td><?php echo $company->status;?></td>
+						<td><a class="" href="/companies/view/<?php echo $company->org_id;?>"> <i class="fa fa-edit"></i> </a></td>
 
 					</tr>
 					<?php endforeach ?>

@@ -14,7 +14,9 @@ class Companies extends CI_Controller
 		$this->user = $this->ion_auth->user()->row();
         $this->perPage =20;
         $this->offset =0;
+    
         $this->load->library('pagination');
+        $this->load->library('helpers');
 	}
 
 
@@ -27,9 +29,9 @@ class Companies extends CI_Controller
         if($pageNo > 0){
 			$offset = $pageNo * $this->perPage;
 		}
-
-		$data['companies'] = $companies->getCompanies(null, null, $this->perPage, $offset);
-		$page = $this->page($data['companies'],'/companies',$this->perPage);
+        $where = ['organisation_type_id' => '2'] ;
+		$data['companies'] = $companies->getCompanies($where, null, $this->perPage, $offset);
+		$page = $this->helpers->page($data['companies'],'/companies',$this->perPage);
         $this->pagination->initialize($page);
         $data['pagination_start'] = $offset + 1;
         $data['pagination_end'] = $data['pagination_start'] + $this->perPage;
@@ -73,13 +75,13 @@ class Companies extends CI_Controller
         $data['page'] = 'contacts';
         $data['user']=$this->user;
         $company = new CompaniesModel();
-
         $offset=0;
-
+        
         if($page > 0){
             $offset = $page * $this->perPage;
         }
-		$data['contacts'] = $company->getContacts(array('company_id'=>$data['id']), null, $this->perPage, $offset);
+        
+        $data['contacts'] = $company->getContacts(array('org_id'=>$data['id']), null, $this->perPage, $offset);
         $page = $this->page($data['contacts'],'/companies/view/'.$id.'/contacts',$this->perPage,$offset);
         $this->pagination->initialize($page);
         $data['pagination_start'] = $offset + 1;
@@ -91,7 +93,8 @@ class Companies extends CI_Controller
 
 
 
-        $header = ['name', 'position', 'phone', 'email'];
+        $header = ['first_name','last_name', 'job_title', 'phone', 'email'];
+       
         $pretty = [];
         array_walk($header, function ($item, $key) use (&$pretty) {
             $pretty[] = ucwords(str_replace('_', ' ', $item));
@@ -106,7 +109,7 @@ class Companies extends CI_Controller
 
     function contactDetails($id){
 
-
+        $data['user']=$this->user;
         $data['id']=$id;
         $company= new CompaniesModel();
         if(!empty($_POST)){
@@ -114,7 +117,7 @@ class Companies extends CI_Controller
             $data['message'] = "Information updated";
         }
         $data['table']= $company->getCompanyContact($id);
-        $this->load->view('pages/compnaies/company_contact_details',$data);
+        $this->load->view('pages/companies/company_contact_details',$data);
 
     }
 
@@ -129,9 +132,8 @@ class Companies extends CI_Controller
         $data['id'] = $id;
         $data['page'] = $page;
         $data['user']=$this->user;
-
+        $data['dropdown'] = $company->getDropDown();
         switch($page){
-
             case 'contacts':
                 $this->contacts($id, $pageNo);
                 break;
@@ -180,7 +182,6 @@ class Companies extends CI_Controller
         });
         $data['fields'] = $header;
         $data['table_header'] = $pretty;
-
         $this->load->view('pages/companies/company_history',$data);
     }
 }

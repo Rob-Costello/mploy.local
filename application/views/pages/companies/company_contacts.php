@@ -34,6 +34,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
+                                        
                                         <?php foreach($contacts['data'] as $school): ?>
                                             <tr>
 
@@ -43,7 +44,7 @@
 
                                                 <?php endforeach ?>
 
-                                            <td><a  href="/schools/contact_details/<?php echo $school->id;?>"> <i class="fa fa-edit"></i> </a></td></td>
+                                            <td><a  href="/companies/contactdetails/<?php echo $school->id; ?>"> <i class="fa fa-edit"></i> </a></td></td>
                                             </tr>
                                         <?php endforeach ?>
                                         </tbody>

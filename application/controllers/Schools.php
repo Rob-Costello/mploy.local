@@ -65,6 +65,7 @@ class Schools extends CI_Controller
 		$data['title'] = 'Schools';
 		$data['nav'] = 'schools';
 		$this->load->view('pages/schools/schools', $data);
+	
 	}
 
 	function page($model,$baseurl,$perPage=1)

@@ -33,7 +33,7 @@ class SchoolsModel extends CI_Model
 
     public function updateSchoolContact($id,$data)
 	{
-
+		
         $this->db->trans_start();
         $this->db->where('id', $id);
         $this->db->update('mploy_contacts', $data);

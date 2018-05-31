@@ -198,7 +198,7 @@
                                                     <label class=" ">
                                                         Company ERN
                                                     </label>
-                                                    <input type="text" name="postcode" class="form-control" value="<?php echo $table['postcode']; ?>" placeholder="Doe" >
+                                                    <input type="text" name="comp_ern" class="form-control" value="<?php echo $table['comp_ern']; ?>" placeholder="Doe" >
 
                                                 </div>
                                             </div>
@@ -210,7 +210,11 @@
                                                     </label>
 
                                                     <select name="industry" class="form-control">
-                                                        <option>Active</option>
+                                                       <?php foreach($dropdown as $d):?> 
+                                                        <option value="<?php echo $d->id; ?>">
+                                                        <?php 
+                                                        echo $d->name; ?></option>
+                                                        <?php endforeach ?>
                                                     </select>
 
 

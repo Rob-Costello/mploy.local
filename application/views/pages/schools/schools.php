@@ -64,7 +64,7 @@
 						<td><?php echo $school->phone_number; ?></td>
 						<td><?php echo $school->type; ?></td>
 						<td><?php echo $school->price; ?></td>
-						<td><a class="" href="/schools/view/<?php echo $school->id;?>"> <i class="fa fa-edit"></i> </a></td>
+						<td><a class="" href="/schools/view/<?php echo $school->org_id;?>"> <i class="fa fa-edit"></i> </a></td>
 
 					</tr>
 					<?php endforeach ?>

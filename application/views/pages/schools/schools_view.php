@@ -63,19 +63,9 @@
 
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-
-                                                    <div class="">
-                                                        <label >Type of Institution</label>
-                                                        <input type="tel" name="type" class="form-control" value="<?php echo $table['type'] ?>" placeholder="0123 456789" autocomplete="off" >
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            
                                             <!--/span-->
-                                        </div>
-
-                                        <div class="row">
+                                       
                                             <div class="col-md-6">
                                                 <div class="form-group">
 
@@ -86,6 +76,9 @@
 
                                                 </div>
                                             </div>
+                                            </div>
+
+                                        <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
 
@@ -96,9 +89,7 @@
 
                                             </div>
                                             <!--/span-->
-                                        </div>
-
-                                        <div class="row">
+                                       
                                             <div class="col-md-6">
                                                 <div class="form-group">
 
@@ -109,6 +100,9 @@
 
                                                 </div>
                                             </div>
+                                            </div>
+
+                                        <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class=" ">
@@ -122,11 +116,7 @@
                                                 </div>
                                             </div>
                                             <!--/span-->
-                                        </div>
-
-
-
-                                        <div class="row">
+                                        
                                             <div class="col-md-6">
                                                 <div class="form-group">
 
@@ -137,6 +127,11 @@
 
                                                 </div>
                                             </div>
+                                            </div>
+
+
+
+                                        <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class=" ">

@@ -46,7 +46,7 @@ class SchoolsModel extends CI_Model
 
     public function getSchoolContact($id)
 	{
-        $query = $this->db->get_where('mploy_school_contacts','id ='.$id);
+        $query = $this->db->get_where('mploy_contacts','id ='.$id);
         return $query->row_array();
     }
 
@@ -87,7 +87,7 @@ class SchoolsModel extends CI_Model
 
 	public function getSchool($id){
 
-		$query = $this->db->get_where('mploy_schools','id ='.$id);
+		$query = $this->db->get_where('mploy_organisations','school_id ='.$id);
 		return $query->row_array();
 
 	}
@@ -98,11 +98,11 @@ class SchoolsModel extends CI_Model
         $this->db->select('*');
         $this->db->limit($limit, $offset);
         if( $where == null ) {
-            $query = $this->db->get('mploy_school_history');
-            $count = $this->db->from('mploy_school_history')->count_all_results();
+            $query = $this->db->get('mploy_campaigns');
+            $count = $this->db->from('mploy_campaigns')->count_all_results();
         } else {
-            $query = $this->db->get_where('mploy_school_history', $where);
-            $count = $this->db->from('mploy_school_history')->where($where)->count_all_results();
+            $query = $this->db->get_where('mploy_campaigns', $where);
+            $count = $this->db->from('mploy_campaigns')->where($where)->count_all_results();
         }
         return array('data' => $query->result(), 'count' => $count);
 
@@ -121,11 +121,11 @@ class SchoolsModel extends CI_Model
 		$this->db->select('*');
 		$this->db->limit($limit, $offset);
 		if( $where == null ) {
-			$query = $this->db->get('mploy_school_placements');
-			$count = $this->db->from('mploy_school_placements')->count_all_results();
+			$query = $this->db->get('mploy_contacts');
+			$count = $this->db->from('mploy_contacts')->count_all_results();
 		} else {
-			$query = $this->db->get_where('mploy_school_placements', $where);
-			$count = $this->db->from('mploy_school_placements')->where($where)->count_all_results();
+			$query = $this->db->get_where('mploy_contacts', $where);
+			$count = $this->db->from('mploy_contacts')->where($where)->count_all_results();
 		}
 		return array('data' => $query->result(), 'count' => $count);
 

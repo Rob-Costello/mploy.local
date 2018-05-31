@@ -147,7 +147,7 @@ class Schools extends CI_Controller
 		{
 			$offset = $page * $this->perPage;
 		}
-		$data['contacts'] = $school->getContacts(array('school_id'=>$data['id']), null, $this->perPage, $offset);
+		$data['contacts'] = $school->getContacts(array('school_id'=>$data['id'],'contact_type'=>'3' ), null, $this->perPage, $offset);
 		$page = $this->page($data['contacts'],'/schools/view/'.$id.'/contacts',$this->perPage,$offset);
 		$this->pagination->initialize($page);
 		$data['pagination_start'] = $offset + 1;
@@ -157,7 +157,7 @@ class Schools extends CI_Controller
 			$data['pagination_end'] = $data['contacts']['count'];
 		}
 		$data['pagination'] = $this->pagination->create_links();
-		$header = ['name', 'position', 'phone', 'email'];
+		$header = ['first_name','last_name', 'job_title', 'phone', 'email'];
 		$pretty = [];
 		array_walk($header, function ($item, $key) use (&$pretty)
 		{
@@ -218,7 +218,7 @@ class Schools extends CI_Controller
 			$offset = $page * $this->perPage;
 		}
 
-		$data['contacts'] = $school->getHistory(['school_id'=>$data['id']], null, $this->perPage, $offset);
+		$data['contacts'] = $school->getHistory(['select_school'=>$data['id']], null, $this->perPage, $offset);
 		$page = $this->page($data['contacts'],'/schools/view/'.$id.'/history',$this->perPage);
 		$this->pagination->initialize($page);
 		$data['pagination_start'] = $offset + 1;
@@ -274,7 +274,7 @@ class Schools extends CI_Controller
 		$data['tabs'] = $this->tabs;
 		$data['table_header'] = $pretty;
 		$data['fields'] = $header;
-		$data['active'] = $school->getPlacements("status not like '%complete%'");
+		$data['active'] = $school->getPlacements("placement_company_id >0 and placement_end_date > now()");//need to check if placement end date has expired
 		$this->load->view('pages/schools/school_placements',$data);
 
 	}

@@ -40,7 +40,7 @@
                             <div class="">
 
                                 <div class="box-header with-border">
-                                    <h3 class="box-title">New School Contact</h3>
+                                    <h3 class="box-title">School Contact</h3>
                                 </div>
 
 
@@ -53,8 +53,8 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
 
-                                                    <label class=" ">School Name *</label>
-                                                    <input type="text" name="name" class="form-control" value="<?php echo $table['name']; ?>" placeholder="Name" >
+                                                    <label class=" ">First Name</label>
+                                                    <input type="text" name="first_name" class="form-control" value="<?php echo $table['first_name']; ?>" placeholder="Name" >
 
                                                 </div>
                                             </div>
@@ -62,8 +62,8 @@
                                                 <div class="form-group">
 
                                                     <div class="">
-                                                        <label >Position</label>
-                                                        <input type="text" name="position" class="form-control" value="<?php echo $table['position'] ?>" placeholder="Position" autocomplete="off" >
+                                                        <label >Surname</label>
+                                                        <input type="text" name="last_name" class="form-control" value="<?php echo $table['last_name'] ?>" placeholder="Position" autocomplete="off" >
                                                     </div>
                                                 </div>
                                             </div>

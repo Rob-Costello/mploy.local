@@ -14,7 +14,7 @@ class Schools extends CI_Controller
 		$this->load->model('StudentsModel');
 		$this->login->login_check_force();
 		$this->user = $this->ion_auth->user()->row();
-		$this->perPage =5;
+		$this->perPage =20;
 		$this->offset =0;
 		$this->load->library('pagination');
 		$this->tabs = array('School Information' =>'',
@@ -288,7 +288,6 @@ class Schools extends CI_Controller
 			$success = $school->createCall($this->input->post());
 			$data['messages'] = "Information updated";
 		}
-
 		$this->load->view('pages/schools/schools_new_placement',$data);
 
 	}

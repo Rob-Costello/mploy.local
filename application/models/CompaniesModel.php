@@ -98,11 +98,17 @@ class CompaniesModel extends CI_Model
         $this->db->select('*');
         $this->db->limit($limit, $offset);
         if( $where == null ) {
-            $query = $this->db->get('mploy_company_history');
-            $count = $this->db->from('mploy_company_history')->count_all_results();
+            $query = $this->db->get('mploy_campaigns');
+            $count = $this->db->from('mploy_campaigns')->count_all_results();
         } else {
-            $query = $this->db->get_where('mploy_company_history', $where);
-            $count = $this->db->from('mploy_company_history')->where($where)->count_all_results();
+            $this->db->from('mploy_campaigns');
+            $this->db->join('mploy_campaign_activity','mploy_campaign_activity.campaign_ref = mploy_campaigns.campaign_id','left');
+            
+            //$this->db->join('mploy_contact_history', 'mploy_contact_history.receiver = mploy_contacts.id','left');
+            $this->db->where($where);
+            $query = $this->db->get();
+            //$query = $this->db->get_where('mploy_campaigns', $where);
+            $count = $this->db->from('mploy_campaign_activity')->where($where)->count_all_results();
         }
         return array('data' => $query->result(), 'count' => $count);
 

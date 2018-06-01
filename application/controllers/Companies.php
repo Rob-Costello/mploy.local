@@ -22,7 +22,7 @@ class Companies extends CI_Controller
 
 	function index( $pageNo = 0 )
 	{
-		$data['headings'] = ['Name','Last Updated','Main Telephone','Main Contact','Status'];
+		$data['headings'] = ['Name','Main Telephone','Main Contact','Status'];
 		$companies = new CompaniesModel();
         $offset=0;
 
@@ -165,7 +165,7 @@ class Companies extends CI_Controller
             $offset = $page * $this->perPage;
         }
 
-		$data['contacts'] = $company->getHistory(['company_id'=>$data['id']], null, $this->perPage, $offset);
+		$data['contacts'] = $company->getHistory(['mploy_campaign_activity.org_id'=>$data['id']], null, $this->perPage, $offset);
         $page = $this->page($data['contacts'],'/companies/contacts/',$this->perPage);
         $this->pagination->initialize($page);
         $data['pagination_start'] = $offset + 1;

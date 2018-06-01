@@ -37,9 +37,7 @@ class Schools extends CI_Controller
 			'Town' => 'town',
 			'County' => 'county',
 			'Postcode' => 'postcode',
-			'Phone Number' => 'phone_number',
-			'Type of Institution' => 'type',
-			'Funding Model' => 'price'];
+			'Phone Number' => 'phone_number'];
 		$schools = new SchoolsModel();
 		$offset=0;
 

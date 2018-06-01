@@ -1,4 +1,59 @@
 
+@font-face {
+	font-family: 'Myriad';
+	src: url('MyriadPro-Regular.woff') format('woff') /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+	
+}
+
+@font-face {
+	font-family: 'Myriad-Heading';
+	src: url('MyriadPro-Semibold.woff') format('woff') /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+	
+}
+
+
+
+
+body{
+font-family:'Myriad', sans-serif;
+
+}
+
+
+h1,h2,h3,h4{
+
+	font-family:'Myriad-Heading', sans-serif;
+
+
+}
+
+
+.available{
+background-color:#80ba27;
+color:#fff;
+}
+
+.not-willing-to-take{
+
+	background-color:#e63329;
+	color:#fff;
+
+}
+
+.pending{
+
+	background-color:#f28c00;	
+	color:#fff;
+}
+
+.ceased-trading{
+
+	background-color:#747373;
+	color:#fff;
+
+}
+
+
 .btn{
 	padding: 8px 20px;
 	font-size: 16px;

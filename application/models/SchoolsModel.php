@@ -27,7 +27,7 @@ class SchoolsModel extends CI_Model
     }
 
 	public function newSchool($data){
-		$this->db->insert('mploy_schools', $data);
+		$this->db->insert('mploy_organisations', $data);
 
 	}
 
@@ -77,8 +77,8 @@ class SchoolsModel extends CI_Model
 	public function updateSchool($id,$data)
 	{
             $this->db->trans_start();
-            $this->db->where('id', $id);
-            $this->db->update('mploy_schools', $data);
+            $this->db->where('school_id', $id);
+            $this->db->update('mploy_organisations', $data);
             $this->db->trans_complete();
             return $this->db->trans_status();
 

@@ -32,7 +32,7 @@ class CompaniesModel extends CI_Model
 
         $this->db->trans_start();
         $this->db->where('id', $id);
-        $this->db->update('mploy_company_contacts', $data);
+        $this->db->update('mploy_contacts', $data);
         $this->db->trans_complete();
         return $this->db->trans_status();
 

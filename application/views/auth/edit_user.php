@@ -1,3 +1,4 @@
+
 <?php $this->load->view('templates/header'); ?>
 
 
@@ -90,7 +91,8 @@
 
 								</div>
 								<div class="form-row">
-									<input type="submit" class="btn btn-mploy-submit" value="Save Changes">
+								<input type="submit" class="btn btn-mploy-submit" value="Save Changes">
+								
 									<input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/users')">
 								</div>
 								<?php echo form_close();?>
@@ -137,3 +139,24 @@
 
 
 	<?php $this->load->view('templates/footer'); ?>
+	<script>
+$(function () {
+
+        $('#button').on('click', function (e) {
+
+          e.preventDefault();
+
+          $.ajax({
+            type: 'post',
+			//url:<?php echo uri_string();?>
+           
+            data: $('form').serialize(),
+            success: function (data) {
+              alert(data);
+            }
+          });
+
+        });
+
+      });
+	  </script>

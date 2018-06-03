@@ -23,6 +23,12 @@
 
 		<div class="box">
 
+<?php if(isset($_SESSION['message'])):?>
+
+<div id="message">
+<?php echo $_SESSION['message'] ?>
+</div>
+<?php endif ?>
 
 			<div style="" class="box-header">
 
@@ -97,19 +103,25 @@
 
 <?php $this->load->view('templates/footer'); ?>
 
+
+
+
+
 <script>
 	$(function () {
-		$('#example1').DataTable()
-		$('#example2').DataTable({
-			'paging'      : true,
-			'lengthChange': false,
-			'searching'   : false,
-			'ordering'    : true,
-			'info'        : true,
-			'autoWidth'   : false
-		})
+		if($("#message").length){
+
+			$.ajax({
+            type: 'post',
+			url:'users/message';
+           
+            data: {remove:'true'},
+            success: function (data) {
+              alert('done');
+            }
+          });
+
+		}
+
 	})
 </script>
-
-
-

@@ -48,8 +48,10 @@ class Auth extends CI_Controller
 				$this->data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
 			}
 				$this->data['user'] = $this->ion_auth->user()->row();
-
-			$this->_render_page('pages/customers', $this->data);
+			
+			//$this->_render_page('pages/customers/customers', $this->data);
+			redirect('users','refresh');
+			//return 'success';
 		}
 	}
 
@@ -649,6 +651,7 @@ class Auth extends CI_Controller
 				if ($this->ion_auth->update($user->id, $data))
 				{
 					// redirect them back to the admin page if admin, or to the base url if non admin
+					$_SESSION['message']= "Updated user info successfully!";
 					$this->session->set_flashdata('message', $this->ion_auth->messages());
 					$this->redirectUser();
 

@@ -111,7 +111,8 @@
 										</div>
 
 								</div>
-								<input type="submit" class="btn btn-mploy-submit" value="Save Changes">
+								<!--<input type="submit" class="btn btn-mploy-submit" value="Save Changes">-->
+								<button class="btn btn-mploy-submit"> Save Changes </button>
 								<input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/schools/view/<?php echo $id; ?>/placements/')">
 								</form>
 							</div>

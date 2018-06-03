@@ -68,7 +68,9 @@ class Schools extends CI_Controller
 
 	function page($model,$baseurl,$perPage=1)
 	{
+		$pagConfig['num_links'] = 8;
 
+		$pagConfig['use_page_numbers'] = TRUE; 
 		$pagConfig['full_tag_open'] = '<ul class="pagination pagination-sm no-margin pull-right">';
 		$pagConfig['full_tag_close'] = '</ul>';
 		$pagConfig['base_url'] = $baseurl;
@@ -251,7 +253,7 @@ class Schools extends CI_Controller
 		$data['contacts']=$school->getContacts(array('school_id'=>$data['id']));
 		$data['messages']='';
 		if(!empty($_POST)){
-			$success = $school->createCall($this->input->post());
+			//$success = $school->createCall($this->input->post());
 			$data['messages'] = "Call Added";
 		}
 
@@ -285,7 +287,7 @@ class Schools extends CI_Controller
 		$data['messages']='';
 		if(!empty($_POST))
 		{
-			$success = $school->createCall($this->input->post());
+			//$success = $school->createCall($this->input->post());
 			$data['messages'] = "Information updated";
 		}
 		$this->load->view('pages/schools/schools_new_placement',$data);

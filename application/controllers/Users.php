@@ -14,7 +14,7 @@ class Users extends CI_Controller
 		$this->load->model('CustomersModel');
 		$this->login->login_check_force();
 		$this->user = $this->ion_auth->user()->row();
-		$this->perPage = 5;
+		$this->perPage = 20;
 		$this->offset = 0;
 		$this->load->library('pagination');
 		$this->load->library(array('ion_auth', 'form_validation'));
@@ -23,6 +23,15 @@ class Users extends CI_Controller
 			'School Contacts' => 'contacts',
 			'School Placements' => 'placements',
 			'School Call History' => 'history');
+	}
+
+	function message(){
+
+		if (!empty($_POST)) {
+			unset($_SESSION['message']);
+		}
+
+
 	}
 
 

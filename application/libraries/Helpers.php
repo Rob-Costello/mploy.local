@@ -8,6 +8,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	function page($model, $baseurl, $perPage = 5)
 	{
 
+		$pagConfig['num_links'] = 8;	
+		$pagConfig['use_page_numbers'] = TRUE; 
 		$pagConfig['full_tag_open'] = '<ul class="pagination pagination-sm no-margin pull-right">';
 		$pagConfig['full_tag_close'] = '</ul>';
 		$pagConfig['base_url'] = $baseurl;

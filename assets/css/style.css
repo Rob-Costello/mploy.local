@@ -59,6 +59,13 @@ color:#fff;
 	font-size: 16px;
 }
 
+.white-btn{
+
+	border-color: #000;
+	border-width: 1px;
+
+}
+
 .upload-btn-wrapper {
 	position: relative;
 	overflow: hidden;

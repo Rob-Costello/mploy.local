@@ -31,7 +31,8 @@ class Companies extends CI_Controller
 		}
         $where = ['organisation_type_id' => '2'] ;
 		$data['companies'] = $companies->getCompanies($where, null, $this->perPage, $offset);
-		$page = $this->helpers->page($data['companies'],'/companies',$this->perPage);
+        //$data['companies']=$output;
+        $page = $this->helpers->page($data['companies'],'/companies',$this->perPage);
         $this->pagination->initialize($page);
         $data['pagination_start'] = $offset + 1;
         $data['pagination_end'] = $data['pagination_start'] + $this->perPage;
@@ -66,7 +67,6 @@ class Companies extends CI_Controller
 		$pagConfig['next_tag_close'] = '</li>';
 
 		return $pagConfig;
-
 	}
 
     function contacts($id, $page=0)
@@ -91,8 +91,6 @@ class Companies extends CI_Controller
         }
         $data['pagination'] = $this->pagination->create_links();
 
-
-
         $header = ['first_name','last_name', 'job_title', 'phone', 'email'];
        
         $pretty = [];
@@ -101,7 +99,6 @@ class Companies extends CI_Controller
         });
         $data['fields'] = $header;
         $data['table_header'] = $pretty;
-
         $this->load->view('pages/companies/company_contacts',$data);
     }
 
@@ -122,7 +119,7 @@ class Companies extends CI_Controller
     }
 
 
-	function view($id, $page = null, $pageNo = 0 ){
+	function view($id=0, $page = null, $pageNo = 0 ){
 
         $company= new CompaniesModel();
         if(!empty($_POST)){

@@ -67,6 +67,8 @@ class CompaniesModel extends CI_Model
             $this->db->join('mploy_contacts','mploy_contacts.id = mploy_organisations.main_contact_id','left');
             //$this->db->join('mploy_contact_history', 'mploy_contact_history.receiver = mploy_contacts.id','left');
             $this->db->where($where);
+            $this->db->where('mploy_organisations.org_id is not null');
+
             $query=$this->db->get();
             $count = $this->db->from('mploy_organisations')->where($where)->count_all_results();
         }

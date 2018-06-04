@@ -63,7 +63,7 @@
 
                                                     <div class="">
                                                         <label >Surname</label>
-                                                        <input type="text" name="last_name" class="form-control" value="<?php echo $table['last_name'] ?>" placeholder="Position" autocomplete="off" >
+                                                        <input type="text" name="last_name" class="form-control" value="<?php echo $table['last_name'] ?>" placeholder="Doe" autocomplete="off" >
                                                     </div>
                                                 </div>
                                             </div>
@@ -85,7 +85,7 @@
                                                 <div class="form-group">
 
                                                     <label >Email</label>
-                                                    <input type="tel" name="email" class="form-control" value="<?php echo $table['email'] ?>" placeholder="0123 456789" autocomplete="off" >
+                                                    <input type="tel" name="email" class="form-control" value="<?php echo $table['email'] ?>" placeholder="john.doe@fakename.com" autocomplete="off" >
                                                 </div>
 
 

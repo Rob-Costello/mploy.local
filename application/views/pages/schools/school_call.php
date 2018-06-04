@@ -59,7 +59,7 @@
                                                 <div class="form-group">
 
                                                     <label class=" ">Date</label>
-                                                    <input type="text" name="date" class="form-control" value="" placeholder="date" >
+                                                    <input type="text" name="date" class="form-control" value="" placeholder="01-01-2001" >
 
                                                 </div>
                                             </div>
@@ -67,8 +67,8 @@
                                                 <div class="form-group">
 
                                                     <div class="">
-                                                        <label >Time</label>
-                                                        <input type="text" name="time" class="form-control" value="" placeholder="Time" autocomplete="off" >
+                                                        <label >Caller</label>
+                                                        <input type="text" name="time" class="form-control" value="" placeholder="02-01-2001" autocomplete="off" >
                                                     </div>
                                                 </div>
                                             </div>
@@ -79,14 +79,10 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
 
-                                                    <label class=" ">
-                                                        Caller
-                                                    </label>
-                                                    <select name="caller" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
-                                                        <?php foreach($contacts['data'] as $row):?>
-                                                        <option value="<?php echo $row->name; ?>"> <?php echo $row->name; ?> </option>
-                                                        <?php  endforeach  ?>
-                                                    </select>
+                                                     <div class="">
+                                                        <label >Caller</label>
+                                                        <input type="text" name="time" class="form-control" value="" placeholder="John Doe" autocomplete="off" >
+                                                    </div>
 
 
 
@@ -96,7 +92,7 @@
                                                 <div class="form-group">
 
                                                     <label >Receiver</label>
-                                                    <input type="text" name="receiver" class="form-control" value="" placeholder="Name" autocomplete="off" >
+                                                    <input type="text" name="receiver" class="form-control" value="" placeholder="Jane Doe" autocomplete="off" >
                                                 </div>
 
 
@@ -121,7 +117,7 @@
                                                 <div class="form-group">
 
                                                     <label >Call Notes</label>
-                                                    <textarea style="width:100%" class="form-control" type="textarea" name="call_notes" class="form-control" value="" placeholder="Name" autocomplete="off" ></textarea>
+                                                    <textarea style="width:100%" class="form-control" type="textarea" name="call_notes" class="form-control" value="" placeholder="Add a note here.." autocomplete="off" ></textarea>
                                                 </div>
 
 												<input type="hidden" value="<?php echo $id; ?>" name="school_id">

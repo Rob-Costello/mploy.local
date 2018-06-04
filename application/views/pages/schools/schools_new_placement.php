@@ -44,7 +44,7 @@
 												<div class="form-group">
 
 													<label class=" ">Start Date</label>
-													<input type="text" name="start_date" class="form-control" value="" placeholder="date" >
+													<input type="text" name="start_date" class="form-control" value="" placeholder="01-01-2001" >
 
 												</div>
 											</div>
@@ -53,7 +53,7 @@
 
 													<div class="">
 														<label >End Date</label>
-														<input type="text" name="end_date" class="form-control" value="" placeholder="Time" autocomplete="off" >
+														<input type="text" name="end_date" class="form-control" value="" placeholder="01-02-2001" autocomplete="off" >
 													</div>
 												</div>
 											</div>
@@ -102,7 +102,7 @@
 												<div class="form-group">
 
 													<label >Call Notes</label>
-													<textarea style="width:100%" class="form-control" type="textarea" name="receiver" class="form-control" value="" placeholder="Name" autocomplete="off" ></textarea>
+													<textarea style="width:100%" class="form-control" type="textarea" name="receiver" class="form-control" value="" placeholder="" autocomplete="off" ></textarea>
 												</div>
 
 

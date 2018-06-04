@@ -72,7 +72,7 @@
                                                     <label class=" ">
                                                         Address 1
                                                     </label>
-                                                    <input type="text" name="address1" class="form-control" value="<?php echo $table['address1']; ?>" placeholder="Doe" >
+                                                    <input type="text" name="address1" class="form-control" value="<?php echo $table['address1']; ?>" placeholder="123 Fake Road" >
 
                                                 </div>
                                             </div>
@@ -83,7 +83,7 @@
                                                 <div class="form-group">
 
                                                     <label >Address 2</label>
-                                                    <input type="tel" name="address2" class="form-control" value="<?php echo $table['address2'] ?>" placeholder="0123 456789" autocomplete="off" >
+                                                    <input type="tel" name="address2" class="form-control" value="<?php echo $table['address2'] ?>" placeholder="Fake Area" autocomplete="off" >
                                                 </div>
 
 
@@ -123,7 +123,7 @@
                                                     <label class=" ">
                                                         Postcode
                                                     </label>
-                                                    <input type="text" name="postcode" class="form-control" value="<?php echo $table['postcode']; ?>" placeholder="Doe" >
+                                                    <input type="text" name="postcode" class="form-control" value="<?php echo $table['postcode']; ?>" placeholder="WA10 1PP" >
 
                                                 </div>
                                             </div>

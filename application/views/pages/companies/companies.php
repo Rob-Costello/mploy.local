@@ -48,9 +48,9 @@
 						<td><?php echo $company->first_name .' '.$company->last_name ; ?></td>
 						<td  >
 						
-							<span class="btn <?php echo strtolower(str_replace(' ','-',$company->status)); ?>"> 
+							
 							<?php echo $company->status;?>
-</span>
+
 						</td>
 						<td><a class="" href="/companies/view/<?php echo $company->org_id;?>"> <i class="fa fa-edit"></i> </a></td>
 

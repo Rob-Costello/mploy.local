@@ -141,7 +141,7 @@ class Companies extends CI_Controller
 
             default:
                 $data['table']= $company->getCompany($id);
-                $this->load->view('pages/companies/company_view',$data);
+                $this->load->view('pages/campaigns/campaign_view',$data);
 
         }
 

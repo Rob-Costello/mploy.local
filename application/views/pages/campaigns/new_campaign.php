@@ -235,6 +235,7 @@
                                     <input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/companies/campaigns ?>/contacts')">
                                     </div>
                                 </div>
+                                <input type="hidden" name="active" value="1">
                                 </form>
                             </div>
 

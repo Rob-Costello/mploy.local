@@ -69,7 +69,7 @@
                             <?php echo $company->$h; ?>
 						</td>
 						<?php endforeach ?>
-                        <td><a class="" href="/companies/view/<?php echo $company->campaign_id;?>"> <i class="fa fa-edit"></i> </a></td>
+                        <td><a class="" href="/campaigns/employers"> <i class="fa fa-edit"></i> </a></td>
 					</tr>
 					<?php endforeach ?>
 					</tbody>

@@ -4,7 +4,8 @@
 class Campaigns extends CI_Controller
 {
 
-	public function __construct(){
+	public function __construct()
+	{
 
 		parent::__construct();
 		$this->load->model('login');
@@ -22,7 +23,7 @@ class Campaigns extends CI_Controller
 
 	function index( $pageNo = 0 )
 	{
-		$data['headings'] = ['Name','Main Telephone','Main Contact','Status'];
+		$data['headings'] = ['campaign_name','campaign_place_start_date','campaign_place_end_date','status','school_name'];
 		$companies = new CampaignsModel();
         $offset=0;
 
@@ -30,7 +31,8 @@ class Campaigns extends CI_Controller
 			$offset = $pageNo * $this->perPage;
 		}
         
-        $where = ['active' => '1'] ;
+		//$where = ['active' => '1'] ;
+		$where = null;
 		$data['campaigns'] = $companies->getCampaigns($where, null, $this->perPage, $offset);
         //$data['companies']=$output;
         $page = $this->helpers->page($data['campaigns'],'/companies',$this->perPage);
@@ -49,23 +51,59 @@ class Campaigns extends CI_Controller
 		$this->load->view('pages/campaigns/campaigns', $data);
     }
 
-    function newCampaign(){
-
+	function newCampaign()
+	{
         $data['user']=$this->user;
-        //$data['id']=$id;
-        $company= new CampaignsModel();
-        if(!empty($_POST)){
-            $success = $company->updateCompanyContact($id,$this->input->post());
+        $company= new CampaignsModel();	
+		$start = $this->input->post('start_date');
+		$end = $this->input->post('end_date');
+		$holiday = $this->input->post('holiday');
+		$output ="";
+		
+		$dates= ['campaign_start_date','campaign_place_start_date',
+		'campaign_place_end_date','mailshot_1_date','mailshot_2_date',
+		'employer_engagement_start','employer_engagement_end','self_place_deadline',
+		'matching_start','matching_end'];
+
+		foreach($dates as $d){
+
+			$_POST[$d] = date("Y-m-d", strtotime($this->input->post($d)));
+		}
+
+		if(null !== $start){
+			for($i=0; $i < count($start); $i++){
+				$output .= $start[$i].' '.$end[$i].' '.$holiday[$i];
+			}
+		}
+
+		unset($_POST['start_date']);
+		unset($_POST['end_date']);
+		unset($_POST['holiday']);
+		
+		if(!empty($_POST)){
+			foreach($dates as $d){
+
+				$_POST[$d] = date("Y-m-d", strtotime($this->input->post($d)));
+			}
+			
+			$success = $company->createCampaign($this->input->post());
             $data['message'] = "Information updated";
-        }
-        //$data['table']= $company->getCompanyContact($id);
-        $this->load->view('pages/campaigns/new_campaign',$data);
+			
+
+		}
+		
+		$this->load->view('pages/campaigns/new_campaign',$data);
 
     }
 
+	function view($id){
 
 
 
+	}
+
+
+	
 
 
 

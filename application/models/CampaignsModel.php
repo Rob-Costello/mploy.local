@@ -21,7 +21,6 @@ class CampaignsModel extends CI_Model
         } else {
             
             $query = $this->db->get_where('mploy_campaigns', $where);
-            
             $count = $this->db->from('mploy_campaigns')->where($where)->count_all_results();
         }
         return array('data' => $query->result(), 'count' => $count);
@@ -45,5 +44,12 @@ class CampaignsModel extends CI_Model
         return $query->row_array();
 
     }
+
+    public function createCampaign($data){
+
+        $this->db->insert('mploy_campaigns', $data);
+
+    }
+
 
 }

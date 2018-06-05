@@ -73,6 +73,13 @@ class SchoolsModel extends CI_Model
 
 	}
 
+	function schoolList($search){
+
+		$this->db->select('school_id , name');
+		$this->db->like('name', $search);
+		$query = $this->db->get_where('mploy_organisations',['organisation_type_id'=>'1',]);
+		return $query->result_array();
+	}
 
 	public function updateSchool($id,$data)
 	{

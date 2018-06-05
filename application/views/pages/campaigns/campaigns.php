@@ -22,7 +22,19 @@
 
 
 		<div class="box">
-			<div class="box-header"></div>
+        <div class="col-md-offset-6 col-md-6">
+        <form  method="POST" class="sidebar-form">
+        <div class="input-group">
+          <input style="margin:20px; padding:19px;" type="text" name="search" class="form-control" placeholder="Search...">
+          <span class="input-group-btn">
+                <button style="z-index:100" type="submit" name="search" id="search-btn" class="btn btn-flat btn-mploy">
+                    <i class=" fa fa-search"></i>
+                </button>
+              </span>
+        </div>
+      </form>
+        </div>
+        <div class="box-header"></div>
 			<div class="box-header">
 				<h2 class="box-title">
 					<?= $title; ?>
@@ -33,7 +45,7 @@
             <div  class="addButton col-md-offset-9 col-md-3">
 
 					<button class="  btn btn-mploy-submit waves-effect waves-light" style="float:right" onclick="window.location.replace('/campaigns/newcampaign')"><i class="fa fa-plus"></i>
-						<span class="buttonText">Add School</span></button>
+						<span class="buttonText">Create Campaign</span></button>
 				</div>
 
             <div class="box-body">
@@ -50,19 +62,14 @@
 					</thead>
 					<tbody>
 					<?php foreach($campaigns['data'] as $company): ?>
-					<tr>
-						<td><?php echo $company->name; ?>, <?php echo $company->town; ?></td>
-						
-						<td><?php echo $company->phone; ?></td>
-						<td><?php echo $company->first_name .' '.$company->last_name ; ?></td>
+                    <tr>    
+                    <?php foreach($headings as $h): ?>
+                   
 						<td>
-						
-							
-							<?php echo $company->status;?>
-
+                            <?php echo $company->$h; ?>
 						</td>
-						<td><a class="" href="/companies/view/<?php echo $company->id;?>"> <i class="fa fa-edit"></i> </a></td>
-
+						<?php endforeach ?>
+                        <td><a class="" href="/companies/view/<?php echo $company->campaign_id;?>"> <i class="fa fa-edit"></i> </a></td>
 					</tr>
 					<?php endforeach ?>
 					</tbody>
@@ -92,10 +99,6 @@
 	</section>
 
 </div>
-
-
-
-
 
 
 

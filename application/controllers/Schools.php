@@ -313,14 +313,24 @@ class Schools extends CI_Controller
 			return $data;
 		}
 
-
-
 	}
+
+	function getSchools(){
+		
+		$school = new SchoolsModel(); 
+		header('Content-Type: application/json');
+		if (isset($_GET['term'])) {           
+		echo json_encode($school->schoolList($_GET['term']));
+	    }
+
+	} 
+
 
 	function showStudents(){
 
 		$student = new StudentsModel();
 		$student->getStudents();
+
 	}
 
 	function studentUpload($id){

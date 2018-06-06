@@ -4,6 +4,7 @@ class CampaignsModel extends CI_Model
 {
 
 
+
     public function __construct()
     {
         parent::__construct();
@@ -45,7 +46,7 @@ class CampaignsModel extends CI_Model
 
 
     public function availableCampaigns(){
-
+        $this->db->join('mploy_contacts','mploy_campaigns.select_school = mploy_contacts.school_id');
 		$this->db->group_by('select_school');
 		$company = $this->db->get_where('mploy_campaigns','active =1');
 
@@ -83,7 +84,6 @@ class CampaignsModel extends CI_Model
 
     public function employerDetails($ref, $id)
     {
-       
         $this->db->join('mploy_contacts','mploy_organisations.comp_id = mploy_contacts.org_id','left');
         $company = $this->db->get_where('mploy_organisations','comp_id ='.$id);
         
@@ -117,9 +117,14 @@ class CampaignsModel extends CI_Model
 
     public function listCampaigns($campaign){
 
-    	$query = $this->db->get_where('mploy_campaigns');
+    	$query = $this->db->get_where('mploy_campaigns','select_school='.$campaign);
 
     	return $query->result_array();
 	}
 
+	public function lookupCampaign($id){
+        $this->db->join('mploy_contacts','mploy_campaigns.select_school = mploy_contacts.school_id','left');
+        $query = $this->db->get_where('mploy_campaigns','campaign_id='.$id);
+        return $query->row_array();
+    }
 }

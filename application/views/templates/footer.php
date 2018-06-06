@@ -43,5 +43,33 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
+<script>
+    function campaigns(id)
+    {
+        var target = '/campaigns/findCampaigns';
+        var data =id;
+        $.ajax({
+            url: target,
+            type: 'POST',
+            data: {school:data},
+            success: function(data, textStatus, XMLHttpRequest)
+            {
+                $('#campaign-dropdown').html(data);
+            }
+        });
+    }
+    $(function(){
+
+            campaigns($('#school-dropdown').val());
+
+    });
+    $(function(){
+        $('#school-dropdown').change(function(){
+            campaigns($('#school-dropdown').val());
+        });
+    });
+
+</script>
+
 </body>
 </html>

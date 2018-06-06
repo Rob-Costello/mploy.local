@@ -37,7 +37,6 @@ class Campaigns extends CI_Controller
 		//$where = ['active' => '1'] ;
 		$where = null;
 		$data['campaigns'] = $companies->getCampaigns($where, null, $this->perPage, $offset);
-        //$data['companies']=$output;
         $page = $this->helpers->page($data['campaigns'],'/campaigns',$this->perPage);
         $this->pagination->initialize($page);
         $data['pagination_start'] = $offset + 1;
@@ -59,6 +58,8 @@ class Campaigns extends CI_Controller
 
 	function newCampaign()
 	{
+
+        $data['campaign_list'] = $this->availableCampaigns;
         $data['user']=$this->user;
         $company= new CampaignsModel();	
 		$start = $this->input->post('start_date');
@@ -103,12 +104,16 @@ class Campaigns extends CI_Controller
     }
 
 		function employers( $camp_ref, $pageNo = 0 ){
-				
+
+
+	        $data['campaign_list'] = $this->availableCampaigns;
 			$data['headings'] = ['name','campaign_place_start_date','campaign_place_end_date','status','select_school'];
 				$where = ['org_type'=>'2','status'=>'Available'];
 
 				$campaign= new campaignsModel();
-				
+                $school = $campaign-> lookupCampaign($camp_ref);
+
+                //var_dump($school->school_name);
 				if(!empty($_POST)){
 					$success = $company->getCampaign($id,$this->input->post());
 					$data['message'] = "Information updated";
@@ -144,7 +149,7 @@ class Campaigns extends CI_Controller
 				$data['user'] = $this->user;
 				$data['title'] = 'Campaign';
 				$data['nav'] = 'campaign';
-				$data['camp_id'] = $camp_ref;
+				$data['camp_id'] = $school['select_school'];
 				$data['table']= $campaign->getEmployers($where,null, $this->perPage, $offset);
 				$this->load->view('pages/campaigns/campaign_employers',$data);
 		
@@ -154,7 +159,8 @@ class Campaigns extends CI_Controller
 
 			function employerDetails($camp_ref,$id)
 			{
-				$campaign= new campaignsModel();
+                $data['campaign_list'] = $this->availableCampaigns;
+			    $campaign= new campaignsModel();
 				//$data['employer'] = $campaign->employerDetails($id);
 				$info = $campaign->employerDetails($camp_ref,$id);
 				$data['messages'] = '';
@@ -175,7 +181,8 @@ class Campaigns extends CI_Controller
 
 			function newCall($camp_ref,$id)
 			{
-				$campaign = new campaignsModel();
+                $data['campaign_list'] = $this->availableCampaigns;
+			    $campaign = new campaignsModel();
 				$data['date'] = date('d/m/Y H:i:s');
 				$data['user'] = $this->user;
 				$data['activity'] = $campaign->getActivity();
@@ -195,14 +202,14 @@ class Campaigns extends CI_Controller
 				if(!empty($_POST)) {
 					$school = $this->input->post('school');
 					$list = $campaign->listCampaigns($school);
-					$option= "";
+					$option= '<option>Select Campaign</option>';
 					foreach($list as $k => $item){
 
 						$option.= '<option value="'.$item['campaign_id'].'">'.$item['campaign_name'].'</option>';
 					}
-
+					echo $option;
 				}
-				echo $option;
+				echo json_encode( "nothing");
 			}
 
 	

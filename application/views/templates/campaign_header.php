@@ -73,10 +73,17 @@
 				<form method="POST">
 				<div style="margin-top:10px;" class="col-md-3">
 					<select id="school-dropdown" class="form-control">
-						<?php foreach($campaign_list as $c): ?>
-						<option value="<?php $c->campaign_id ?>" ><?php echo $c->select_school ?></option>
+						<option>Select School</option>
+                        <?php foreach($campaign_list as $c): ?>
+						    <?php if(isset($camp_id)): ?>
+                                <option <?php if($camp_id == $c->select_school) echo 'selected'  ?> value="<?php echo $c->select_school ?>" >
+                                    <?php echo $c->school_name ?>
+                                </option>
 
-						<?php endforeach; ?>
+                            <?php else: ?>
+                            <option  value="<?php echo $c->select_school ?>" ><?php echo $c->school_name ?></option>
+						    <?php endif ?>l
+                        <?php endforeach; ?>
 					</select>
 				</div>
 

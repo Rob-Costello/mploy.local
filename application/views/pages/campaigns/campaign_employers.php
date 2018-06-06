@@ -1,7 +1,7 @@
 
 
 
-<?php $this->load->view('templates/header'); ?>
+<?php $this->load->view('templates/campaign_header'); ?>
 
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->

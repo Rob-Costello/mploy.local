@@ -110,40 +110,7 @@
 <?php $this->load->view('templates/footer'); ?>
 
 
-<script>
 
-	function getServerTime()
-	{
-		// Target url
-		var target = '/campaigns/findCampaigns';
-		var data = 1;
-
-		$.ajax({
-			url: target,
-			type: 'POST',
-			data: data,
-			success: function(data, textStatus, XMLHttpRequest)
-			{
-				return data;
-
-			},
-			error: function(XMLHttpRequest, textStatus, errorThrown)
-			{
-				return 'error';
-
-			}
-		});
-	}
-
-	$(function(){
-		$('#school-dropdown').change(function(){
-			var values = getServerTime();
-			alert(values);
-		});
-
-	});
-
-</script>
 
 
 

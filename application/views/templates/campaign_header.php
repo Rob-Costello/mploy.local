@@ -69,10 +69,30 @@
             <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
                 <span class="sr-only">Toggle navigation</span>
             </a>
+			<div class="">
+				<form method="POST">
+				<div style="margin-top:10px;" class="col-md-3">
+					<select id="school-dropdown" class="form-control">
+						<?php foreach($campaign_list as $c): ?>
+						<option value="<?php $c->campaign_id ?>" ><?php echo $c->select_school ?></option>
+
+						<?php endforeach; ?>
+					</select>
+				</div>
+
+				<div style="margin-top:10px;" class="col-md-3">
+					<select  class="form-control" id="campaign-dropdown">
+
+					</select>
+				</div>
+				</form>
+			</div>
 
             <div class="navbar-custom-menu">
-                <ul class="nav navbar-nav">
-                   TEST
+
+				<ul class="nav navbar-nav">
+
+
                     <!-- Messages: style can be found in dropdown.less-->
                     <!--<li class="dropdown messages-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">

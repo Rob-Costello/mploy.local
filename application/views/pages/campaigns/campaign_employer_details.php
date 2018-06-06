@@ -214,6 +214,92 @@
     </div>
     
     
+    <div style="padding-top:20px;" class="col-md-7">
+        <div class=" ">
+            <div id="exTab1" class="">
+
+
+                <div class="tab-content clearfix">
+
+
+                    <div class="tab-pane active" id="1a">
+
+
+                        <section class="">
+
+                            <!-- Main content School Details-->
+                            <!--- Schools contacts -->
+
+                            <div class="box">
+
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">Contacts </h3>
+                                </div>
+
+
+                                <!-- /.box-header -->
+                                <div class="box-body">
+                                
+                                <div  style="padding-bottom:20px;" class="col-md-offset-8 col-md-3">
+                                    <input type="submit" class="btn btn-mploy-submit" value="New Call" onclick="window.location.replace('/campaigns/newcall/<?php echo $camp_id ?>/<?php echo $comp_id ?>')">
+                                </div> 
+                                   
+                                        
+                                    <table id="example2" class="table table-bordered table-striped">
+                                        <thead>
+                                        <tr>
+                                            <?php foreach($call_table as $heading):?>
+                                                <th><?php echo $heading; ?> </th>
+                                            <?php endforeach;?>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        
+                                        <?php foreach($calls as $call): ?>
+                                            <tr>
+                                                    <td><?php echo $call->campaign_activity_type_id ?></td>
+                                                    <td><?php echo $call->notes ?></td>
+                                                    <td><?php echo $call->date_time ?></td>
+                                                    <td><?php echo $call->rag_status ?></td>
+                                              
+
+                                            
+                                        <?php endforeach ?>
+                                        <td><a  href="/companies/contactdetails/<?php echo $school->id; ?>"> <i class="fa fa-edit"></i> </a></td></td>
+                                            </tr>
+                                        </tbody>
+
+                                    </table>
+
+                                       
+                                            
+                                       
+
+                                       
+                
+                              
+                                
+                               
+                            </div>
+
+
+                        </section>
+
+
+
+                    </div>
+
+                </div> <!-- end tab content -->
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+    
     </div> <!-- end tab container -->
 
     <?php $this->load->view('templates/footer'); ?>
@@ -265,7 +351,7 @@ $(function() {$('.datepicker').daterangepicker({opens: 'left',singleDatePicker: 
 
 </script>
 
-<
+
 
 <script>
     $(function(){

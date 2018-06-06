@@ -1,7 +1,7 @@
 
 
 
-<?php $this->load->view('templates/header'); ?>
+<?php $this->load->view('templates/campaign_header'); ?>
 
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
@@ -69,7 +69,7 @@
                             <?php echo $company->$h; ?>
 						</td>
 						<?php endforeach ?>
-                        <td><a class="" href="/campaigns/employers"> <i class="fa fa-edit"></i> </a></td>
+                        <td><a class="" href="/campaigns/employers/<?php echo $company->campaign_id; ?>"> <i class="fa fa-edit"></i> </a></td>
 					</tr>
 					<?php endforeach ?>
 					</tbody>
@@ -100,9 +100,50 @@
 
 </div>
 
+<button onclick="getServerTime()">
+
+	test
+</button>
+
 
 
 <?php $this->load->view('templates/footer'); ?>
+
+
+<script>
+
+	function getServerTime()
+	{
+		// Target url
+		var target = '/campaigns/findCampaigns';
+		var data = 1;
+
+		$.ajax({
+			url: target,
+			type: 'POST',
+			data: data,
+			success: function(data, textStatus, XMLHttpRequest)
+			{
+				return data;
+
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown)
+			{
+				return 'error';
+
+			}
+		});
+	}
+
+	$(function(){
+		$('#school-dropdown').change(function(){
+			var values = getServerTime();
+			alert(values);
+		});
+
+	});
+
+</script>
 
 
 

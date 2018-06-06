@@ -15,14 +15,17 @@ class Campaigns extends CI_Controller
 		$this->user = $this->ion_auth->user()->row();
         $this->perPage =20;
         $this->offset =0;
-    
+
         $this->load->library('pagination');
         $this->load->library('helpers');
+        $campaigns = new CampaignsModel();
+        $this->availableCampaigns=$campaigns->availableCampaigns();
 	}
 
 
 	function index( $pageNo = 0 )
 	{
+		$data['campaign_list'] = $this->availableCampaigns;
 		$data['headings'] = ['campaign_name','campaign_place_start_date','campaign_place_end_date','status','select_school'];
 		$companies = new CampaignsModel();
         $offset=0;
@@ -35,7 +38,7 @@ class Campaigns extends CI_Controller
 		$where = null;
 		$data['campaigns'] = $companies->getCampaigns($where, null, $this->perPage, $offset);
         //$data['companies']=$output;
-        $page = $this->helpers->page($data['campaigns'],'/companies',$this->perPage);
+        $page = $this->helpers->page($data['campaigns'],'/campaigns',$this->perPage);
         $this->pagination->initialize($page);
         $data['pagination_start'] = $offset + 1;
         $data['pagination_end'] = $data['pagination_start'] + $this->perPage;
@@ -50,6 +53,9 @@ class Campaigns extends CI_Controller
 		$data['nav'] = 'campaigns';
 		$this->load->view('pages/campaigns/campaigns', $data);
     }
+
+
+
 
 	function newCampaign()
 	{
@@ -96,10 +102,11 @@ class Campaigns extends CI_Controller
 
     }
 
-		function employers( $pageNo = 0 ){
+		function employers( $camp_ref, $pageNo = 0 ){
 				
 			$data['headings'] = ['name','campaign_place_start_date','campaign_place_end_date','status','select_school'];
 				$where = ['org_type'=>'2','status'=>'Available'];
+
 				$campaign= new campaignsModel();
 				
 				if(!empty($_POST)){
@@ -120,9 +127,11 @@ class Campaigns extends CI_Controller
 					$offset = $pageNo * $this->perPage;
 				}
 				$where = ['organisation_type_id' => '2','status'=>'Available'] ;
+				
 				$data['campaign'] = $campaign->getEmployers($where,null, $this->perPage, $offset);
+				//var_dump($data['campaign']);
 				//$data['companies']=$output;
-				$page = $this->helpers->page($data['campaign'],'/companies',$this->perPage);
+				$page = $this->helpers->page($data['campaign'],'/campaigns/employers/'.$camp_ref,$this->perPage);
 				$this->pagination->initialize($page);
 				$data['pagination_start'] = $offset + 1;
 				$data['pagination_end'] = $data['pagination_start'] + $this->perPage;
@@ -130,12 +139,12 @@ class Campaigns extends CI_Controller
 				if($data['pagination_end'] > $data['campaign']['count']) {
 					$data['pagination_end'] = $data['campaign']['count'];
 				}
-		
+				//$data['campaign']=$camp_ref;
 				$data['pagination'] = $this->pagination->create_links();
 				$data['user'] = $this->user;
 				$data['title'] = 'Campaign';
 				$data['nav'] = 'campaign';
-				
+				$data['camp_id'] = $camp_ref;
 				$data['table']= $campaign->getEmployers($where,null, $this->perPage, $offset);
 				$this->load->view('pages/campaigns/campaign_employers',$data);
 		
@@ -143,20 +152,59 @@ class Campaigns extends CI_Controller
 		
 			}
 
-			function employerDetails($id)
+			function employerDetails($camp_ref,$id)
 			{
 				$campaign= new campaignsModel();
 				//$data['employer'] = $campaign->employerDetails($id);
-				$data['employer'] = $campaign->employerDetails($id)[0];
-				$data['company'] = $campaign->employerDetails($id);
+				$info = $campaign->employerDetails($camp_ref,$id);
+				$data['messages'] = '';
+				$data['employer'] = $info['company'][0];
+				$data['company'] = $info['company'];
+				$data['calls'] = $campaign->campaignEmployerCalls($camp_ref,$id);
+				$data['camp_id'] = $camp_ref;	
+				$data['comp_id'] = $id;
 				$data['user'] = $this->user;
 				$data['title'] = 'Campaign';
 				$data['nav'] = 'campaign';
 				$data['contacts_table']= ['Name', 'Position', 'Phone', 'Email'];
-			
+				$data['call_table'] = ['Type','Notes','Date','Outcome'];
 				$this->load->view('pages/campaigns/campaign_employer_details',$data);
 			
 			}
+
+
+			function newCall($camp_ref,$id)
+			{
+				$campaign = new campaignsModel();
+				$data['date'] = date('d/m/Y H:i:s');
+				$data['user'] = $this->user;
+				$data['activity'] = $campaign->getActivity();
+				$data['messages']='';
+				$data['camp_id'] = $camp_ref;	
+				$data['comp_id'] = $id;
+				
+				if(!empty($_POST)){
+					$campaign->newCall($this->input->post());
+				}
+				$this->load->view('pages/campaigns/campaign_employer_new_call',$data);
+			}
+
+			function findCampaigns(){
+
+				$campaign = new campaignsModel();
+				if(!empty($_POST)) {
+					$school = $this->input->post('school');
+					$list = $campaign->listCampaigns($school);
+					$option= "";
+					foreach($list as $k => $item){
+
+						$option.= '<option value="'.$item['campaign_id'].'">'.$item['campaign_name'].'</option>';
+					}
+
+				}
+				echo $option;
+			}
+
 	
 
 

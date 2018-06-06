@@ -49,7 +49,7 @@
 						<td>
 							<?php echo $company->line_of_business;?>
 						</td>
-						<td><a class="" href="/campaigns/employerdetails/<?php echo $company->comp_id;?>"> <i class="fa fa-edit"></i> </a></td>
+						<td><a class="" href="/campaigns/employerdetails/<?php echo $camp_id ?>/<?php echo $company->comp_id;?>"> <i class="fa fa-edit"></i> </a></td>
 
 					</tr>
 					<?php endforeach ?>

@@ -7,7 +7,7 @@
     <section class="content-header">
         <h3>
 
-           Contact Details
+
         </h3>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -31,6 +31,14 @@
 
                             <!-- Main content School Details-->
                             <!--- Schools contacts -->
+
+							<?php if (isset($error)): ?>
+							<div class=""
+								<h4>Please complete the highlighted fields</h4>
+							<?php endif ?>
+
+
+
 
                             <div class="box">
 
@@ -260,7 +268,25 @@
 
 
 <script>
-   $('#add-row').click(function(){
+
+
+
+	<?php if (isset($error)): ?>
+
+	$(function(){
+		<?php foreach($error as $e): ?>
+		$('input[name="<?php echo $e;?>"]').addClass('error-box');
+		<?php endforeach ?>
+	})
+	<?php endif ?>
+
+
+
+
+
+
+
+	$('#add-row').click(function(){
         var rows = $('#holidays tbody tr').length;
         var table = $('#holidays');
         var start_date ='<td><input id ="'+rows+'start_date" type="text" name="start_date[]" value="" class="datepicker form-control"></td>';
@@ -303,13 +329,11 @@ $(function() {$('.datepicker').daterangepicker({opens: 'left',singleDatePicker: 
 
 </script>
 
-<
+
 
 <script>
     $(function(){
-        
-        
-        
+
         
         $( "#school" ).autocomplete({source: "http://mploy.local/schools/getSchools/?"});
     })

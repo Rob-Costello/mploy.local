@@ -50,7 +50,7 @@
 
             <div class="box-body">
             <?php if(count($campaigns['data'])>0):  ?>
-                
+
                 <table id="example2" class="table table-bordered table-striped">
 					<thead>
 					<tr>
@@ -69,7 +69,7 @@
                             <?php echo $company->$h; ?>
 						</td>
 						<?php endforeach ?>
-                        <td><a class="" href="/campaigns/employers/<?php echo $company->campaign_id; ?>"> <i class="fa fa-edit"></i> </a></td>
+                        <td><a class="" href="/campaigns/employers/<?php echo $company->campaign_id; ?>/0"> <i class="fa fa-edit"></i> </a></td>
 					</tr>
 					<?php endforeach ?>
 					</tbody>
@@ -100,10 +100,7 @@
 
 </div>
 
-<button onclick="getServerTime()">
 
-	test
-</button>
 
 
 

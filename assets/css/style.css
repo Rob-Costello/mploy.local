@@ -28,7 +28,10 @@ h1,h2,h3,h4{
 }
 
 
+.error-box{
 
+	border: 1px solid red;
+}
 
 .not-willing-to-take{
 

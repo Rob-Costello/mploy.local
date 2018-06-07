@@ -18,7 +18,8 @@ class CampaignsModel extends CI_Model
         $this->db->select('*');
         $this->db->limit($limit, $offset);
         if( $where == null ) {
-            $query = $this->db->get('mploy_campaigns');
+			$this->db->join('mploy_organisations','mploy_organisations.school_id = mploy_campaigns.select_school','left');
+        	$query = $this->db->get('mploy_campaigns');
             $count = $this->db->from('mploy_campaigns')->count_all_results();
         } else {
             $this->db->join('mploy_organisations','mploy_organisations.school_id = mploy_campaigns.select_school','left');
@@ -54,7 +55,14 @@ class CampaignsModel extends CI_Model
 
 	}
 
+	public function placements($id){
 
+    	$query  = "select * from mploy_campaign_activity where rag_status ='green' and org_id='".$id."' ";
+
+		return $query->result();
+
+
+	}
    
 
     public function updateCompanyContact($id,$data){

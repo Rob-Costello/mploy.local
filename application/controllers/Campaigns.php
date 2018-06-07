@@ -26,7 +26,7 @@ class Campaigns extends CI_Controller
 	function index( $pageNo = 0 )
 	{
 		$data['campaign_list'] = $this->availableCampaigns;
-		$data['headings'] = ['campaign_name','campaign_place_start_date','campaign_place_end_date','status','select_school'];
+		$data['headings'] = ['campaign_name','campaign_place_start_date','campaign_place_end_date','status','name'];
 		$companies = new CampaignsModel();
         $offset=0;
 
@@ -37,7 +37,8 @@ class Campaigns extends CI_Controller
 		//$where = ['active' => '1'] ;
 		$where = null;
 		$data['campaigns'] = $companies->getCampaigns($where, null, $this->perPage, $offset);
-        $page = $this->helpers->page($data['campaigns'],'/campaigns',$this->perPage);
+
+		$page = $this->helpers->page($data['campaigns'],'/campaigns',$this->perPage);
         $this->pagination->initialize($page);
         $data['pagination_start'] = $offset + 1;
         $data['pagination_end'] = $data['pagination_start'] + $this->perPage;
@@ -58,47 +59,72 @@ class Campaigns extends CI_Controller
 
 	function newCampaign()
 	{
-
         $data['campaign_list'] = $this->availableCampaigns;
         $data['user']=$this->user;
-        $company= new CampaignsModel();	
-		$start = $this->input->post('start_date');
-		$end = $this->input->post('end_date');
-		$holiday = $this->input->post('holiday');
+        $campaign= new CampaignsModel();
 		$output ="";
-		
-		$dates= ['campaign_start_date','campaign_place_start_date',
-		'campaign_place_end_date','mailshot_1_date','mailshot_2_date',
-		'employer_engagement_start','employer_engagement_end','self_place_deadline',
-		'matching_start','matching_end'];
 
-		foreach($dates as $d){
-
-			$_POST[$d] = date("Y-m-d", strtotime($this->input->post($d)));
-		}
-
-		if(null !== $start){
-			for($i=0; $i < count($start); $i++){
-				$output .= $start[$i].' '.$end[$i].' '.$holiday[$i];
-			}
-		}
-
-		unset($_POST['start_date']);
-		unset($_POST['end_date']);
-		unset($_POST['holiday']);
-		
 		if(!empty($_POST)){
-			foreach($dates as $d){
 
+			$required = ['campaign_name',
+				'students_to_place',
+				'self_placing_students',
+				'select_school',
+				'campaign_place_start_date',
+				'campaign_start_date',
+				'mailshot_1_date',
+				'mailshot_2_date',
+				'employer_engagement_start',
+				'employer_engagement_end',
+				'self_place_deadline',
+				'matching_start',
+				'matching_end'];
+
+			$dates= ['campaign_start_date','campaign_place_start_date',
+				'campaign_place_end_date','mailshot_1_date','mailshot_2_date',
+				'employer_engagement_start','employer_engagement_end','self_place_deadline',
+				'matching_start','matching_end'];
+
+			foreach($dates as $d)
+			{
 				$_POST[$d] = date("Y-m-d", strtotime($this->input->post($d)));
 			}
-			
-			$success = $company->createCampaign($this->input->post());
-            $data['message'] = "Information updated";
-			
 
+			$start = $this->input->post('start_date');
+			$end = $this->input->post('end_date');
+			$holiday = $this->input->post('holiday');
+
+			if(null !== $start){
+				for($i=0; $i < count($start); $i++){
+					$output .= $start[$i].' '.$end[$i].' '.$holiday[$i];
+				}
+			}
+			//make dates db friendly
+			foreach($dates as $d){
+				$_POST[$d] = date("Y-m-d", strtotime($this->input->post($d)));
+			}
+
+			foreach($required as $r){
+				if($_POST[$r] =='' || empty($_POST[$r]) ){
+					$error[] = $r;
+				}
+			}
+
+			if(isset($error)){
+				$data['error'] = $error;
+			}
+
+			unset($_POST['start_date']);
+			unset($_POST['end_date']);
+			unset($_POST['holiday']);
+
+			if(!isset($error)) {
+				$campaign->createCampaign($this->input->post());
+			}
 		}
-		
+
+		//create progress bar and feed in placements query
+		$campaign->placements($id);
 		$this->load->view('pages/campaigns/new_campaign',$data);
 
     }
@@ -115,12 +141,10 @@ class Campaigns extends CI_Controller
 
                 //var_dump($school->school_name);
 				if(!empty($_POST)){
-					$success = $company->getCampaign($id,$this->input->post());
+					$success = $campaign->getCampaign($camp_ref,$this->input->post());
 					$data['message'] = "Information updated";
 				}
-				
-				//$data['id'] = $id;
-				//$data['page'] = $page;
+
 				$data['user']=$this->user;
 				//$data['dropdown'] = $company->getDropDown();
 				
@@ -134,8 +158,6 @@ class Campaigns extends CI_Controller
 				$where = ['organisation_type_id' => '2','status'=>'Available'] ;
 				
 				$data['campaign'] = $campaign->getEmployers($where,null, $this->perPage, $offset);
-				//var_dump($data['campaign']);
-				//$data['companies']=$output;
 				$page = $this->helpers->page($data['campaign'],'/campaigns/employers/'.$camp_ref,$this->perPage);
 				$this->pagination->initialize($page);
 				$data['pagination_start'] = $offset + 1;
@@ -144,7 +166,7 @@ class Campaigns extends CI_Controller
 				if($data['pagination_end'] > $data['campaign']['count']) {
 					$data['pagination_end'] = $data['campaign']['count'];
 				}
-				//$data['campaign']=$camp_ref;
+
 				$data['pagination'] = $this->pagination->create_links();
 				$data['user'] = $this->user;
 				$data['title'] = 'Campaign';
@@ -152,8 +174,8 @@ class Campaigns extends CI_Controller
 				$data['camp_id'] = $school['select_school'];
 				$data['table']= $campaign->getEmployers($where,null, $this->perPage, $offset);
 				$this->load->view('pages/campaigns/campaign_employers',$data);
-		
-				
+
+
 		
 			}
 

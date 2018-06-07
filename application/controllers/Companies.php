@@ -29,8 +29,17 @@ class Companies extends CI_Controller
         if($pageNo > 0){
 			$offset = $pageNo * $this->perPage;
 		}
-        $where = ['organisation_type_id' => '2'] ;
-		$data['companies'] = $companies->getCompanies($where, null, $this->perPage, $offset);
+
+		$orderby = 'order by id';
+		if(isset($_POST['orderby'])){
+
+        	$orderby = $this->input->post('orderby');
+
+		}
+
+
+		$where = ['organisation_type_id' => '2'] ;
+		$data['companies'] = $companies->getCompanies($where, $orderby, $this->perPage, $offset);
         //$data['companies']=$output;
         $page = $this->helpers->page($data['companies'],'/companies',$this->perPage);
         $this->pagination->initialize($page);

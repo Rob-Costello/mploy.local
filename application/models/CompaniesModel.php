@@ -62,7 +62,7 @@ class CompaniesModel extends CI_Model
             $query = $this->db->get('mploy_organisations');
             $count = $this->db->from('mploy_organisations')->count_all_results();
         } else {
-            
+            $this->db->order_by($request);
             $this->db->from('mploy_organisations');
             $this->db->join('mploy_contacts','mploy_contacts.id = mploy_organisations.main_contact_id','left');
             //$this->db->join('mploy_contact_history', 'mploy_contact_history.receiver = mploy_contacts.id','left');
@@ -116,7 +116,8 @@ class CompaniesModel extends CI_Model
 
     }
 
-    function createCall($data){
+    function createCall($data)
+	{
 
 
         $this->db->insert('mploy_company_history', $data);

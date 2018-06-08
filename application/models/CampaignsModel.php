@@ -19,27 +19,34 @@ class CampaignsModel extends CI_Model
         $this->db->limit($limit, $offset);
         if( $where == null ) {
 			$this->db->join('mploy_organisations','mploy_organisations.school_id = mploy_campaigns.select_school','left');
-        	$query = $this->db->get('mploy_campaigns');
+			$this->db->order_by($request);
+			$query = $this->db->get('mploy_campaigns');
             $count = $this->db->from('mploy_campaigns')->count_all_results();
         } else {
             $this->db->join('mploy_organisations','mploy_organisations.school_id = mploy_campaigns.select_school','left');
+			$this->db->order_by($request);
             $query = $this->db->get_where('mploy_campaigns', $where);
             $count = $this->db->from('mploy_campaigns')->where($where)->count_all_results();
         }
         return array('data' => $query->result(), 'count' => $count);
     }
 
-    function getEmployers($where = null, $request = null, $limit = null, $offset = null)
+    function getEmployers($where = null, $request = null,$like = null, $limit = null, $offset = null)
     {
-       
+
         $this->db->select('*');
         $this->db->limit($limit, $offset);
         if( $where == null ) {
-            $query = $this->db->get('mploy_organisations');
+			$this->db->order_by($request);
+        	$query = $this->db->get('mploy_organisations');
             $count = $this->db->from('mploy_organisations')->count_all_results();
         } else {
             $this->db->join('mploy_contacts','mploy_organisations.main_contact_id = mploy_contacts.id','left');
-            $query = $this->db->get_where('mploy_organisations', $where);
+            if($like !==null) {
+				$this->db->like('name',$like,'both');
+			}
+			$this->db->order_by($request);
+			$query = $this->db->get_where('mploy_organisations', $where);
             $count = $this->db->from('mploy_organisations')->where($where)->count_all_results();
         }
         return array('data' => $query->result(), 'count' => $count);
@@ -63,7 +70,14 @@ class CampaignsModel extends CI_Model
 
 
 	}
-   
+
+	public function getSchools(){
+
+    	$this->db->select('*');
+    	$query = $this->db->get_where('mploy_organisations', 'school_id > 0');
+		return $query->result();
+    }
+
 
     public function updateCompanyContact($id,$data){
 

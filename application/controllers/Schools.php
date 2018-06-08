@@ -26,28 +26,40 @@ class Schools extends CI_Controller
 	function index($id=0)
 	{
 
-		$sortby = null;
-		if (!empty($_POST)) {
-			$sortby = $this->input->post('sort');
-		}
-
-		$page = $id;
-		$data['headings'] = ['Name' => 'name',
-			'Address' => 'address1',
-			'Town' => 'town',
-			'County' => 'county',
-			'Postcode' => 'postcode',
-			'Phone Number' => 'phone_number'];
+		$sortby="";
+		$orderby = 'org_id';
+		$data['orderby']='';
+		$like = null;
+		$where = 'organisation_type_id =1 ';
+		$data['fields'] = ['name','address1','town','county','postcode','phone_number'];
 		$schools = new SchoolsModel();
+		$page = $id;
+		$data['headings'] = ['Name','Address','Town','Postcode','Phone Number' ];
 		$offset=0;
-
 		if($page > 0)
 		{
 			$offset = $page * $this->perPage;
 		}
-		//set organisation type to 1 for school
-		$where = 'organisation_type_id =1';
-		$data['schools'] = $schools->getSchools($where, null, $this->perPage, $offset,$sortby);
+
+		if(isset($_GET['orderby'])){
+			$orderby = $this->input->get('orderby');
+			$data['orderby'] = '?orderby='.$orderby;
+		}
+
+		if(!empty($_POST)){
+
+			$like = $this->input->post('search');
+			$where .= " and name like '%".$like."%'";
+			$data['schools'] = $schools->getSchools($where, $orderby,  null,null);
+			$page = $this->page($data['schools'],'/schools',$this->perPage);
+		}else{
+
+			$data['schools'] = $schools->getSchools($where, $orderby, $this->perPage, $offset,$sortby);
+			$page = $this->page($data['schools'],'/schools',$this->perPage);
+
+		}
+
+
 		$page = $this->page($data['schools'],'/schools',$this->perPage);
 		$this->pagination->initialize($page);
 		$data['pagination_start'] = $offset + 1;

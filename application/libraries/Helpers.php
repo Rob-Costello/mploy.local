@@ -5,9 +5,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  class Helpers
 {
 
-	function page($model, $baseurl, $perPage = 5)
+	function page($model, $baseurl, $perPage = 5,$suffix=null)
 	{
-
+		$pagConfig['suffix'] = $suffix;
 		$pagConfig['num_links'] = 8;	
 		$pagConfig['use_page_numbers'] = TRUE; 
 		$pagConfig['full_tag_open'] = '<ul class="pagination pagination-sm no-margin pull-right">';

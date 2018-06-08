@@ -22,6 +22,18 @@
 
 
 		<div class="box">
+			<div class <div class="col-md-offset-6 col-md-6">
+				<form  method="POST" class="sidebar-form">
+					<div class="input-group">
+						<input style="margin:20px; padding:19px;" type="text" name="search" class="form-control" placeholder="Search...">
+						<span class="input-group-btn">
+                <button style="z-index:100" type="submit"  id="search-btn" class="btn btn-flat btn-mploy">
+                    <i class=" fa fa-search"></i>
+                </button>
+              </span>
+					</div>
+				</form>
+
 			<div class="box-header"></div>
 			<div class="box-header">
 				<h2 class="box-title">
@@ -33,9 +45,20 @@
 				<table id="example2" class="table table-bordered table-striped">
 					<thead>
 					<tr>
-						<?php foreach($headings as $heading):?>
-						<th><?php echo $heading; ?> </th>
-						<?php endforeach;?>
+
+
+
+
+						<?php for($i=0; $i< count($headings); $i++ ):?>
+							<th>
+								<form method="get">
+									<input type="hidden" name="orderby" value="<?php echo $fields[$i] ?>">
+									<button class="no-button"><?php echo $headings[$i]; ?> <i class=" fa fa-sort"></i></button>
+								</form>
+
+							</th>
+						<?php endfor;?>
+
 					<th></th>
 					</tr>
 					</thead>

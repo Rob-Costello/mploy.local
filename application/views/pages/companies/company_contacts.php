@@ -27,9 +27,16 @@
                                     <table id="example2" class="table table-bordered table-striped">
                                         <thead>
                                         <tr>
-                                            <?php foreach($table_header as $heading):?>
-                                                <th><?php echo $heading; ?> </th>
-                                            <?php endforeach;?>
+
+											<?php for($i=0; $i< count($table_header); $i++ ):?>
+                                                <th>
+													<form method="get">
+														<input type="hidden" name="orderby" value="<?php echo $fields[$i] ?>">
+														<button class="no-button"><?php echo $table_header[$i]; ?> <i class=" fa fa-sort"></i></button>
+													</form>
+
+													 </th>
+                                            <?php endfor;?>
                                             <th></th>
                                         </tr>
                                         </thead>

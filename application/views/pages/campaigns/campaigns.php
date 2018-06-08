@@ -22,19 +22,20 @@
 
 
 		<div class="box">
-        <div class="col-md-offset-6 col-md-6">
-        <form  method="POST" class="sidebar-form">
-        <div class="input-group">
-          <input style="margin:20px; padding:19px;" type="text" name="search" class="form-control" placeholder="Search...">
-          <span class="input-group-btn">
-                <button style="z-index:100" type="submit" name="search" id="search-btn" class="btn btn-flat btn-mploy">
+
+        <div class <div class="col-md-offset-6 col-md-6">
+				<form  method="POST" class="sidebar-form">
+					<div class="input-group">
+						<input style="margin:20px; padding:19px;" type="text" name="search" class="form-control" placeholder="Search...">
+						<span class="input-group-btn">
+                <button style="z-index:100" type="submit"  id="search-btn" class="btn btn-flat btn-mploy">
                     <i class=" fa fa-search"></i>
                 </button>
               </span>
-        </div>
-      </form>
-        </div>
-        <div class="box-header"></div>
+					</div>
+				</form>
+			</div>
+
 			<div class="box-header">
 				<h2 class="box-title">
 					<?= $title; ?>
@@ -55,7 +56,13 @@
 					<thead>
 					<tr>
 						<?php foreach($headings as $heading):?>
-						<th><?php echo $heading; ?> </th>
+						<th>
+							<form method="get">
+								<input type="hidden" name="orderby" value="<?php echo $heading ?>">
+								<button class="no-button"><?php echo ucwords(str_replace('_','  ',$heading)); ?> <i class=" fa fa-sort"></i></button>
+							</form>
+
+							 </th>
 						<?php endforeach;?>
 					<th></th>
 					</tr>

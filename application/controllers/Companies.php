@@ -22,7 +22,10 @@ class Companies extends CI_Controller
 
 	function index( $pageNo = 0 )
 	{
-		$data['headings'] = ['Name','Main Telephone','Main Contact','Status'];
+
+
+
+		$data['headings'] = ['name' => 'Name', 'phone' => 'Main Telephone','first_name'=>'Main Contact','status'=>'Status'];
 		$companies = new CompaniesModel();
         $offset=0;
 
@@ -30,18 +33,19 @@ class Companies extends CI_Controller
 			$offset = $pageNo * $this->perPage;
 		}
 
-		$orderby = 'order by id';
-		if(isset($_POST['orderby'])){
+		$orderby = 'name';
+		$data['orderby']='';
+        if(isset($_GET['orderby'])){
 
-        	$orderby = $this->input->post('orderby');
-
+        	$orderby = $this->input->get('orderby');
+			$data['orderby'] = '?orderby='.$orderby;
 		}
 
 
 		$where = ['organisation_type_id' => '2'] ;
 		$data['companies'] = $companies->getCompanies($where, $orderby, $this->perPage, $offset);
         //$data['companies']=$output;
-        $page = $this->helpers->page($data['companies'],'/companies',$this->perPage);
+        $page = $this->helpers->page($data['companies'],'/companies',$this->perPage,$data['orderby']);
         $this->pagination->initialize($page);
         $data['pagination_start'] = $offset + 1;
         $data['pagination_end'] = $data['pagination_start'] + $this->perPage;
@@ -85,13 +89,21 @@ class Companies extends CI_Controller
         $data['user']=$this->user;
         $company = new CompaniesModel();
         $offset=0;
-        
+		$orderby = 'name';
+		$data['orderby']='';
+		if(isset($_GET['orderby'])){
+
+			$orderby = $this->input->get('orderby');
+			$data['orderby'] = '?orderby='.$orderby;
+		}
+
+
         if($page > 0){
             $offset = $page * $this->perPage;
         }
         
-        $data['contacts'] = $company->getContacts(array('org_id'=>$data['id']), null, $this->perPage, $offset);
-        $page = $this->page($data['contacts'],'/companies/view/'.$id.'/contacts',$this->perPage,$offset);
+        $data['contacts'] = $company->getContacts(array('org_id'=>$data['id']), $orderby, $this->perPage, $offset);
+        $page = $this->helpers->page($data['contacts'],'/companies/view/'.$id.'/contacts',$this->perPage,$data['orderby']);
         $this->pagination->initialize($page);
         $data['pagination_start'] = $offset + 1;
         $data['pagination_end'] = $data['pagination_start'] + $this->perPage;

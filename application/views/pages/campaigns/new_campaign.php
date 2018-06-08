@@ -88,7 +88,16 @@
                                                 <div class="form-group">
 
                                                     <label class=" ">School</label>
-                                                    <input id="school" type="text" name="select_school" class=" form-control" value="" placeholder="School Name" >
+                                                    <select class="form-control" name="select_school">
+														<?php var_dump($dropdown);?>
+														<?php foreach($dropdown as $d): ?>
+
+															<option value="<?php echo $d->school_id ?>"><?php echo $d->name;?></option>
+														<?php endforeach ?>
+
+													</select>
+
+
 
                                                 </div>
                                             </div>
@@ -240,7 +249,7 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                     <input type="submit" class="btn btn-mploy-submit" value="Save Changes">
-                                    <input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/companies/campaigns ?>/contacts')">
+                                    <input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/campaigns')">
                                     </div>
                                 </div>
                                 <input type="hidden" name="active" value="1">

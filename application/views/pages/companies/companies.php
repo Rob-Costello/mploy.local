@@ -33,8 +33,11 @@
 				<table id="example2" class="table table-bordered table-striped">
 					<thead>
 					<tr>
-						<?php foreach($headings as $heading):?>
-						<th><?php echo $heading; ?> </th>
+						<?php foreach($headings as $key => $heading):?>
+							<th class="sorting"> <form method="get">
+									<input type="hidden" name="orderby" value="<?php echo $key ?>">
+									<button class="no-button"><?php echo $heading; ?> <i class=" fa fa-sort"></i></button>
+								</form> </th>
 						<?php endforeach;?>
 					<th></th>
 					</tr>

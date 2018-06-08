@@ -15,8 +15,11 @@ class CompaniesModel extends CI_Model
     {
         $this->db->select('*');
         $this->db->limit($limit, $offset);
+
+
         if( $where == null ) {
-            $query = $this->db->get('mploy_contacts');
+			$this->db->order_by($request);
+			$query = $this->db->get('mploy_contacts');
             $count = $this->db->from('mploy_contacts')->count_all_results();
         } else {
             
@@ -41,7 +44,8 @@ class CompaniesModel extends CI_Model
 
     public function getCompanyContact($id){
 
-        $query = $this->db->get_where('mploy_contacts','id ='.$id);
+
+    	$query = $this->db->get_where('mploy_contacts','id ='.$id);
         return $query->row_array();
 
     }
@@ -59,7 +63,8 @@ class CompaniesModel extends CI_Model
         $this->db->limit($limit, $offset);
         //$this->db->join('mploy_company_contacts mcc', 'mcc.id = mc.contact_id', 'left');
         if( $where == null ) {
-            $query = $this->db->get('mploy_organisations');
+			$this->db->order_by($request);
+        	$query = $this->db->get('mploy_organisations');
             $count = $this->db->from('mploy_organisations')->count_all_results();
         } else {
             $this->db->order_by($request);
@@ -100,12 +105,14 @@ class CompaniesModel extends CI_Model
         $this->db->select('*');
         $this->db->limit($limit, $offset);
         if( $where == null ) {
-            $query = $this->db->get('mploy_campaigns');
+			$this->db->order_by($request);
+        	$query = $this->db->get('mploy_campaigns');
             $count = $this->db->from('mploy_campaigns')->count_all_results();
         } else {
-            $this->db->from('mploy_campaigns');
-            $this->db->join('mploy_campaign_activity','mploy_campaign_activity.campaign_ref = mploy_campaigns.campaign_id','left');
-            
+
+        	$this->db->from('mploy_campaigns');
+        	$this->db->join('mploy_campaign_activity','mploy_campaign_activity.campaign_ref = mploy_campaigns.campaign_id','left');
+			$this->db->order_by($request);
             //$this->db->join('mploy_contact_history', 'mploy_contact_history.receiver = mploy_contacts.id','left');
             $this->db->where($where);
             $query = $this->db->get();
@@ -129,10 +136,12 @@ class CompaniesModel extends CI_Model
         $this->db->select('*');
         $this->db->limit($limit, $offset);
         if( $where == null ) {
-            $query = $this->db->get('mploy_company_placements');
+			$this->db->order_by($request);
+        	$query = $this->db->get('mploy_company_placements');
             $count = $this->db->from('mploy_company_placements')->count_all_results();
         } else {
-            $query = $this->db->get_where('mploy_company_placements', $where);
+			$this->db->order_by($request);
+        	$query = $this->db->get_where('mploy_company_placements', $where);
             $count = $this->db->from('mploy_company_placements')->where($where)->count_all_results();
         }
         return array('data' => $query->result(), 'count' => $count);

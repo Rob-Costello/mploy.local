@@ -157,7 +157,7 @@ class Campaigns extends CI_Controller
 	        $data['campaign_list'] = $this->availableCampaigns;
 			$campaign= new campaignsModel();
 			$school = $campaign-> lookupCampaign($camp_ref);
-			$orderby = 'org_id';
+			$orderby = 'mploy_organisations.org_id';
 			$data['orderby']='';
 			$like = null;
 

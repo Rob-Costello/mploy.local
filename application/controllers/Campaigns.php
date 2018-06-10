@@ -264,7 +264,35 @@ class Campaigns extends CI_Controller
 				echo json_encode( "nothing");
 			}
 
-	
+
+			function calendar($id){
+
+	            //calendar for each school
+
+                $data['title'] = 'Calendar';
+                $data['user'] = $this->user;
+                $campaign = new campaignsModel();
+                if(!empty($_POST)) {
+
+                    $list = $campaign->listCampaigns($this->input->post());
+
+                }
+
+                $data['entries'] = '{
+                    title          : \'Long Event\',
+                    start          : new Date(y, m, d - 5),
+                    end            : new Date(y, m, d - 2),
+                    backgroundColor: \'#f39c12\', //yellow
+                    borderColor    : \'#f39c12\' //yellow
+                },';
+
+
+                $this->load->view('pages/campaigns/campaign_calendar',$data);
+
+
+
+
+            }
 
 
 

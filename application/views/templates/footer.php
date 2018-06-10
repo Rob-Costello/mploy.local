@@ -37,8 +37,10 @@
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url()."assets/";?>dist/js/demo.js"></script>
 
-
-
+<!-- fullCalendar -->
+<script src="<?php echo base_url()."assets/";?>bower_components/moment/moment.js"></script>
+<script src="<?php echo base_url()."assets/";?>bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
+<!-- Date picker -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />

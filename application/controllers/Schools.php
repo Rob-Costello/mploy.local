@@ -34,7 +34,7 @@ class Schools extends CI_Controller
 		$data['fields'] = ['name','address1','town','county','postcode','phone_number'];
 		$schools = new SchoolsModel();
 		$page = $id;
-		$data['headings'] = ['Name','Address','Town','Postcode','Phone Number' ];
+		$data['headings'] = ['Name','Address','Town','County','Postcode','Phone Number' ];
 		$offset=0;
 		if($page > 0)
 		{

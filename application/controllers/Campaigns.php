@@ -157,7 +157,9 @@ class Campaigns extends CI_Controller
 			if(isset($_GET['orderby'])){
 				$orderby = $this->input->get('orderby');
 				$data['orderby'] = '?orderby='.$orderby;
+
 			}
+
 
 			if(!empty($_POST)){
 
@@ -166,14 +168,24 @@ class Campaigns extends CI_Controller
 			}
 
 			$data['user']=$this->user;
-			$data['headings'] = ['Name','Main Telephone','Address','Line of Business'];
-			$data['fields'] = ['name','phone','address1','line_of_business'];
+			$data['headings'] = ['Name','Main Telephone','Address','Line of Business','Status'];
+			$data['fields'] = ['name','phone','address1','line_of_business','status'];
 			$offset=0;
 
 			if($pageNo > 0){
 				$offset = $pageNo * $this->perPage;
 			}
-			$where = ['organisation_type_id' => '2','status'=>'Available'] ;
+
+			$where['organisation_type_id'] = '2' ;
+			$data['status'] = 'all';
+
+			if(isset($_GET['status']))
+			{
+				if ($_GET['status'] !=='all'){
+					$where['status'] = $_GET['status'];
+				}
+				$data['status'] = $_GET['status'];
+			}
 
 			if ($hasSearch){
 				$data['campaign'] = $campaign->getEmployers($where,$orderby,$like, null, null);
@@ -199,8 +211,8 @@ class Campaigns extends CI_Controller
 			$data['camp_id'] = $school['select_school'];
 			$data['table']= $campaign->getEmployers($where,null, $this->perPage, $offset);
 			$this->load->view('pages/campaigns/campaign_employers',$data);
-		
-			}
+
+		}
 
 			function employerDetails($camp_ref,$id)
 			{

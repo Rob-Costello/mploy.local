@@ -144,7 +144,8 @@ class CampaignsModel extends CI_Model
     	return $query->result_array();
 	}
 
-	public function lookupCampaign($id){
+	public function lookupCampaign($id)
+	{
         $this->db->join('mploy_contacts','mploy_campaigns.select_school = mploy_contacts.school_id','left');
         $query = $this->db->get_where('mploy_campaigns','campaign_id='.$id);
         return $query->row_array();
@@ -159,7 +160,6 @@ class CampaignsModel extends CI_Model
 	}
 
 	public function getCalendarEntries($id){
-
 
 		$query = $this->db->get_where('mploy_calendar','school_id = '.$id );
 		//$count = $this->db->from('mploy_organisations')->count_all_results();

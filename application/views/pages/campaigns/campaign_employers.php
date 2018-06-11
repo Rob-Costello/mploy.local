@@ -17,88 +17,168 @@
 	</section>
 
 <section class="content">
-	<div class="row">
-		<div class="col-md-12">
-			<div class="box">
-				<div class="box-header with-border">
-					<h3 class="box-title">Campaign Progress Dashboard</h3>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="box">
+					<div class="box-header with-border">
+						<h3 class="box-title">Campaign Progress Dashboard</h3>
 
-					<div class="box-tools pull-right">
-						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-						</button>
-						<div class="btn-group">
-							<button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
-								<i class="fa fa-wrench"></i></button>
-							<ul class="dropdown-menu" role="menu">
-								<li><a href="#">Action</a></li>
-								<li><a href="#">Another action</a></li>
-								<li><a href="#">Something else here</a></li>
-								<li class="divider"></li>
-								<li><a href="#">Separated link</a></li>
-							</ul>
+						<div class="box-tools pull-right">
+							<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+							</button>
+							<div class="btn-group">
+								<button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
+									<i class="fa fa-wrench"></i></button>
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="#">Action</a></li>
+									<li><a href="#">Another action</a></li>
+									<li><a href="#">Something else here</a></li>
+									<li class="divider"></li>
+									<li><a href="#">Separated link</a></li>
+								</ul>
+							</div>
+							<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
 						</div>
-						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
 					</div>
-				</div>
-				<!-- /.box-header -->
-				<div class="box-body">
-					<div class="row">
+					<!-- /.box-header -->
+					<div class="box-body">
+						<div class="row">
 
-						<!-- /.col -->
-						<div class="col-md-11">
-							<p class="text-center">
-								<strong>Goal Completion</strong>
-							</p>
+							<!-- /.col -->
+							<div class="col-md-11">
+								<p class="text-center">
+									<strong>Goal Completion</strong>
+								</p>
 
-							<div class="progress-group">
-								<span class="progress-text">Calls completed</span>
-								<span class="progress-number"><b>160</b>/2000</span>
+								<div class="progress-group">
+									<span class="progress-text">Calls completed</span>
+									<span class="progress-number"><b>160</b>/2000</span>
 
-								<div class="progress sm">
-									<div class="progress-bar progress-bar-aqua" style="width: 80%"></div>
+									<div class="progress sm">
+										<div class="progress-bar progress-bar-aqua" style="width: 80%"></div>
+									</div>
 								</div>
-							</div>
-							<!-- /.progress-group -->
-							<div class="progress-group">
-								<span class="progress-text">Rejections</span>
-								<span class="progress-number"><b>310</b>/400</span>
+								<!-- /.progress-group -->
+								<div class="progress-group">
+									<span class="progress-text">Rejections</span>
+									<span class="progress-number"><b>310</b>/400</span>
 
-								<div class="progress sm">
-									<div class="progress-bar progress-bar-red" style="width: 80%"></div>
+									<div class="progress sm">
+										<div class="progress-bar progress-bar-red" style="width: 80%"></div>
+									</div>
 								</div>
-							</div>
-							<!-- /.progress-group -->
-							<div class="progress-group">
-								<span class="progress-text">Successful Placements</span>
-								<span class="progress-number"><b>480</b>/800</span>
+								<!-- /.progress-group -->
+								<div class="progress-group">
+									<span class="progress-text">Successful Placements</span>
+									<span class="progress-number"><b>480</b>/800</span>
 
-								<div class="progress sm">
-									<div class="progress-bar progress-bar-green" style="width: 80%"></div>
+									<div class="progress sm">
+										<div class="progress-bar progress-bar-green" style="width: 80%"></div>
+									</div>
 								</div>
-							</div>
-							<!-- /.progress-group -->
-							<div class="progress-group">
-								<span class="progress-text">Maybe</span>
-								<span class="progress-number"><b>250</b>/500</span>
+								<!-- /.progress-group -->
+								<div class="progress-group">
+									<span class="progress-text">Maybe</span>
+									<span class="progress-number"><b>250</b>/500</span>
 
-								<div class="progress sm">
-									<div class="progress-bar progress-bar-yellow" style="width: 80%"></div>
+									<div class="progress sm">
+										<div class="progress-bar progress-bar-yellow" style="width: 80%"></div>
+									</div>
 								</div>
+								<!-- /.progress-group -->
 							</div>
-							<!-- /.progress-group -->
+							<!-- /.col -->
 						</div>
-						<!-- /.col -->
+						<!-- /.row -->
 					</div>
-					<!-- /.row -->
-				</div>
-				<!-- ./box-body -->
+					<!-- ./box-body -->
 
-				<!-- /.box-footer -->
+					<!-- /.box-footer -->
+				</div>
+				<!-- /.box -->
 			</div>
-			<!-- /.box -->
+			<!-- /.col -->
 		</div>
-		<!-- /.col -->
-	</div>
+	</section>
+
+
+	<section style="min-height:100px !important" class="content">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="box">
+					<div class="box-header with-border">
+						<h3 class="box-title">Mode</h3>
+
+						<div class="box-tools pull-right">
+							<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+							</button>
+							<div class="btn-group">
+								<button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
+									<i class="fa fa-wrench"></i></button>
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="#">Action</a></li>
+									<li><a href="#">Another action</a></li>
+									<li><a href="#">Something else here</a></li>
+									<li class="divider"></li>
+									<li><a href="#">Separated link</a></li>
+								</ul>
+							</div>
+							<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+						</div>
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body">
+						<div class="row">
+
+
+
+							<div class="col-md-3">
+
+								<form method="GET" >
+									<button class="btn <?php if($status == 'pending') echo 'btn-mploy' ?>" name="status" value="pending"> Pending</button>
+								</form>
+
+							</div>
+
+
+							<div class="col-md-3">
+
+								<form method="GET" >
+									<button class="btn <?php if($status == 'available') echo 'btn-mploy' ?>"name="status" value="available"> Available</button>
+								</form>
+
+							</div>
+
+
+							<div class="col-md-3">
+
+								<form method="GET" >
+									<button class="btn <?php if($status == 'not willing to take') echo 'btn-mploy' ?>" name="status" value="not willing to take"> Not Willing</button>
+								</form>
+
+							</div>
+
+							<div class="col-md-3">
+
+								<form method="GET" >
+									<button class="btn <?php if($status == 'all') echo 'btn-mploy' ?>" name="status" value="all"> All</button>
+								</form>
+
+							</div>
+							<!-- /.col -->
+
+							<!-- /.col -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- ./box-body -->
+
+					<!-- /.box-footer -->
+				</div>
+				<!-- /.box -->
+			</div>
+			<!-- /.col -->
+		</div>
 	</section>
 
 	<!-- Main content -->
@@ -156,6 +236,9 @@
 						<td><?php echo $company->address1 .' '.$company->address2.' '.$company->town.' '.$company->postcode; ?></td>
 						<td>
 							<?php echo $company->line_of_business;?>
+						</td>
+						<td>
+							<?php echo $company->status;?>
 						</td>
 						<td><a class="" href="/campaigns/employerdetails/<?php echo $camp_id ?>/<?php echo $company->comp_id;?>"> <i class="fa fa-edit"></i> </a></td>
 

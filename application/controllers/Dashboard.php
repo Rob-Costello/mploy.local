@@ -41,11 +41,8 @@ class Dashboard extends CI_Controller {
 	}
 
 	public function dashboard2(){
-
-
 			$data['user'] = $this->user;
 			$this->load->view('pages/dashboard2',$data);
-
 
 	}
 

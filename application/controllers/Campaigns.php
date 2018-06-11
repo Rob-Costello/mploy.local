@@ -15,7 +15,6 @@ class Campaigns extends CI_Controller
 		$this->user = $this->ion_auth->user()->row();
         $this->perPage =20;
         $this->offset =0;
-
         $this->load->library('pagination');
         $this->load->library('helpers');
         $campaigns = new CampaignsModel();
@@ -26,13 +25,9 @@ class Campaigns extends CI_Controller
 	function index( $pageNo = 0 )
 	{
 		$data['campaign_list'] = $this->availableCampaigns;
-
 		$orderby = 'campaign_name';
 		$data['orderby']='';
-
-
 		if(isset($_GET['orderby'])){
-
 			$orderby = $this->input->get('orderby');
 			$data['orderby'] = '?orderby='.$orderby;
 		}
@@ -42,10 +37,11 @@ class Campaigns extends CI_Controller
         $offset=0;
 
         if($pageNo > 0){
-			$offset = $pageNo * $this->perPage;
-		}
-        
-		//$where = ['active' => '1'] ;
+
+        	$offset = $pageNo * $this->perPage;
+
+        }
+
 		$where = null;
 
 		if(!empty($_POST)){
@@ -60,7 +56,6 @@ class Campaigns extends CI_Controller
         $this->pagination->initialize($page);
         $data['pagination_start'] = $offset + 1;
         $data['pagination_end'] = $data['pagination_start'] + $this->perPage;
-
         if($data['pagination_end'] > $data['campaigns']['count']) {
             $data['pagination_end'] = $data['campaigns']['count'];
         }
@@ -135,8 +130,6 @@ class Campaigns extends CI_Controller
 			unset($_POST['start_date']);
 			unset($_POST['end_date']);
 			unset($_POST['holiday']);
-
-
 
 			if(!isset($error)) {
 				$campaign->createCampaign($this->input->post());
@@ -266,17 +259,22 @@ class Campaigns extends CI_Controller
 
 
 			function calendar($id){
-
-	            //calendar for each school
-
                 $data['title'] = 'Calendar';
                 $data['user'] = $this->user;
                 $campaign = new campaignsModel();
+
                 if(!empty($_POST)) {
 
-                    $list = $campaign->listCampaigns($this->input->post());
+                	$_POST['start'] =
+					$_POST['end'] =
+
+					$list = $campaign->newCalendarEntry($id,$this->input->post());
 
                 }
+
+				$data['entries'] = $campaign->getCalendarEntries($id);
+
+
 
                 $data['entries'] = '{
                     title          : \'Long Event\',
@@ -286,11 +284,7 @@ class Campaigns extends CI_Controller
                     borderColor    : \'#f39c12\' //yellow
                 },';
 
-
                 $this->load->view('pages/campaigns/campaign_calendar',$data);
-
-
-
 
             }
 

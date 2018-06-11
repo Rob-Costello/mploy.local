@@ -82,7 +82,22 @@
                                     <!-- /btn-group -->
                                 </div>
                                 <!-- /input-group -->
-                            </div>
+                            <div>
+
+							<form action="POST">
+
+								<input type="text" class="form-control" name="title" placeholder="Title">
+								<input type="text" class="form-control" name="start" placeholder="Start" >
+								<input type="text" class="form-control" name="end"  placeholder="End Ddate">
+								<input type="text" class="form-control" name="background_color" placeholder="Colour" >
+							<button class="btn btn_mploy">Add Event</button>
+
+
+							</form>
+
+							</div>
+
+							</div>
                         </div>
                     </div>
                     <!-- /.col -->
@@ -123,7 +138,7 @@
 
 
 
-<?php $this->load->view('templates/footer'); ?>
+
 
 
 

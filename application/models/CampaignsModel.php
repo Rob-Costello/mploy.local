@@ -149,4 +149,22 @@ class CampaignsModel extends CI_Model
         $query = $this->db->get_where('mploy_campaigns','campaign_id='.$id);
         return $query->row_array();
     }
+
+	public function newCalendarEntry($id,$data){
+
+		$values = array_merge($id,$data);
+    	$this->db->insert('mploy_calendar', $values);
+
+
+	}
+
+	public function getCalendarEntries($id){
+
+
+		$query = $this->db->get_where('mploy_calendar','school_id = '.$id );
+		//$count = $this->db->from('mploy_organisations')->count_all_results();
+		return $query->result_array();
+	}
+
+
 }

@@ -218,15 +218,11 @@
         <div class=" ">
             <div id="exTab1" class="">
 
-
                 <div class="tab-content clearfix">
-
 
                     <div class="tab-pane active" id="1a">
 
-
                         <section class="">
-
                             <!-- Main content School Details-->
                             <!--- Schools contacts -->
 
@@ -235,7 +231,6 @@
                                 <div class="box-header with-border">
                                     <h3 class="box-title">Contacts </h3>
                                 </div>
-
 
                                 <!-- /.box-header -->
                                 <div class="box-body">
@@ -258,7 +253,7 @@
                                         
                                         <?php foreach($calls as $call): ?>
                                             <tr>
-                                                    <td><?php echo $call->campaign_activity_type_id ?></td>
+                                                    <td><?php echo $call->description ?></td>
                                                     <td><?php echo $call->notes ?></td>
                                                     <td><?php echo $call->date_time ?></td>
                                                     <td><?php echo $call->rag_status ?></td>

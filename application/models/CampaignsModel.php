@@ -119,7 +119,9 @@ class CampaignsModel extends CI_Model
 
     public function campaignEmployerCalls($ref,$id){
 
-        $this->db->where('org_id='.$id);
+
+		$this->db->join('mploy_campaign_activity_types','mploy_campaign_activity_types.campaign_type_id = mploy_campaign_activity.campaign_activity_type_id');
+    	$this->db->where('org_id='.$id);
         $calls = $this->db->get_where('mploy_campaign_activity','campaign_ref='.$ref);
         return $calls->result();
     }

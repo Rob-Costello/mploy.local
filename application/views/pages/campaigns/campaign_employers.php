@@ -130,6 +130,14 @@
 					<div class="box-body">
 						<div class="row">
 
+							<div class="col-md-3">
+
+								<form method="GET" >
+									<button class="btn <?php if($status == 'all') echo 'btn-mploy' ?>" name="status" value="all"> All</button>
+								</form>
+
+							</div>
+
 
 
 							<div class="col-md-3">
@@ -158,13 +166,7 @@
 
 							</div>
 
-							<div class="col-md-3">
 
-								<form method="GET" >
-									<button class="btn <?php if($status == 'all') echo 'btn-mploy' ?>" name="status" value="all"> All</button>
-								</form>
-
-							</div>
 							<!-- /.col -->
 
 							<!-- /.col -->

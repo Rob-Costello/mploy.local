@@ -49,7 +49,7 @@
 						
 						<td><?php echo $company->phone; ?></td>
 						<td><?php echo $company->first_name .' '.$company->last_name ; ?></td>
-						<td  >
+						<td>
 						
 							
 							<?php echo $company->status;?>

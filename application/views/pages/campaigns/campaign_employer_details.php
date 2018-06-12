@@ -229,7 +229,7 @@
                             <div class="box">
 
                                 <div class="box-header with-border">
-                                    <h3 class="box-title">Contacts </h3>
+                                    <h3 class="box-title">Call History </h3>
                                 </div>
 
                                 <!-- /.box-header -->
@@ -246,7 +246,7 @@
                                             <?php foreach($call_table as $heading):?>
                                                 <th><?php echo $heading; ?> </th>
                                             <?php endforeach;?>
-                                            <th></th>
+
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -256,12 +256,14 @@
                                                     <td><?php echo $call->description ?></td>
                                                     <td><?php echo $call->notes ?></td>
                                                     <td><?php echo $call->date_time ?></td>
-                                                    <td><?php echo $call->rag_status ?></td>
+                                                    <td>
+														<img src="<?php echo base_url()."assets/";?>dist/img/<?php echo $call->rag_status ?>.png" class="img-circle" alt="Status">
+														</td>
                                               
 
                                             
                                         <?php endforeach ?>
-                                        <td><a  href="/companies/contactdetails/<?php echo $school->id; ?>"> <i class="fa fa-edit"></i> </a></td></td>
+
                                             </tr>
                                         </tbody>
 

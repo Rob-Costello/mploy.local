@@ -98,12 +98,27 @@
                                              <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label >Status</label>
-                                                    <select name="rag_status" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
-                                                        <option value="red">Red</option>
-                                                        <option value="amber">Amber</option>
-                                                        <option value="green">Green</option>
-                                                    </select>
-                                                </div>
+
+
+
+													<div class="dropdown">
+														<button id="dropdown-button" class="btn " style="border: solid 1px ;  border-color: #f7f3f7;" type="button" data-toggle="dropdown">Status
+															<span class="caret"></span></button>
+														<ul id="rag-dropdown" class="dropdown-menu">
+															<li onclick="setValue('red')"   name= 'red' class="rag-option" value="red" >
+																<img src="<?php echo base_url()."assets/";?>dist/img/red.png" class="img-circle" alt="User Image">
+															</li>
+															<li style="marign:auto;" onclick="setValue('amber')"  name= 'red' class="rag-option" value="amber" >
+																<img  src="<?php echo base_url()."assets/";?>dist/img/amber.png" class="img-circle" alt="User Image">
+															</li>
+
+															<li onclick="setValue('green')"  name= 'red' class="rag-option" value="green" >
+																<img src="<?php echo base_url()."assets/";?>dist/img/green.png" class="img-circle" alt="User Image">
+															</li>
+														</ul>
+													</div>
+												<input type="hidden" name="rag_status" id="rag_status">
+												</div>
                                             </div>
                                             <!--/span-->
                                         </div>
@@ -166,3 +181,14 @@
 
 
     <?php $this->load->view('templates/footer'); ?>
+
+	<script>
+		function setValue(value){
+
+			$('#rag_status').val(value);
+			var button = '<img src="<?php echo base_url().'assets/';?>dist/img/'+value+'.png">  <span class="caret"></span>';
+			$('#dropdown-button').html(button);
+
+
+		}
+	</script>

@@ -127,7 +127,9 @@ class CampaignsModel extends CI_Model
     }
 
     public function newCall($data){
-        
+
+        $timestamp = strtotime($data['date_time']);
+    	$data['date_time']= date("Y-m-d H:i:s", $timestamp);
         $this->db->insert('mploy_campaign_activity', $data);
         
     }

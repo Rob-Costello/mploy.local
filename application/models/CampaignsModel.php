@@ -158,10 +158,38 @@ class CampaignsModel extends CI_Model
 	public function newCalendarEntry($id,$data){
 
 		$values = array_merge($id,$data);
-    	$this->db->insert('mploy_calendar', $values);
+
+		 $this->db->insert('mploy_calendar',$values)->count_all_results();
+
+		//return  $count;
+
+		//$this->db->insert('mploy_calendar', $values)
+
+	}
+
+	function setSchoolHoliday($data){
+
+    	$this->db->insert('mploy_organisation_holidays', $data);
 
 
 	}
+
+	function getSchoolHoliday($id){
+
+    	$query = $this->db->get_where('mploy_organisation_holidays',['school_id'=>$id]);
+    	return $query->result_aray();
+
+	}
+
+	function checkHoliday($id,$data){
+
+		$data['school_id']= $id;
+
+		$query = $this->db->get_where('mploy_organisation_holidays',$data);
+		return $query->row_array();
+
+	}
+
 
 	public function getCalendarEntries($id){
 
@@ -170,5 +198,13 @@ class CampaignsModel extends CI_Model
 		return $query->result_array();
 	}
 
+
+	public function getCampaignDates($id){
+
+		$query = $this->db->get_where('mploy_campaigns','select_school = '.$id );
+		//$count = $this->db->from('mploy_organisations')->count_all_results();
+		return $query->result_array();
+
+	}
 
 }

@@ -39,12 +39,11 @@ class Campaigns extends CI_Controller
         if($pageNo > 0){
 
         	$offset = $pageNo * $this->perPage;
-
         }
 
 		$where = null;
 
-		if(!empty($_POST)){
+        if(!empty($_POST)){
 
 			$where = "campaign_name like '%".$this->input->post('search')."%'";
 
@@ -60,14 +59,13 @@ class Campaigns extends CI_Controller
             $data['pagination_end'] = $data['campaigns']['count'];
         }
 
+        $data['message'] = $data['message'] = $this->session->flashdata('message');
         $data['pagination'] = $this->pagination->create_links();
 		$data['user'] = $this->user;
 		$data['title'] = 'Campaigns';
 		$data['nav'] = 'campaigns';
 		$this->load->view('pages/campaigns/campaigns', $data);
     }
-
-
 
 
 	function newCampaign()
@@ -106,12 +104,21 @@ class Campaigns extends CI_Controller
 			$start = $this->input->post('start_date');
 			$end = $this->input->post('end_date');
 			$holiday = $this->input->post('holiday');
-
+			$school = $this->input->post('select_school');
 			if(null !== $start){
+
 				for($i=0; $i < count($start); $i++){
-					$output .= $start[$i].' '.$end[$i].' '.$holiday[$i];
+
+					$available = $campaign->checkHoliday($school,['start_date'=>$start[$i],'end_date' => $end[$i], 'holiday_name' => $holiday[$i]]);
+
+					if($available==null){
+
+						$campaign->setSchoolHoliday(['start_date'=>$start[$i],'end_date' => $end[$i], 'holiday_name' => $holiday[$i]]);
+					}
 				}
+
 			}
+
 			//make dates db friendly
 			foreach($dates as $d){
 				$_POST[$d] = date("Y-m-d", strtotime($this->input->post($d)));
@@ -133,12 +140,19 @@ class Campaigns extends CI_Controller
 
 			if(!isset($error)) {
 				$campaign->createCampaign($this->input->post());
+				$data['message'] = 'New Campaign  '.$this->input->post('campaign_name') .' Created ';
+				$this->session->set_flashdata('message', 'New Campaign  '.$this->input->post('campaign_name') .' Created ');
+				redirect('campaigns','refresh');
+				//$this->load->view('pages/campaigns/campaigns', $data);
 			}
 		}
 
 		//create progress bar and feed in placements query
 		//$campaign->placements($id);
 		$data['dropdown']=$campaign->getSchools();
+
+
+
 
 		$this->load->view('pages/campaigns/new_campaign',$data);
 
@@ -286,19 +300,115 @@ class Campaigns extends CI_Controller
 
 				$data['entries'] = $campaign->getCalendarEntries($id);
 
+				$calendar = $campaign->getCalendarEntries($id);
+				$campaignDates = $campaign->getCampaignDates($id);
+
+				//var_dump($calendar);
+				//var_dump($campaignDates);
+
+				$data['entries']='';
+				var_dump($campaignDates);
+
+				$dates= [['campaign_place_start_date','campaign_place_end_date'],
+					'mailshot_1_date',
+					'mailshot_2_date',
+					['employer_engagement_start','employer_engagement_end'],
+					'self_place_deadline',
+					'matching_start','matching_end'];
 
 
-                $data['entries'] = '{
-                    title          : \'Long Event\',
+
+
+
+
+				foreach($campaignDates as $k => $camp){
+
+
+					foreach($dates as $d){
+
+						if(is_array($d)){
+
+							$start = 'start		:new Date(y, m, d, '.$d[0].')';
+							$end =   'end		:new Date(y, m, d, '.$d[1].')';
+
+						}
+
+					}
+
+
+
+
+					$data['entries'] .= '{
+                    title          : \''. $camp['campaign_name'].' \',
                     start          : new Date(y, m, d - 5),
                     end            : new Date(y, m, d - 2),
                     backgroundColor: \'#f39c12\', //yellow
                     borderColor    : \'#f39c12\' //yellow
                 },';
 
+
+
+
+				}
+
+
+					/*$data['entries'] = '{
+                    title          : \'Long Event\',
+                    start          : new Date(y, m, d - 5),
+                    end            : new Date(y, m, d - 2),
+                    backgroundColor: \'#f39c12\', //yellow
+                    borderColor    : \'#f39c12\' //yellow
+                },';*/
+
                 $this->load->view('pages/campaigns/campaign_calendar',$data);
 
             }
+
+			function getSchoolHolidays($id)
+			{
+				$campaign = new CampaignsModel();
+				$holidays = $campaign->getSchoolHoliday($id);
+				if ($holiday !== null){
+					foreach ($holidays as $hol) {
+
+
+					}
+				}
+			}
+
+
+			function calculateDates()
+			{
+				//need to get info from config set static for now
+				$dates = ['campaign_start_date', 'mailshot_1_date', 'mailshot_2_date',
+					'employer_engagement_start', 'employer_engagement_end', 'self_place_deadline',
+					'matching_start', 'matching_end'];
+				//var_dump( $_POST);
+				if (!empty($_POST)) {
+					if ($this->input->post('campaign_place_start_date')) {
+						$start = new DateTime();
+						$start->setTimestamp( strtotime($this->input->post('campaign_place_start_date')));
+						$end = new DateTime();
+						$end->setTimestamp(strtotime($this->input->post('campaign_place_end_date')));
+						$interval = date_diff($start, $end);
+						$days = $interval->format('%R%a');
+						//echo $days;
+						if (strstr($days, '+')) {
+							$days = (int)$days;
+							$interval = $days / count($dates);
+							$array = [];
+							$day = 0;
+							for ($i = 0; $i < count($dates); $i++) {
+								$array[$dates[$i]] = date('d-m-Y', strtotime($start->format('d-m-Y') . ' + ' . (int)$day . ' day'));
+								$day += $interval;
+							}
+						}
+						echo json_encode($array, true);
+					}
+
+
+				}
+			}
 
 
 

@@ -195,7 +195,10 @@
             //Random default events
             events    : [
 
-                <?php echo $entries; ?>
+
+				<?php echo $entries; ?>
+
+
 
             ],
             editable  : true,

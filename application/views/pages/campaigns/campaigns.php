@@ -21,6 +21,21 @@
 
 
 
+		<div style="z-index:100" class="col-md-12">
+			<?php if( $message != '' ) { ?>
+				<div class="alert alert-success alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+					<?php echo $message; ?>
+				</div>
+			<?php } ?>
+		</div>
+
+		<div style="opacity:0;"  id="message">
+			<?php echo $message; ?>
+
+		</div>
+
+
 		<div class="box">
 
         <div class <div class="col-md-offset-6 col-md-6">

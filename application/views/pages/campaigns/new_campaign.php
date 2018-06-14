@@ -37,9 +37,6 @@
 								<h4>Please complete the highlighted fields</h4>
 							<?php endif ?>
 
-
-
-
                             <div class="box">
 
                                 <div class="box-header with-border">
@@ -66,7 +63,7 @@
 
                                                     <div class="">
                                                         <label >Students to Place</label>
-                                                        <input type="number" name="students_to_place" class="form-control" value="" placeholder="999" autocomplete="off" >
+                                                        <input type="number" name="students_to_place" class="form-control" value="" placeholder="" autocomplete="off" >
                                                     </div>
                                                 </div>
                                             </div>
@@ -75,7 +72,7 @@
                                                 <div class="form-group">
                                                     <div class="">
                                                         <label >Self Placing Students </label>
-                                                        <input type="number" name="self_placing_students" class="form-control" value="" placeholder="55" autocomplete="off" >
+                                                        <input type="number" name="self_placing_students" class="form-control" value="" placeholder="" autocomplete="off" >
                                                     </div>
                                                 </div>
                                             </div><!--end col-->
@@ -89,15 +86,10 @@
 
                                                     <label class=" ">School</label>
                                                     <select class="form-control" name="select_school">
-														<?php var_dump($dropdown);?>
 														<?php foreach($dropdown as $d): ?>
-
 															<option value="<?php echo $d->school_id ?>"><?php echo $d->name;?></option>
 														<?php endforeach ?>
-
 													</select>
-
-
 
                                                 </div>
                                             </div>
@@ -128,7 +120,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <div style="padding-top:40px;" >
-                                                        <button class="btn btn-mploy"> Calculate Dates </button>
+                                                        <button id="calculate" type="button" class="btn btn-mploy"> Calculate Dates </button>
                                                     </div  >
                                                 </div>
                                             </div><!--end col-->
@@ -144,7 +136,7 @@
                                                         <th>End</th>
 
                                                         <th>Holiday</th>
-                                                        <th></th>
+
                                                     </tr>
                                                     </thead>
                                                     <tbody>                                               
@@ -158,9 +150,7 @@
                                                         <td>
                                                         <input name="holiday[]" type="text" class="form-control">
                                                         </td>
-                                                        <td> 
-                                                        <button id="1" type="button" class="white-btn btn ">Edit</button>
-                                                        </td>
+
                                                     </tr>
                                                     <tr style="background-color:#fff;border-color:#fff">
                                                         <td></td>
@@ -275,11 +265,30 @@
     
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
+	<script>
+
+
+		$('#add-row').click(function(){
+			var rows = $('#holidays tbody tr').length;
+			var table = $('#holidays');
+			var start_date ='<td><input id ="'+rows+'start_date" type="text" name="start_date[]" value="" class="datepicker form-control"></td>';
+			var end_date ='<td><input id ="'+rows+'end_date" type="text" name="end_date[]" value="" class="datepicker form-control"></td>';
+			var holiday ='<td><input id ="'+rows+'holiday" type="text" name="holiday[]" value="" class="form-control"></td>';
+
+			var row = $('<tr>').html(start_date + end_date + holiday );
+			table.find('tr:last').prev().after(row);
+
+			$(function() {$('.datepicker').daterangepicker({opens: 'left',singleDatePicker: true,});});
+		});
+
+
+	</script>
+
+
 
 <script>
 
-
-
+	//check for errors in form
 	<?php if (isset($error)): ?>
 
 	$(function(){
@@ -289,49 +298,28 @@
 	})
 	<?php endif ?>
 
+//append holidays to holiday table
 
 
+//date range plugin
 
-
-
-
-	$('#add-row').click(function(){
-        var rows = $('#holidays tbody tr').length;
-        var table = $('#holidays');
-        var start_date ='<td><input id ="'+rows+'start_date" type="text" name="start_date[]" value="" class="datepicker form-control"></td>';
-        var end_date ='<td><input id ="'+rows+'end_date" type="text" name="end_date[]" value="" class="datepicker form-control"></td>';
-        var holiday ='<td><input id ="'+rows+'holiday" type="text" name="holiday[]" value="" class="form-control"></td>';
-        var button = '<td><button onclick="editRow('+rows+')" id ="'+rows+'" type="button" class="white-btn btn ">Edit</button><td>';    
-            var row = $('<tr>').html(start_date + end_date + holiday + button);
-            table.find('tr:last').prev().after(row);
-           
-            $(function() {$('.datepicker').daterangepicker({opens: 'left',singleDatePicker: true,});});
-    });
-
-    function editRow(id){        
-        var date = $('#'+id+'date');
-        var holiday = $('#'+id+'holiday');
-        if (date.attr('disabled')) {
-            date.removeAttr('disabled');
-            holiday.removeAttr('disabled');
-        } else {
-            date.attr('disabled', 'disabled');
-            holiday.attr('disabled', 'disabled');
-        }
-    }
-
-
-//date range
 $(function() {
-  $('input[name="daterange"]').daterangepicker({
-    opens: 'left'
-  }, function(start, end, label) {
-    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-  });
+	$('.datepicker').daterangepicker({
+		opens: 'left',
+		singleDatePicker: true,
+		defaultViewDate: null,
+
+		locale: {
+			format: 'DD-MM-YYYY'
+		}
+	});
 });
 
-$(function() {$('.datepicker').daterangepicker({opens: 'left',singleDatePicker: true,});});
+//remove prepopulated dates in date picker
+$(function(){
+	$('.datepicker').val('');
 
+})
 
 
 
@@ -339,11 +327,38 @@ $(function() {$('.datepicker').daterangepicker({opens: 'left',singleDatePicker: 
 </script>
 
 
+<script>
+	$(function(){
+
+		$("#calculate").click(function(){
+				var target = '/campaigns/calculateDates';
+				var start =$('[name="campaign_place_start_date"]').val()
+			var end =$('[name="campaign_place_end_date"]').val()
+			//alert($('[name="campaign_place_start_date"]').val());
+				//var start =$('#campaign_place_start_date').val();
+				$.ajax({
+					url: target,
+					type: 'POST',
+					data: {campaign_place_start_date:start, campaign_place_end_date:end},
+					success: function(data, textStatus, XMLHttpRequest)
+					{
+						data = JSON.parse(data);
+							Object.keys(data).forEach(function(key){
+							console.log(key + '=' + data[key]);
+								$('[name="'+key+'"]').val(data[key]);
+							});
+					}
+				});
+		});
+	})
+
+</script>
+
 
 <script>
     $(function(){
 
-        
+
         $( "#school" ).autocomplete({source: "http://mploy.local/schools/getSchools/?"});
     })
 </script>

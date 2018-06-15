@@ -352,7 +352,7 @@ class Campaigns extends CI_Controller
 				$data['contacts_table']= ['Name', 'Position', 'Phone', 'Email'];
 				$data['call_table'] = ['Type','Notes','Date','Outcome'];
 				$this->load->view('pages/campaigns/campaign_employer_details',$data);
-			
+
 			}
 
 

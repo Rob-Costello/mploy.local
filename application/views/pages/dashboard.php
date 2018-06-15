@@ -32,7 +32,7 @@
 
 							<div class="info-box-content">
 								<span class="info-box-text">Schools</span>
-								<span class="info-box-number">34</span>
+								<span class="info-box-number"><?php echo number_format($school_count,0,"",","); ?></span>
 							</div>
 							<!-- /.info-box-content -->
 						</div>
@@ -45,7 +45,7 @@
 
 							<div class="info-box-content">
 								<span class="info-box-text">Companies</span>
-								<span class="info-box-number">10</span>
+                                <span class="info-box-number"><?php echo number_format($company_count,0,"",","); ?></span>
 							</div>
 							<!-- /.info-box-content -->
 						</div>
@@ -62,7 +62,7 @@
 
 							<div class="info-box-content">
 								<span class="info-box-text">Active Users</span>
-								<span class="info-box-number">8</span>
+								<span class="info-box-number"><?php echo number_format($user_count,0,"",","); ?></span>
 							</div>
 							<!-- /.info-box-content -->
 						</div>
@@ -75,7 +75,7 @@
 
 							<div class="info-box-content">
 								<span class="info-box-text">Active Campaigns</span>
-								<span class="info-box-number">3</span>
+								<span class="info-box-number"><?php echo number_format($campaigns_count,0,"",","); ?></span>
 							</div>
 							<!-- /.info-box-content -->
 						</div>
@@ -112,13 +112,15 @@
 							<div class="box-body">
 								<div class="row">
 
-									<!-- /.col -->
+                                <?php foreach($campaigns_display as $campaign){ ?>
+
+                                    <!-- /.col -->
 									<div class="col-md-2">
                                         <!--										<p class="text-center">-->
                                         <!--											<strong>Goal Completion</strong>-->
                                         <!--										</p>-->
 
-                                        <h3 class="box-title">Campaign 1</h3>
+                                        <h3 class="box-title"><?php echo $campaign->campaign_name; ?></h3>
 
                                         <div class="progress-group">
                                             <span class="progress-text">Companies Contacted</span>
@@ -150,192 +152,7 @@
                                     </div>
 									<!-- /.col -->
 
-
-                                    <!-- /.col -->
-                                    <div class="col-md-2">
-                                        <!--										<p class="text-center">-->
-                                        <!--											<strong>Goal Completion</strong>-->
-                                        <!--										</p>-->
-
-                                        <h3 class="box-title">Campaign 2</h3>
-
-                                        <div class="progress-group">
-                                            <span class="progress-text">Companies Contacted</span>
-                                            <span class="progress-number"><b>1000</b>/4000</span>
-
-                                            <div class="progress sm">
-                                                <div class="progress-bar progress-bar-aqua" style="width: 75%"></div>
-                                            </div>
-                                        </div>
-                                        <!-- /.progress-group -->
-                                        <div class="progress-group">
-                                            <span class="progress-text">Places Agreed</span>
-                                            <span class="progress-number"><b>40</b>/400</span>
-
-                                            <div class="progress sm">
-                                                <div class="progress-bar progress-bar-yellow" style="width: 50%"></div>
-                                            </div>
-                                        </div>
-                                        <!-- /.progress-group -->
-                                        <div class="progress-group">
-                                            <span class="progress-text">Success Rate</span>
-                                            <span class="progress-number"><b>4</b>/100</span>
-
-                                            <div class="progress sm">
-                                                <div class="progress-bar progress-bar-green" style="width: 15%"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- /.col -->
-
-                                    <!-- /.col -->
-                                    <div class="col-md-2">
-                                        <!--										<p class="text-center">-->
-                                        <!--											<strong>Goal Completion</strong>-->
-                                        <!--										</p>-->
-
-                                        <h3 class="box-title">Campaign 3</h3>
-
-                                        <div class="progress-group">
-                                            <span class="progress-text">Companies Contacted</span>
-                                            <span class="progress-number"><b>1000</b>/4000</span>
-
-                                            <div class="progress sm">
-                                                <div class="progress-bar progress-bar-aqua" style="width: 60%"></div>
-                                            </div>
-                                        </div>
-                                        <!-- /.progress-group -->
-                                        <div class="progress-group">
-                                            <span class="progress-text">Places Agreed</span>
-                                            <span class="progress-number"><b>40</b>/400</span>
-
-                                            <div class="progress sm">
-                                                <div class="progress-bar progress-bar-yellow" style="width: 40%"></div>
-                                            </div>
-                                        </div>
-                                        <!-- /.progress-group -->
-                                        <div class="progress-group">
-                                            <span class="progress-text">Success Rate</span>
-                                            <span class="progress-number"><b>4</b>/100</span>
-
-                                            <div class="progress sm">
-                                                <div class="progress-bar progress-bar-green" style="width: 10%"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- /.col -->
-
-                                    <!-- /.col -->
-                                    <div class="col-md-2">
-                                        <!--										<p class="text-center">-->
-                                        <!--											<strong>Goal Completion</strong>-->
-                                        <!--										</p>-->
-
-                                        <h3 class="box-title">Campaign 4</h3>
-
-                                        <div class="progress-group">
-                                            <span class="progress-text">Companies Contacted</span>
-                                            <span class="progress-number"><b>1000</b>/4000</span>
-
-                                            <div class="progress sm">
-                                                <div class="progress-bar progress-bar-aqua" style="width: 5%"></div>
-                                            </div>
-                                        </div>
-                                        <!-- /.progress-group -->
-                                        <div class="progress-group">
-                                            <span class="progress-text">Places Agreed</span>
-                                            <span class="progress-number"><b>40</b>/400</span>
-
-                                            <div class="progress sm">
-                                                <div class="progress-bar progress-bar-yellow" style="width: 2%"></div>
-                                            </div>
-                                        </div>
-                                        <!-- /.progress-group -->
-                                        <div class="progress-group">
-                                            <span class="progress-text">Success Rate</span>
-                                            <span class="progress-number"><b>4</b>/100</span>
-
-                                            <div class="progress sm">
-                                                <div class="progress-bar progress-bar-green" style="width: 1%"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- /.col -->
-
-                                    <!-- /.col -->
-                                    <div class="col-md-2">
-                                        <!--										<p class="text-center">-->
-                                        <!--											<strong>Goal Completion</strong>-->
-                                        <!--										</p>-->
-
-                                        <h3 class="box-title">Campaign 5</h3>
-
-                                        <div class="progress-group">
-                                            <span class="progress-text">Companies Contacted</span>
-                                            <span class="progress-number"><b>1000</b>/4000</span>
-
-                                            <div class="progress sm">
-                                                <div class="progress-bar progress-bar-aqua" style="width: 25%"></div>
-                                            </div>
-                                        </div>
-                                        <!-- /.progress-group -->
-                                        <div class="progress-group">
-                                            <span class="progress-text">Places Agreed</span>
-                                            <span class="progress-number"><b>40</b>/400</span>
-
-                                            <div class="progress sm">
-                                                <div class="progress-bar progress-bar-yellow" style="width: 20%"></div>
-                                            </div>
-                                        </div>
-                                        <!-- /.progress-group -->
-                                        <div class="progress-group">
-                                            <span class="progress-text">Success Rate</span>
-                                            <span class="progress-number"><b>4</b>/100</span>
-
-                                            <div class="progress sm">
-                                                <div class="progress-bar progress-bar-green" style="width: 4%"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- /.col -->
-
-                                    <!-- /.col -->
-                                    <div class="col-md-2">
-                                        <!--										<p class="text-center">-->
-                                        <!--											<strong>Goal Completion</strong>-->
-                                        <!--										</p>-->
-
-                                        <h3 class="box-title">Campaign 6</h3>
-
-                                        <div class="progress-group">
-                                            <span class="progress-text">Companies Contacted</span>
-                                            <span class="progress-number"><b>1000</b>/4000</span>
-
-                                            <div class="progress sm">
-                                                <div class="progress-bar progress-bar-aqua" style="width: 25%"></div>
-                                            </div>
-                                        </div>
-                                        <!-- /.progress-group -->
-                                        <div class="progress-group">
-                                            <span class="progress-text">Places Agreed</span>
-                                            <span class="progress-number"><b>40</b>/400</span>
-
-                                            <div class="progress sm">
-                                                <div class="progress-bar progress-bar-yellow" style="width: 20%"></div>
-                                            </div>
-                                        </div>
-                                        <!-- /.progress-group -->
-                                        <div class="progress-group">
-                                            <span class="progress-text">Success Rate</span>
-                                            <span class="progress-number"><b>4</b>/100</span>
-
-                                            <div class="progress sm">
-                                                <div class="progress-bar progress-bar-green" style="width: 4%"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- /.col -->
-
+                                <?php } ?>
 
 								</div>
 								<!-- /.row -->

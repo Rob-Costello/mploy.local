@@ -88,7 +88,11 @@
                     <?php foreach($headings as $h): ?>
                    
 						<td>
-                            <?php echo $company->$h; ?>
+                            <?php if($h == 'campaign_place_start_date' || $h == 'campaign_place_end_date') { ?>
+                                <?php echo date('d/m/Y', strtotime($company->$h)); ?>
+                            <?php } else { ?>
+                                <?php echo $company->$h; ?>
+                            <?php } ?>
 						</td>
 						<?php endforeach ?>
                         <td><a class="" href="/campaigns/employers/<?php echo $company->campaign_id; ?>/0"> <i class="fa fa-play"></i> </a></td>

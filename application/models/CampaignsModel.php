@@ -207,4 +207,24 @@ class CampaignsModel extends CI_Model
 
 	}
 
+
+	public function editCampaign($id,$data){
+
+
+		$this->db->trans_start();
+		$this->db->where('id', $id);
+		$this->db->update('mploy_campaigns', $data);
+		$this->db->trans_complete();
+		return $this->db->trans_status();
+
+	}
+
+
+	public function getCampaign($id){
+
+    	$query = $this->db->get_where('mploy_campaigns','campaign_id = '.$id );
+    	return $query->row_array();
+
+	}
+
 }

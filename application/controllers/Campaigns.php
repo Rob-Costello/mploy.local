@@ -267,6 +267,71 @@ class Campaigns extends CI_Controller
 				$this->load->view('pages/campaigns/campaign_employer_new_call',$data);
 			}
 
+
+	function newcalendar($id,$campaign=null)
+	{
+		$data['title'] = 'Calendar';
+		$data['user'] = $this->user;
+		$campaign = new campaignsModel();
+
+		if(!empty($_POST)) {
+
+			$_POST['start'] =
+			$_POST['end'] =
+
+			$list = $campaign->newCalendarEntry($id,$this->input->post());
+
+		}
+
+		$data['entries'] = $campaign->getCalendarEntries($id);
+
+		$calendar = $campaign->getCalendarEntries($id);
+		$campaignDates = $campaign->getCampaignDates($id);
+
+		//var_dump($calendar);
+		//var_dump($campaignDates);
+
+		$data['entries']='';
+		//var_dump($campaignDates);
+
+		$dates= [['campaign_place_start_date','campaign_place_end_date'],
+			'mailshot_1_date',
+			'mailshot_2_date',
+			['employer_engagement_start','employer_engagement_end'],
+			'self_place_deadline',
+			'matching_start','matching_end'];
+
+
+
+		foreach($campaignDates as $k => $camp){
+
+			foreach($dates as $d) {
+
+				if (is_array($d)) {
+					$start =   'start		:new Date('.date($camp[$d[0]]).',"Y-MM-DD HH:mm:ss"),';
+					$end =   'end		:new Date('.date($camp[$d[0]]).',"Y-MM-DD HH:mm:ss"),';
+
+				} else {
+					$start =   'start		:new Date('.$camp[$d].',"Y-MM-DD HH:mm:ss"),';
+					$end =   'end		:new Date('.$camp[$d].',"Y-MM-DD HH:mm:ss" ),';
+
+				}
+
+				$data['entries'] .= '{
+                    	title          : \''. $camp['campaign_name'].' \',
+                    	'.$start.'
+                    	'.$end.'
+                    	backgroundColor: \'#f39c12\', //yellow
+                    	borderColor    : \'#f39c12\' //yellow
+                		},';
+			}
+
+		}
+
+
+		$this->load->view('pages/campaigns/campaign_calendar2',$data);
+	}
+
 			function findCampaigns(){
 
 				$campaign = new campaignsModel();
@@ -316,19 +381,38 @@ class Campaigns extends CI_Controller
 					'self_place_deadline',
 					'matching_start','matching_end'];
 
+				$calendarDates = $campaign->getCalendarEntries($id);
 
+
+				foreach($calendarDates as $cal){
+
+					$title = $cal['title'];
+					$start =   'start		:\''. date('Y-m-d H:i:s',strtotime($cal['start'])).'\',';
+					$end =   'end		:\''. date('Y-m-d H:i:s',strtotime($cal['end'])).'\',';
+
+					$data['entries'] .= '{
+                    	title          : \''. $cal['title'].' \',
+                    	'.$start.'
+                    	'.$end.'
+                    	
+                    	backgroundColor: \'#86d0f4\', //yellow
+                    	borderColor    : \'#86d0f4\' //yellow
+                		},';
+
+				}
 
 				foreach($campaignDates as $k => $camp){
 
 					foreach($dates as $d) {
 
 						if (is_array($d)) {
-							$start =   'start		:new Date('.date($camp[$d[0]]).',"Y-MM-DD HH:mm:ss"),';
-							$end =   'end		:new Date('.date($camp[$d[0]]).',"Y-MM-DD HH:mm:ss"),';
+							//$start = 'start		:$.fullCalendar.formatDate('.strtotime($camp[$d[0]]).',"yyyy-MM-dd"), ';
+							$start =   'start		:\''. date('Y-m-d H:i:s',strtotime($camp[$d[0]])).'\',';
+							$end =   'end		:\''. date('Y-m-d H:i:s',strtotime($camp[$d[1]])).'\',';
 
 						} else {
-							$start =   'start		:new Date('.$camp[$d].',"Y-MM-DD HH:mm:ss"),';
-							$end =   'end		:new Date('.$camp[$d].',"Y-MM-DD HH:mm:ss" ),';
+							$start =   'start		:\''. date('Y-m-d H:i:s',strtotime($camp[$d])).'\',';
+							$end =   'end		:\''. date('Y-m-d H:i:s',strtotime($camp[$d])).'\',';
 
 						}
 
@@ -336,6 +420,7 @@ class Campaigns extends CI_Controller
                     	title          : \''. $camp['campaign_name'].' \',
                     	'.$start.'
                     	'.$end.'
+                    	
                     	backgroundColor: \'#f39c12\', //yellow
                     	borderColor    : \'#f39c12\' //yellow
                 		},';

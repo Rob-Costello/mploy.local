@@ -18,11 +18,71 @@
 
     <!-- Main content -->
     <section class="content">
+		<!-- Trigger the modal with a button -->
+
+
+
 
 
 
         <div class="box">
 
+			<button style="margin-top:10px; margin-left:10px" type="button" class=" btn btn-mploy-submit waves-effect waves-light" data-toggle="modal" data-target="#myModal">New Calendar Entry</button>
+
+			<!-- Modal -->
+			<div id="myModal" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">New Calendar Entry</h4>
+						</div>
+						<div class="modal-body">
+
+							<form method="post"  >
+								<div class="row">
+									<div class="col-md-12">
+										<div class="form-group">
+											<label >Appointment Title</label>
+											<input type="text" name="title" class="form-control" value="" placeholder="New Calendar Entry" autocomplete="off" >
+										</div>
+									</div>
+								</div>
+
+
+
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label >Start Date</label>
+											<input type="text" name="start" class="form-control datepicker " value="" placeholder="Jane Doe" autocomplete="off" >
+
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label >End Date</label>
+											<input type="text" name="end" class="form-control datepicker " value="" placeholder="Jane Doe" autocomplete="off" >
+
+										</div>
+									</div>
+								</div>
+
+
+
+
+						</div>
+						<div class="modal-footer">
+							<button  class="btn btn-mploy" >Add Entry</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							</form>
+						</div>
+					</div>
+
+				</div>
+			</div>
             <section class="content">
                 <div class="row">
 
@@ -192,5 +252,106 @@
         })
     })
 </script>
+
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+<script>
+
+
+	$('#add-row').click(function(){
+		var rows = $('#holidays tbody tr').length;
+		var table = $('#holidays');
+		var start_date ='<td><input id ="'+rows+'start_date" type="text" name="start_date[]" value="" class="datepicker form-control"></td>';
+		var end_date ='<td><input id ="'+rows+'end_date" type="text" name="end_date[]" value="" class="datepicker form-control"></td>';
+		var holiday ='<td><input id ="'+rows+'holiday" type="text" name="holiday[]" value="" class="form-control"></td>';
+
+		var row = $('<tr>').html(start_date + end_date + holiday );
+		table.find('tr:last').prev().after(row);
+
+		$(function() {$('.datepicker').daterangepicker({opens: 'left',singleDatePicker: true,});});
+	});
+
+
+</script>
+
+
+
+<script>
+
+	//check for errors in form
+	<?php if (isset($error)): ?>
+
+	$(function(){
+		<?php foreach($error as $e): ?>
+		$('input[name="<?php echo $e;?>"]').addClass('error-box');
+		<?php endforeach ?>
+	})
+	<?php endif ?>
+
+	//append holidays to holiday table
+
+
+	//date range plugin
+
+	$(function() {
+		$('.datepicker').daterangepicker({
+			opens: 'left',
+			singleDatePicker: true,
+			defaultViewDate: null,
+
+			locale: {
+				format: 'DD-MM-YYYY'
+			}
+		});
+	});
+
+	//remove prepopulated dates in date picker
+	$(function(){
+		$('.datepicker').val('');
+
+	})
+
+
+
+
+</script>
+
+
+<script>
+	$(function(){
+
+		$("#calculate").click(function(){
+			var target = '/campaigns/calculateDates';
+			var start =$('[name="campaign_place_start_date"]').val()
+			var end =$('[name="campaign_place_end_date"]').val()
+			//alert($('[name="campaign_place_start_date"]').val());
+			//var start =$('#campaign_place_start_date').val();
+			$.ajax({
+				url: target,
+				type: 'POST',
+				data: {campaign_place_start_date:start, campaign_place_end_date:end},
+				success: function(data, textStatus, XMLHttpRequest)
+				{
+					data = JSON.parse(data);
+					Object.keys(data).forEach(function(key){
+						console.log(key + '=' + data[key]);
+						$('[name="'+key+'"]').val(data[key]);
+					});
+				}
+			});
+		});
+	})
+
+</script>
+
+
+<script>
+	$(function(){
+
+
+		$( "#school" ).autocomplete({source: "http://mploy.local/schools/getSchools/?"});
+	})
+</script>
+
 </body>
 </html>

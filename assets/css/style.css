@@ -27,7 +27,14 @@ h1,h2,h3,h4{
 
 }
 
+.ui-datepicker-calendar{
 
+	display:none ! important;
+}
+
+.ui-datepicker-header.ui-widget-header.ui-helper-clearfix.ui-corner-all{
+	display:none !important;
+}
 
 .no-button{
 	background:none!important;

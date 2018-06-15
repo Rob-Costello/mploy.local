@@ -157,9 +157,9 @@ class CampaignsModel extends CI_Model
 
 	public function newCalendarEntry($id,$data){
 
-		$values = array_merge($id,$data);
+		$values = array_merge(['school_id'=>$id],$data);
 
-		 $this->db->insert('mploy_calendar',$values)->count_all_results();
+		 $this->db->insert('mploy_calendar',$values);
 
 		//return  $count;
 

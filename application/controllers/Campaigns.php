@@ -284,7 +284,7 @@ class Campaigns extends CI_Controller
 			}
 
 
-			function calendar($id){
+			function calendar($id,$campaign=null){
                 $data['title'] = 'Calendar';
                 $data['user'] = $this->user;
                 $campaign = new campaignsModel();
@@ -307,7 +307,7 @@ class Campaigns extends CI_Controller
 				//var_dump($campaignDates);
 
 				$data['entries']='';
-				var_dump($campaignDates);
+				//var_dump($campaignDates);
 
 				$dates= [['campaign_place_start_date','campaign_place_end_date'],
 					'mailshot_1_date',
@@ -318,47 +318,31 @@ class Campaigns extends CI_Controller
 
 
 
-
-
-
 				foreach($campaignDates as $k => $camp){
 
+					foreach($dates as $d) {
 
-					foreach($dates as $d){
+						if (is_array($d)) {
+							$start =   'start		:new Date('.date($camp[$d[0]]).',"Y-MM-DD HH:mm:ss"),';
+							$end =   'end		:new Date('.date($camp[$d[0]]).',"Y-MM-DD HH:mm:ss"),';
 
-						if(is_array($d)){
-
-							$start = 'start		:new Date(y, m, d, '.$d[0].')';
-							$end =   'end		:new Date(y, m, d, '.$d[1].')';
+						} else {
+							$start =   'start		:new Date('.$camp[$d].',"Y-MM-DD HH:mm:ss"),';
+							$end =   'end		:new Date('.$camp[$d].',"Y-MM-DD HH:mm:ss" ),';
 
 						}
 
+						$data['entries'] .= '{
+                    	title          : \''. $camp['campaign_name'].' \',
+                    	'.$start.'
+                    	'.$end.'
+                    	backgroundColor: \'#f39c12\', //yellow
+                    	borderColor    : \'#f39c12\' //yellow
+                		},';
 					}
-
-
-
-
-					$data['entries'] .= '{
-                    title          : \''. $camp['campaign_name'].' \',
-                    start          : new Date(y, m, d - 5),
-                    end            : new Date(y, m, d - 2),
-                    backgroundColor: \'#f39c12\', //yellow
-                    borderColor    : \'#f39c12\' //yellow
-                },';
-
-
-
 
 				}
 
-
-					/*$data['entries'] = '{
-                    title          : \'Long Event\',
-                    start          : new Date(y, m, d - 5),
-                    end            : new Date(y, m, d - 2),
-                    backgroundColor: \'#f39c12\', //yellow
-                    borderColor    : \'#f39c12\' //yellow
-                },';*/
 
                 $this->load->view('pages/campaigns/campaign_calendar',$data);
 

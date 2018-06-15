@@ -30,6 +30,28 @@
 			</div>
 			<!-- /.box-header -->
 			<div class="box-body">
+
+                <form  method="POST" class="sidebar-form">
+                    <div class="input-group">
+                        <div class="col-md-3">
+                            <input style="margin:20px; padding:19px;" type="text" name="name" class="form-control" placeholder="Company name">
+                        </div>
+                        <div class="col-md-3">
+                            <input style="margin:20px; padding:19px;" type="text" name="town" class="form-control" placeholder="Town">
+                        </div>
+                        <div class="col-md-2">
+                            <input style="margin:20px; padding:19px;" type="text" name="postcode" class="form-control" placeholder="Postcode">
+                        </div>
+                        <div class="col-md-2">
+                            <input style="margin:20px; padding:19px;" type="text" name="status" class="form-control" placeholder="Status">
+                        </div>
+                        <span class="input-group-btn">
+                            <button style="z-index:100" type="submit"  id="search-btn" class="btn btn-flat btn-mploy">
+                                <i class=" fa fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                </form>
 				<table id="example2" class="table table-bordered table-striped">
 					<thead>
 					<tr>

@@ -24,7 +24,7 @@ class Companies extends CI_Controller
 	{
 
 
-
+        $where = 'organisation_type_id =2 ';
 		$data['headings'] = ['name' => 'Name', 'phone' => 'Main Telephone','first_name'=>'Main Contact','status'=>'Status'];
 		$companies = new CompaniesModel();
         $offset=0;
@@ -41,9 +41,23 @@ class Companies extends CI_Controller
 			$data['orderby'] = '?orderby='.$orderby;
 		}
 
+        if(!empty($_POST)){
+
+            foreach($_POST as $k => $v){
+                $where .= " and mploy_organisations." . $k . " like '%".$v."%'";
+            }
+            $data['companies'] = $companies->getCompanies($where, $orderby,  null,null);
+            $page = $this->page($data['companies'],'/companies',$this->perPage);
+        }else{
+
+            $data['companies'] = $companies->getCompanies($where, $orderby, $this->perPage, $offset);
+            $page = $this->page($data['companies'],'/companies',$this->perPage);
+
+        }
+
 
 		$where = ['organisation_type_id' => '2'] ;
-		$data['companies'] = $companies->getCompanies($where, $orderby, $this->perPage, $offset);
+		//$data['companies'] = $companies->getCompanies($where, $orderby, $this->perPage, $offset);
         //$data['companies']=$output;
         $page = $this->helpers->page($data['companies'],'/companies',$this->perPage,$data['orderby']);
         $this->pagination->initialize($page);

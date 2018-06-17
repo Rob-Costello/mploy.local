@@ -11,6 +11,7 @@ class Campaigns extends CI_Controller
 		$this->load->model('login');
 		$this->load->library('ion_auth');
 		$this->load->model('CampaignsModel');
+        $this->load->model('CompaniesModel');
 		$this->login->login_check_force();
 		$this->user = $this->ion_auth->user()->row();
         $this->perPage =20;
@@ -340,9 +341,10 @@ class Campaigns extends CI_Controller
 			    $campaign= new campaignsModel();
 				//$data['employer'] = $campaign->employerDetails($id);
 				$info = $campaign->employerDetails($camp_ref,$id);
-				$data['messages'] = '';
+				$data['call_message'] = $this->session->flashdata('call_message');
 				$data['employer'] = $info['company'][0];
 				$data['company'] = $info['company'];
+				$data['company_message'] = $this->session->flashdata('company_message');
 				$data['calls'] = $campaign->campaignEmployerCalls($camp_ref,$id);
 				$data['camp_id'] = $camp_ref;	
 				$data['comp_id'] = $id;
@@ -351,6 +353,21 @@ class Campaigns extends CI_Controller
 				$data['nav'] = 'campaign';
 				$data['contacts_table']= ['Name', 'Position', 'Phone', 'Email'];
 				$data['call_table'] = ['Type','Notes','Date','Outcome'];
+
+				if(!empty($_POST)){
+
+				    if($this->input->post('update_company') == 'submit'){
+				        $company = new companiesModel();
+				        unset($_POST['update_company']);
+				        $company->updateCompany($id,$this->input->post());
+                        //$this->session->set_flashdata('company_message', 'Updated company details');
+                        $data['company_message'] = 'Updated Company Successfully';
+                        $this->load->view('pages/campaigns/campaign_employer_details',$data);
+                    }
+
+                }
+
+
 				$this->load->view('pages/campaigns/campaign_employer_details',$data);
 
 			}
@@ -367,77 +384,24 @@ class Campaigns extends CI_Controller
 				$data['messages']='';
 				$data['camp_id'] = $camp_ref;	
 				$data['comp_id'] = $id;
-				
+
+
 				if(!empty($_POST)){
-					$campaign->newCall($this->input->post());
+
+                    //$_POST['date_time'] = date('Y-m-d H:i:s', strtotime($this->input->post('date_time')));
+                   // $date=DateTime::createFromFormat('Y-m-d H:i:s',strtotime($this->input->post('date_time')));
+                    var_dump($this->input->post('date_time'));
+                    //$_POST['date_time'] = $date->format('Y-m-d H:i:s');
+                    $campaign->newCall($this->input->post());
+                    $this->session->set_flashdata('call_message', 'New Call Logged');
+                    redirect('campaigns/employerdetails/'.$camp_ref.'/'.$id,'refresh');
+
 				}
 				$this->load->view('pages/campaigns/campaign_employer_new_call',$data);
 			}
 
 
-	function newcalendar($id,$campaign=null)
-	{
-		$data['title'] = 'Calendar';
-		$data['user'] = $this->user;
-		$campaign = new campaignsModel();
 
-		if(!empty($_POST)) {
-
-			$_POST['start'] =
-			$_POST['end'] =
-
-			$list = $campaign->newCalendarEntry($id,$this->input->post());
-
-		}
-
-		$data['entries'] = $campaign->getCalendarEntries($id);
-
-		$calendar = $campaign->getCalendarEntries($id);
-		$campaignDates = $campaign->getCampaignDates($id);
-
-		//var_dump($calendar);
-		//var_dump($campaignDates);
-
-		$data['entries']='';
-		//var_dump($campaignDates);
-
-		$dates= [['campaign_place_start_date','campaign_place_end_date'],
-			'mailshot_1_date',
-			'mailshot_2_date',
-			['employer_engagement_start','employer_engagement_end'],
-			'self_place_deadline',
-			'matching_start','matching_end'];
-
-
-
-		foreach($campaignDates as $k => $camp){
-
-			foreach($dates as $d) {
-
-				if (is_array($d)) {
-					$start =   'start		:new Date('.date($camp[$d[0]]).',"Y-MM-DD HH:mm:ss"),';
-					$end =   'end		:new Date('.date($camp[$d[0]]).',"Y-MM-DD HH:mm:ss"),';
-
-				} else {
-					$start =   'start		:new Date('.$camp[$d].',"Y-MM-DD HH:mm:ss"),';
-					$end =   'end		:new Date('.$camp[$d].',"Y-MM-DD HH:mm:ss" ),';
-
-				}
-
-				$data['entries'] .= '{
-                    	title          : \''. $camp['campaign_name'].' \',
-                    	'.$start.'
-                    	'.$end.'
-                    	backgroundColor: \'#f39c12\', //yellow
-                    	borderColor    : \'#f39c12\' //yellow
-                		},';
-			}
-
-		}
-
-
-		$this->load->view('pages/campaigns/campaign_calendar2',$data);
-	}
 
 			function findCampaigns(){
 
@@ -502,8 +466,8 @@ class Campaigns extends CI_Controller
                     	'.$start.'
                     	'.$end.'
                     	
-                    	backgroundColor: \'#86d0f4\', //yellow
-                    	borderColor    : \'#86d0f4\' //yellow
+                    	backgroundColor: \'#86d0f4\', //blue
+                    	borderColor    : \'#86d0f4\' //blue
                 		},';
 
 				}
@@ -556,14 +520,21 @@ class Campaigns extends CI_Controller
 			function calculateDates()
 			{
 				//need to get info from config set static for now
-				$dates = ['campaign_start_date', 'mailshot_1_date', 'mailshot_2_date',
-					'employer_engagement_start', 'employer_engagement_end', 'self_place_deadline',
-					'matching_start', 'matching_end'];
+				$dates = ['campaign_start_date' =>'now', 'mailshot_1_date'=>'+7 day', 'mailshot_2_date' => '+14 day',
+					'employer_engagement_start'=>' +14 day', 'employer_engagement_end'=>'-9 week', 'self_place_deadline'=>'-7 week',
+					 'matching_end'=>'-7 week'];
+
+				$placement = ['employer_engagement_end'=>'-9 week', 'self_place_deadline' =>'-7 week','matching_end' =>'-7 week'];
+
 				//var_dump( $_POST);
 				if (!empty($_POST)) {
 					if ($this->input->post('campaign_place_start_date')) {
 						$start = new DateTime();
 						$start->setTimestamp( strtotime($this->input->post('campaign_place_start_date')));
+						$place_start = new DateTime();
+						$place_start->setTimestamp( strtotime($this->input->post('placement_start_date')));
+						// $placement = new DateTime();
+						//$placement->setTimestamp( strtotime($this->input->post('campaign_place_start_date')));
 						$end = new DateTime();
 						$end->setTimestamp(strtotime($this->input->post('campaign_place_end_date')));
 						$interval = date_diff($start, $end);
@@ -574,10 +545,19 @@ class Campaigns extends CI_Controller
 							$interval = $days / count($dates);
 							$array = [];
 							$day = 0;
-							for ($i = 0; $i < count($dates); $i++) {
+							/*for ($i = 0; $i < count($dates); $i++) {
 								$array[$dates[$i]] = date('d-m-Y', strtotime($start->format('d-m-Y') . ' + ' . (int)$day . ' day'));
 								$day += $interval;
-							}
+							}*/
+							foreach ($dates as $k => $day){
+							    if(in_array($k,(array_keys($placement)))){
+                                    $array[$k] = date ('d-m-Y',strtotime($place_start->format('d-m-Y') . ' + ' . (int)$day));
+                                }
+                                else {
+                                    $array[$k] = date('d-m-Y', strtotime($start->format('d-m-Y') . ' + ' . (int)$day));
+                                }
+                            }
+
 						}
 						echo json_encode($array, true);
 					}

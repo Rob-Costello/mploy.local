@@ -84,8 +84,8 @@ class CompaniesModel extends CI_Model
     public function updateCompany($id,$data){
 
         $this->db->trans_start();
-        $this->db->where('id', $id);
-        $this->db->update('mploy_companies', $data);
+        $this->db->where('comp_id', $id);
+        $this->db->update('mploy_organisations', $data);
         $this->db->trans_complete();
         return $this->db->trans_status();
 

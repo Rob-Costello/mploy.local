@@ -111,7 +111,6 @@ class Companies extends CI_Controller
 			$data['orderby'] = '?orderby='.$orderby;
 		}
 
-
         if($page > 0){
             $offset = $page * $this->perPage;
         }

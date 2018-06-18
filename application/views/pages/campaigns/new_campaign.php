@@ -166,7 +166,7 @@
     .                                        <div class="col-md-4">
                                                 <div class="form-group">
                                                 <label >Campaign Start Date </label>
-                                                <input type="text" class="datepicker form-control" name="campaign_start_date" >
+                                                <input type="text" value="<?php echo date('d/m/Y'); ?>" class=" form-control" id="campaign_date" name="campaign_start_date" >
                                                 </div>
 
                                             </div>
@@ -225,7 +225,7 @@
                                         <div class="col-md-4">   
                                                 <div class="form-group">
                                                 <label >Matching End</label>
-                                                <input name="matching_end" type="text" class="datepicker form-control" >
+                                                <input value="" name="matching_end" type="text" class="datepicker form-control" >
                                                 </div>
                                         </div>
                                         
@@ -271,14 +271,14 @@
 		$('#add-row').click(function(){
 			var rows = $('#holidays tbody tr').length;
 			var table = $('#holidays');
-			var start_date ='<td><input id ="'+rows+'start_date" type="text" name="start_date[]" value="" class="datepicker form-control"></td>';
-			var end_date ='<td><input id ="'+rows+'end_date" type="text" name="end_date[]" value="" class="datepicker form-control"></td>';
+			var start_date ='<td><input id ="'+rows+'start_date" type="text" name="start_date[]" value="" class="datepicker2 form-control"></td>';
+			var end_date ='<td><input id ="'+rows+'end_date" type="text" name="end_date[]" value="" class="datepicker2 form-control"></td>';
 			var holiday ='<td><input id ="'+rows+'holiday" type="text" name="holiday[]" value="" class="form-control"></td>';
 
 			var row = $('<tr>').html(start_date + end_date + holiday );
 			table.find('tr:last').prev().after(row);
 
-			$(function() {$('.datepicker').daterangepicker({opens: 'left',singleDatePicker: true,});});
+			$(function() {$('.datepicker2').daterangepicker({opens: 'left',singleDatePicker: true,}).val('')});
 		});
 
 
@@ -303,23 +303,50 @@
 
 //date range plugin
 
-$(function() {
+//$(function() {
+
+
+
+		$('#campaign_date').daterangepicker({
+			opens: 'left',
+			singleDatePicker: true,
+			setDate:'',
+
+			locale: {
+				format: 'DD/MM/YYYY'
+			}
+		})
+
+
+
 	$('.datepicker').daterangepicker({
 		opens: 'left',
 		singleDatePicker: true,
-		defaultViewDate: null,
+		setDate:'',
 
 		locale: {
 			format: 'DD-MM-YYYY'
 		}
-	});
-});
+
+	}).val('');
+
+	$('.datepicker2').daterangepicker({
+		opens: 'left',
+		singleDatePicker: true,
+		setDate:'',
+
+		locale: {
+			format: 'DD/MM/YYYY'
+		}
+
+	}).val('');
+//});
 
 //remove prepopulated dates in date picker
-$(function(){
+/*$(function(){
 	$('.datepicker').val('');
 
-})
+})*/
 
 
 

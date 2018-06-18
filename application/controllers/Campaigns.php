@@ -353,16 +353,17 @@ class Campaigns extends CI_Controller
 				$data['nav'] = 'campaign';
 				$data['contacts_table']= ['Name', 'Position', 'Phone', 'Email'];
 				$data['call_table'] = ['Type','Notes','Date','Outcome'];
-
+				//$data['company_message'] = 'Updated Company Successfully';
 				if(!empty($_POST)){
 
 				    if($this->input->post('update_company') == 'submit'){
 				        $company = new companiesModel();
 				        unset($_POST['update_company']);
 				        $company->updateCompany($id,$this->input->post());
-                        //$this->session->set_flashdata('company_message', 'Updated company details');
+                        $this->session->set_flashdata('company_message', 'Updated company details');
                         $data['company_message'] = 'Updated Company Successfully';
-                        $this->load->view('pages/campaigns/campaign_employer_details',$data);
+                        redirect('campaigns/employerdetails/'.$camp_ref.'/'.$id);
+                        //$this->load->view('pages/campaigns/campaign_employer_details',$data);
                     }
 
                 }
@@ -390,7 +391,7 @@ class Campaigns extends CI_Controller
 
                     //$_POST['date_time'] = date('Y-m-d H:i:s', strtotime($this->input->post('date_time')));
                    // $date=DateTime::createFromFormat('Y-m-d H:i:s',strtotime($this->input->post('date_time')));
-                    var_dump($this->input->post('date_time'));
+                    //var_dump($this->input->post('date_time'));
                     //$_POST['date_time'] = $date->format('Y-m-d H:i:s');
                     $campaign->newCall($this->input->post());
                     $this->session->set_flashdata('call_message', 'New Call Logged');
@@ -520,8 +521,8 @@ class Campaigns extends CI_Controller
 			function calculateDates()
 			{
 				//need to get info from config set static for now
-				$dates = ['campaign_start_date' =>'now', 'mailshot_1_date'=>'+7 day', 'mailshot_2_date' => '+14 day',
-					'employer_engagement_start'=>' +14 day', 'employer_engagement_end'=>'-9 week', 'self_place_deadline'=>'-7 week',
+				$dates = [ 'mailshot_1_date'=>'+7 days', 'mailshot_2_date' => '+14 days',
+					'employer_engagement_start'=>' +14 days', 'employer_engagement_end'=>'-9 week', 'self_place_deadline'=>'-7 week',
 					 'matching_end'=>'-7 week'];
 
 				$placement = ['employer_engagement_end'=>'-9 week', 'self_place_deadline' =>'-7 week','matching_end' =>'-7 week'];
@@ -538,27 +539,25 @@ class Campaigns extends CI_Controller
 						$end = new DateTime();
 						$end->setTimestamp(strtotime($this->input->post('campaign_place_end_date')));
 						$interval = date_diff($start, $end);
-						$days = $interval->format('%R%a');
+						//$days = $interval->format('%R%a');
 						//echo $days;
-						if (strstr($days, '+')) {
-							$days = (int)$days;
-							$interval = $days / count($dates);
+						//if (strstr($days, '+')) {
+
+
 							$array = [];
-							$day = 0;
-							/*for ($i = 0; $i < count($dates); $i++) {
-								$array[$dates[$i]] = date('d-m-Y', strtotime($start->format('d-m-Y') . ' + ' . (int)$day . ' day'));
-								$day += $interval;
-							}*/
+
 							foreach ($dates as $k => $day){
-							    if(in_array($k,(array_keys($placement)))){
-                                    $array[$k] = date ('d-m-Y',strtotime($place_start->format('d-m-Y') . ' + ' . (int)$day));
+							    //var_dump($day);
+								if(in_array($k,(array_keys($placement)))){
+                                    $array[$k] = date ('d-m-Y',strtotime($place_start->format('d-m-Y') . $day));
                                 }
                                 else {
-                                    $array[$k] = date('d-m-Y', strtotime($start->format('d-m-Y') . ' + ' . (int)$day));
+                                    $array[$k] = date('d-m-Y', strtotime($start->format('d-m-Y') . $day));
                                 }
-                            }
+                            //var_dump($array[$k]);
+							}
 
-						}
+						//}
 						echo json_encode($array, true);
 					}
 

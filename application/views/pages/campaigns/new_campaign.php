@@ -291,7 +291,7 @@
 	//check for errors in form
 	<?php if (isset($error)): ?>
 
-	$(function(){
+		$(function(){
 		<?php foreach($error as $e): ?>
 		$('input[name="<?php echo $e;?>"]').addClass('error-box');
 		<?php endforeach ?>
@@ -313,7 +313,7 @@
 			setDate:'',
 
 			locale: {
-				format: 'DD/MM/YYYY'
+				format: 'DD-MM-YYYY'
 			}
 		})
 
@@ -336,7 +336,7 @@
 		setDate:'',
 
 		locale: {
-			format: 'DD/MM/YYYY'
+			format: 'DD-MM-YYYY'
 		}
 
 	}).val('');
@@ -361,12 +361,13 @@
 				var target = '/campaigns/calculateDates';
 				var start =$('[name="campaign_place_start_date"]').val()
 			var end =$('[name="campaign_place_end_date"]').val()
+			var campStart= $('[name="campaign_start_date"]').val();
 			//alert($('[name="campaign_place_start_date"]').val());
 				//var start =$('#campaign_place_start_date').val();
 				$.ajax({
 					url: target,
 					type: 'POST',
-					data: {campaign_place_start_date:start, campaign_place_end_date:end},
+					data: {campaign_place_start_date:start, campaign_place_end_date:end,campaign_start_date:campStart},
 					success: function(data, textStatus, XMLHttpRequest)
 					{
 						data = JSON.parse(data);

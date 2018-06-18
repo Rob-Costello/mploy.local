@@ -177,7 +177,7 @@ class CampaignsModel extends CI_Model
 	function getSchoolHoliday($id){
 
     	$query = $this->db->get_where('mploy_organisation_holidays',['school_id'=>$id]);
-    	return $query->result_aray();
+    	return $query->result_array();
 
 	}
 
@@ -212,8 +212,9 @@ class CampaignsModel extends CI_Model
 
 
 		$this->db->trans_start();
-		$this->db->where('id', $id);
-		$this->db->update('mploy_campaigns', $data);
+		$this->db->set($data);
+		$this->db->where('campaign_id', $id);
+		$this->db->update('mploy_campaigns');
 		$this->db->trans_complete();
 		return $this->db->trans_status();
 

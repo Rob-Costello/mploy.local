@@ -86,9 +86,10 @@
 												<div class="form-group">
 
 													<label class=" ">School</label>
+
 													<select class="form-control" name="select_school">
 														<?php foreach($dropdown as $d): ?>
-															<option value="<?php echo $d->school_id ?>"><?php echo $d->name;?></option>
+															<option <?php if( $d->school_id ==$school_id ){ echo ' selected ';} ?>value="<?php echo $d->school_id ?>"><?php echo $d->name;?></option>
 														<?php endforeach ?>
 													</select>
 
@@ -141,18 +142,22 @@
 														</tr>
 														</thead>
 														<tbody>
+
+														<?php foreach ($holiday as $hol): ?>
 														<tr>
+
 															<td>
-																<input id="1start_date" name="start_date[]" type="text" class="datepicker form-control">
+																<input value="<?php echo $hol['start_date']; ?>" id="1start_date" name="start_date[]" type="text" class=" form-control">
 															</td>
 															<td>
-																<input id="1end_date" name="end_date[]" type="text" class="datepicker form-control">
+																<input value="<?php echo $hol['end_date']; ?>" id="1end_date" name="end_date[]" type="text" class=" form-control">
 															</td>
 															<td>
-																<input name="holiday[]" type="text" class="form-control">
+																<input value="<?php echo $hol['holiday_name']; ?>"" name="holiday[]" type="text" class="form-control">
 															</td>
 
 														</tr>
+														<?php endforeach ?>
 														<tr style="background-color:#fff;border-color:#fff">
 															<td></td>
 															<td></td>
@@ -167,7 +172,7 @@
 												.                                        <div class="col-md-4">
 													<div class="form-group">
 														<label >Campaign Start Date </label>
-														<input type="text" class="datepicker form-control" value="<?php echo $entries['campaign_start_date'] ?>"  name="campaign_start_date" >
+														<input type="text" id="campaign_date" class=" form-control" value="<?php echo $entries['campaign_start_date'] ?>"  name="campaign_start_date" >
 													</div>
 
 												</div>
@@ -272,14 +277,14 @@
 		$('#add-row').click(function(){
 			var rows = $('#holidays tbody tr').length;
 			var table = $('#holidays');
-			var start_date ='<td><input id ="'+rows+'start_date" type="text" name="start_date[]" value="" class="datepicker form-control"></td>';
-			var end_date ='<td><input id ="'+rows+'end_date" type="text" name="end_date[]" value="" class="datepicker form-control"></td>';
+			var start_date ='<td><input id ="'+rows+'start_date" type="text" name="start_date[]" value="" class="datepicker2 form-control"></td>';
+			var end_date ='<td><input id ="'+rows+'end_date" type="text" name="end_date[]" value="" class="datepicker2 form-control"></td>';
 			var holiday ='<td><input id ="'+rows+'holiday" type="text" name="holiday[]" value="" class="form-control"></td>';
 
 			var row = $('<tr>').html(start_date + end_date + holiday );
 			table.find('tr:last').prev().after(row);
 
-			$(function() {$('.datepicker').daterangepicker({opens: 'left',singleDatePicker: true,});});
+			$(function() {$('.datepicker2').daterangepicker({opens: 'left',singleDatePicker: true,}).val('')});
 		});
 
 
@@ -304,20 +309,50 @@
 
 		//date range plugin
 
-		$(function() {
-			$('.datepicker').daterangepicker({
-				opens: 'left',
-				singleDatePicker: true,
-				defaultViewDate: null,
+		//$(function() {
 
-				locale: {
-					format: 'DD-MM-YYYY'
-				}
-			});
+
+
+		$('#campaign_date').daterangepicker({
+			opens: 'left',
+			singleDatePicker: true,
+			setDate:'',
+
+			locale: {
+				format: 'DD-MM-YYYY'
+			}
+		})
+
+
+
+		$('.datepicker').daterangepicker({
+			opens: 'left',
+			singleDatePicker: true,
+			setDate:'',
+
+			locale: {
+				format: 'DD-MM-YYYY'
+			}
+
 		});
 
-		//remove prepopulated dates in date picker
+		$('.datepicker2').daterangepicker({
+			opens: 'left',
+			singleDatePicker: true,
+			setDate:'',
 
+			locale: {
+				format: 'DD-MM-YYYY'
+			}
+
+		}).val('');
+		//});
+
+		//remove prepopulated dates in date picker
+		/*$(function(){
+			$('.datepicker').val('');
+
+		})*/
 
 
 
@@ -332,12 +367,13 @@
 				var target = '/campaigns/calculateDates';
 				var start =$('[name="campaign_place_start_date"]').val()
 				var end =$('[name="campaign_place_end_date"]').val()
+				var campStart= $('[name="campaign_start_date"]').val();
 				//alert($('[name="campaign_place_start_date"]').val());
 				//var start =$('#campaign_place_start_date').val();
 				$.ajax({
 					url: target,
 					type: 'POST',
-					data: {campaign_place_start_date:start, campaign_place_end_date:end},
+					data: {campaign_place_start_date:start, campaign_place_end_date:end,campaign_start_date:campStart},
 					success: function(data, textStatus, XMLHttpRequest)
 					{
 						data = JSON.parse(data);

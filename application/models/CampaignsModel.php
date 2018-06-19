@@ -31,7 +31,7 @@ class CampaignsModel extends CI_Model
         return array('data' => $query->result(), 'count' => $count);
     }
 
-    function getEmployers($where = null, $request = null,$like = null, $limit = null, $offset = null)
+    function getEmployers($where = null, $request = null,$like = null, $limit = null, $offset = null, $camp=null)
     {
 
         $this->db->select('*');
@@ -41,15 +41,26 @@ class CampaignsModel extends CI_Model
         	$query = $this->db->get('mploy_organisations');
             $count = $this->db->from('mploy_organisations')->count_all_results();
         } else {
-            $this->db->join('mploy_contacts','mploy_organisations.main_contact_id = mploy_contacts.id','left');
+
+                $query = $this->db->query('SELECT * FROM  mploy_organisations o
+                                  left join mploy_contacts as c on o.main_contact_id = c.id
+                                  where comp_id in 
+                                  (select campaign_employer_id from mploy_rel_campaign_employers where campaign_ref='.$where.' ) 
+                                  and organisation_type_id =2')->result();
+
+
+            //$this->db->join('mploy_contacts','mploy_organisations.main_contact_id = mploy_contacts.id','left');
+            //$this->db->join('mploy_rel_campaign_employers','mploy_organisations.comp_id = mploy_rel_campaign_employers.campaign_employer_id' );
+
             if($like !==null) {
 				$this->db->like('name',$like,'both');
 			}
 			$this->db->order_by($request);
-			$query = $this->db->get_where('mploy_organisations', $where);
-            $count = $this->db->from('mploy_organisations')->where($where)->count_all_results();
+            //$this->db->where_in('comp_id', '(select campaign_employer_id from `mploy_rel_campaign_employers where campaign_ref ='.$camp.'  )');
+            //$query = $this->db->get_where('mploy_organisations', $where)->result();
+            $count = count($query);
         }
-        return array('data' => $query->result(), 'count' => $count);
+        return array('data' => $query, 'count' => $count);
     }
 
 

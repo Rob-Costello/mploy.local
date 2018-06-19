@@ -241,8 +241,6 @@ class Schools extends CI_Controller
 		}
 		$data['pagination'] = $this->pagination->create_links();
 
-
-
 		$header = ['date', 'time', 'caller', 'receiver','origin','call_notes'];
 		$pretty = [];
 		array_walk($header, function ($item, $key) use (&$pretty)

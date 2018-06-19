@@ -217,13 +217,9 @@ class Campaigns extends CI_Controller
 			$holiday = $this->input->post('holiday');
 			$school = $this->input->post('select_school');
 			if(null !== $start){
-
 				for($i=0; $i < count($start); $i++){
-
 					$available = $campaign->checkHoliday($school,['start_date'=>$start[$i],'end_date' => $end[$i], 'holiday_name' => $holiday[$i]]);
-
 					if($available==null){
-
 						$campaign->setSchoolHoliday(['start_date'=>date('Y-m-d',strtotime($start[$i])),
 													 'end_date' => date('Y-m-d',strtotime($end[$i])),
 													 'holiday_name' =>$holiday[$i],
@@ -252,22 +248,24 @@ class Campaigns extends CI_Controller
 			unset($_POST['holiday']);
 
 			if(!isset($error)) {
-
 				foreach ($this->input->post('campaign_employer_id') as $employer) {
-
-					$temp[] = ['campaign_employer_id' => $employer, 'org_campaign_ref' => $_POST['select_school'], 'campaign_ref' => $campaign_id ];
-					//addCompaniesToCampaign($temp);
+					$temp[] = ['campaign_employer_id' => $employer, 'org_campaign_ref' => $_POST['select_school'] ];
 				}
+				//remove employer id to stop error
+				unset($_POST['campaign_employer_id']);
+				unset($_POST['search']);
+				//get id for insert as campaign reference
+                $campaign_id = $campaign->createCampaign($this->input->post());
+                $companies = [];
+				//if(isset($_POST['campaign_employer_id'])) {
+					foreach ($temp as  $t) {
+						//$temp = ['campaign_employer_id' => $employer, 'org_campaign_ref' => $_POST['select_school'], 'campaign_ref' => $campaign_id ];
+						$t['campaign_ref'] = $campaign_id;
 
-				$campaign_id = $campaign->createCampaign($this->input->post());
-				if(isset($_POST['campaign_employer_id'])) {
+						$campaign->addCompaniesToCampaign($t);
 
-					foreach ($this->input->post('campaign_employer_id') as $employer) {
-						$temp[] = ['campaign_employer_id' => $employer, 'org_campaign_ref' => $_POST['select_school'], 'campaign_ref' => $campaign_id ];
-						addCompaniesToCampaign($temp);
 					}
-				}
-
+				//}
 				$data['message'] = 'New Campaign  '.$this->input->post('campaign_name') .' Created ';
 				$this->session->set_flashdata('message', 'New Campaign  '.$this->input->post('campaign_name') .' Created ');
 				redirect('campaigns','refresh');
@@ -301,7 +299,6 @@ class Campaigns extends CI_Controller
 
 			}
 
-
 			if(!empty($_POST)){
 
 				$like = $this->input->post('search');
@@ -317,7 +314,8 @@ class Campaigns extends CI_Controller
 				$offset = $pageNo * $this->perPage;
 			}
 
-			$where['organisation_type_id'] = '2' ;
+			//$where['organisation_type_id'] = '2' ;
+            $where = $camp_ref;
 			$data['status'] = 'all';
 
 			if(isset($_GET['status']))
@@ -329,11 +327,11 @@ class Campaigns extends CI_Controller
 			}
 
 			if ($hasSearch){
-				$data['campaign'] = $campaign->getEmployers($where,$orderby,$like, null, null);
+				$data['campaign'] = $campaign->getEmployers($camp_ref,$orderby,$like, null, null,$camp_ref);
 				$page = $this->helpers->page($data['campaign'],'/campaigns/employers/'.$camp_ref,count($data['campaign']));
 			}
 			else{
-				$data['campaign'] = $campaign->getEmployers($where,$orderby,$like, $this->perPage, $offset);
+				$data['campaign'] = $campaign->getEmployers($camp_ref,$orderby,$like, $this->perPage, $offset);
 				$page = $this->helpers->page($data['campaign'],'/campaigns/employers/'.$camp_ref,$this->perPage);
 				$this->pagination->initialize($page);
 			}
@@ -551,12 +549,7 @@ class Campaigns extends CI_Controller
 				$campaign = new CampaignsModel();
 				$holidays = $campaign->getSchoolHoliday($id);
 				if ($holidays !== null){
-					foreach ($holidays as $hol) {
-
-
-
-					}
-				echo json_encode($holidays);
+				    echo json_encode($holidays);
 				}
 			}
 

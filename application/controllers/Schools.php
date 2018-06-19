@@ -297,6 +297,8 @@ class Schools extends CI_Controller
 		$data['id']=$id;
 		$data['contacts']=$school->getContacts(array('school_id'=>$id));
 		$data['messages']='';
+		$data['companies']  = $school->getCompanies();
+
 		if(!empty($_POST))
 		{
 			//$success = $school->createCall($this->input->post());

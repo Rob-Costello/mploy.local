@@ -71,7 +71,7 @@
 
                                                     <div class="">
                                                         <label >Address</label>
-                                                        <input type="text" name="address1" class="form-control" value="<?php echo $employer->address1 ?>" placeholder="999" autocomplete="off" >
+                                                        <input type="text" name="address1" class="form-control" value="<?php echo $employer->address1 ?>" placeholder="" autocomplete="off" >
                                                     </div>
                                                 </div>
                                             </div>

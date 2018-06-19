@@ -91,7 +91,20 @@
 						<td>
                             <?php if($h == 'campaign_place_start_date' || $h == 'campaign_place_end_date') { ?>
                                 <?php echo date('d/m/Y', strtotime($company->$h)); ?>
-                            <?php } else { ?>
+                            <?php } else {?>
+	                            <?php if($h == 'active') { ?>
+
+		                            <?php if($company->$h == 1){ ?>
+
+		                           <?php $company->$h = 'green'; ?>
+
+		                            <?php } else{
+
+		                            	echo $company->$h = 'red';
+		                            } ?>
+
+
+	                         <?php   } ?>
                                 <?php echo $company->$h; ?>
                             <?php } ?>
 						</td>

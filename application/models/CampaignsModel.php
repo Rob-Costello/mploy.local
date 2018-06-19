@@ -100,6 +100,9 @@ class CampaignsModel extends CI_Model
     public function createCampaign($data){
 
         $this->db->insert('mploy_campaigns', $data);
+	    $insert_id = $this->db->insert_id();
+
+	    return  $insert_id;
 
     }
 
@@ -225,6 +228,23 @@ class CampaignsModel extends CI_Model
 
     	$query = $this->db->get_where('mploy_campaigns','campaign_id = '.$id );
     	return $query->row_array();
+
+	}
+
+	public function getCompaniesByPostcode($postcode){
+
+		$this->db->select('*');
+    	$this->db->like('postcode',$postcode,'right');
+    	$query = $this->db->get_where('mploy_organisations',['organisation_type_id'=>'2']);
+
+    	return $query->result_array();
+
+	}
+
+	public function addCompaniesToCampaign($data){
+
+		$this->db->insert('mploy_rel_campaign_employers', $data);
+
 
 	}
 

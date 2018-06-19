@@ -39,6 +39,37 @@
 									<form role="form"  method="POST">
 										<!-- text input -->
 
+
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+
+													<label class=" ">Student Name</label>
+													<select class="form-control">
+														<?php foreach($contacts['data'] as $c): ?>
+														<option value="<?php echo $c->id; ?>">
+															<?php echo $c->first_name . ' ' . $c->last_name ; ?>
+														</option>
+														<?php endforeach; ?>
+
+													</select>
+
+
+
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+
+													<div class="">
+														<label >End Date</label>
+														<input type="text" name="end_date" class="form-control" value="" placeholder="01-02-2001" autocomplete="off" >
+													</div>
+												</div>
+											</div>
+											<!--/span-->
+										</div>
+
 										<div class="row">
 											<div class="col-md-6">
 												<div class="form-group">
@@ -91,9 +122,14 @@
 											<div class="col-md-6">
 												<div class="form-group">
 
-													<label >Placed</label>
-													<input type="text" name="mploy_self" class="form-control" value="" placeholder="Name" autocomplete="off" >
+													<label >Company Name</label>
 
+													<select class="form-control">
+														<?php foreach($companies as $c): ?>
+
+														<option value="<?php echo $c->comp_id?>"> <?php echo $c->name ?></option>
+														<?php endforeach ?>
+													</select>
 
 
 												</div>

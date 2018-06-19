@@ -169,7 +169,7 @@
 												</div>
 											</div><!--end col-->
 											<div class="row">
-												.                                        <div class="col-md-4">
+												<div class="col-md-4">
 													<div class="form-group">
 														<label >Campaign Start Date </label>
 														<input type="text" id="campaign_date" class=" form-control" value="<?php echo $entries['campaign_start_date'] ?>"  name="campaign_start_date" >
@@ -234,6 +234,15 @@
 														<input name="matching_end"  value="<?php echo $entries['matching_end'] ?>" type="text" class="datepicker form-control" >
 													</div>
 												</div>
+												<div class="col-md-4">
+													<label style="float:top" >Campaign Status</label>
+													<div class="form-group">
+														<label class="switch">
+															<input id="active" name="active" type="checkbox" value="<?php echo $entries['active']; ?>" <?php if($entries['active'] == 1) echo ' checked' ;?>  >
+															<span class="slider round"></span>
+														</label>
+													</div>
+												</div>
 
 											</div> <!--end row -->
 
@@ -248,7 +257,7 @@
 													<input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/campaigns')">
 												</div>
 											</div>
-											<input type="hidden" name="active" value="1">
+
 									</form>
 								</div>
 
@@ -284,13 +293,27 @@
 			var row = $('<tr>').html(start_date + end_date + holiday );
 			table.find('tr:last').prev().after(row);
 
-			$(function() {$('.datepicker2').daterangepicker({opens: 'left',singleDatePicker: true,}).val('')});
+			$(function() {$('.datepicker2').daterangepicker({opens: 'left',singleDatePicker: true,locale: {
+					format: 'DD-MM-YYYY'
+				}})});
 		});
 
 
 	</script>
 
+<script>
+	$(function(){
+		$('#active').change(function(){
 
+			if(this.checked){
+				$('#active').val('1')
+			}else{
+				$('#active').val('0');
+			}
+		})
+	})
+
+</script>
 
 	<script>
 
@@ -345,7 +368,7 @@
 				format: 'DD-MM-YYYY'
 			}
 
-		}).val('');
+		});
 		//});
 
 		//remove prepopulated dates in date picker

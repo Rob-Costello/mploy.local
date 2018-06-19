@@ -26,7 +26,12 @@ class SchoolsModel extends CI_Model
         return array('data' => $query->result(), 'count' => $count);
     }
 
-	public function newSchool($data){
+
+
+
+
+
+    public function newSchool($data){
 		$this->db->insert('mploy_organisations', $data);
 
 	}
@@ -71,6 +76,15 @@ class SchoolsModel extends CI_Model
 			 
 		}
 		return array('data' => $query->result(), 'count' => $count);
+
+	}
+
+	function getCompanies(){
+
+		$this->db->select('*');
+		$query  = $this->db->get_where('mploy_organisations','organisation_type_id =2 ');
+		return $query->result();
+
 
 	}
 
@@ -119,7 +133,8 @@ class SchoolsModel extends CI_Model
     function createCall($data){
 
 
-        $this->db->insert('mploy_school_history', $data);
+        $this->db->insert('mploy_campaign_activity', $data);
+
 
 
     }

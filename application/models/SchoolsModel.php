@@ -140,21 +140,37 @@ class SchoolsModel extends CI_Model
 	    return $this->db->trans_status();
 
 
-
     }
 
 	function getPlacements($where = null, $request = null, $limit = null, $offset = null)
 	{
 		$this->db->select('*');
 		$this->db->limit($limit, $offset);
+		//$current = 'select * from campaigns where school_id = $id and campaign_end_date > today';
+		//$historic = 'select * from campaigns where school_id = $id and campaign_end_date < today';
+		//$students = select * from contacts where school_id = $id and campaign_end_date > today;
+
 		if( $where == null ) {
 			$query = $this->db->get('mploy_contacts');
 			$count = $this->db->from('mploy_contacts')->count_all_results();
 		} else {
-			$query = $this->db->get_where('mploy_contacts', $where);
-			$count = $this->db->from('mploy_contacts')->where($where)->count_all_results();
+			//$where = 'school_id=3';
+			//$this->db->join('mploy_campaign_activity','mploy_campaigns.campaign_id = mploy_campaign_activity.campaign_ref ',);
+
+			$query = $this->db->get_where('mploy_campaigns', $where);
+
+
+			//$count = $this->db->from('mploy_contacts')->where($where)->count_all_results();
 		}
-		return array('data' => $query->result(), 'count' => $count);
+		return  $query->result_array();
+
+	}
+
+	function getCallData($id){
+
+		$this->db->select('*');
+		$query = $this->db->get_where('mploy_campaign_activity', ['campaign_ref'=>$id]);
+		return  $query->result();
 
 	}
 
@@ -164,6 +180,7 @@ class SchoolsModel extends CI_Model
 		return array('data'=>$query->result());
 
 	}
+
 
 
 }

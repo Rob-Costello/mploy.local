@@ -334,23 +334,27 @@ class Campaigns extends CI_Controller
 			}
 
 			//$where['organisation_type_id'] = '2' ;
-            $where = $camp_ref;
+            //$where = $camp_ref;
 			$data['status'] = 'all';
-
+			$where['status'] = "status like '%%'";
+			$where['camp_ref'] = $camp_ref;
 			if(isset($_GET['status']))
 			{
 				if ($_GET['status'] !=='all'){
-					$where['status'] = $_GET['status'];
+					$where['status'] = "status='".$_GET['status']."'";
+
 				}
+
+
 				$data['status'] = $_GET['status'];
 			}
 
 			if ($hasSearch){
-				$data['campaign'] = $campaign->getEmployers($camp_ref,$orderby,$like, null, null,$camp_ref);
+				$data['campaign'] = $campaign->getEmployers($where,$orderby,$like, null, null,$camp_ref);
 				$page = $this->helpers->page($data['campaign'],'/campaigns/employers/'.$camp_ref,count($data['campaign']));
 			}
 			else{
-				$data['campaign'] = $campaign->getEmployers($camp_ref,$orderby,$like, $this->perPage, $offset);
+				$data['campaign'] = $campaign->getEmployers($where,$orderby,$like, $this->perPage, $offset,$camp_ref);
 				$page = $this->helpers->page($data['campaign'],'/campaigns/employers/'.$camp_ref,$this->perPage);
 				$this->pagination->initialize($page);
 			}
@@ -407,9 +411,7 @@ class Campaigns extends CI_Controller
 
                 }
 
-
 				$this->load->view('pages/campaigns/campaign_employer_details',$data);
-
 			}
 
 

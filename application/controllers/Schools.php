@@ -274,7 +274,7 @@ class Schools extends CI_Controller
 	function placements($id, $page=0){
 		$data['user']=$this->user;
 		$school= new SchoolsModel();
-		$header = ['placement_type', 'placement_start_date', 'placement_end_date', 'form_name','self','placed','status','id'];
+		$header = ['campaign_name', 'campaign_place_start_date', 'campaign_place_end_date','placed','status'];
 		$pretty = [];
 		array_walk($header, function ($item, $key) use (&$pretty)
 		{
@@ -285,8 +285,34 @@ class Schools extends CI_Controller
 		$data['tabs'] = $this->tabs;
 		$data['table_header'] = $pretty;
 		$data['fields'] = $header;
-		//$data['active'] = $school->getPlacements("placement_company_id >0 and placement_end_date > now()");//need to check if placement end date has expired
-		$data['active'] = $school->getPlacements("placement_company_id >0  and school_id=".$id."");//need to check if placement end date has expired
+		$where = "select_school = ".$id ." and campaign_place_end_date > '".date("Y-m-d" )."'";
+		$info = $school->getPlacements($where); //need to check if placement end date has expired
+		$temp = [];
+		foreach($info as $active)
+		{
+
+			$callstats = $school->getCallData($id);
+			$call =0;
+
+			foreach($callstats as $stat){
+
+				if($stat->rag_status =='green')
+				{
+
+					$call++;
+				}
+
+			}
+
+
+			//array_push($active,['placed'=>$call]);
+			$active['placed'] = $call .'/' .$active['students_to_place'];
+			$active['status'] = 'Active';
+
+			$temp[]=$active;
+
+		}
+		$data['data'] = $temp;
 		$this->load->view('pages/schools/school_placements',$data);
 
 	}
@@ -295,7 +321,6 @@ class Schools extends CI_Controller
 		$data['user']=$this->user;
 		$school = new SchoolsModel();
 		$data['id']=$id;
-		$data['contacts']=$school->getContacts(array('school_id'=>$id));
 		$data['messages']='';
 		$data['companies']  = $school->getCompanies();
 

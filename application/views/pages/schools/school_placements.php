@@ -41,12 +41,13 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <?php foreach($active['data'] as $school): ?>
+                                        <?php foreach($data as $school): ?>
+
                                             <tr>
 
                                                 <?php foreach($fields as $contact): ?>
 
-                                                    <td><?php echo $school->$contact; ?></td>
+                                                    <td><?php if(isset($school[$contact])) echo $school[$contact]; ?></td>
 
                                                 <?php endforeach ?>
 

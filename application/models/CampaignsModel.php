@@ -45,7 +45,8 @@ class CampaignsModel extends CI_Model
                 $query = $this->db->query('SELECT * FROM  mploy_organisations o
                                   left join mploy_contacts as c on o.main_contact_id = c.id
                                   where comp_id in 
-                                  (select campaign_employer_id from mploy_rel_campaign_employers where campaign_ref='.$where.' ) 
+                                  (select campaign_employer_id from mploy_rel_campaign_employers where campaign_ref='.$where['camp_ref'].') 
+                                  and '.$where['status'].'
                                   and organisation_type_id =2')->result();
 
 

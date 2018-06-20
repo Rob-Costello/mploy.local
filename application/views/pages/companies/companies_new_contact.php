@@ -107,7 +107,7 @@
 													</label>
 
 
-													<input type="tel" name="job_title" class="form-control"  placeholder="Job Title" autocomplete="off" >
+													<input type="text" name="job_title" class="form-control"  placeholder="Job Title" autocomplete="off" >
 
 
 												</div>
@@ -125,7 +125,7 @@
 
 												</div>
 											</div>
-											
+
 											<!--/span-->
 										</div>
 

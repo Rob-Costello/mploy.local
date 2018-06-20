@@ -168,11 +168,17 @@ class Companies extends CI_Controller
         $data['user']=$this->user;
         $data['id']=$id;
         $company= new CompaniesModel();
+	    $data['table']= $company->getCompanyContact($id);
         if(!empty($_POST)){
             $success = $company->updateCompanyContact($id,$this->input->post());
+
+
             $data['message'] = "Information updated";
+	        $this->session->set_flashdata('message', 'Contact Updated');
+	        redirect('companies/view/'.$data['table']['org_id'].'/contacts/','refresh');
+
         }
-        $data['table']= $company->getCompanyContact($id);
+
         $this->load->view('pages/companies/company_contact_details',$data);
 
     }

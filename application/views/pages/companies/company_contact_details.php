@@ -88,6 +88,46 @@
                                             <!--/span-->
                                         </div>
 
+	                                    <div class="row">
+	                                    <div class="col-md-6">
+		                                    <div class="form-group">
+
+			                                    <label >Address </label>
+			                                    <input type="tel" value="<?php echo $table["address"]?>" name="address" class="form-control"  placeholder="Fake Road" autocomplete="off" >
+		                                    </div>
+
+
+	                                    </div>
+	                                    <!--/span-->
+
+		                                    <div class="col-md-6">
+			                                    <div class="form-group">
+
+				                                    <label class=" ">
+					                                    Postcode
+				                                    </label>
+				                                    <input type="text" value="<?php echo $table['postcode']?> " name="postcode" class="form-control"  placeholder="WA10 1PP" >
+
+			                                    </div>
+		                                    </div>
+
+	                                    </div>
+
+
+	                                    <div class="row">
+		                            <div class="col-md-6">
+			                            <div class="form-group">
+				                            <label class=" ">
+					                            Job Title
+				                            </label>
+
+
+				                            <input type="tel" value="<?php echo $table['job_title']?>" name="job_title" class="form-control"  placeholder="Job Title" autocomplete="off" >
+
+
+			                            </div>
+		                            </div>
+
 
                                 </div>
                                 <input type="submit" class="btn btn-mploy-submit" value="Save Changes">

@@ -4,6 +4,7 @@
 class Schools extends CI_Controller
 {
 
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -273,7 +274,7 @@ class Schools extends CI_Controller
 	function placements($id, $page=0){
 		$data['user']=$this->user;
 		$school= new SchoolsModel();
-		$header = ['placement_type', 'start_date', 'end_date', 'class','mploy_self','placed','status','student_id'];
+		$header = ['placement_type', 'placement_start_date', 'placement_end_date', 'form_name','self','placed','status','id'];
 		$pretty = [];
 		array_walk($header, function ($item, $key) use (&$pretty)
 		{
@@ -284,7 +285,8 @@ class Schools extends CI_Controller
 		$data['tabs'] = $this->tabs;
 		$data['table_header'] = $pretty;
 		$data['fields'] = $header;
-		$data['active'] = $school->getPlacements("placement_company_id >0 and placement_end_date > now()");//need to check if placement end date has expired
+		//$data['active'] = $school->getPlacements("placement_company_id >0 and placement_end_date > now()");//need to check if placement end date has expired
+		$data['active'] = $school->getPlacements("placement_company_id >0  and school_id=".$id."");//need to check if placement end date has expired
 		$this->load->view('pages/schools/school_placements',$data);
 
 	}
@@ -299,7 +301,11 @@ class Schools extends CI_Controller
 
 		if(!empty($_POST))
 		{
-			//$success = $school->createCall($this->input->post());
+			$_POST['placement_start_date'] = date("Y-m-d", strtotime($this->input->post('placement_start_date')));
+			$_POST['placement_end_date'] = date("Y-m-d", strtotime($this->input->post('placement_end_date')));
+			$id = $this->input->post('id');
+			unset($_POST['id']);
+			$success = $school->createCall($this->input->post(),$id);
 			$data['messages'] = "Information updated";
 		}
 		$this->load->view('pages/schools/schools_new_placement',$data);

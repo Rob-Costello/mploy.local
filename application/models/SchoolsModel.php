@@ -130,10 +130,14 @@ class SchoolsModel extends CI_Model
 
     }
 
-    function createCall($data){
+    function createCall($data,$id){
 
 
-        $this->db->insert('mploy_campaign_activity', $data);
+	    $this->db->trans_start();
+	    $this->db->where('id', $id);
+	    $this->db->update('mploy_contacts', $data);
+	    $this->db->trans_complete();
+	    return $this->db->trans_status();
 
 
 

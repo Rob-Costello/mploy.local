@@ -45,7 +45,7 @@
 												<div class="form-group">
 
 													<label class=" ">Student Name</label>
-													<select class="form-control">
+													<select name="id" class="form-control">
 														<?php foreach($contacts['data'] as $c): ?>
 														<option value="<?php echo $c->id; ?>">
 															<?php echo $c->first_name . ' ' . $c->last_name ; ?>
@@ -62,8 +62,8 @@
 												<div class="form-group">
 
 													<div class="">
-														<label >End Date</label>
-														<input type="text" name="end_date" class="form-control" value="" placeholder="01-02-2001" autocomplete="off" >
+														<label >Start Date</label>
+														<input type="text" name="placement_start_date" class="form-control" value="" placeholder="01-02-2001" autocomplete="off" >
 													</div>
 												</div>
 											</div>
@@ -74,49 +74,29 @@
 											<div class="col-md-6">
 												<div class="form-group">
 
-													<label class=" ">Start Date</label>
-													<input type="text" name="start_date" class="form-control" value="" placeholder="01-01-2001" >
+													<label class=" ">End Date</label>
+													<input type="text" name="placement_end_date" class="form-control" value="" placeholder="01-01-2001" >
 
 												</div>
 											</div>
-											<div class="col-md-6">
-												<div class="form-group">
 
-													<div class="">
-														<label >End Date</label>
-														<input type="text" name="end_date" class="form-control" value="" placeholder="01-02-2001" autocomplete="off" >
-													</div>
-												</div>
-											</div>
-											<!--/span-->
-										</div>
-
-										<div class="row">
-											<div class="col-md-6">
-												<div class="form-group">
-
-
-													<div class="">
-														<label >Group</label>
-														<input type="text" name="end_date" class="form-control" value="" placeholder="Time" autocomplete="off" >
-													</div>
-
-
-
-
-												</div>
-											</div>
 											<div class="col-md-6">
 												<div class="form-group">
 
 													<label >Mploy / Self</label>
-													<input type="text" name="mploy_self" class="form-control" value="" placeholder="Name" autocomplete="off" >
+													<input type="text" name="self" class="form-control" value="" placeholder="Name" autocomplete="off" >
 												</div>
 
 
 											</div>
 											<!--/span-->
 										</div>
+
+
+
+
+											<!--/span-->
+
 
 										<div class="row">
 											<div class="col-md-6">
@@ -124,7 +104,8 @@
 
 													<label >Company Name</label>
 
-													<select class="form-control">
+													<select name="placement_company_id" class="form-control">
+														<option>Select Company</option>
 														<?php foreach($companies as $c): ?>
 
 														<option value="<?php echo $c->comp_id?>"> <?php echo $c->name ?></option>
@@ -138,7 +119,7 @@
 												<div class="form-group">
 
 													<label >Call Notes</label>
-													<textarea style="width:100%" class="form-control" type="textarea" name="receiver" class="form-control" value="" placeholder="" autocomplete="off" ></textarea>
+													<textarea style="width:100%" class="form-control" type="textarea" name="notes" class="form-control" value="" placeholder="" autocomplete="off" ></textarea>
 												</div>
 
 

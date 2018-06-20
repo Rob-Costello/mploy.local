@@ -17,8 +17,29 @@
                 <div class="tab-content clearfix">
                     <div class="" >
 
+
                         <section class="content">
                             <div class="box box-primary">
+	                            <div style="z-index:100" class="col-md-12">
+		                            <?php if( $message != '' ) { ?>
+			                            <div class="alert alert-success alert-dismissable">
+				                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+				                            <?php echo $message; ?>
+			                            </div>
+		                            <?php } ?>
+	                            </div>
+	                            <div style="opacity:0;"  id="message">
+		                            <?php echo $message; ?>
+
+	                            </div>
+
+
+
+	                            <div  class="addButton col-md-offset-9 col-md-3">
+
+		                            <button class="  btn btn-mploy-submit waves-effect waves-light" style="float:right" onclick="window.location.replace('/companies/addcontact/<?php echo $id; ?>')"><i class="fa fa-plus"></i>
+			                            <span class="buttonText">Add Contact</span></button>
+	                            </div>
 
 
 

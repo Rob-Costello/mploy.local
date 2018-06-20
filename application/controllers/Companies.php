@@ -131,12 +131,37 @@ class Companies extends CI_Controller
         array_walk($header, function ($item, $key) use (&$pretty) {
             $pretty[] = ucwords(str_replace('_', ' ', $item));
         });
+        $data['message'] = $this->session->flashdata('message');
         $data['fields'] = $header;
         $data['table_header'] = $pretty;
         $this->load->view('pages/companies/company_contacts',$data);
     }
 
+	function addContact($id){
 
+		$company = new CompaniesModel();
+		$data['messages'] = '';
+		$data['org_id'] = $id;
+		$data['id']=$id;
+		$data['page'] = 'history';
+		$data['user']=$this->user;
+
+		if(!empty($_POST))
+		{
+
+			$company->createCompanyContact( $this->input->post());
+			$this->session->set_flashdata('message', 'Contact Added to Company ');
+			redirect('companies/view/'.$id.'/contacts/','refresh');
+
+		}
+
+
+
+
+		$this->load->view('pages/companies/companies_new_contact',$data);
+
+
+	}
 
     function contactDetails($id){
 

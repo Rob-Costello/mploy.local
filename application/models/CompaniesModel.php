@@ -90,7 +90,12 @@ class CompaniesModel extends CI_Model
         return $this->db->trans_status();
 
     }
+	public function createCompanyContact($data){
 
+		$this->db->insert('mploy_contacts', $data);
+
+
+	}
 
     public function getCompany($id){
 

@@ -231,7 +231,7 @@ class Schools extends CI_Controller
 			$offset = $page * $this->perPage;
 		}
 
-		$data['contacts'] = $school->getHistory(['select_school'=>$data['id']], null, $this->perPage, $offset);
+		$data['contacts'] = $school->getHistory(['campaign_ref'=>$data['id']], null, $this->perPage, $offset);
 		$page = $this->page($data['contacts'],'/schools/view/'.$id.'/history',$this->perPage);
 		$this->pagination->initialize($page);
 		$data['pagination_start'] = $offset + 1;
@@ -242,7 +242,7 @@ class Schools extends CI_Controller
 		}
 		$data['pagination'] = $this->pagination->create_links();
 
-		$header = ['date', 'time', 'caller', 'receiver','origin','call_notes'];
+		$header = ['date_time',  'caller', 'receiver','origin','call_notes'];
 		$pretty = [];
 		array_walk($header, function ($item, $key) use (&$pretty)
 		{
@@ -303,7 +303,6 @@ class Schools extends CI_Controller
 				}
 
 			}
-
 
 			//array_push($active,['placed'=>$call]);
 			$active['placed'] = $call .'/' .$active['students_to_place'];

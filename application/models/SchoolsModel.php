@@ -123,7 +123,11 @@ class SchoolsModel extends CI_Model
             $query = $this->db->get('mploy_campaigns');
             $count = $this->db->from('mploy_campaigns')->count_all_results();
         } else {
-            $query = $this->db->get_where('mploy_campaigns', $where);
+           // $query = $this->db->get_where('mploy_campaigns', $where);
+	        $this->db->join('users','mploy_campaigns.campaign_id = mploy_campaign_activity.campaign_ref ','left');
+	        $query = $this->db->get_where('mploy_campaign_activity', $where);
+	        return  $query->result();
+
             $count = $this->db->from('mploy_campaigns')->where($where)->count_all_results();
         }
         return array('data' => $query->result(), 'count' => $count);

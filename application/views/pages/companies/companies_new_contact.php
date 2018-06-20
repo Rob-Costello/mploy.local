@@ -114,6 +114,20 @@
 											</div>
 											<!--/span-->
 										</div>
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+
+													<label class=" ">
+														Telephone
+													</label>
+													<input type="text" name="phone" class="form-control"  placeholder="01234 567890" >
+
+												</div>
+											</div>
+											
+											<!--/span-->
+										</div>
 
 
 

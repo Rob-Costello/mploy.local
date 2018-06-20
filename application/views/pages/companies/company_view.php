@@ -158,21 +158,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label class=" ">
-                                                        Show In Search
-                                                    </label>
 
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox"> Yes
-                                                        </label>
-                                                    </div>
-
-
-                                                </div>
-                                            </div>
                                         </div>
 
                                         <div class="row">

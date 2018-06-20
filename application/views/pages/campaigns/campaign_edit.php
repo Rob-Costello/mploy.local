@@ -245,6 +245,45 @@
 												</div>
 
 											</div> <!--end row -->
+											<div class="box-header with-border">
+												<h3 class="box-title">Add Employers to Campaign </h3>
+											</div>
+
+											<div class="row">
+												<div class="col-md-6">
+
+													<div class="input-group">
+
+														<input style="margin:20px; padding:19px;" type="text" name="search" class="form-control" placeholder="Employer postcode">
+														<span class="input-group-btn">
+								                <button style="z-index:100" type="button"  id="search-btn" class="btn btn-flat btn-mploy">
+								                    <i class=" fa fa-search"></i>
+								                </button>
+                                                </span>
+													</div>
+
+
+												</div>
+
+
+
+											</div>
+
+											<div class="row">
+												<div class="col-md-12">
+													<table class="table table-bordered table-striped" id="companyTable">
+
+														<thead>
+														<tr>
+															<th></th>
+															<th>Company Name</th>
+
+															<th>Address</th>
+
+													</table>
+												</div>
+
+											</div>
 
 
 
@@ -280,7 +319,35 @@
 
 	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
+
 	<script>
+		$("#search-btn").click(function(){
+			var target = '/campaigns/getBusiness';
+			var start =$('[name="search"]').val();
+			$.ajax({
+				url: target,
+				type: 'POST',
+				data: {match_postcode:start},
+				success: function(data, textStatus, XMLHttpRequest)
+				{
+					data = JSON.parse(data);
+					Object.keys(data).forEach(function(key){
+						console.log( data[key].name);
+						var check = '<td> <input type="checkbox" name="campaign_employer_id[]" value="'+data[key].comp_id+'" > </td>';
+						var name = '<td>'+ data[key].name+' </td>';
+						var address = '<td>'+ data[key].address1 + ' ' + data[key].address2 + ', '+ data[key].postcode + '</td>';
+						var row = $('<tr>').html(check + name + address);
+						$('#companyTable').append(row);
+					});
+				}
+			});
+		});
+
+	</script>
+
+	<script>
+
+
 
 
 		$('#add-row').click(function(){

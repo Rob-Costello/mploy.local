@@ -160,6 +160,25 @@ class Campaigns extends CI_Controller
 			unset($_POST['holiday']);
 
 			if(!isset($error)) {
+
+				foreach ($this->input->post('campaign_employer_id') as $employer) {
+					$temp[] = ['campaign_employer_id' => $employer, 'org_campaign_ref' => $_POST['select_school'] ];
+				}
+				//remove employer id to stop error
+				unset($_POST['campaign_employer_id']);
+				unset($_POST['search']);
+				//get id for insert as campaign reference
+				$campaign_id = $campaign->createCampaign($this->input->post());
+				$companies = [];
+				//if(isset($_POST['campaign_employer_id'])) {
+				foreach ($temp as  $t) {
+					//$temp = ['campaign_employer_id' => $employer, 'org_campaign_ref' => $_POST['select_school'], 'campaign_ref' => $campaign_id ];
+					$t['campaign_ref'] = $campaign_id;
+
+					$campaign->addCompaniesToCampaign($t);
+
+				}
+
 				$campaign->editCampaign($id,$this->input->post());
 				$data['message'] = 'Campaign  '.$this->input->post('campaign_name') .' Updated ';
 				$this->session->set_flashdata('message', 'Campaign  '.$this->input->post('campaign_name') .' Updated ');

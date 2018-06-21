@@ -315,6 +315,7 @@ class Schools extends CI_Controller
 		$school= new SchoolsModel();
 		$header = ['campaign_name', 'campaign_place_start_date', 'campaign_place_end_date','placed','status'];
 		$pretty = [];
+		$data['message']='';
 		array_walk($header, function ($item, $key) use (&$pretty)
 		{
 			$pretty[] = ucwords(str_replace('_', ' ', $item));
@@ -338,7 +339,7 @@ class Schools extends CI_Controller
 					$call++;
 				}
 			}
-
+			$data['message'] = $this->session->flashdata('message');
 			$active['placed'] = $call .'/' .$active['students_to_place'];
 			$active['status'] = 'Active';
 			$temp[]=$active;
@@ -348,7 +349,7 @@ class Schools extends CI_Controller
 
 	}
 
-	function newplacement($id){
+	function newPlacement($id){
 		$data['user']=$this->user;
 		$school = new SchoolsModel();
 		$data['id']=$id;
@@ -362,8 +363,9 @@ class Schools extends CI_Controller
 			$_POST['placement_end_date'] = date("Y-m-d", strtotime($this->input->post('placement_end_date')));
 			$id = $this->input->post('id');
 			unset($_POST['id']);
-			$success = $school->createCall($this->input->post(),$id);
-			$data['messages'] = "Information updated";
+			$school->updateCompanyContact($id,$this->input->post());
+			$this->session->set_flashdata('message','Student added to Company' );
+			redirect('schools/view/'.$data['id'].'/placements','refresh');
 		}
 		$this->load->view('pages/schools/schools_new_placement',$data);
 

@@ -166,6 +166,17 @@ class SchoolsModel extends CI_Model
 
     }
 
+	public function updateCompanyContact($id,$data){
+
+		$this->db->trans_start();
+		$this->db->where('id', $id);
+		$this->db->update('mploy_contacts', $data);
+		$this->db->trans_complete();
+		return $this->db->trans_status();
+
+	}
+
+
 	function getPlacements($where = null, $request = null, $limit = null, $offset = null)
 	{
 		$this->db->select('*');

@@ -26,19 +26,16 @@
 						<section class="">
 
 
-
 							<div class="">
 
 								<div class="box-header with-border">
 									<h3 class="box-title">School Information</h3>
 								</div>
 
-
 								<!-- /.box-header -->
 								<div class="box-body">
 									<form role="form"  method="POST">
 										<!-- text input -->
-
 
 										<div class="row">
 											<div class="col-md-6">
@@ -63,7 +60,7 @@
 
 													<div class="">
 														<label >Start Date</label>
-														<input type="text" name="placement_start_date" class="form-control" value="" placeholder="01-02-2001" autocomplete="off" >
+														<input type="text" name="placement_start_date" class=" datepicker form-control" value="" placeholder="Select Date" autocomplete="off" >
 													</div>
 												</div>
 											</div>
@@ -75,7 +72,7 @@
 												<div class="form-group">
 
 													<label class=" ">End Date</label>
-													<input type="text" name="placement_end_date" class="form-control" value="" placeholder="01-01-2001" >
+													<input type="text" name="placement_end_date" class=" datepicker form-control" value="" placeholder="Select Date" >
 
 												</div>
 											</div>
@@ -170,3 +167,18 @@
 
 
 	<?php $this->load->view('templates/footer'); ?>
+
+	<script>
+		$('.datepicker').daterangepicker({
+			opens: 'left',
+			singleDatePicker: true,
+			setDate:'',
+
+			locale: {
+				format: 'DD-MM-YYYY'
+			}
+
+		}).val('');
+
+
+	</script>

@@ -21,7 +21,11 @@
                         <section class="content">
                             <div class="box box-primary">
 
+	                            <div  class="addButton col-md-offset-9 col-md-3">
 
+		                            <button class="  btn btn-mploy-submit waves-effect waves-light" style="float:right" onclick="window.location.replace('/schools/newcontact/<?php echo $id ?>')"><i class="fa fa-plus"></i>
+			                            <span class="buttonText">Add Contact</span></button>
+	                            </div>
 
                                 <!-- /.box-header -->
                                 <div class="box-body">

@@ -50,7 +50,7 @@
 												<div class="form-group">
 
 													<label class=" ">School Name</label>
-													<input type="text" name="name" class="form-control"  placeholder="School Name" >
+													<input type="text" name="organisation_type_id" class="form-control"  placeholder="School Name" >
 
 												</div>
 											</div>
@@ -59,7 +59,7 @@
 
 													<div class="">
 														<label >Type of Institution</label>
-														<input type="text" name="type" class="form-control"  placeholder="Secondary School" autocomplete="off" >
+														<input type="text" name="" class="form-control"  placeholder="Secondary School" autocomplete="off" >
 													</div>
 												</div>
 											</div>

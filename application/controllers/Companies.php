@@ -227,6 +227,8 @@ class Companies extends CI_Controller
             $offset = $page * $this->perPage;
         }
 
+        $data['placements'] = $company->getPlacementHistory($id);
+
 		$data['contacts'] = $company->getHistory(['mploy_campaign_activity.org_id'=>$data['id']], null, $this->perPage, $offset);
         $page = $this->page($data['contacts'],'/companies/contacts/',$this->perPage);
         $this->pagination->initialize($page);

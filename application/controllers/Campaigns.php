@@ -396,6 +396,8 @@ class Campaigns extends CI_Controller
 				$data['nav'] = 'campaign';
 				$data['contacts_table']= ['Name', 'Position', 'Phone', 'Email'];
 				$data['call_table'] = ['Type','Notes','Date','Outcome'];
+				$data['placements'] = $campaign->getPlacements($camp_ref, $id);
+				$data['student_message']  = $this->session->flashdata('student_message');
 				//$data['company_message'] = 'Updated Company Successfully';
 				if(!empty($_POST)){
 
@@ -573,6 +575,32 @@ class Campaigns extends CI_Controller
 				    echo json_encode($holidays);
 				}
 			}
+
+
+	function newplacement($school,$company){
+		$data['user']=$this->user;
+		$campaign = new CampaignsModel();
+		$data['company']=$company;
+		$data['school'] = $school;
+
+		$data['students']  = $campaign->getStudents($school);
+
+		if(!empty($_POST))
+		{
+			$_POST['placement_start_date'] = date("Y-m-d", strtotime($this->input->post('placement_start_date')));
+			$_POST['placement_end_date'] = date("Y-m-d", strtotime($this->input->post('placement_end_date')));
+			$id = $this->input->post('id');
+			unset($_POST['id']);
+			$campaign->updateCompanyContact($id,$this->input->post());
+			$this->session->set_flashdata('student_message', 'Student Added to Company');
+			redirect('campaigns/employerdetails/'.$school.'/'.$company,'refresh');
+			//$success = $school->createCall($this->input->post(),$id);
+
+		}
+		$this->load->view('pages/campaigns/campaign_new_placement',$data);
+
+	}
+
 
 
 			function calculateDates()

@@ -25,7 +25,7 @@
 					</li>
 					<li ><a href="/schools/view/<?php echo $id;?>/contacts" >School Contacts</a>
 					</li>
-					<li><a href="/schools/view/<?php echo $id;?>/placements" >School Placements</a>
+					<li><a href="/schools/view/<?php echo $id;?>/placements" >Campaigns</a>
 					</li>
 					<li ><a  href="/schools/view/<?php echo $id;?>/history" >School Call History</a>
 					</li>

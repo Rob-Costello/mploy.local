@@ -260,4 +260,27 @@ class CampaignsModel extends CI_Model
 
 	}
 
+	public function getPlacements($school,$id){
+
+    	$this->db->select('*');
+    	$query = $this->db->get_where('mploy_contacts','school_id ='.$school.' and placement_company_id ='.$id);
+    	return $query->result();
+
+	}
+
+
+
+
+
+	public function getStudents($school)
+	{
+
+		$this->db->select('*');
+		$query = $this->db->get_where('mploy_contacts','school_id ='.$school);
+		return $query->result();
+
+
+	}
+
+
 }

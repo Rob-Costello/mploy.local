@@ -127,6 +127,16 @@ class CompaniesModel extends CI_Model
 
 	}
 
+	function getPlacementHistory($id)
+	{
+    	$this->db->select('*');
+    	$where ="placement_company_id ='".$id."'";
+    	$query = $this->db->get_where('mploy_contacts', $where);
+
+    	return $query->result();
+
+	}
+
 
 
 

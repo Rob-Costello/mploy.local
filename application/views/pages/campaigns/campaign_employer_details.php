@@ -311,7 +311,102 @@
     </div>
 
 
-    
+	    <div style="padding-top:20px;" class="col-md-7">
+		    <div class=" ">
+			    <div id="exTab1" class="">
+
+				    <div class="tab-content clearfix">
+
+					    <div class="tab-pane active" id="1a">
+
+						    <section class="">
+							    <!-- Main content School Details-->
+							    <!--- Schools contacts -->
+
+							    <div class="box">
+
+								    <div class="box-header with-border">
+									    <h3 class="box-title">Placements </h3>
+								    </div>
+
+								    <!-- /.box-header -->
+								    <div class="box-body">
+									    <div style="z-index:100" class="col-md-12">
+										    <?php if( $student_message != '' ) { ?>
+											    <div class="alert alert-success alert-dismissable">
+												    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+												    <?php echo $student_message; ?>
+											    </div>
+										    <?php } ?>
+									    </div>
+
+									    <div style="opacity:0;"  id="message">
+										    <?php echo $student_message; ?>
+
+									    </div>
+									    <div  style="padding-bottom:20px;" class="col-md-offset-8 col-md-3">
+										    <input type="submit" class="btn btn-mploy-submit" value="New Call" onclick="window.location.replace('/campaigns/newplacement/<?php echo $camp_id ?>/<?php echo $comp_id ?>')">
+									    </div>
+
+
+
+									    <table id="example2" class="table table-bordered table-striped">
+										    <thead>
+										    <tr>
+											  <th>
+												 Name
+											  </th>
+											    <th>
+												    Start Date
+											    </th>
+											    <th>
+												    End Date
+											    </th>
+											    <th>
+												    Job Title
+											    </th>
+
+										    </tr>
+										    </thead>
+										    <tbody>
+
+										    <?php foreach($placements as $call): ?>
+										    <tr>
+											    <td><?php echo $call->first_name .' '. $call->last_name?></td>
+											    <td><?php echo $call->placement_start_date ?></td>
+											    <td><?php echo $call->placement_end_date ?></td>
+											    <td><?php echo $call->job_title ?></td>
+
+
+
+
+											    <?php endforeach ?>
+
+										    </tr>
+										    </tbody>
+
+									    </table>
+
+
+								    </div>
+
+
+						    </section>
+
+
+
+					    </div>
+
+				    </div> <!-- end tab content -->
+
+
+
+			    </div>
+		    </div>
+	    </div>
+
+
+
     </div> <!-- end tab container -->
 
     <?php $this->load->view('templates/footer'); ?>

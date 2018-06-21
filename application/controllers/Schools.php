@@ -37,6 +37,8 @@ class Schools extends CI_Controller
 		$page = $id;
 		$data['headings'] = ['Name','Address','Town','County','Postcode','Phone Number' ];
 		$offset=0;
+		$data['message']='';
+		$data['message'] = $this->session->flashdata('message');
 		if($page > 0)
 		{
 			$offset = $page * $this->perPage;
@@ -211,9 +213,9 @@ class Schools extends CI_Controller
 		$data['user'] = $this->user;
 		$data['messages'] = '';
 		if(!empty($_POST)){
-
 			$school->newSchool($this->input->post());
-			$data['messages']='Successfully added school!';
+			$this->session->set_flashdata('message', 'Successfully added school!');
+			redirect('/schools','refresh');
 		}
 
 		$this->load->view('pages/schools/schools_new_school',$data);

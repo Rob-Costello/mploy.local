@@ -22,37 +22,6 @@
                                 <!-- /.box-header -->
                                 <div class="box-body col-md-6">
                                     <div class="box-header with-border">
-                                        <h3 class="box-title">Call History</h3>
-                                    </div>
-                                    <table id="example2" class="table table-bordered table-striped">
-                                        <thead>
-                                        <tr>
-                                            <?php foreach($table_header as $heading):?>
-                                                <th><?php echo $heading; ?> </th>
-                                            <?php endforeach;?>
-
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <?php foreach($contacts['data'] as $history): ?>
-                                            <tr>
-
-                                                <?php foreach($fields as $contact): ?>
-
-                                                    <td><?php echo $history->$contact; ?></td>
-
-                                                <?php endforeach ?>
-
-                                            </tr>
-                                        <?php endforeach ?>
-                                        </tbody>
-
-                                    </table>
-
-                                </div>
-
-                                <div class="box-body col-md-6">
-                                    <div class="box-header with-border">
                                         <h3 class="box-title">Placement History</h3>
                                     </div>
                                     <table id="example2" class="table table-bordered table-striped">
@@ -65,14 +34,49 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <?php foreach($contacts['data'] as $history): ?>
+
+                                        <?php foreach($placements as $history): ?>
                                             <tr>
 
-                                                <?php foreach($fields as $contact): ?>
+                                               <td><?php echo $history->first_name . ' ' . $history->last_name ?></td>
+	                                            <td><?php echo $history->placement_start_date ?></td>
+	                                            <td><?php echo $history->job_title ?></td>
+	                                            <td><?php echo $history->school_name ?></td>
+                                            </tr>
+                                        <?php endforeach ?>
+                                        </tbody>
 
-                                                    <td><?php echo $history->$contact; ?></td>
+                                    </table>
 
-                                                <?php endforeach ?>
+                                </div>
+
+                                <div class="box-body col-md-6">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Call History</h3>
+                                    </div>
+                                    <table id="example2" class="table table-bordered table-striped">
+                                        <thead>
+                                        <tr>
+                                            <?php foreach($calls_header as $heading):?>
+                                                <th><?php echo $heading; ?> </th>
+                                            <?php endforeach;?>
+
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        <?php foreach($calls as $history): ?>
+                                            <tr>
+
+
+
+                                                    <td><?php $history->campaign_activity_type_id; ?></td>
+	                                            <td><?php $history->notes; ?></td>
+	                                            <td><?php $history->date_time; ?></td>
+	                                            <td><?php $history->rag_status; ?></td>
+
+
+
 
                                             </tr>
                                         <?php endforeach ?>

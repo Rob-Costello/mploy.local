@@ -353,6 +353,7 @@ class Schools extends CI_Controller
 		$school = new SchoolsModel();
 		$data['id']=$id;
 		$data['messages']='';
+		$data['contacts'] = $school->getContacts(['school_id'=>$id]);
 		$data['companies']  = $school->getCompanies();
 
 		if(!empty($_POST))

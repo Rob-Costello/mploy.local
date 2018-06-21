@@ -215,12 +215,10 @@ class Companies extends CI_Controller
     function history($id, $page=0)
     {
 
-
         $data['id']=$id;
         $data['page'] = 'history';
         $data['user']=$this->user;
         $company = new CompaniesModel();
-
         $offset=0;
 
         if($page > 0){
@@ -228,7 +226,7 @@ class Companies extends CI_Controller
         }
 
         $data['placements'] = $company->getPlacementHistory($id);
-
+	    $data['calls'] = $company->getCallHistory($id);
 		$data['contacts'] = $company->getHistory(['mploy_campaign_activity.org_id'=>$data['id']], null, $this->perPage, $offset);
         $page = $this->page($data['contacts'],'/companies/contacts/',$this->perPage);
         $this->pagination->initialize($page);
@@ -239,8 +237,10 @@ class Companies extends CI_Controller
         }
         $data['pagination'] = $this->pagination->create_links();
 
-        $header = ['date', 'time', 'caller', 'receiver','origin','call_notes'];
-        $pretty = [];
+        $header = ['Name', 'Start Date', 'Job Title', 'School Name'];
+        $data['calls_header'] = ['Type','Notes','Date','Outcome'];
+
+	    $pretty = [];
         array_walk($header, function ($item, $key) use (&$pretty) {
             $pretty[] = ucwords(str_replace('_', ' ', $item));
         });

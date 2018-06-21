@@ -61,7 +61,7 @@ class Campaigns extends CI_Controller
         }
 
 
-        $data['message'] = $data['message'] = $this->session->flashdata('message');
+        $data['message']  = $this->session->flashdata('message');
         $data['pagination'] = $this->pagination->create_links();
 		$data['user'] = $this->user;
 		$data['title'] = 'Campaigns';

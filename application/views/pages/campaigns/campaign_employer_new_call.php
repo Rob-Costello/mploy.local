@@ -126,13 +126,12 @@
                                         <div class="row">
                                             
                                             <div class="col-md-12">
-                                                <div class="form-group">
 
+	                                            <div class="form-group">
                                                     <label >Call Notes</label>
                                                     <textarea style="width:100%" class="form-control" type="textarea" name="notes" class="form-control" value="" placeholder="Add a note here.." autocomplete="off" ></textarea>
                                                 </div>
 
-												
                                             </div>
                                             <!--/span-->
                                         </div>

@@ -104,7 +104,33 @@ class CompaniesModel extends CI_Model
 
     }
 
+	function getHistory($where = null, $request = null, $limit = null, $offset = null)
+	{
+		$this->db->select('*');
+		$this->db->limit($limit, $offset);
+		if( $where == null ) {
+			$query = $this->db->get('mploy_campaigns');
+			$count = $this->db->from('mploy_campaigns')->count_all_results();
+		} else {
+			// $query = $this->db->get_where('mploy_campaigns', $where);
+			//$this->db->join('mploy_campaign_activity','mploy_campaign_activity.campaign_ref = mploy_campaigns.select_school ','left');
+			$this->db->join('users','users.id = mploy_campaign_activity.user_id');
 
+			$this->db->join('mploy_campaign_activity_types','mploy_campaign_activity_types.campaign_type_id = mploy_campaign_activity.campaign_activity_type_id');
+			$query = $this->db->get_where('mploy_campaign_activity', $where);
+
+			$this->db->select('*');
+			$count = $this->db->from('mploy_campaign_activity')->where($where)->count_all_results();
+
+		}
+		return array('data' => $query->result(), 'count' => $count);
+
+	}
+
+
+
+
+/*
     function getHistory($where = null, $request = null, $limit = null, $offset = null)
     {
         $this->db->select('*');
@@ -126,7 +152,7 @@ class CompaniesModel extends CI_Model
         }
         return array('data' => $query->result(), 'count' => $count);
 
-    }
+    }*/
 
     function createCall($data)
 	{

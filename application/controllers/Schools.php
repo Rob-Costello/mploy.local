@@ -20,7 +20,7 @@ class Schools extends CI_Controller
 		$this->load->library('pagination');
 		$this->tabs = array('School Information' =>'',
 			           'School Contacts'=>'contacts',
-			           'School Placements'=>'placements',
+			           'Campaigns'=>'placements',
 			           'School Call History'=>'history');
 	}
 
@@ -148,6 +148,8 @@ class Schools extends CI_Controller
 	}
 
 
+
+
 	function contacts($id, $page=0)
 	{
 		$data['user']=$this->user;
@@ -177,10 +179,30 @@ class Schools extends CI_Controller
 			$pretty[] = ucwords(str_replace('_', ' ', $item));
 		}
 		);
+		$data['message'] = $this->session->flashdata('message');
 		$data['fields'] = $header;
 		$data['table_header'] = $pretty;
 		$data['tabs'] = $this->tabs;
 		$this->load->view('pages/schools/schools_contacts',$data);
+	}
+
+
+	function newContact($id){
+
+
+		$data['user']=$this->user;
+		$data['id'] = $id;
+		$school = new SchoolsModel();
+		$required = [];
+
+		if(!empty($_POST)){
+			$school->newContact($this->input->post());
+			$this->session->set_flashdata('message', 'New Contact Added');
+			redirect('schools/view/'.$id.'/contacts','refresh');
+		}
+
+		$this->load->view('pages/schools/schools_new_contact',$data);
+
 	}
 
 
@@ -224,6 +246,7 @@ class Schools extends CI_Controller
 		$data['id']=$id;
 		$school = new SchoolsModel();
 
+
 		$offset=0;
 
 		if($page > 0)
@@ -242,13 +265,17 @@ class Schools extends CI_Controller
 		}
 		$data['pagination'] = $this->pagination->create_links();
 
-		$header = ['date_time',  'caller', 'receiver','origin','call_notes'];
+		$header = ['date_time',  'username', 'receiver','description','rag_status','notes'];
+
 		$pretty = [];
 		array_walk($header, function ($item, $key) use (&$pretty)
 		{
 			$pretty[] = ucwords(str_replace('_', ' ', $item));
 		}
 		);
+
+
+		$data['message'] = $this->session->flashdata('message');
 		$data['tabs'] = $this->tabs;
 		$data['fields'] = $header;
 		$data['table_header'] = $pretty;
@@ -259,13 +286,25 @@ class Schools extends CI_Controller
 	function call($id){
 		$school = new SchoolsModel();
 		$data['user']=$this->user;
+		$data['date'] =   date('d/m/Y H:i:s');
 		$data['id'] = $id;
+		$data['camp_id'] = $id;
+		//$school->getCompanies();
+		$data['companies'] = $school->getEmployers($id);
+		if(empty($data['companies'])){
+			$data['companies'] = (object)['comp_id' =>'', 'name' => 'None Avaialble, Add a Company to the Campaign'];
+		}
 		//$data['id']=$this->session->schoolid;
+
 		$data['contacts']=$school->getContacts(array('school_id'=>$data['id']));
-		$data['messages']='';
+
+		$data['activity'] = $school->getActivity();
+
 		if(!empty($_POST)){
-			//$success = $school->createCall($this->input->post());
-			$data['messages'] = "Call Added";
+			$_POST['date_time'] = date('Y-m-d H:i:s');
+			$school->createCall($this->input->post());
+			$this->session->set_flashdata('message', 'New Call Added');
+			redirect('schools/view/'.$id.'/history','refresh');
 		}
 
 		$this->load->view('pages/schools/school_call',$data);
@@ -285,31 +324,24 @@ class Schools extends CI_Controller
 		$data['tabs'] = $this->tabs;
 		$data['table_header'] = $pretty;
 		$data['fields'] = $header;
-		$where = "select_school = ".$id ." and campaign_place_end_date > '".date("Y-m-d" )."'";
+		$where = "select_school = ".$id ." and campaign_place_start_date < now() and campaign_place_end_date > '".date("Y-m-d" )."'";
 		$info = $school->getPlacements($where); //need to check if placement end date has expired
 		$temp = [];
 		foreach($info as $active)
 		{
-
 			$callstats = $school->getCallData($id);
 			$call =0;
 
 			foreach($callstats as $stat){
-
 				if($stat->rag_status =='green')
 				{
-
 					$call++;
 				}
-
 			}
 
-			//array_push($active,['placed'=>$call]);
 			$active['placed'] = $call .'/' .$active['students_to_place'];
 			$active['status'] = 'Active';
-
 			$temp[]=$active;
-
 		}
 		$data['data'] = $temp;
 		$this->load->view('pages/schools/school_placements',$data);

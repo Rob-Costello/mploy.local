@@ -84,6 +84,14 @@ class CampaignsModel extends CI_Model
     }
 
 
+    public function campName($ref){
+
+    	$this->db->select('campaign_name');
+    	$query = $this->db->get_where('mploy_campaigns','where campaign_ref ='.$ref);
+    	return $query->row_array();
+
+    }
+
     public function availableCampaigns(){
         $this->db->join('mploy_contacts','mploy_campaigns.select_school = mploy_contacts.school_id');
 		$this->db->group_by('select_school');
@@ -255,9 +263,12 @@ class CampaignsModel extends CI_Model
 	}
 
 
-	public function getCampaign($id){
+	public function title($id){
 
-    	$query = $this->db->get_where('mploy_campaigns','campaign_id = '.$id );
+    	$this->db->select('*');
+    	$this->db->where(['campaign_id' => $id]);
+    	$query = $this->db->get('mploy_campaigns' );
+
     	return $query->row_array();
 
 	}
@@ -286,6 +297,8 @@ class CampaignsModel extends CI_Model
     	return $query->result();
 
 	}
+
+
 
 
 

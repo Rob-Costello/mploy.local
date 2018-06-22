@@ -39,32 +39,51 @@ class Dashboard extends CI_Controller {
 	public function index()
 	{
 
-	    $customersModel = new CustomersModel();
-	    $companiesModel = new CompaniesModel();
-	    $usersModel = new UsersModel();
-	    $campaignsModel = new CampaignsModel();
+		$customersModel = new CustomersModel();
+		$companiesModel = new CompaniesModel();
+		$usersModel = new UsersModel();
+		$campaignsModel = new CampaignsModel();
 
 		$data['user'] = $this->user;
 		$data['school_count'] = count($customersModel->getCustomers('organisation_type_id = 1')['data']);
 		$data['company_count'] = count($companiesModel->getCompanies('organisation_type_id = 2')['data']);
-        $data['user_count'] = count($usersModel->getUsers()['data']);
-        $data['campaigns_count'] = count($campaignsModel->getCampaigns()['data']);
+		$data['user_count'] = count($usersModel->getUsers()['data']);
+		$data['campaigns_count'] = count($campaignsModel->getCampaigns()['data']);
 
-        $data['campaigns_display'] = $campaignsModel->getCampaigns(null, null, 6, 0)['data'];
-        $callinfo=[];
-        foreach($data['campaigns_display'] as $c)
-        {
 
-            $call = $campaignsModel->callInfo($c->select_school,$c->employer_engagement_end)['calls'];
-            $info = $campaignsModel->callAmmount($c->select_school)['total'];
-            $callinfo[]=['call'=>$call, 'info'=>$info];
+		$data['campaigns_display'] = $campaignsModel->getCampaigns(null, null, 5, 0)['data'];
+		$callinfo = [];
+		foreach ($data['campaigns_display'] as $c) {
 
-        }
-        $data['callinfo'] = $callinfo;
+			$where = "select_school = " . $c->select_school . " and campaign_place_start_date < now() and campaign_place_end_date > '" . date("Y-m-d") . "'";
+			$info = $customersModel->getPlacements($where); //need to check if placement end date has expired
+			$temp = [];
+			foreach ($info as $active) {
+				$callstats = $customersModel->getCallData($c->select_school);
+				$call = 0;
 
-        //$data['campaign_calls'] = $campaignsModel->callInfo();
-		$this->load->view('pages/dashboard',$data);
+				foreach ($callstats as $stat) {
+					if ($stat->rag_status == 'green') {
+						$call++;
+					}
+				}
 
+
+
+
+				$calls = $campaignsModel->callInfo($c->select_school, $c->employer_engagement_end)['calls'];
+				$info = $campaignsModel->callAmmount($c->select_school)['total'];
+				$callinfo[] = ['call' => $calls, 'info' => $info, 'success' => $call, 'total' => $active['students_to_place']];
+				//$placed[] = ['success'=>$call, 'total'=> $active['students_to_place']] ;
+
+			}
+			//$data['placed'] = $placed;
+			$data['callinfo'] = $callinfo;
+
+			//$data['campaign_calls'] = $campaignsModel->callInfo();
+			$this->load->view('pages/dashboard', $data);
+
+		}
 	}
 
 	public function dashboard2(){

@@ -27,6 +27,12 @@ h1,h2,h3,h4{
 
 }
 
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+	color: red;
+	opacity: 1; /* Firefox */
+}
+
 /* The switch - the box around the slider */
 .switch {
 	position: relative;

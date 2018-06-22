@@ -126,18 +126,18 @@
                                         <div class="progress-group">
                                             <span class="progress-text">Companies Contacted</span>
                                             <span class="progress-number"><b> <?php echo $callinfo[$key]['call']; ?></b>/<?php echo $callinfo[$key]['info']; ?></span>
-
                                             <div class="progress sm">
-                                                <div class="progress-bar progress-bar-aqua" style="width: 25%"></div>
+                                                <div class="progress-bar progress-bar-aqua" style="width: <?php echo ((int)$callinfo[$key]['call'] * 100  / (int)$callinfo[$key]['info']  )?>%"></div>
                                             </div>
                                         </div>
                                         <!-- /.progress-group -->
                                         <div class="progress-group">
                                             <span class="progress-text">Places Agreed</span>
-                                            <span class="progress-number"><b>40</b>/400</span>
+
+	                                        <span class="progress-number"><b><?php echo $callinfo[$key]['success']; ?></b>/ <?php echo $callinfo[$key]['total'];?></span>
 
                                             <div class="progress sm">
-                                                <div class="progress-bar progress-bar-yellow" style="width: 20%"></div>
+                                                <div class="progress-bar progress-bar-yellow" style="width: <?php echo ((int)$callinfo[$key]['success'] * 100  / (int)$callinfo[$key]['total']  )?>%"></div>
                                             </div>
                                         </div>
                                         <!-- /.progress-group -->

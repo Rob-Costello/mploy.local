@@ -375,6 +375,7 @@ class Campaigns extends CI_Controller
 			}
 
 
+			$data['campaign_name'] =$school['campaign_name'];
 			$data['pagination'] = $this->pagination->create_links();
 			$data['user'] = $this->user;
 			$data['title'] = 'Campaign';

@@ -447,6 +447,10 @@ class Auth extends CI_Controller
 	 */
 	public function create_user()
 	{
+
+		//$mandatory = ['first_name','last_name','password',''];
+
+
 		$this->data['user']=$this->ion_auth->user()->row();
 		$this->data['title'] = $this->lang->line('create_user_heading');
 
@@ -582,6 +586,7 @@ class Auth extends CI_Controller
 	public function edit_user($id)
 	{
 		$this->data['title'] = $this->lang->line('edit_user_heading');
+		$this->data['error'] = $this->session->flashdata('error');
 
 		if (!$this->ion_auth->logged_in() || (!$this->ion_auth->is_admin() && !($this->ion_auth->user()->row()->id == $id)))
 		{
@@ -603,7 +608,13 @@ class Auth extends CI_Controller
 			// do we have a valid request?
 			if ($this->_valid_csrf_nonce() === FALSE || $id != $this->input->post('id'))
 			{
-				show_error($this->lang->line('error_csrf'));
+
+				$this->session->set_flashdata('error', 'Your password didint meet the complexity requirements');
+				$this->data['error'] = $this->session->flashdata('error');
+
+				redirect('users/edit/'.$id,'refresh');
+				//show_error($this->lang->line('error_csrf'));
+
 			}
 
 			// update the password if it was posted
@@ -651,7 +662,7 @@ class Auth extends CI_Controller
 				if ($this->ion_auth->update($user->id, $data))
 				{
 					// redirect them back to the admin page if admin, or to the base url if non admin
-					$_SESSION['message']= "Updated user info successfully!";
+					//$_SESSION['message']= "Updated user info successfully!";
 					$this->session->set_flashdata('message', $this->ion_auth->messages());
 					$this->redirectUser();
 
@@ -659,8 +670,9 @@ class Auth extends CI_Controller
 				else
 				{
 					// redirect them back to the admin page if admin, or to the base url if non admin
-					$this->session->set_flashdata('message', $this->ion_auth->errors());
-					$this->redirectUser();
+					$this->session->set_flashdata('error', $this->ion_auth->errors());
+					redirect('users/edit/'.$id,'refresh');
+					//$this->redirectUser();
 
 				}
 
@@ -760,7 +772,7 @@ class Auth extends CI_Controller
 				'type'  => 'text',
 				'value' => $this->form_validation->set_value('description'),
 			);
-
+			//$this->data['error'] = '';
 			$this->_render_page('auth/create_group', $this->data);
 		}
 	}

@@ -81,6 +81,7 @@ class CustomersModel extends CI_Model
         } else {
 
             $this->db->order_by($request);
+
             $query=$this->db->get_where('mploy_organisations', $where);
             $count = $this->db->from('mploy_organisations')->where($where)->count_all_results();
 

@@ -30,7 +30,8 @@ class Customers extends CI_Controller
 		$orderby = 'org_id';
 		$data['orderby']='';
 		$like = null;
-		$where = 'organisation_type_id =1 ';
+		$where_in = "organisation_type_id in ('1','4','5')";
+		//$where_in = ['1','4','5'];
 		$data['fields'] = ['name','address1','town','county','postcode','phone_number'];
 		$customer = new CustomersModel();
 		$page = $id;
@@ -52,11 +53,11 @@ class Customers extends CI_Controller
 
 			$like = $this->input->post('search');
 			$where .= " and name like '%".$like."%'";
-			$data['customers'] = $customer->getcustomers($where, $orderby,  null,null);
+			$data['customers'] = $customer->getcustomers($where_in, $orderby,  null,null);
 			$page = $this->page($data['customers'],'/customers',$this->perPage);
 		}else{
 
-			$data['customers'] = $customer->getcustomers($where, $orderby, $this->perPage, $offset,$sortby);
+			$data['customers'] = $customer->getcustomers($where_in, $orderby, $this->perPage, $offset,$sortby);
 			$page = $this->page($data['customers'],'/customers',$this->perPage);
 
 		}

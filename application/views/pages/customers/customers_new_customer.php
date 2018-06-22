@@ -128,6 +128,25 @@
 
 												</div>
 											</div>
+
+
+											<div class="col-md-6">
+												<div class="form-group">
+
+													<label class=" ">
+														Organisation Type
+													</label>
+													<select name="organisation_type_id" class="form-control">
+														<option >Select Organisation Type</option>
+														<option value="1">School</option>
+														<option value="4">Local Authority</option>
+														<option value="5">College</option>
+
+													</select>
+
+												</div>
+											</div>
+
 											<input type="hidden" value="1" name="organisation_type_id">
 
 											<!--/span-->

@@ -115,7 +115,7 @@
                                 <?php foreach($campaigns_display as $key => $campaign){ ?>
 
                                     <!-- /.col -->
-									<div class="col-md-2"><a href="/campaigns/employers/<?php echo $campaign->campaign_id ?>/0">
+									<div style="margin-right:20px" class="col-md-2"><a href="/campaigns/employers/<?php echo $campaign->campaign_id ?>/0">
                                         <!--										<p class="text-center">-->
                                         <!--											<strong>Goal Completion</strong>-->
                                         <!--										</p>-->

@@ -221,12 +221,7 @@
 
 											<div class="row">
 
-												<div class="col-md-4">
-													<div class="form-group">
-														<label >Matching Start</label>
-														<input name="matching_start" value="<?php echo $entries['matching_start'] ?>" type="text" class="datepicker form-control" >
-													</div>
-												</div>
+
 
 												<div class="col-md-4">
 													<div class="form-group">
@@ -383,6 +378,22 @@
 </script>
 
 	<script>
+		/*
+		$(function(){
+
+	$('.daterangepicker').each(function(index,e){
+		var $(e).val() = $(e);
+		console.log(current);
+		var d = current.split('-');
+		var output = d[2]+'-'+d[1]+'-'+d[0];
+
+		$(e).val(output);
+		console.log(output);
+	});
+
+
+});
+
 
 		//check for errors in form
 		<?php if (isset($error)): ?>

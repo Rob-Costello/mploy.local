@@ -77,7 +77,7 @@ class Campaigns extends CI_Controller
 		$data['entries'] = $campaign->getCampaign($id);
 		$data['campaign_list'] = $this->availableCampaigns;
 		$data['user']=$this->user;
-		$campaign= new CampaignsModel();
+
 		$output ="";
 	    $data['school_id'] = $data['entries']['select_school'];
 		$schoolHolidays = $campaign->getSchoolHoliday($data['school_id']);
@@ -111,6 +111,8 @@ class Campaigns extends CI_Controller
 				'matching_start','matching_end'];
 
 
+
+
 			foreach($dates as $d)
 			{
 				$_POST[$d] = date("Y-m-d", strtotime($this->input->post($d)));
@@ -142,6 +144,7 @@ class Campaigns extends CI_Controller
 			//make dates db friendly
 			foreach($dates as $d){
 				$_POST[$d] = date("Y-m-d", strtotime($this->input->post($d)));
+
 			}
 
 			foreach($required as $r){
@@ -149,6 +152,7 @@ class Campaigns extends CI_Controller
 					$error[] = $r;
 				}
 			}
+
 
 			if(isset($error)){
 				$data['error'] = $error;
@@ -160,15 +164,19 @@ class Campaigns extends CI_Controller
 			unset($_POST['holiday']);
 
 			if(!isset($error)) {
+				$temp = [];
+				if(null!==($this->input->post('campaign_employer_id'))){
+					foreach ($this->input->post('campaign_employer_id') as $employer) {
+						$temp[] = ['campaign_employer_id' => $employer, 'org_campaign_ref' => $_POST['select_school'] ];
+					}
+					//remove employer id to stop error
+					unset($_POST['campaign_employer_id']);
 
-				foreach ($this->input->post('campaign_employer_id') as $employer) {
-					$temp[] = ['campaign_employer_id' => $employer, 'org_campaign_ref' => $_POST['select_school'] ];
+
 				}
-				//remove employer id to stop error
-				unset($_POST['campaign_employer_id']);
 				unset($_POST['search']);
 				//get id for insert as campaign reference
-				$campaign_id = $campaign->createCampaign($this->input->post());
+				//$campaign_id = $campaign->createCampaign($this->input->post());
 				$companies = [];
 				//if(isset($_POST['campaign_employer_id'])) {
 				foreach ($temp as  $t) {
@@ -248,9 +256,9 @@ class Campaigns extends CI_Controller
 			}
 
 			//make dates db friendly
-			foreach($dates as $d){
+			/*foreach($dates as $d){
 				$_POST[$d] = date("Y-m-d", strtotime($this->input->post($d)));
-			}
+			}*/
 
 			foreach($required as $r){
 				if($_POST[$r] =='' || empty($_POST[$r]) ){

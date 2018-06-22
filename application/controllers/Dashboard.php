@@ -38,7 +38,6 @@ class Dashboard extends CI_Controller {
 
 	public function index()
 	{
-
 		$customersModel = new CustomersModel();
 		$companiesModel = new CompaniesModel();
 		$usersModel = new UsersModel();
@@ -67,9 +66,6 @@ class Dashboard extends CI_Controller {
 						$call++;
 					}
 				}
-
-
-
 
 				$calls = $campaignsModel->callInfo($c->select_school, $c->employer_engagement_end)['calls'];
 				$info = $campaignsModel->callAmmount($c->select_school)['total'];

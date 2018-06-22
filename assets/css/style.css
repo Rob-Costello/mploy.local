@@ -26,6 +26,11 @@ h1,h2,h3,h4{
 
 
 }
+.form-control::-webkit-input-placeholder { color: #eaebed; }  /* WebKit, Blink, Edge */
+.form-control:-moz-placeholder { color: #eaebed; }  /* Mozilla Firefox 4 to 18 */
+.form-control::-moz-placeholder { color: #eaebed; }  /* Mozilla Firefox 19+ */
+.form-control:-ms-input-placeholder { color: #eaebed; }  /* Internet Explorer 10-11 */
+.form-control::-ms-input-placeholder { color: #eaebed; }  /* M
 
 
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */

@@ -96,11 +96,11 @@
 
 		                            <?php if($company->$h == 1){ ?>
 
-		                           <?php $company->$h = 'green'; ?>
+		                           <?php $company->$h = '<img src="'.base_url().'assets/dist/img/green.png" class="img-circle" alt="User Image">'; ?>
 
 		                            <?php } else{
 
-		                            	echo $company->$h = 'red';
+		                            	echo $company->$h = '<img src="'.base_url().'assets/dist/img/red.png" class="img-circle" alt="User Image">';
 		                            } ?>
 
 

@@ -62,14 +62,15 @@ class Dashboard extends CI_Controller {
 				$call = 0;
 
 				foreach ($callstats as $stat) {
+
 					if ($stat->rag_status == 'green') {
 						$call++;
 					}
 				}
 
 				$calls = $campaignsModel->callInfo($c->select_school, $c->employer_engagement_end)['calls'];
-				$info = $campaignsModel->callAmmount($c->select_school)['total'];
-				$callinfo[] = ['call' => $calls, 'info' => $info, 'success' => $call, 'total' => $active['students_to_place']];
+				$details = $campaignsModel->callAmmount($c->select_school)['total'];
+				$callinfo[] = ['call' => $calls, 'info' => $details, 'success' => $call, 'total' => $active['students_to_place']];
 				//$placed[] = ['success'=>$call, 'total'=> $active['students_to_place']] ;
 
 			}

@@ -49,8 +49,8 @@
 											<div class="col-md-6">
 												<div class="form-group">
 
-													<label class=" ">Name</label>
-													<input type="text" name="name" class="form-control"  placeholder="John" >
+													<label >Customer Name</label>
+													<input type="text" name="name" class="form-control"  placeholder="Fakes School" >
 
 												</div>
 											</div>

@@ -63,7 +63,10 @@
 
                                                 <?php foreach($fields as $contact): ?>
 
-                                                    <td><?php echo $customer->$contact; ?></td>
+                                                    <?php if ($contact=='rag_status'){
+                                                    	$customer->$contact = '<img src="'.base_url().'assets/dist/img/'.$customer->$contact.'.png" class="img-circle" alt="Status">';
+                                                    }?>
+	                                                <td><?php echo $customer->$contact; ?></td>
 
                                                 <?php endforeach ?>
 

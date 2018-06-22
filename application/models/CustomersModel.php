@@ -123,6 +123,7 @@ class CustomersModel extends CI_Model
     }
 
 
+
     public function getCustomer($id){
 
         $query = $this->db->get_where('mploy_organisations','school_id ='.$id);

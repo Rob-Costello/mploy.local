@@ -263,6 +263,12 @@ class CampaignsModel extends CI_Model
 	}
 
 
+	public function getCampaign($id){
+		$query = $this->db->get_where('mploy_campaigns','campaign_id = '.$id );
+		return $query->row_array();
+	}
+	
+
 	public function title($id){
 
     	$this->db->select('*');

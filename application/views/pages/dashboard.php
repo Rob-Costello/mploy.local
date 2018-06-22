@@ -26,20 +26,20 @@
 			<section class="content">
 				<!-- Info boxes -->
 				<div class="row">
-					<div class="col-md-3 col-sm-6 col-xs-12">
+                    <a href="/customers"><div class="col-md-3 col-sm-6 col-xs-12">
 						<div class="info-box">
 							<span class="info-box-icon bg-aqua"><i class="fa fa-graduation-cap"></i></span>
 
 							<div class="info-box-content">
-								<span class="info-box-text">Schools</span>
+								<span class="info-box-text">Active Customers</span>
 								<span class="info-box-number"><?php echo number_format($school_count,0,"",","); ?></span>
-							</div>
+                            </div></a>
 							<!-- /.info-box-content -->
 						</div>
 						<!-- /.info-box -->
 					</div>
 					<!-- /.col -->
-					<div class="col-md-3 col-sm-6 col-xs-12">
+        <a href="/companies"><div class="col-md-3 col-sm-6 col-xs-12">
 						<div class="info-box">
 							<span class="info-box-icon bg-red"><i class="fa fa fa-building"></i></span>
 
@@ -50,13 +50,13 @@
 							<!-- /.info-box-content -->
 						</div>
 						<!-- /.info-box -->
-					</div>
+            </div></a>
 					<!-- /.col -->
 
 					<!-- fix for small devices only -->
 					<div class="clearfix visible-sm-block"></div>
 
-					<div class="col-md-3 col-sm-6 col-xs-12">
+            <a href="/users">	<div class="col-md-3 col-sm-6 col-xs-12">
 						<div class="info-box">
 							<span class="info-box-icon bg-green"><i class="fa fa-users"></i></span>
 
@@ -67,9 +67,9 @@
 							<!-- /.info-box-content -->
 						</div>
 						<!-- /.info-box -->
-					</div>
+                </div></a>
 					<!-- /.col -->
-					<div class="col-md-3 col-sm-6 col-xs-12">
+        <a href="/campaigns"><div class="col-md-3 col-sm-6 col-xs-12">
 						<div class="info-box">
 							<span class="info-box-icon bg-yellow"><i class="fa fa-briefcase"></i></span>
 
@@ -80,7 +80,7 @@
 							<!-- /.info-box-content -->
 						</div>
 						<!-- /.info-box -->
-					</div>
+            </div></a>
 					<!-- /.col -->
 				</div>
 				<!-- /.row -->
@@ -112,19 +112,20 @@
 							<div class="box-body">
 								<div class="row">
 
-                                <?php foreach($campaigns_display as $campaign){ ?>
+                                <?php foreach($campaigns_display as $key => $campaign){ ?>
 
                                     <!-- /.col -->
-									<div class="col-md-2">
+									<div class="col-md-2"><a href="/campaigns/employers/<?php echo $campaign->campaign_id ?>/0">
                                         <!--										<p class="text-center">-->
                                         <!--											<strong>Goal Completion</strong>-->
                                         <!--										</p>-->
 
-                                        <h3 class="box-title"><?php echo $campaign->campaign_name; ?></h3>
 
+                                        <h3 class="box-title"><?php echo $campaign->campaign_name; ?></h3>
+                                        <h4 class="box-title"><?php echo date('d/m/Y',strtotime($campaign->campaign_place_start_date)); ?></h4>
                                         <div class="progress-group">
                                             <span class="progress-text">Companies Contacted</span>
-                                            <span class="progress-number"><b>1000</b>/4000</span>
+                                            <span class="progress-number"><b> <?php echo $callinfo[$key]['call']; ?></b>/<?php echo $callinfo[$key]['info']; ?></span>
 
                                             <div class="progress sm">
                                                 <div class="progress-bar progress-bar-aqua" style="width: 25%"></div>
@@ -148,7 +149,7 @@
                                                 <div class="progress-bar progress-bar-green" style="width: 4%"></div>
                                             </div>
                                         </div>
-
+                                    </a>
                                     </div>
 									<!-- /.col -->
 

@@ -34,7 +34,7 @@
 
 							<h4>
 
-								School Details
+								Customer Details
 							</h4>
 							<div class="">
 
@@ -49,8 +49,8 @@
 											<div class="col-md-6">
 												<div class="form-group">
 
-													<label class=" ">School Name</label>
-													<input type="text" name="organisation_type_id" class="form-control"  placeholder="School Name" >
+													<label class=" ">Name</label>
+													<input type="text" name="name" class="form-control"  placeholder="John" >
 
 												</div>
 											</div>
@@ -58,8 +58,8 @@
 												<div class="form-group">
 
 													<div class="">
-														<label >Type of Institution</label>
-														<input type="text" name="" class="form-control"  placeholder="Secondary School" autocomplete="off" >
+														<label >Phone</label>
+														<input type="text" name="phone_number" class="form-control"  placeholder="01234 56789" autocomplete="off" >
 													</div>
 												</div>
 											</div>
@@ -128,18 +128,8 @@
 
 												</div>
 											</div>
-											<div class="col-md-6">
-												<div class="form-group">
-													<label class=" ">
-														Phone Number
-													</label>
+											<input type="hidden" value="1" name="organisation_type_id">
 
-
-													<input type="tel" name="phone_number" class="form-control"  placeholder="0123 456789" autocomplete="off" >
-
-
-												</div>
-											</div>
 											<!--/span-->
 										</div>
 
@@ -151,7 +141,7 @@
 
 								</div>
 								<input type="submit" class="btn btn-mploy-submit" value="Save Changes">
-								<input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/schools')">
+								<input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/Customers')">
 								</form>
 							</div>
 

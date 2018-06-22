@@ -29,7 +29,7 @@
 							<div class="">
 
 								<div class="box-header with-border">
-									<h3 class="box-title">School Information</h3>
+									<h3 class="box-title">Customer Information</h3>
 								</div>
 
 								<!-- /.box-header -->
@@ -127,7 +127,7 @@
 								</div>
 								<!--<input type="submit" class="btn btn-mploy-submit" value="Save Changes">-->
 								<button class="btn btn-mploy-submit"> Save Changes </button>
-								<input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/schools/view/<?php echo $id; ?>/placements/')">
+								<input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/customers/view/<?php echo $id; ?>/placements/')">
 								</form>
 							</div>
 

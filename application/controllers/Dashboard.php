@@ -10,8 +10,8 @@ class Dashboard extends CI_Controller {
 		$this->load->model('login');
 		$this->load->library('ion_auth');
 		$this->load->model('CompaniesModel');
-        $this->load->model('SchoolsModel');
         $this->load->model('CustomersModel');
+        $this->load->model('UsersModel');
         $this->load->model('CampaignsModel');
 		$this->login->login_check_force();
 		$this->user = $this->ion_auth->user()->row();
@@ -39,19 +39,30 @@ class Dashboard extends CI_Controller {
 	public function index()
 	{
 
-	    $schoolsModel = new SchoolsModel();
-	    $companiesModel = new CompaniesModel();
 	    $customersModel = new CustomersModel();
+	    $companiesModel = new CompaniesModel();
+	    $usersModel = new UsersModel();
 	    $campaignsModel = new CampaignsModel();
 
 		$data['user'] = $this->user;
-		$data['school_count'] = count($schoolsModel->getSchools('organisation_type_id = 1')['data']);
+		$data['school_count'] = count($customersModel->getCustomers('organisation_type_id = 1')['data']);
 		$data['company_count'] = count($companiesModel->getCompanies('organisation_type_id = 2')['data']);
-        $data['user_count'] = count($customersModel->getCustomers()['data']);
+        $data['user_count'] = count($usersModel->getUsers()['data']);
         $data['campaigns_count'] = count($campaignsModel->getCampaigns()['data']);
 
         $data['campaigns_display'] = $campaignsModel->getCampaigns(null, null, 6, 0)['data'];
+        $callinfo=[];
+        foreach($data['campaigns_display'] as $c)
+        {
 
+            $call = $campaignsModel->callInfo($c->select_school,$c->employer_engagement_end)['calls'];
+            $info = $campaignsModel->callAmmount($c->select_school)['total'];
+            $callinfo[]=['call'=>$call, 'info'=>$info];
+
+        }
+        $data['callinfo'] = $callinfo;
+
+        //$data['campaign_calls'] = $campaignsModel->callInfo();
 		$this->load->view('pages/dashboard',$data);
 
 	}

@@ -12,6 +12,25 @@ class CampaignsModel extends CI_Model
     }
 
 
+    function callInfo($campaign_ref,$date){
+//date is campaign end
+        return $this->db->query("select count(distinct org_id) as calls 
+                                  from mploy_campaign_activity 
+                                  where campaign_ref = '".$campaign_ref."'
+                                 
+                                   ")->row_array();
+    }
+
+    function callAmmount($camp){
+        return $this->db->query("select count( org_campaign_ref) as total
+                                  from mploy_rel_campaign_employers 
+                                  where org_campaign_ref = '".$camp."'
+                                 
+                                   ")->row_array();
+
+
+    }
+
     function getCampaigns($where = null, $request = null, $limit = null, $offset = null)
     {
        

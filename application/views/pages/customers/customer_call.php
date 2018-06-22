@@ -1,4 +1,4 @@
-
+``````````
 <?php $this->load->view('templates/header'); ?>
 
 
@@ -32,13 +32,13 @@
 
 						<section class="">
 
-							<!-- Main content School Details-->
-							<!--- Schools contacts -->
+							<!-- Main content customer Details-->
+							<!--- customers contacts -->
 
 							<div class="">
 
 								<div class="box-header with-border">
-									<h3 class="box-title">School Information</h3>
+									<h3 class="box-title">Customer Information</h3>
 								</div>
 
 
@@ -121,8 +121,13 @@
 											<div class="form-group">
 												<label >Company</label>
 												<select class="form-control" name="org_id">
-												<?php foreach($companies as $c): ?>
-												<option value="<?php echo $c->comp_id?>"> <?php echo $c->name; ?></option>
+												<?php if(empty($companies)): ?>
+                                                    <option>No Companies found: Please set and active company in campaign</option>
+                                                    <?php endif ?>
+
+                                                    <?php ?>
+                                                    <?php foreach($companies as $c): ?>
+												<option value="<?php echo $c->comp_id?>"> <?php  echo $c->name; ?></option>
 												
 												<?php endforeach; ?>
 												
@@ -152,7 +157,7 @@
 								</div>
 								<input type="hidden" value="<?php echo $camp_id; ?>" name="campaign_ref">
 								<input type="submit" class="btn btn-mploy-submit" value="Save Changes">
-								<input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/schools/view/<?php echo $camp_id ?>/history')">
+								<input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/customers/view/<?php echo $camp_id ?>/history')">
 								</form>
 							</div>
 

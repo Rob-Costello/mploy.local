@@ -13,7 +13,7 @@
         <div class=" ">
             <div id="exTab1" class="">
 
-				<?php $this->load->view('/pages/schools/school_components/school_tabs') ?>
+				<?php $this->load->view('/pages/customers/customer_components/customer_tabs') ?>
 
                 <div class="tab-content clearfix">
 
@@ -22,7 +22,7 @@
 
                         <section class="content">
 							<div  class="addButton col-md-offset-9 col-md-3">
-								<button class="  btn btn-mploy-submit waves-effect waves-light" style="float:right;"  onclick="window.location.replace('/schools/call/<?php echo $id ?>')"><i class="fa fa-plus"></i>
+								<button class="  btn btn-mploy-submit waves-effect waves-light" style="float:right;"  onclick="window.location.replace('/customers/call/<?php echo $id ?>')"><i class="fa fa-plus"></i>
 									<span class="buttonText">New Call</span></button>
 
 
@@ -58,12 +58,12 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <?php foreach($contacts['data'] as $school): ?>
+                                        <?php foreach($contacts['data'] as $customer): ?>
                                             <tr>
 
                                                 <?php foreach($fields as $contact): ?>
 
-                                                    <td><?php echo $school->$contact; ?></td>
+                                                    <td><?php echo $customer->$contact; ?></td>
 
                                                 <?php endforeach ?>
 

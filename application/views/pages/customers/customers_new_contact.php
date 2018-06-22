@@ -29,13 +29,13 @@
 
 						<section class="">
 
-							<!-- Main content School Details-->
-							<!--- Schools contacts -->
+							<!-- Main content customer Details-->
+							<!--- customers contacts -->
 
 							<div class="">
 
 								<div class="box-header with-border">
-									<h3 class="box-title">School Contact</h3>
+									<h3 class="box-title">Customer Contact</h3>
 								</div>
 
 
@@ -92,7 +92,7 @@
 										<input type="hidden" name="contact_type" value="3">
 								</div>
 								<input type="submit" class="btn btn-mploy-submit" value="Save Changes">
-								<input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/schools/view/<?php echo $id ?>/contacts')">
+								<input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/customers/view/<?php echo $id ?>/contacts')">
 								</form>
 							</div>
 

@@ -34,13 +34,13 @@
 
                         <section class="">
 
-                            <!-- Main content School Details-->
-                            <!--- Schools contacts -->
+                            <!-- Main content customer Details-->
+                            <!--- customers contacts -->
 
                             <div class="">
 
                                 <div class="box-header with-border">
-                                    <h3 class="box-title">School Contact</h3>
+                                    <h3 class="box-title">customer Contact</h3>
                                 </div>
 
 
@@ -96,7 +96,7 @@
 
                                 </div>
                                 <input type="submit" class="btn btn-mploy-submit" value="Save Changes">
-                                <input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/schools/view/<?php echo $table['school_id'] ?>/contacts')">
+                                <input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/customers/view/<?php echo $table['customer_id'] ?>/contacts')">
                                 </form>
                             </div>
 

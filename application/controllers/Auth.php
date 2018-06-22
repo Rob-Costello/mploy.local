@@ -49,7 +49,7 @@ class Auth extends CI_Controller
 			}
 				$this->data['user'] = $this->ion_auth->user()->row();
 			
-			//$this->_render_page('pages/customers/customers', $this->data);
+			//$this->_render_page('pages/users/users', $this->data);
 			redirect('users','refresh');
 			//return 'success';
 		}

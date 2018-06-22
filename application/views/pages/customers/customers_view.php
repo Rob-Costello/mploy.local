@@ -21,13 +21,13 @@
 		<div class=" ">
             <div id="exTab1" class="">
 				<ul  class="nav nav-pills nav-background">
-					<li class="active"><a  href="/schools/view/<?php echo $id; ?>" >School Information</a>
+					<li class="active"><a  href="/Customers/view/<?php echo $id; ?>" >Customer Information</a>
 					</li>
-					<li ><a href="/schools/view/<?php echo $id;?>/contacts" >School Contacts</a>
+					<li ><a href="/Customers/view/<?php echo $id;?>/contacts" >Customer Contacts</a>
 					</li>
-					<li><a href="/schools/view/<?php echo $id;?>/placements" >Campaigns</a>
+					<li><a href="/Customers/view/<?php echo $id;?>/placements" >Campaigns</a>
 					</li>
-					<li ><a  href="/schools/view/<?php echo $id;?>/history" >School Call History</a>
+					<li ><a  href="/Customers/view/<?php echo $id;?>/history" >Customer Call History</a>
 					</li>
 
 				</ul>
@@ -42,8 +42,8 @@
 
                         <section class="">
 
-                            <!-- Main content School Details-->
-                            <!--- Schools contacts -->
+                            <!-- Main content Customer Details-->
+                            <!--- Customers contacts -->
 
                             <div class="">
 
@@ -59,8 +59,8 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
 
-                                                    <label class=" ">School Name *</label>
-                                                    <input type="text" name="name" class="form-control" value="<?php echo $table['name']; ?>" placeholder="School Name" >
+                                                    <label class=" ">Customer Name *</label>
+                                                    <input type="text" name="name" class="form-control" value="<?php echo $table['name']; ?>" placeholder="Customer Name" >
 
                                                 </div>
                                             </div>
@@ -156,7 +156,7 @@
 
                                 </div>
 								<input type="submit" class="btn btn-mploy-submit" value="Save Changes">
-								<input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/schools')">
+								<input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/Customers')">
                                 </form>
                             </div>
 

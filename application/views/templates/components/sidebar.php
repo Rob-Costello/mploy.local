@@ -15,7 +15,7 @@
 			<li><a style="color:#54667a" href="/users"><i style="color:#f88a00" class="fa fa-users"></i> <span>Users</span> <span class=" pull-right-container">
               			<i style="color:#f88a00" class="fa fa-angle-right pull-right"></i>
             		</span></a></li></a></li>
-			<li><a style="color:#54667a" href="/schools"><i style="color:#f88a00" class="fa fa-graduation-cap"></i> <span>Schools</span><span class=" pull-right-container">
+			<li><a style="color:#54667a" href="/customers"><i style="color:#f88a00" class="fa fa-graduation-cap"></i> <span>Customers</span><span class=" pull-right-container">
               			<i style="color:#f88a00" class="fa fa-angle-right pull-right"></i>
             		</span></a>
 

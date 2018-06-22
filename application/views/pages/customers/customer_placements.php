@@ -6,26 +6,28 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
 
-
         <?php //$this->load->view('/templates/components/notification') ?>
     </section>
 
     <div class="container-fluid ">
         <div class=" ">
             <div id="exTab1" class="">
-				<?php $this->load->view('/pages/schools/school_components/school_tabs') ?>
+
+				<?php $this->load->view('/pages/customers/customer_components/customer_tabs') ?>
 
                 <div class="tab-content clearfix">
-                    <div class="" >
+
+
+					<div class="" >
 
                         <section class="content">
-                            <div class="box box-primary">
+                            <div class=" box-primary">
+								<!--<div  class="addButton col-md-offset-9 col-md-3">
 
-	                            <div  class="addButton col-md-offset-9 col-md-3">
+									<button class="  btn btn-mploy-submit waves-effect waves-light" style="float:right" onclick="window.location.replace('/customers/newplacement/<?php //echo $id ?>')"><i class="fa fa-plus"></i>
+									<span class="buttonText">New Placement</span></button> -->
+								</div>
 
-		                            <button class="  btn btn-mploy-submit waves-effect waves-light" style="float:right" onclick="window.location.replace('/schools/newcontact/<?php echo $id ?>')"><i class="fa fa-plus"></i>
-			                            <span class="buttonText">Add Contact</span></button>
-	                            </div>
 
                                 <!-- /.box-header -->
                                 <div class="box-body">
@@ -35,20 +37,21 @@
                                             <?php foreach($table_header as $heading):?>
                                                 <th><?php echo $heading; ?> </th>
                                             <?php endforeach;?>
-                                            <th></th>
+
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <?php foreach($contacts['data'] as $school): ?>
+                                        <?php foreach($data as $customer): ?>
+
                                             <tr>
 
                                                 <?php foreach($fields as $contact): ?>
 
-                                                    <td><?php echo $school->$contact; ?></td>
+                                                    <td><?php if(isset($customer[$contact])) echo $customer[$contact]; ?></td>
 
                                                 <?php endforeach ?>
 
-                                            <td><a  href="/schools/contactdetails/<?php echo $school->id;?>"> <i class="fa fa-edit"></i> </a></td></td>
+
                                             </tr>
                                         <?php endforeach ?>
                                         </tbody>
@@ -57,21 +60,14 @@
 
                                 </div>
                             </div>
-                            <div class="box-footer clearfix">
-                                <div class="dataTables_info" id="example23_info" role="status" aria-live="polite">
-                                    Showing <?php echo $pagination_start; ?> to <?php echo $pagination_end; ?> of <?php $contacts['count']; ?> entries</div>
-                                <div class="dataTables_paginate paging_simple_numbers">
-                                    <?php echo $pagination; ?>
-                                </div>
 
-                            </div>
 
                         </section>
 
 
                     </div>
 
-                     <!-- end tab -->
+                    <!-- end tab -->
 
 
 

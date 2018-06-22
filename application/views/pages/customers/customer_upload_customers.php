@@ -16,7 +16,7 @@
 			<div id="exTab1" class="">
 
 				<ul  class="nav nav-pills nav-background">
-					<li class="active"><a  href="/schools/view/<?php echo $id; ?>" >Person's Details</a>
+					<li class="active"><a  href="/customers/view/<?php echo $id; ?>" >Person's Details</a>
 					</li>
 					<li ><a href="/youngpeople/view/<?php echo $id;?>/membership" >Membership</a>
 					</li>
@@ -61,7 +61,7 @@
 										<div style="margin-top:50px;" class="form-row">
 											<div class="col-md-6">
 												<div class="form-group">
-													<label class=" ">School Year Name</label>
+													<label class=" ">customer Year Name</label>
 													<input type="text" name="first_name" class="form-control" value="" placeholder="Year Name" >
 												</div>
 											</div>

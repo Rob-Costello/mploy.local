@@ -53,37 +53,46 @@ class Dashboard extends CI_Controller {
 
 		$data['campaigns_display'] = $campaignsModel->getCampaigns(null, null, 5, 0)['data'];
 		$callinfo = [];
+		$output = [];
+        $call = 0;
 		foreach ($data['campaigns_display'] as $c) {
 
-			$where = "select_school = " . $c->select_school . " and campaign_place_start_date < now() and campaign_place_end_date > '" . date("Y-m-d") . "'";
-			$info = $customersModel->getPlacements($where); //need to check if placement end date has expired
-			$temp = [];
-			foreach ($info as $active) {
-				$callstats = $customersModel->getCallData($c->select_school);
-				$call = 0;
-
-				foreach ($callstats as $stat) {
-					if ($stat->rag_status == 'green') {
-						$call++;
-					}
-				}
+            $where = "select_school = " . $c->select_school . " and campaign_place_start_date < now() and campaign_place_end_date > '" . date("Y-m-d") . "'";
+            $info = $customersModel->getPlacements($where); //need to check if placement end date has expired
+            $temp = [];
 
 
+            foreach ($info as $active) {
+                $callstats = $customersModel->getCallData($c->select_school);
+                $call = 0;
+
+                foreach ($callstats as $stat) {
+                    if ($stat->rag_status == 'green') {
+                        $call++;
+                    }
+                }
+
+                $calls = $campaignsModel->callInfo($c->select_school, $c->employer_engagement_end)['calls'];
+                $info = $campaignsModel->callAmmount($c->select_school)['total'];
 
 
-				$calls = $campaignsModel->callInfo($c->select_school, $c->employer_engagement_end)['calls'];
-				$info = $campaignsModel->callAmmount($c->select_school)['total'];
-				$callinfo[] = ['call' => $calls, 'info' => $info, 'success' => $call, 'total' => $active['students_to_place']];
-				//$placed[] = ['success'=>$call, 'total'=> $active['students_to_place']] ;
+                $callInfo[] = ['call' => $calls, 'info' => $info, 'success' => $call, 'total' => $active['students_to_place']];
 
-			}
+                //$placed[] = ['success'=>$call, 'total'=> $active['students_to_place']] ;
+
+            }
+            $output[]  = ['campaign_display'=>$c,'call_info'=>$callInfo];
+        }
+
+
 			//$data['placed'] = $placed;
-			$data['callinfo'] = $callinfo;
-
+			//$data['placed'] = $placed;
+			$data['callinfo'] = $callInfo;
+            $data['output'] = $output;
 			//$data['campaign_calls'] = $campaignsModel->callInfo();
 			$this->load->view('pages/dashboard', $data);
 
-		}
+
 	}
 
 	public function dashboard2(){

@@ -112,20 +112,21 @@
 							<div class="box-body">
 								<div class="row">
 
-                                <?php foreach($campaigns_display as $key => $campaign){ ?>
+                                <?php foreach($output as  $key => $campaign){ ?>
 
                                     <!-- /.col -->
-									<div style="margin-right:20px" class="col-md-2"><a href="/campaigns/employers/<?php echo $campaign->campaign_id ?>/0">
+									<div style="margin-right:20px" class="col-md-2"><a href="/campaigns/employers/<?php echo $campaign['campaign_display']->campaign_id ?>/0">
                                         <!--										<p class="text-center">-->
                                         <!--											<strong>Goal Completion</strong>-->
                                         <!--										</p>-->
 
 
-                                        <h3 class="box-title"><?php echo $campaign->campaign_name; ?></h3>
-                                        <h4 class="box-title"><?php echo date('d/m/Y',strtotime($campaign->campaign_place_start_date)); ?></h4>
+                                        <h3 class="box-title"><?php echo $campaign['campaign_display']->campaign_name; ?></h3>
+                                        <h4 class="box-title"><?php echo date('d/m/Y',strtotime($campaign['campaign_display']->campaign_place_start_date)); ?></h4>
                                         <div class="progress-group">
                                             <span class="progress-text">Companies Contacted</span>
-                                            <span class="progress-number"><b> <?php echo $callinfo[$key]['call']; ?></b>/<?php echo $callinfo[$key]['info']; ?></span>
+                                            <span class="progress-number"><b> <?php  echo $campaign['call_info'][$key]['call']; ?>
+                                                </b>/<?php echo $callinfo[$key]['info']; ?></span>
                                             <div class="progress sm">
                                                 <div class="progress-bar progress-bar-aqua" style="width: <?php echo ((int)$callinfo[$key]['call'] * 100  / (int)$callinfo[$key]['info']  )?>%"></div>
                                             </div>
@@ -134,7 +135,8 @@
                                         <div class="progress-group">
                                             <span class="progress-text">Places Agreed</span>
 
-	                                        <span class="progress-number"><b><?php echo $callinfo[$key]['success']; ?></b>/ <?php echo $callinfo[$key]['total'];?></span>
+	                                        <span class="progress-number"><b><?php echo $campaign['call_info'][$key]['success']; ?>
+                                                </b>/ <?php echo $campaign['call_info'][$key]['total'];?></span>
 
                                             <div class="progress sm">
                                                 <div class="progress-bar progress-bar-yellow" style="width: <?php echo ((int)$callinfo[$key]['success'] * 100  / (int)$callinfo[$key]['total']  )?>%"></div>

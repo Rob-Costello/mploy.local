@@ -37,6 +37,7 @@ class Users extends CI_Controller
 
 	function index($id=0)
 	{
+        $data['password_message'] ='';
 
 		$sortby = null;
 		if (!empty($_POST)) {
@@ -69,7 +70,9 @@ class Users extends CI_Controller
 		{
 			$data['pagination_end'] = $data['users']['count'];
 		}
-		$data['sortby']=$sortby;
+		$data['password_message'] =  $this->session->flashdata('password_message');
+        //$data['password_message'] = 'test';
+        $data['sortby']=$sortby;
 		$data['pagination'] = $this->pagination->create_links();
 		$data['user'] = $this->user;
 		$data['title'] = 'Users';

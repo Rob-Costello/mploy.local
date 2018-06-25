@@ -23,12 +23,22 @@
 
 		<div class="box">
 
-<?php if(isset($_SESSION['message'])):?>
 
+            <?php if ($password_message !=''): ?>
 <div id="message">
-<?php echo $_SESSION['message'] ?>
+    <div class="col-md-12">
+        <?php if( $password_message != '' ) { ?>
+            <div class="alert alert-success alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <?php echo $password_message; ?>
+            </div>
+        <?php } ?>
+    </div>
+
+
+
 </div>
-<?php endif ?>
+<?php endif; ?>
 
 			<div style="" class="box-header">
 

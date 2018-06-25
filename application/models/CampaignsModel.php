@@ -113,6 +113,7 @@ class CampaignsModel extends CI_Model
 	public function getSchools(){
 
     	$this->db->select('*');
+        $this->db->order_by("name", "asc");
     	$query = $this->db->get_where('mploy_organisations', 'school_id > 0');
 		return $query->result();
     }

@@ -59,20 +59,7 @@ class Dashboard extends CI_Controller {
             $where = "select_school = " . $c->select_school . " and campaign_place_start_date < now() and campaign_place_end_date > '" . date("Y-m-d") . "'";
             $info = $customersModel->getPlacements($where); //need to check if placement end date has expired
             $temp = [];
-/*
-<<<<<<< HEAD
-				foreach ($callstats as $stat) {
 
-					if ($stat->rag_status == 'green') {
-						$call++;
-					}
-				}
-
-				$calls = $campaignsModel->callInfo($c->select_school, $c->employer_engagement_end)['calls'];
-				$details = $campaignsModel->callAmmount($c->select_school)['total'];
-				$callinfo[] = ['call' => $calls, 'info' => $details, 'success' => $call, 'total' => $active['students_to_place']];
-				//$placed[] = ['success'=>$call, 'total'=> $active['students_to_place']] ;
-=======*/
 
             foreach ($info as $active) {
                 $callstats = $customersModel->getCallData($c->select_school);

@@ -232,9 +232,9 @@
 												<div class="col-md-4">
 													<label style="float:top" >Campaign Status</label>
 													<div class="form-group">
-														<label class="switch">
+														<label class="">
 															<input id="active" name="active" type="checkbox" value="<?php echo $entries['active']; ?>" <?php if($entries['active'] == 1) echo ' checked' ;?>  >
-															<span class="slider round"></span>
+
 														</label>
 													</div>
 												</div>

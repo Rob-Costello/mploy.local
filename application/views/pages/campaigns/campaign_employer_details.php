@@ -226,7 +226,7 @@
     </div>
     
     
-    <div style="padding-top:20px;" class="col-md-7">
+    <div style="padding-top:20px;" class="col-md-6">
         <div class=" ">
             <div id="exTab1" class="">
 
@@ -313,7 +313,7 @@
     </div>
 
 
-	    <div style="padding-top:20px;" class="col-md-7">
+	    <div style="padding-top:20px;" class="col-md-6">
 		    <div class=" ">
 			    <div id="exTab1" class="">
 
@@ -356,16 +356,19 @@
 										    <thead>
 										    <tr>
 											  <th>
-												 Name
+												  Receiver
 											  </th>
 											    <th>
 												    Start Date
 											    </th>
 											    <th>
-												    End Date
+												    Agreed Placements
 											    </th>
 											    <th>
-												    Job Title
+												    Notes
+											    </th>
+											    <th>
+												    Student Name
 											    </th>
 
 										    </tr>
@@ -374,10 +377,11 @@
 
 										    <?php foreach($placements as $call): ?>
 										    <tr>
-											    <td><?php echo $call->first_name .' '. $call->last_name?></td>
-											    <td><?php echo $call->placement_start_date ?></td>
-											    <td><?php echo $call->placement_end_date ?></td>
-											    <td><?php echo $call->job_title ?></td>
+											    <td><?php echo $call->receiver?></td>
+											    <td><?php echo $call->date_time ?></td>
+											    <td><?php echo $call->placements ?></td>
+											    <td><?php echo $call->notes ?></td>
+											    <td>Student TBC</td>
 
 
 

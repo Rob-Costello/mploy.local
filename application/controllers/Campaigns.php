@@ -393,6 +393,7 @@ class Campaigns extends CI_Controller
 			$data['user'] = $this->user;
 			$data['title'] = 'Campaign';
 			$data['nav'] = 'campaign';
+			$data['camp_ref'] = $camp_ref;
 			$data['camp_id'] = $school['select_school'];
 			$data['table']= $campaign->getEmployers($where,null, $this->perPage, $offset);
 			$this->load->view('pages/campaigns/campaign_employers',$data);
@@ -401,6 +402,7 @@ class Campaigns extends CI_Controller
 
 			function employerDetails($camp_ref,$id)
 			{
+
 				$data['entries'] = $camp_ref;
 				$data['campaign_list'] = $this->availableCampaigns;
 			    $campaign= new campaignsModel();
@@ -418,7 +420,9 @@ class Campaigns extends CI_Controller
 				$data['nav'] = 'campaign';
 				$data['contacts_table']= ['Name', 'Position', 'Phone', 'Email'];
 				$data['call_table'] = ['User','Type','Reciprocant','Notes','Date','Outcome'];
-				$data['placements'] = $campaign->getPlacements($camp_ref, $id);
+				//$data['placements'] = $campaign->getPlacements($camp_ref, $id);
+				$data['placements'] = $campaign->getSuccessfulPlacement($id);
+				
 				$data['student_message']  = $this->session->flashdata('student_message');
 				//$data['company_message'] = 'Updated Company Successfully';
 				if(!empty($_POST)){

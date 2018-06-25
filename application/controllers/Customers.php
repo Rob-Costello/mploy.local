@@ -48,12 +48,14 @@ class Customers extends CI_Controller
 			$orderby = $this->input->get('orderby');
 			$data['orderby'] = '?orderby='.$orderby;
 		}
-
+        
+		$where = ' ';
+		
 		if(!empty($_POST)){
 
 			$like = $this->input->post('search');
 			$where .= " and name like '%".$like."%'";
-			$data['customers'] = $customer->getcustomers($where_in, $orderby,  null,null);
+			$data['customers'] = $customer->getcustomers($where_in . $where, $orderby,  null,null);
 			$page = $this->page($data['customers'],'/customers',$this->perPage);
 		}else{
 

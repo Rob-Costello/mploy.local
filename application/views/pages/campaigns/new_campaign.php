@@ -85,8 +85,9 @@
                                                 <div class="form-group">
 
                                                     <label class=" ">School</label>
-                                                    <select class="form-control" name="select_school">
-														<?php foreach($dropdown as $d): ?>
+                                                    <select class="form-control" name="select_school" id="select_school">
+														<option>Select School</option>
+	                                                    <?php foreach($dropdown as $d): ?>
 															<option value="<?php echo $d->school_id ?>"><?php echo $d->name;?></option>
 														<?php endforeach ?>
 													</select>
@@ -214,9 +215,6 @@
                                     </div> <!--end row -->
 
                                     <div class="row">
-                                        
-
-                                        
                                         <div class="col-md-4">   
                                                 <div class="form-group">
                                                 <label >Matching End</label>
@@ -229,16 +227,82 @@
 
 	                                        <div class="box-header with-border">
 		                                        <h3 class="box-title">Add Employers to Campaign </h3>
+
 	                                        </div>
 
 	                                        <div class="row">
-		                                       <div class="col-md-6">
+
+
+		                                        <!-- Modal -->
+		                                        <div id="myModal" class="modal fade" role="dialog">
+			                                        <div class="modal-dialog">
+
+				                                        <!-- Modal content-->
+				                                        <div class="modal-content">
+					                                        <div class="modal-header">
+
+						                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+						                                        <h4 class="modal-title">Add Companies to Campaign</h4>
+
+					                                        </div>
+					                                        <div class="modal-body">
+
+
+							                                        <div class="row">
+								                                        <div class="col-md-12">
+									                                        <div class="form-group">
+
+
+									                                        </div>
+								                                        </div>
+							                                        </div>
+
+
+
+							                                        <div class="row">
+								                                        <div class="col-md-12">
+								                                        <div class="col-md-offset-8" ><button  id="check_all" class="btn btn-mploy" type="button">Select All</button>
+									                                        <button type="button" class="btn btn-mploy-submit" data-dismiss="modal">Save</button>
+								                                        </div>
+
+									                                        <div id="loading"> <h2>Please wait loading results..</h2></div>
+									                                        <table class="table table-bordered table-striped" id="companyTable">
+
+									                                        <thead>
+									                                        <tr>
+										                                        <th></th>
+										                                        <th>Company Name</th>
+
+										                                        <th>Address</th>
+
+								                                        </table>
+								                                        </div>
+							                                        </div>
+
+
+
+
+					                                        </div>
+					                                        <div class="modal-footer">
+						                                        <button  class="btn btn-mploy" >Add Entry</button>
+						                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                                </div>
+                            </div>
+
+                    </div>
+                </div>
+
+
+
+
+		                                        <div class="col-md-6">
 
 				                                       <div class="input-group">
 
 					                                       <input style="margin:20px; padding:19px;" type="text" name="search" class="form-control" placeholder="Employer postcode">
 					                                       <span class="input-group-btn">
-								                <button style="z-index:100" type="button"  id="search-btn" class="btn btn-flat btn-mploy">
+								                <button style="z-index:100" type="button"  id="search-btn" data-toggle="modal" data-target="#myModal" class="btn btn-flat btn-mploy">
 								                    <i class=" fa fa-search"></i>
 								                </button>
                                                 </span>
@@ -253,17 +317,8 @@
 
 	                                        <div class="row">
 												<div class="col-md-12">
-		                                        <table class="table table-bordered table-striped" id="companyTable">
 
-			                                        <thead>
-			                                        <tr>
-				                                        <th></th>
-				                                        <th>Company Name</th>
-
-				                                        <th>Address</th>
-
-		                                        </table>
-												</div>
+	                                        </div>
 
 	                                        </div>
                                 
@@ -303,9 +358,16 @@
 
 
 <script>
+
+
+
+
+
+
 	$("#search-btn").click(function(){
 		var target = '/campaigns/getBusiness';
 		var start =$('[name="search"]').val();
+
 		$.ajax({
 			url: target,
 			type: 'POST',
@@ -315,13 +377,15 @@
 				data = JSON.parse(data);
 				Object.keys(data).forEach(function(key){
 					console.log( data[key].name);
-					var check = '<td> <input type="checkbox" name="campaign_employer_id[]" value="'+data[key].comp_id+'" > </td>';
+					var check = '<td> <input class="comp" type="checkbox" name="campaign_employer_id[]" value="'+data[key].comp_id+'" > </td>';
 					var name = '<td>'+ data[key].name+' </td>';
 					var address = '<td>'+ data[key].address1 + ' ' + data[key].address2 + ', '+ data[key].postcode + '</td>';
 					var row = $('<tr>').html(check + name + address);
 					$('#companyTable').append(row);
 				});
+			$('#loading').hide();
 			}
+
 		});
 	});
 
@@ -407,6 +471,59 @@
 
 
 </script>
+
+
+
+	<script>
+			$('#select_school').change(function(){
+				var target= '/campaigns/getSchoolHolidays/'+$('#select_school').val();
+
+				$('.school_row').remove();
+				$.ajax({
+					url: target,
+					type: 'GET',
+					//data: {match_postcode:start},
+					success: function(data, textStatus, XMLHttpRequest)
+					{
+
+						data = JSON.parse(data);
+						Object.keys(data).forEach(function(key){
+							console.log( data[key].name);
+
+
+
+							var table = $('#holidays');
+
+							var start_date ='<td><input  type="text" name="start_date[]" value="'+data[key].start_date+'" class="form-control"></td>';
+							var end_date ='<td><input  type="text" name="end_date[]" value="'+data[key].end_date+'" class="form-control"></td>';
+							var holiday ='<td><input  type="text" name="holiday[]" value="'+data[key].holiday_name+'" class="form-control"></td>';
+							var row = $('<tr class="school_row">').html(start_date + end_date + holiday);
+							table.find('tr:last').prev().after(row);
+							//table.append(row);
+						});
+					}
+				});
+
+			})
+
+
+
+	</script>
+
+
+	<script>
+
+		$("#check_all").click(function(){
+
+			$('.comp').prop('checked', true);
+
+		});
+
+
+
+	</script>
+
+
 
 
 <script>

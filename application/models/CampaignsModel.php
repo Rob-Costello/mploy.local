@@ -291,10 +291,23 @@ class CampaignsModel extends CI_Model
 
 	public function addCompaniesToCampaign($data){
 
-		$this->db->insert('mploy_rel_campaign_employers', $data);
+
+    	$this->db->insert('mploy_rel_campaign_employers', $data);
 
 
 	}
+
+
+	public function getCampaignCompanies($id){
+
+    	$this->db->select('*');
+    	$this->db->join('mploy_organisations', 'mploy_organisations.comp_id = mploy_rel_campaign_employers.campaign_employer_id');
+    	$query = $this->db->get_where('mploy_rel_campaign_employers',['campaign_ref'=>$id]);
+
+    	return $query->result_array();
+
+	}
+
 
 	public function getPlacements($school,$id){
 

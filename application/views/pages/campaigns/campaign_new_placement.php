@@ -122,7 +122,7 @@
 								</div>
 								<!--<input type="submit" class="btn btn-mploy-submit" value="Save Changes">-->
 								<button class="btn btn-mploy-submit"> Save Changes </button>
-								<input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/campaign/employerdetails/<?php echo $school; ?>/<?php echo $company?>/')">
+								<input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/campaigns/employerdetails/<?php echo $school; ?>/<?php echo $company?>')">
 								</form>
 							</div>
 

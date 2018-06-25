@@ -93,7 +93,7 @@
                                                 </div>
                                             </div>
 
-                                             <div class="col-md-4">
+                                             <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label >Status</label>
 
@@ -117,6 +117,13 @@
 													</div>
 												<input type="hidden" name="rag_status" id="rag_status" required>
 												</div>
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label >Number of Placements</label>
+                                                    <input type="number" name="placements" class="form-ctext form-control" value="0" placeholder="Jane Doe" autocomplete="off">
+                                                </div>
                                             </div>
                                             <!--/span-->
                                         </div>

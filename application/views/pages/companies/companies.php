@@ -31,24 +31,31 @@
 			<!-- /.box-header -->
 			<div class="box-body">
 
-                <form  method="POST" class="sidebar-form">
+                <form id="companyFilter" method="POST" class="sidebar-form">
                     <div class="input-group">
                         <div class="col-md-3">
-                            <input style="margin:20px; padding:19px;" type="text" name="name" class="form-control" placeholder="Company name">
+                            <input style="margin:20px; padding:19px;" type="text" name="name" class="form-control" placeholder="Company name" value="<?php if(isset($post_data['name'])) echo $post_data['name']; ?>">
                         </div>
                         <div class="col-md-3">
-                            <input style="margin:20px; padding:19px;" type="text" name="town" class="form-control" placeholder="Town">
+                            <input style="margin:20px; padding:19px;" type="text" name="town" class="form-control" placeholder="Town" value="<?php if(isset($post_data['town'])) echo $post_data['town']; ?>">
                         </div>
                         <div class="col-md-2">
-                            <input style="margin:20px; padding:19px;" type="text" name="postcode" class="form-control" placeholder="Postcode">
+                            <input style="margin:20px; padding:19px;" type="text" name="postcode" class="form-control" placeholder="Postcode" value="<?php if(isset($post_data['postcode'])) echo $post_data['postcode']; ?>">
                         </div>
                         <div class="col-md-2">
-                            <input style="margin:20px; padding:19px;" type="text" name="status" class="form-control" placeholder="Status">
+                            <select style="margin:20px; padding:19px;" name="industry_id" class="form-control">
+                                <option value="">Select Sector</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <input style="margin:20px; padding:19px;" type="text" name="status" class="form-control" placeholder="Status" value="<?php if(isset($post_data['status'])) echo $post_data['status']; ?>">
                         </div>
                         <span class="input-group-btn">
                             <button style="z-index:100" type="submit"  id="search-btn" class="btn btn-flat btn-mploy">
                                 <i class=" fa fa-search"></i>
                             </button>
+                            <button class="btn btn-flat btn-mploy" id="clear-form">Clear</button>
+
                         </span>
                     </div>
                 </form>

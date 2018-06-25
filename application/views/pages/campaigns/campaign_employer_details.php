@@ -277,9 +277,11 @@
                                         
                                         <?php foreach($calls as $call): ?>
                                             <tr>
+                                                    <td><?php echo $call->first_name . ' ' . $call->last_name; ?></td>
                                                     <td><?php echo $call->description ?></td>
+                                                    <td><?php echo $call->receiver ?></td>
                                                     <td><?php echo $call->notes ?></td>
-                                                    <td><?php echo $call->date_time ?></td>
+                                                    <td><?php echo date("d/m/Y H:i", strtotime($call->date_time)); ?></td>
                                                     <td>
 														<img src="<?php echo base_url()."assets/";?>dist/img/<?php echo $call->rag_status ?>.png" class="img-circle" alt="Status">
 														</td>

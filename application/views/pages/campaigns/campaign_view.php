@@ -161,14 +161,16 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label class=" ">
-                                                        Show In Search
+                                                        Status
                                                     </label>
 
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox"> Yes
-                                                        </label>
-                                                    </div>
+                                                    <select name="industry" class="form-control">
+                                                        <?php foreach($dropdown as $d):?>
+                                                            <option value="<?php echo $d->id; ?>">
+                                                                <?php
+                                                                echo $d->name; ?></option>
+                                                        <?php endforeach ?>
+                                                    </select>
 
 
                                                 </div>
@@ -205,21 +207,14 @@
 
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label class=" ">
-                                                        Status
-                                                    </label>
 
-                                                    <select name="industry" class="form-control">
-                                                       <?php foreach($dropdown as $d):?> 
-                                                        <option value="<?php echo $d->id; ?>">
-                                                        <?php 
-                                                        echo $d->name; ?></option>
-                                                        <?php endforeach ?>
-                                                    </select>
-
+                                                    <label for="exampleInputFile">File input</label>
+                                                    <input type="file" id="exampleInputFile">
 
                                                 </div>
                                             </div>
+
+
                                         </div>
 
                                         <div class="row">
@@ -245,14 +240,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-3">
-                                                <div class="form-group">
 
-                                                    <label for="exampleInputFile">File input</label>
-                                                    <input type="file" id="exampleInputFile">
-
-                                                </div>
-                                            </div>
                                         </div>
 
 

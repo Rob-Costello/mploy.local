@@ -60,7 +60,7 @@
                                                 <div class="form-group">
 
                                                     <label class=" ">Customer Name *</label>
-                                                    <input type="text" name="name" class="form-control" value="<?php echo $table['name']; ?>" placeholder="Customer Name" >
+                                                    <input type="text" name="name" class="form-control" value="<?php echo $table['name']; ?>" placeholder="Customer Name" required>
 
                                                 </div>
                                             </div>
@@ -140,7 +140,7 @@
                                                     </label>
 
 
-                                                    <input type="tel" name="phone_number" class="form-control" value="<?php echo $table['phone_number'] ?>" placeholder="0123 456789" autocomplete="off" >
+                                                    <input type="tel" name="phone_number" class="form-control" value="<?php echo $table['phone_number'] ?>" placeholder="0123 456789" autocomplete="off" required>
 
 
                                                 </div>

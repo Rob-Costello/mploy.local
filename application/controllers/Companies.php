@@ -46,7 +46,7 @@ class Companies extends CI_Controller
             foreach($_POST as $k => $v){
                 $where .= " and mploy_organisations." . $k . " like '%".$v."%'";
             }
-            $data['companies'] = $companies->getCompanies($where, $orderby,  null,null);
+            $data['companies'] = $companies->getCompanies($where, $orderby, $this->perPage, $offset);
             $page = $this->page($data['companies'],'/companies',$this->perPage);
         }else{
 
@@ -72,6 +72,7 @@ class Companies extends CI_Controller
 		$data['user'] = $this->user;
 		$data['title'] = 'Companies';
 		$data['nav'] = 'companies';
+		$data['post_data'] = $this->input->post();
 		$this->load->view('pages/companies/companies', $data);
 	}
 

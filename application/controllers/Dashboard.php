@@ -51,7 +51,7 @@ class Dashboard extends CI_Controller {
 
 
 		$data['campaigns_display'] = $campaignsModel->getCampaigns(null, null, 5, 0)['data'];
-		$callinfo = [];
+		$callInfo = [];
 		$output = [];
         $call = 0;
 		foreach ($data['campaigns_display'] as $c) {

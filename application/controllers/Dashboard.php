@@ -56,7 +56,8 @@ class Dashboard extends CI_Controller {
         $call = 0;
 		foreach ($data['campaigns_display'] as $c) {
 
-            $where = "select_school = " . $c->select_school . " and campaign_place_start_date < now() and campaign_place_end_date > '" . date("Y-m-d") . "'";
+            //$where = "select_school = " . $c->select_school . " and campaign_place_start_date < now() and campaign_place_end_date > '" . date("Y-m-d") . "'";
+            $where = "select_school = " . $c->select_school . " ";
             $info = $customersModel->getPlacements($where); //need to check if placement end date has expired
             $temp = [];
 
@@ -73,8 +74,6 @@ class Dashboard extends CI_Controller {
 
                 $calls = $campaignsModel->callInfo($c->select_school, $c->employer_engagement_end)['calls'];
                 $info = $campaignsModel->callAmmount($c->select_school)['total'];
-
-
 
                 $callInfo[] = ['call' => $calls, 'info' => $info, 'success' => $call, 'total' => $active['students_to_place']];
 

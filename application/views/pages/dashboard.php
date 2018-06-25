@@ -128,7 +128,7 @@
                                             <span class="progress-number"><b> <?php  echo $campaign['call_info'][$key]['call']; ?>
                                                 </b>/<?php echo $callinfo[$key]['info']; ?></span>
                                             <div class="progress sm">
-                                                <div class="progress-bar progress-bar-aqua" style="width: <?php echo ((int)$callinfo[$key]['call'] * 100  / (int)$callinfo[$key]['info']  )?>%"></div>
+                                                <div class="progress-bar progress-bar-aqua" style="width: <?php if ((int)$callinfo[$key]['call']  <= 0 ) echo 0; else echo ((int)$callinfo[$key]['call'] * 100  / (int)$callinfo[$key]['info']  )?>%"></div>
                                             </div>
                                         </div>
                                         <!-- /.progress-group -->
@@ -139,7 +139,7 @@
                                                 </b>/ <?php echo $campaign['call_info'][$key]['total'];?></span>
 
                                             <div class="progress sm">
-                                                <div class="progress-bar progress-bar-yellow" style="width: <?php echo ((int)$callinfo[$key]['success'] * 100  / (int)$callinfo[$key]['total']  )?>%"></div>
+                                                <div class="progress-bar progress-bar-yellow" style="width: <?php if ((int)$callinfo[$key]['success']  <= 0 ) echo 0; echo ((int)$callinfo[$key]['success'] * 100  / (int)$callinfo[$key]['total']  )?>%"></div>
                                             </div>
                                         </div>
                                         <!-- /.progress-group -->

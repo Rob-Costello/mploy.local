@@ -41,7 +41,7 @@
 							<div class="box">
 
 								<div class="box-header with-border">
-									<h3 class="box-title">Contact Details</h3>
+									<h3 class="box-title">Campaign Details</h3>
 								</div>
 
 
@@ -315,7 +315,7 @@
 
 													<div class="input-group">
 
-														<input style="margin:20px; padding:19px;" type="text" name="search" class="form-control" placeholder="Employer postcode">
+														<input style="margin:20px; padding:19px;" type="text" name="search" class="form-control" placeholder="Employer postcode" autocomplete="off">
 														<span class="input-group-btn">
 								                <button style="z-index:100" type="button"  id="search-btn" data-toggle="modal" data-target="#myModal" class="btn btn-flat btn-mploy">
 								                    <i class=" fa fa-search"></i>

@@ -50,7 +50,7 @@
 												<div class="form-group">
 
 													<label >Customer Name</label>
-													<input type="text" name="name" class="form-control"  placeholder="Fakes School" >
+													<input type="text" name="name" class="form-control"  placeholder="Customer Name" required>
 
 												</div>
 											</div>
@@ -59,7 +59,7 @@
 
 													<div class="">
 														<label >Phone</label>
-														<input type="text" name="phone_number" class="form-control"  placeholder="01234 56789" autocomplete="off" >
+														<input type="text" name="phone_number" class="form-control"  placeholder="01234 56789" autocomplete="off" required>
 													</div>
 												</div>
 											</div>
@@ -73,7 +73,7 @@
 													<label class=" ">
 														Address 1
 													</label>
-													<input type="text" name="address1" class="form-control" " placeholder="123 Fake Street" >
+													<input type="text" name="address1" class="form-control" placeholder="Address Line 1" >
 
 												</div>
 											</div>
@@ -81,7 +81,7 @@
 												<div class="form-group">
 
 													<label >Address 2</label>
-													<input type="tel" name="address2" class="form-control"  placeholder="Fake Road" autocomplete="off" >
+													<input type="tel" name="address2" class="form-control"  placeholder="Address Line 2" autocomplete="off" >
 												</div>
 
 
@@ -96,7 +96,7 @@
 													<label class=" ">
 														Town
 													</label>
-													<input type="text" name="town" class="form-control"  placeholder="Fake Town" >
+													<input type="text" name="town" class="form-control"  placeholder="Town" >
 
 												</div>
 											</div>
@@ -107,7 +107,7 @@
 													</label>
 
 
-													<input type="tel" name="county" class="form-control"  placeholder="Merseyside" autocomplete="off" >
+													<input type="tel" name="county" class="form-control"  placeholder="County" autocomplete="off" >
 
 
 												</div>
@@ -124,7 +124,7 @@
 													<label class=" ">
 														Postcode
 													</label>
-													<input type="text" name="postcode" class="form-control"  placeholder="WA10 1PP" >
+													<input type="text" name="postcode" class="form-control"  placeholder="Postcode" >
 
 												</div>
 											</div>
@@ -136,7 +136,7 @@
 													<label class=" ">
 														Organisation Type
 													</label>
-													<select name="organisation_type_id" class="form-control">
+													<select name="organisation_type_id" class="form-control" required>
 														<option >Select Organisation Type</option>
 														<option value="1">School</option>
 														<option value="4">Local Authority</option>

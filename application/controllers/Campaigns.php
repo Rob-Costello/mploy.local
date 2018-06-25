@@ -404,7 +404,7 @@ class Campaigns extends CI_Controller
 				$data['title'] = 'Campaign';
 				$data['nav'] = 'campaign';
 				$data['contacts_table']= ['Name', 'Position', 'Phone', 'Email'];
-				$data['call_table'] = ['User','Type','Notes','Date','Outcome'];
+				$data['call_table'] = ['User','Type','Reciprocant','Notes','Date','Outcome'];
 				$data['placements'] = $campaign->getPlacements($camp_ref, $id);
 				$data['student_message']  = $this->session->flashdata('student_message');
 				//$data['company_message'] = 'Updated Company Successfully';

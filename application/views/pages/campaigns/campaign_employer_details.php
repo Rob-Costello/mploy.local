@@ -279,6 +279,7 @@
                                             <tr>
                                                     <td><?php echo $call->first_name . ' ' . $call->last_name; ?></td>
                                                     <td><?php echo $call->description ?></td>
+                                                    <td><?php echo $call->receiver ?></td>
                                                     <td><?php echo $call->notes ?></td>
                                                     <td><?php echo date("d/m/Y H:i", strtotime($call->date_time)); ?></td>
                                                     <td>

@@ -50,7 +50,7 @@
 												<div class="form-group">
 
 													<label class=" ">First Name</label>
-													<input type="text" name="first_name" class="form-control"  placeholder="John" >
+													<input type="text" name="first_name" class="form-control"  placeholder="John" required>
 
 												</div>
 											</div>
@@ -59,7 +59,7 @@
 
 													<div class="">
 														<label >Last Name</label>
-														<input type="text" name="last_name" class="form-control"  placeholder="Doe" autocomplete="off" >
+														<input type="text" name="last_name" class="form-control"  placeholder="Doe" autocomplete="off" required>
 													</div>
 												</div>
 											</div>
@@ -121,7 +121,7 @@
 													<label class=" ">
 														Telephone
 													</label>
-													<input type="text" name="phone" class="form-control"  placeholder="01234 567890" >
+													<input type="text" name="phone" class="form-control"  placeholder="01234 567890" required>
 
 												</div>
 											</div>

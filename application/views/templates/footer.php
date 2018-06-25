@@ -74,6 +74,20 @@
 			window.location.replace('/campaigns/employers/'+$(this).val()+'/0');
 		});
 	});
+    $(document).ready(function()
+    {
+        $('#reset-form').on('click', function()
+        {
+            $(this).closest('form').trigger("reset");
+        });
+
+        $('#clear-form').on('click', function()
+        {
+            $(this).closest('form').find('input:text, input:password, select, textarea').val('');
+            $(this).closest('form').find('input:radio, input:checkbox').prop('checked', false);
+        });
+    });
+
 </script>
 
 </body>

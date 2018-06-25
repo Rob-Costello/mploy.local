@@ -87,7 +87,7 @@
 
 													<label class=" ">School</label>
 
-													<select class="form-control" name="select_school">
+													<select class="form-control" name="select_school" id="select_school">
 														<?php foreach($dropdown as $d): ?>
 															<option <?php if( $d->school_id ==$school_id ){ echo ' selected ';} ?>value="<?php echo $d->school_id ?>"><?php echo $d->name;?></option>
 														<?php endforeach ?>

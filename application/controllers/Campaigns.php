@@ -181,11 +181,12 @@ class Campaigns extends CI_Controller
 				//if(isset($_POST['campaign_employer_id'])) {
 				foreach ($temp as  $t) {
 					//$temp = ['campaign_employer_id' => $employer, 'org_campaign_ref' => $_POST['select_school'], 'campaign_ref' => $campaign_id ];
-					$t['campaign_ref'] = $campaign_id;
+					$t['campaign_ref'] = $id;
 
 					$campaign->addCompaniesToCampaign($t);
 
 				}
+
 
 				$campaign->editCampaign($id,$this->input->post());
 				$data['message'] = 'Campaign  '.$this->input->post('campaign_name') .' Updated ';
@@ -203,6 +204,18 @@ class Campaigns extends CI_Controller
 
 	}
 
+
+
+	function getSelectedCompanies($id)
+	{
+
+		$campaign = new CampaignsModel();
+
+		$companies = $campaign->getCampaignCompanies($id);
+
+		echo json_encode($companies);
+
+	}
 
 
 	function newCampaign()

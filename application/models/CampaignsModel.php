@@ -303,7 +303,7 @@ class CampaignsModel extends CI_Model
 
     	$this->db->select('*');
     	$this->db->join('mploy_organisations', 'mploy_organisations.comp_id = mploy_rel_campaign_employers.campaign_employer_id');
-    	$query = $this->db->get_where('mploy_rel_campaign_employers',['campaign_ref'=>$id]);
+    	$query = $this->db->get_where('mploy_rel_campaign_employers','org_id ='.$id);
 
     	return $query->result_array();
 
@@ -313,11 +313,19 @@ class CampaignsModel extends CI_Model
 	public function getPlacements($school,$id){
 
     	$this->db->select('*');
+
     	$query = $this->db->get_where('mploy_contacts','school_id ='.$school.' and placement_company_id ='.$id);
     	return $query->result();
 
 	}
 
+	public function getSuccessfulPlacement($id){
+
+		$this->db->select('*');
+		//$this->db->join('mploy_organisations' , 'mploy_organisations.school_id= mploy_campaign_activity.campaign_ref','left');
+		$query = $this->db->get_where('mploy_campaign_activity',['rag_status'=>'green', 'mploy_campaign_activity.org_id' => $id]);
+		return $query->result();
+	}
 
 
 

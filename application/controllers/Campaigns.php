@@ -148,7 +148,8 @@ class Campaigns extends CI_Controller
 			}
 
 			foreach($required as $r){
-				if($_POST[$r] =='' || empty($_POST[$r]) ){
+				if($_POST[$r] =='' || empty($_POST[$r]) || !isset($_POST[$r]))
+				{
 					$error[] = $r;
 				}
 			}
@@ -240,7 +241,9 @@ class Campaigns extends CI_Controller
 				'employer_engagement_end',
 				'self_place_deadline',
 				'matching_start',
-				'matching_end'];
+				'matching_end',
+				'campaign_employer_id'
+				];
 
 			$dates= ['campaign_start_date','campaign_place_start_date',
 				'campaign_place_end_date','mailshot_1_date','mailshot_2_date',
@@ -273,11 +276,14 @@ class Campaigns extends CI_Controller
 				$_POST[$d] = date("Y-m-d", strtotime($this->input->post($d)));
 			}*/
 
+
 			foreach($required as $r){
-				if($_POST[$r] =='' || empty($_POST[$r]) ){
+				if($this->input->post($r) =='' ||  $this->input->post($r) == null)
+				{
 					$error[] = $r;
 				}
 			}
+
 
 			if(isset($error)){
 				$data['error'] = $error;
@@ -288,14 +294,19 @@ class Campaigns extends CI_Controller
 			unset($_POST['holiday']);
 
 			if(!isset($error)) {
-				foreach ($this->input->post('campaign_employer_id') as $employer) {
+				foreach ($this->input->post('campaign_employer_id') as $employer)
+				{
 					$temp[] = ['campaign_employer_id' => $employer, 'org_campaign_ref' => $_POST['select_school'] ];
 				}
+
 				//remove employer id to stop error
 				unset($_POST['campaign_employer_id']);
 				unset($_POST['search']);
 				//get id for insert as campaign reference
                 $campaign_id = $campaign->createCampaign($this->input->post());
+
+
+
                 $companies = [];
 				//if(isset($_POST['campaign_employer_id'])) {
 					foreach ($temp as  $t) {
@@ -316,7 +327,12 @@ class Campaigns extends CI_Controller
 		//create progress bar and feed in placements query
 		//$campaign->placements($id);
 		$data['dropdown']=$campaign->getSchools();
+		foreach($_POST as $k => $p){
 
+			$data['values'][$k] = $p;
+
+
+		}
 
 		$this->load->view('pages/campaigns/new_campaign',$data);
 
@@ -422,7 +438,7 @@ class Campaigns extends CI_Controller
 				$data['call_table'] = ['User','Type','Reciprocant','Notes','Date','Outcome'];
 				//$data['placements'] = $campaign->getPlacements($camp_ref, $id);
 				$data['placements'] = $campaign->getSuccessfulPlacement($id);
-				
+
 				$data['student_message']  = $this->session->flashdata('student_message');
 				//$data['company_message'] = 'Updated Company Successfully';
 				if(!empty($_POST)){
@@ -598,7 +614,8 @@ class Campaigns extends CI_Controller
 				$campaign = new CampaignsModel();
 				$holidays = $campaign->getSchoolHoliday($id);
 				if ($holidays !== null){
-				    echo json_encode($holidays);
+
+					echo json_encode($holidays);
 				}
 			}
 

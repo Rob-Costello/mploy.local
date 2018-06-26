@@ -144,7 +144,7 @@
 														<tbody>
 
 														<?php foreach ($holiday as $hol): ?>
-														<tr>
+														<tr class="school_row">
 
 															<td>
 																<input value="<?php echo $hol['start_date']; ?>" id="1start_date" name="start_date[]" type="text" class=" form-control">
@@ -158,7 +158,7 @@
 
 														</tr>
 														<?php endforeach ?>
-														<tr style="background-color:#fff;border-color:#fff">
+														<tr id="last_row" style="background-color:#fff;border-color:#fff">
 															<td></td>
 															<td></td>
 															<td><button type="button" id="add-row" class="btn btn-mploy white-btn">Add Holiday </button> </td>
@@ -373,24 +373,18 @@
 
 
 	<script>
-
-
-
-
+		//check all checkboxes when selecting company
 		$("#check_all").click(function(){
 
 			$('.comp').prop('checked', true);
 
 		});
 
-
-
-
-
-
+//populates companies popup box with data
 	$("#search-btn").click(function(){
 			var target = '/campaigns/getBusiness';
 			var start =$('[name="search"]').val();
+
 
 			$.ajax({
 				url: target,
@@ -414,23 +408,49 @@
 		});
 
 
-	</script>
+		// row constructor for add school holiday functions
+		function addRow(tbl =''){
+				var start_date ='<td><input  type="text" name="start_date[]" value="" class="datepicker2 form-control"></td>';
+				var end_date ='<td><input  type="text" name="end_date[]" value="" class="datepicker2 form-control"></td>';
+				var holiday ='<td><input  type="text" name="holiday[]" value="" class="form-control"></td>';
+				var row = $('<tr tbl>').html(start_date + end_date + holiday );
+				return row;
+		}
+// listener for school drop down  populates school holidays when option changed
+		$('#select_school').change(function(){
+			var target= '/campaigns/getSchoolHolidays/'+$('#select_school').val();
+			$('.school_row').remove();
+			var table = $('#holidays');
+			//$('#last_row').before(addRow());
+			//table.find('tr:last').prev().before(addRow());
 
-	<script>
+			//table.append(addRow('class="school_row"'));
+			$.ajax({
+				url: target,
+				type: 'GET',
+				//data: {match_postcode:start},
+				success: function(data, textStatus, XMLHttpRequest)
+				{
+					data = JSON.parse(data);
+					Object.keys(data).forEach(function(key){
+						console.log( data[key].name);
+						var table = $('#holidays');
+						var start_date ='<td><input  type="text" name="start_date[]" value="'+data[key].start_date+'" class="form-control"></td>';
+						var end_date ='<td><input  type="text" name="end_date[]" value="'+data[key].end_date+'" class="form-control"></td>';
+						var holiday ='<td><input  type="text" name="holiday[]" value="'+data[key].holiday_name+'" class="form-control"></td>';
+						var row = $('<tr class="school_row">').html(start_date + end_date + holiday);
+						$('#last_row').before(row);
+						//table.append(row);
+					});
+				}
+			});
 
+		})
 
 
 
 		$('#add-row').click(function(){
-			var rows = $('#holidays tbody tr').length;
-			var table = $('#holidays');
-			var start_date ='<td><input id ="'+rows+'start_date" type="text" name="start_date[]" value="" class="datepicker2 form-control"></td>';
-			var end_date ='<td><input id ="'+rows+'end_date" type="text" name="end_date[]" value="" class="datepicker2 form-control"></td>';
-			var holiday ='<td><input id ="'+rows+'holiday" type="text" name="holiday[]" value="" class="form-control"></td>';
-
-			var row = $('<tr>').html(start_date + end_date + holiday );
-			table.find('tr:last').prev().after(row);
-
+			$('#last_row').before(addRow());
 			$(function() {$('.datepicker2').daterangepicker({opens: 'left',singleDatePicker: true,locale: {
 					format: 'DD-MM-YYYY'
 				}})});
@@ -543,41 +563,6 @@
 
 	</script>
 
-	<script>
-		$('#select_school').change(function(){
-			var target= '/campaigns/getSchoolHolidays/'+$('#select_school').val();
-
-			$('.school_row').remove();
-			$.ajax({
-				url: target,
-				type: 'GET',
-				//data: {match_postcode:start},
-				success: function(data, textStatus, XMLHttpRequest)
-				{
-
-					data = JSON.parse(data);
-					Object.keys(data).forEach(function(key){
-						console.log( data[key].name);
-
-
-
-						var table = $('#holidays');
-
-						var start_date ='<td><input  type="text" name="start_date[]" value="'+data[key].start_date+'" class="form-control"></td>';
-						var end_date ='<td><input  type="text" name="end_date[]" value="'+data[key].end_date+'" class="form-control"></td>';
-						var holiday ='<td><input  type="text" name="holiday[]" value="'+data[key].holiday_name+'" class="form-control"></td>';
-						var row = $('<tr class="school_row">').html(start_date + end_date + holiday);
-						table.find('tr:last').prev().after(row);
-						//table.append(row);
-					});
-				}
-			});
-
-		})
-
-
-
-	</script>
 
 
 

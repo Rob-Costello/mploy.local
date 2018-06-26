@@ -83,6 +83,11 @@ class Dashboard extends CI_Controller {
             $output[]  = ['campaign_display'=>$c,'call_info'=>$callInfo];
         }
 
+        $loginModel = new login();
+        $data['login_data'] = $loginModel->loginsCount();
+
+
+
 
 			//$data['placed'] = $placed;
 			//$data['placed'] = $placed;

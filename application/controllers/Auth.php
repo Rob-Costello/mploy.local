@@ -76,6 +76,7 @@ class Auth extends CI_Controller
 			{
 				//if the login is successful
 				//redirect them back to the home page
+                $this->log_login(true);
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
 				redirect('/', 'refresh');
 			}
@@ -83,6 +84,7 @@ class Auth extends CI_Controller
 			{
 				// if the login was un-successful
 				// redirect them back to the login page
+                $this->log_login(false);
 				$this->session->set_flashdata('message', $this->ion_auth->errors());
 				redirect('auth/login', 'refresh'); // use redirects instead of loading views for compatibility with MY_Controller libraries
 			}
@@ -106,6 +108,21 @@ class Auth extends CI_Controller
 			$this->_render_page('auth/login', $this->data);
 		}
 	}
+	
+	public function log_login( $status = false ){
+
+        $this->load->library('user_agent');
+
+        $data = array(
+            'username' => $this->input->post('identity'),
+            'ip_address' => $this->input->ip_address(),
+            'o/s' => $this->agent->platform(),
+            'browser' => $this->agent->browser().' '.$this->agent->version(),
+            'success' => $status
+        );
+        $this->db->insert('log_logins', $data);
+
+    }
 
 	/**
 	 * Log the user out

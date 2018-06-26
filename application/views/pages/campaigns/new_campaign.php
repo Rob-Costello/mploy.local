@@ -33,9 +33,11 @@
                             <!--- Schools contacts -->
 
 							<?php if (isset($error)): ?>
-							<div class=""
-								<h4>Please complete the highlighted fields</h4>
-							<?php endif ?>
+								<div class="alert alert-danger alert-dismissable">
+								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+								Please complete the highlighted fields
+								</div>
+									<?php endif ?>
 
                             <div class="box">
 
@@ -54,7 +56,7 @@
                                                 <div class="form-group">
 
                                                     <label class=" ">Campaign Name</label>
-                                                    <input type="text" name="campaign_name" class="form-control" value="" placeholder="Campaign Name" >
+                                                    <input  type="text" name="campaign_name" class="form-control" value="<?php echo $values['campaign_name'] ?> " placeholder="Campaign Name" >
 
                                                 </div>
                                             </div>
@@ -413,13 +415,32 @@
 
 
 
+
+
+
 <script>
 	//check for errors in form
 	<?php if (isset($error)): ?>
 
 		$(function(){
 		<?php foreach($error as $e): ?>
-		$('input[name="<?php echo $e;?>"]').addClass('error-box');
+
+		<?php	if($e =='campaign_employer_id'){
+				$e='search';
+			} ?>
+
+			$('input[name="<?php echo $e;?>"]').addClass('error-box');
+		<?php endforeach ?>
+	})
+	<?php endif ?>
+
+	//check for errors in form
+	<?php if (isset($values)): ?>
+<?php var_dump($values); ?>
+	$(function(){
+		<?php foreach($values as $k => $v): ?>
+
+		$('input[name="<?php echo $k;?>"]').val('<?php echo $v; ?>');
 		<?php endforeach ?>
 	})
 	<?php endif ?>

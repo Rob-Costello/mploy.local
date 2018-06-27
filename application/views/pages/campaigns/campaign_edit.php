@@ -261,7 +261,7 @@
 
 												<!-- Modal -->
 												<div id="myModal" class="modal fade" role="dialog">
-													<div class="modal-dialog">
+													<div style="width: 60% !important;" class="modal-dialog">
 
 														<!-- Modal content-->
 														<div class="modal-content">
@@ -276,6 +276,7 @@
 
 																<div class="row">
 																	<div class="col-md-12">
+																		<div id="total"> <h1>0</h1> </div>
 																		<div class="form-group">
 
 																			<div class="input-group">
@@ -296,11 +297,11 @@
 
 																<div class="row">
 																	<div class="col-md-12">
-																		<div class="col-md-offset-8" ><button  id="check_all" class="btn btn-mploy" type="button">Select All</button>
+																		<div class="col-md-offset-10" ><button  id="check_all" class="btn btn-mploy" type="button">Select All</button>
 																			<button type="button" class="btn btn-mploy-submit" data-dismiss="modal">Save</button>
 																		</div>
 
-																		<div id="loading"> <h2>Please wait loading results..</h2></div>
+																		<div style="display:none" id="loading"> <h2>Please wait loading results..</h2></div>
 																		<table class="table table-bordered table-striped" id="companyTable">
 
 																			<thead>
@@ -319,8 +320,6 @@
 
 															</div>
 															<div class="modal-footer">
-																<button  class="btn btn-mploy" >Add Entry</button>
-																<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
 															</div>
 														</div>
@@ -329,19 +328,20 @@
 												</div>
 
 
+												<div style="padding-bottom:100px;" id="row">
 												<div class="col-md-6">
+
 
 													<div class="input-group">
 
-														<input style="margin:20px; padding:19px;" type="text" name="search" class="form-control" placeholder="Employer postcode" autocomplete="off">
-														<span class="input-group-btn">
+
 								                <button style="z-index:100" type="button"  id="search-btn" data-toggle="modal" data-target="#myModal" class="btn btn-flat btn-mploy">
-								                    <i class=" fa fa-search"></i>
+								                    Add Companies to Campaign
 								                </button>
-                                                </span>
+
 													</div>
 
-
+													</div>
 												</div>
 
 
@@ -402,8 +402,8 @@
 		$("#search-btn").click(function(){
 			var target = '/campaigns/getBusiness/<?php echo $entries['campaign_id'] ?>';
 			var start =$('[name="search"]').val();
-
-
+			var i = 0;
+			$('#loading').show();
 			$.ajax({
 				url: target,
 				type: 'POST',
@@ -412,7 +412,7 @@
 				{
 					data = JSON.parse(data);
 					Object.keys(data).forEach(function(key){
-						console.log( data[key].name);
+						i++;
 						var check = '<td> <input class="comp" type="checkbox" name="campaign_employer_id[]" value="'+data[key].comp_id+'" > </td>';
 						var name = '<td>'+ data[key].name+' </td>';
 						var address = '<td>'+ data[key].address1 + ' ' + data[key].address2 + ', '+ data[key].postcode + '</td>';
@@ -420,6 +420,7 @@
 						$('#companyTable').append(row);
 					});
 					$('#loading').hide();
+				$('#total').html('<h1>'+i+' Results</h1>')
 				}
 
 			});

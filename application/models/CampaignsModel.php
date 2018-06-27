@@ -291,17 +291,12 @@ class CampaignsModel extends CI_Model
 		else{
 
 			$query = $this->db->query("SELECT * FROM  mploy_organisations o
-                                  where comp_id in 
+                                  where comp_id not in 
                                   (select campaign_employer_id as comp_id from mploy_rel_campaign_employers where campaign_ref='.$campaign.') 
                                   and organisation_type_id =2 and postcode like '".$postcode."%' ");
 		}
 
-		$string = "SELECT * FROM  mploy_organisations o
-                                  where comp_id in 
-                                  (select campaign_employer_id as comp_id from mploy_rel_campaign_employers where campaign_ref='.$campaign.') 
-                                  and organisation_type_id =2 and postcode like '".$postcode."%' ";
-		return $string;
-		//return $query->result_array();
+		return $query->result_array();
 
 	}
 

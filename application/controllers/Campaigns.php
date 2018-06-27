@@ -81,8 +81,18 @@ class Campaigns extends CI_Controller
 		$output ="";
 	    $data['school_id'] = $data['entries']['select_school'];
 		$schoolHolidays = $campaign->getSchoolHoliday($data['school_id']);
+		$holidays = [];
 
-	    $data['holiday'] = $schoolHolidays;
+		foreach($schoolHolidays as $hol){
+
+			if ($hol['holiday_name'] ==''){
+				continue;
+			}
+			$holidays[]=$hol;
+		}
+
+
+	    $data['holiday'] = $holidays;
 		if(!empty($_POST)){
 
 			if($this->input->post('active') =='')
@@ -327,13 +337,14 @@ class Campaigns extends CI_Controller
 		//create progress bar and feed in placements query
 		//$campaign->placements($id);
 		$data['dropdown']=$campaign->getSchools();
+		$data['values'] = array();
 		foreach($_POST as $k => $p){
 
 			$data['values'][$k] = $p;
 
 
 		}
-
+		//var_dump($data['values']);
 		$this->load->view('pages/campaigns/new_campaign',$data);
 
     }
@@ -613,10 +624,19 @@ class Campaigns extends CI_Controller
 			{
 				$campaign = new CampaignsModel();
 				$holidays = $campaign->getSchoolHoliday($id);
+				$dates = array();
 				if ($holidays !== null){
 
-					echo json_encode($holidays);
+					foreach($holidays as $h){
+						if($h['holiday_name']==''){
+							continue;
+						}
+					$dates[]=$h;
+					}
+
+
 				}
+				echo json_encode($dates);
 			}
 
 
@@ -656,32 +676,24 @@ class Campaigns extends CI_Controller
 				$placement = ['employer_engagement_end'=>'-9 week', 'self_place_deadline' =>'-7 week','matching_end' =>'-7 week'];
 				if (!empty($_POST)) {
 					if ($this->input->post('campaign_place_start_date')) {
-						//var_dump($this->input->post('campaign_start_date'));
 						$start = new DateTime();
 						$start->setTimestamp( strtotime($this->input->post('campaign_start_date')));
 						$place_start = new DateTime();
 						$place_start->setTimestamp( strtotime($this->input->post('campaign_place_start_date')));
-						// $placement = new DateTime();
-						//$placement->setTimestamp( strtotime($this->input->post('campaign_place_start_date')));
 						$place_end = new DateTime();
 						$place_end->setTimestamp(strtotime($this->input->post('campaign_place_end_date')));
 						$array = [];
 							foreach ($dates as $k => $day){
-							    //var_dump($day);
 								if(in_array($k,(array_keys($placement)))){
-                                    $array[$k] = date ('d-m-Y',strtotime($place_start->format('d-m-Y') . $day));
-                                }
+                                    //$array[$k] = date ('d/m/Y',strtotime($place_start->format('d/m/Y') . $day));
+									$array[$k] = date ('d/m/Y',strtotime( $day));
+								}
                                 else {
-                                    $array[$k] = date('d-m-Y', strtotime($start->format('d-m-Y') . $day));
+                                    $array[$k] = date('d/m/Y', strtotime( $day));
                                 }
-                            //var_dump($array[$k]);
 							}
-
-
 						echo json_encode($array, true);
 					}
-
-
 				}
 			}
 

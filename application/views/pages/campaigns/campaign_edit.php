@@ -1,6 +1,5 @@
 
-
-<?php $this->load->view('templates/campaign_header'); ?>
+<?php $this->load->view('templates/header'); ?>
 
 
 <div class="content-wrapper">
@@ -34,14 +33,16 @@
 							<!--- Schools contacts -->
 
 							<?php if (isset($error)): ?>
-								<div class=""
-								<h4>Please complete the highlighted fields</h4>
+								<div class="alert alert-danger alert-dismissable">
+									<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+									Please complete the highlighted fields
+								</div>
 							<?php endif ?>
 
 							<div class="box">
 
 								<div class="box-header with-border">
-									<h3 class="box-title">Campaign Details</h3>
+									<h3 class="box-title">Contact Details</h3>
 								</div>
 
 
@@ -144,19 +145,19 @@
 														<tbody>
 
 														<?php foreach ($holiday as $hol): ?>
-														<tr class="school_row">
+															<tr class="school_row">
 
-															<td>
-																<input value="<?php echo $hol['start_date']; ?>" id="1start_date" name="start_date[]" type="text" class=" form-control">
-															</td>
-															<td>
-																<input value="<?php echo $hol['end_date']; ?>" id="1end_date" name="end_date[]" type="text" class=" form-control">
-															</td>
-															<td>
-																<input value="<?php echo $hol['holiday_name']; ?>"" name="holiday[]" type="text" class="form-control">
-															</td>
+																<td>
+																	<input value="<?php echo $hol['start_date']; ?>" id="1start_date" name="start_date[]" type="text" class=" form-control">
+																</td>
+																<td>
+																	<input value="<?php echo $hol['end_date']; ?>" id="1end_date" name="end_date[]" type="text" class=" form-control">
+																</td>
+																<td>
+																	<input value="<?php echo $hol['holiday_name']; ?>"" name="holiday[]" type="text" class="form-control">
+																</td>
 
-														</tr>
+															</tr>
 														<?php endforeach ?>
 														<tr id="last_row" style="background-color:#fff;border-color:#fff">
 															<td></td>
@@ -380,8 +381,8 @@
 
 		});
 
-//populates companies popup box with data
-	$("#search-btn").click(function(){
+		//populates companies popup box with data
+		$("#search-btn").click(function(){
 			var target = '/campaigns/getBusiness';
 			var start =$('[name="search"]').val();
 
@@ -410,13 +411,13 @@
 
 		// row constructor for add school holiday functions
 		function addRow(tbl =''){
-				var start_date ='<td><input  type="text" name="start_date[]" value="" class="datepicker2 form-control"></td>';
-				var end_date ='<td><input  type="text" name="end_date[]" value="" class="datepicker2 form-control"></td>';
-				var holiday ='<td><input  type="text" name="holiday[]" value="" class="form-control"></td>';
-				var row = $('<tr tbl>').html(start_date + end_date + holiday );
-				return row;
+			var start_date ='<td><input  type="text" name="start_date[]" value="" class="datepicker2 form-control"></td>';
+			var end_date ='<td><input  type="text" name="end_date[]" value="" class="datepicker2 form-control"></td>';
+			var holiday ='<td><input  type="text" name="holiday[]" value="" class="form-control"></td>';
+			var row = $('<tr tbl>').html(start_date + end_date + holiday );
+			return row;
 		}
-// listener for school drop down  populates school holidays when option changed
+		// listener for school drop down  populates school holidays when option changed
 		$('#select_school').change(function(){
 			var target= '/campaigns/getSchoolHolidays/'+$('#select_school').val();
 			$('.school_row').remove();
@@ -459,19 +460,19 @@
 
 	</script>
 
-<script>
-	$(function(){
-		$('#active').change(function(){
+	<script>
+		$(function(){
+			$('#active').change(function(){
 
-			if(this.checked){
-				$('#active').val('1')
-			}else{
-				$('#active').val('0');
-			}
+				if(this.checked){
+					$('#active').val('1')
+				}else{
+					$('#active').val('0');
+				}
+			})
 		})
-	})
 
-</script>
+	</script>
 
 	<script>
 		/*
@@ -491,15 +492,7 @@
 });
 
 
-		//check for errors in form
-		<?php if (isset($error)): ?>
 
-		$(function(){
-			<?php foreach($error as $e): ?>
-			$('input[name="<?php echo $e;?>"]').addClass('error-box');
-			<?php endforeach ?>
-		})
-		<?php endif ?>
 
 		//append holidays to holiday table
 

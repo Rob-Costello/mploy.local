@@ -281,13 +281,22 @@ class CampaignsModel extends CI_Model
 
 	}
 
-	public function getCompaniesByPostcode($postcode){
+	public function getCompaniesByPostcode($postcode,$campaign=null){
 
-		$this->db->select('*');
-    	$this->db->like('postcode',$postcode,'right');
-    	$query = $this->db->get_where('mploy_organisations',['organisation_type_id'=>'2']);
+		if($campaign == null) {
+			$this->db->select('*');
+			$this->db->like('postcode', $postcode, 'right');
+			$query = $this->db->get_where('mploy_organisations', ['organisation_type_id' => '2']);
+		}
+		else{
 
-    	return $query->result_array();
+			$query = $this->db->query("SELECT * FROM  mploy_organisations o
+                                  where comp_id not in 
+                                  (select campaign_employer_id as comp_id from mploy_rel_campaign_employers where campaign_ref='.$campaign.') 
+                                  and organisation_type_id =2 and postcode like '".$postcode."%' ");
+		}
+
+		return $query->result_array();
 
 	}
 

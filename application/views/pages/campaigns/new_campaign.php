@@ -29,7 +29,8 @@
 
                         <section class="">
 
-                            <!-- Main content School Details-->
+
+	                        <!-- Main content School Details-->
                             <!--- Schools contacts -->
 
 							<?php if (isset($error)): ?>
@@ -49,14 +50,15 @@
                                 <!-- /.box-header -->
                                 <div class="box-body">
                                     <form role="form"  method="POST">
-                                        
+
+
 
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="form-group">
 
                                                     <label class=" ">Campaign Name</label>
-                                                    <input  type="text" name="campaign_name" class="form-control" value="<?php echo $values['campaign_name'] ?> " placeholder="Campaign Name" >
+                                                    <input  type="text" name="campaign_name" class="form-control" value="<?php if(array_key_exists('campaign_name',$values)) echo $values['campaign_name'] ?> " placeholder="Campaign Name" >
 
                                                 </div>
                                             </div>
@@ -65,7 +67,7 @@
 
                                                     <div class="">
                                                         <label >Students to Place</label>
-                                                        <input type="number" name="students_to_place" class="form-control" value="" placeholder="" autocomplete="off" >
+                                                        <input type="number" name="students_to_place" value="<?php if(array_key_exists('students_to_place',$values)) echo $values['students_to_place'] ?> "  class="form-control" value="" placeholder="" autocomplete="off" >
                                                     </div>
                                                 </div>
                                             </div>
@@ -74,7 +76,7 @@
                                                 <div class="form-group">
                                                     <div class="">
                                                         <label >Self Placing Students </label>
-                                                        <input type="number" name="self_placing_students" class="form-control" value="" placeholder="" autocomplete="off" >
+                                                        <input type="number" name="self_placing_students"  value="<?php if(array_key_exists('self_placing_students',$values)) echo $values['self_placing_students'] ?> " class="form-control" value="" placeholder="" autocomplete="off" >
                                                     </div>
                                                 </div>
                                             </div><!--end col-->
@@ -101,8 +103,17 @@
 
                                                     <div class="">
                                                         <label >Placement Start Date</label>
-                                                        <input type="text" name="campaign_place_start_date" class="datepicker form-control" value="" placeholder="01/01/2018" autocomplete="off" >
-                                                    </div>
+
+	                                                    <div class="input-group">
+		                                                    <div class="input-group-addon">
+			                                                    <i class="fa fa-calendar"></i>
+		                                                    </div>
+
+
+
+		                                                    <input type="text" name="campaign_place_start_date" value="<?php if(array_key_exists('campaign_place_start_date',$values)) echo $values['campaign_place_start_date'] ?> " class="datepicker form-control" value="" placeholder="dd/mm/yyyy" autocomplete="off" >
+	                                                    </div>
+	                                                    </div>
                                                 </div>
                                             </div>
                                             <!--/span-->
@@ -110,8 +121,16 @@
                                                 <div class="form-group">
                                                     <div class="">
                                                         <label >Placement End Date </label>
-                                                        <input type="text" name="campaign_place_end_date" class="datepicker form-control" value="" placeholder="01/01/2018" autocomplete="off" >
-                                                    </div>
+
+	                                                    <div class="input-group">
+		                                                    <div class="input-group-addon">
+			                                                    <i class="fa fa-calendar"></i>
+		                                                    </div>
+
+
+		                                                    <input type="text" name="campaign_place_end_date" value="<?php if(array_key_exists('campaign_place_start_date',$values)) echo $values['campaign_place_start_date'] ?> " class="datepicker form-control" value="" placeholder="dd/mm/yyyy" autocomplete="off" >
+	                                                    </div>
+	                                                    </div>
                                                 </div>
                                             </div><!--end col-->
                                         
@@ -155,7 +174,7 @@
                                                         </td>
 
                                                     </tr>
-                                                    <tr style="background-color:#fff;border-color:#fff">
+                                                    <tr id="last_row" style="background-color:#fff;border-color:#fff">
                                                         <td></td>
                                                         <td></td>
                                                         <td><button type="button" id="add-row" class="btn btn-mploy white-btn">Add Holiday </button> </td>
@@ -169,7 +188,15 @@
     .                                        <div class="col-md-4">
                                                 <div class="form-group">
                                                 <label >Campaign Start Date </label>
-                                                <input type="text" value="<?php echo date('d/m/Y'); ?>" class=" form-control" id="campaign_date" name="campaign_start_date" >
+
+	                                                <div class="input-group">
+		                                                <div class="input-group-addon">
+			                                                <i class="fa fa-calendar"></i>
+		                                                </div>
+
+
+		                                                <input type="text" value="<?php echo date('d/m/Y'); ?>" class=" form-control" id="campaign_date" placeholder="dd/mm/yyyy" name="campaign_start_date" >
+                                                </div>
                                                 </div>
 
                                             </div>
@@ -180,15 +207,29 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label >Mailshot 1 Date</label>
-                                                    <input name="mailshot_1_date" type="text" class="datepicker form-control" >
-                                                </div>
+	                                                <div class="input-group">
+		                                                <div class="input-group-addon">
+			                                                <i class="fa fa-calendar"></i>
+		                                                </div>
+
+
+		                                                <input name="mailshot_1_date" placeholder="dd/mm/yyyy" type="text" value="<?php if(array_key_exists('mailshot_1_date',$values)) echo $values['mailshot_1_date'] ?> " class="datepicker form-control" >
+	                                                </div>
+	                                                </div>
                                             </div>
                                             
                                             <div class="col-md-4">   
                                                     <div class="form-group">
                                                     <label >Mailshot 2 Date</label>
-                                                    <input name="mailshot_2_date" type="text" class="datepicker form-control" >
-                                                    </div>
+	                                                    <div class="input-group">
+		                                                    <div class="input-group-addon">
+			                                                    <i class="fa fa-calendar"></i>
+		                                                    </div>
+
+
+		                                                    <input name="mailshot_2_date" placeholder="dd/mm/yyyy"value="<?php if(array_key_exists('mailshot_2_date',$values)) echo $values['mailshot_2_date'] ?> " type="text" class="datepicker form-control" >
+	                                                    </div>
+	                                                    </div>
                                             </div>
                                             
                                         </div> <!--end row -->
@@ -198,21 +239,42 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label >Employer Engagement Start</label>
-                                                <input name="employer_engagement_start" type="text" class="datepicker form-control" >
-                                            </div>
+	                                            <div class="input-group">
+		                                            <div class="input-group-addon">
+			                                            <i class="fa fa-calendar"></i>
+		                                            </div>
+
+
+		                                            <input name="employer_engagement_start" placeholder="dd/mm/yyyy" value="<?php if(array_key_exists('employer_engagement_start',$values)) echo $values['employer_engagement_start'] ?> " type="text" class="datepicker form-control" >
+	                                            </div>
+	                                            </div>
                                         </div>
                                         
                                         <div class="col-md-4">   
                                                 <div class="form-group">
                                                 <label >Employer Engagement End</label>
-                                                <input name="employer_engagement_end" type="text" class="datepicker form-control pull-right" id="datepicker">
-                                                </div>
+	                                                <div class="input-group">
+		                                                <div class="input-group-addon">
+			                                                <i class="fa fa-calendar"></i>
+		                                                </div>
+
+
+		                                                <input name="employer_engagement_end" placeholder="dd/mm/yyyy" type="text" value="<?php if(array_key_exists('employer_engagement_end',$values)) echo $values['employer_engagement_end'] ?> " class="datepicker form-control pull-right" id="datepicker">
+	                                                </div>
+	                                                </div>
                                         </div>
                                         <div class="col-md-4">   
                                                 <div class="form-group">
                                                 <label >Self Place Deadline</label>
-                                                <input name="self_place_deadline" type="text" class="datepicker form-control" >
-                                                </div>
+	                                                <div class="input-group">
+		                                                <div class="input-group-addon">
+			                                                <i class="fa fa-calendar"></i>
+		                                                </div>
+
+
+		                                                <input name="self_place_deadline" placeholder="dd/mm/yyyy" value="<?php if(array_key_exists('self_place_deadline',$values)) echo $values['self_place_deadline'] ?> " type="text"  class="datepicker form-control" >
+	                                                </div>
+	                                                </div>
                                         </div>
                                     </div> <!--end row -->
 
@@ -220,8 +282,15 @@
                                         <div class="col-md-4">   
                                                 <div class="form-group">
                                                 <label >Matching End</label>
-                                                <input value="" name="matching_end" type="text" class="datepicker form-control" >
-                                                </div>
+	                                                <div class="input-group">
+		                                                <div class="input-group-addon">
+			                                                <i class="fa fa-calendar"></i>
+		                                                </div>
+
+
+		                                                <input placeholder="dd/mm/yyyy" value="<?php if(array_key_exists('matching_end',$values)) echo $values['matching_end'] ?> " name="matching_end" type="text" class="datepicker form-control" >
+	                                                </div>
+	                                                </div>
                                         </div>
                                         
                                     </div> <!--end row -->
@@ -253,9 +322,22 @@
 							                                        <div class="row">
 								                                        <div class="col-md-12">
 									                                        <div class="form-group">
+										                                        <div id="total"> <h1>0</h1> </div>
+										                                        <div class="form-group">
+
+											                                        <div class="input-group">
+
+												                                        <input style="margin:20px; padding:19px;" type="text" name="search" class="form-control" placeholder="Employer postcode" autocomplete="off">
+												                                        <span class="input-group-btn">
+								                <button style="z-index:100" type="button"  id="search-btn"  class="btn btn-flat btn-mploy">
+								                    <i class=" fa fa-search"></i>
+								                </button>
+                                                </span>
+											                                        </div>
 
 
-									                                        </div>
+
+										                                        </div>
 								                                        </div>
 							                                        </div>
 
@@ -298,20 +380,6 @@
 
 
 
-		                                        <div class="col-md-6">
-
-				                                       <div class="input-group">
-
-					                                       <input style="margin:20px; padding:19px;" type="text" name="search" class="form-control" placeholder="Employer postcode">
-					                                       <span class="input-group-btn">
-								                <button style="z-index:100" type="button"  id="search-btn" data-toggle="modal" data-target="#myModal" class="btn btn-flat btn-mploy">
-								                    <i class=" fa fa-search"></i>
-								                </button>
-                                                </span>
-				                                       </div>
-
-
-		                                       </div>
 
 
 
@@ -320,7 +388,24 @@
 	                                        <div class="row">
 												<div class="col-md-12">
 
-	                                        </div>
+													<div style="padding-bottom:100px;" id="row">
+														<div class="col-md-6">
+
+
+															<div class="input-group">
+
+
+																<button style="z-index:100" type="button"   data-toggle="modal" data-target="#myModal" class="btn btn-flat btn-mploy">
+																	Add Companies to Campaign
+																</button>
+
+															</div>
+
+														</div>
+													</div>
+
+
+												</div>
 
 	                                        </div>
                                 
@@ -354,96 +439,141 @@
         </div>
     </div> <!-- end tab container -->
 
-    <?php $this->load->view('templates/footer'); ?>
-    
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	<?php $this->load->view('templates/footer'); ?>
 
-
-<script>
-
-
-
-
-
-
-	$("#search-btn").click(function(){
-		var target = '/campaigns/getBusiness';
-		var start =$('[name="search"]').val();
-
-		$.ajax({
-			url: target,
-			type: 'POST',
-			data: {match_postcode:start},
-			success: function(data, textStatus, XMLHttpRequest)
-			{
-				data = JSON.parse(data);
-				Object.keys(data).forEach(function(key){
-					console.log( data[key].name);
-					var check = '<td> <input class="comp" type="checkbox" name="campaign_employer_id[]" value="'+data[key].comp_id+'" > </td>';
-					var name = '<td>'+ data[key].name+' </td>';
-					var address = '<td>'+ data[key].address1 + ' ' + data[key].address2 + ', '+ data[key].postcode + '</td>';
-					var row = $('<tr>').html(check + name + address);
-					$('#companyTable').append(row);
-				});
-			$('#loading').hide();
-			}
-
-		});
-	});
-
-</script>
+	<script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	<script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
 
 
 	<script>
+		//check all checkboxes when selecting company
+		$("#check_all").click(function(){
+
+			$('.comp').prop('checked', true);
+
+		});
+
+		//populates companies popup box with data
+		//populates companies popup box with data
+		$("#search-btn").click(function(){
+			var target = '/campaigns/getBusiness';
+			var start =$('[name="search"]').val();
+			var i = 0;
+			$('#loading').show();
+			$.ajax({
+				url: target,
+				type: 'POST',
+				data: {match_postcode:start},
+				success: function(data, textStatus, XMLHttpRequest)
+				{
+					data = JSON.parse(data);
+					Object.keys(data).forEach(function(key){
+						i++;
+						var check = '<td> <input class="comp" type="checkbox" name="campaign_employer_id[]" value="'+data[key].comp_id+'" > </td>';
+						var name = '<td>'+ data[key].name+' </td>';
+						var address = '<td>'+ data[key].address1 + ' ' + data[key].address2 + ', '+ data[key].postcode + '</td>';
+						var row = $('<tr>').html(check + name + address);
+						$('#companyTable').append(row);
+					});
+					$('#loading').hide();
+					$('#total').html('<h1>'+i+' Results</h1>')
+				}
+
+			});
+		});
+
+
+		// row constructor for add school holiday functions
+		function addRow(tbl =''){
+			var start_date ='<td><input  type="text" name="start_date[]" value="" class="datepicker2 form-control"></td>';
+			var end_date ='<td><input  type="text" name="end_date[]" value="" class="datepicker2 form-control"></td>';
+			var holiday ='<td><input  type="text" name="holiday[]" value="" class="form-control"></td>';
+			var row = $('<tr tbl>').html(start_date + end_date + holiday );
+			return row;
+		}
+		// listener for school drop down  populates school holidays when option changed
+		$('#select_school').change(function(){
+			var target= '/campaigns/getSchoolHolidays/'+$('#select_school').val();
+			$('.school_row').remove();
+			var table = $('#holidays');
+			//$('#last_row').before(addRow());
+			//table.find('tr:last').prev().before(addRow());
+
+			//table.append(addRow('class="school_row"'));
+			$.ajax({
+				url: target,
+				type: 'GET',
+				//data: {match_postcode:start},
+				success: function(data, textStatus, XMLHttpRequest)
+				{
+					data = JSON.parse(data);
+					Object.keys(data).forEach(function(key){
+						console.log( data[key].name);
+						var table = $('#holidays');
+						var start_date ='<td><input  type="text" name="start_date[]" value="'+data[key].start_date+'" class="form-control"></td>';
+						var end_date ='<td><input  type="text" name="end_date[]" value="'+data[key].end_date+'" class="form-control"></td>';
+						var holiday ='<td><input  type="text" name="holiday[]" value="'+data[key].holiday_name+'" class="form-control"></td>';
+						var row = $('<tr class="school_row">').html(start_date + end_date + holiday);
+						$('#last_row').before(row);
+						//table.append(row);
+					});
+				}
+			});
+
+		})
+
 
 
 		$('#add-row').click(function(){
-			var rows = $('#holidays tbody tr').length;
-			var table = $('#holidays');
-			var start_date ='<td><input id ="'+rows+'start_date" type="text" name="start_date[]" value="" class="datepicker2 form-control"></td>';
-			var end_date ='<td><input id ="'+rows+'end_date" type="text" name="end_date[]" value="" class="datepicker2 form-control"></td>';
-			var holiday ='<td><input id ="'+rows+'holiday" type="text" name="holiday[]" value="" class="form-control"></td>';
-
-			var row = $('<tr>').html(start_date + end_date + holiday );
-			table.find('tr:last').prev().after(row);
-
-			$(function() {$('.datepicker2').daterangepicker({opens: 'left',singleDatePicker: true,}).val('')});
+			$('#last_row').before(addRow());
+			$(function() {$('.datepicker2').daterangepicker({opens: 'left',singleDatePicker: true,locale: {
+					format: 'DD-MM-YYYY'
+				}})});
 		});
 
 
 	</script>
 
-
-
-
-
-
-<script>
-	//check for errors in form
-	<?php if (isset($error)): ?>
-
+	<script>
 		$(function(){
-		<?php foreach($error as $e): ?>
+			$('#active').change(function(){
 
-		<?php	if($e =='campaign_employer_id'){
-				$e='search';
-			} ?>
+				if(this.checked){
+					$('#active').val('1')
+				}else{
+					$('#active').val('0');
+				}
+			})
+		})
 
-			$('input[name="<?php echo $e;?>"]').addClass('error-box');
-		<?php endforeach ?>
-	})
-	<?php endif ?>
+	</script>
 
-	//check for errors in form
-	<?php if (isset($values)): ?>
-<?php var_dump($values); ?>
-	$(function(){
-		<?php foreach($values as $k => $v): ?>
+	<script>
+		/*
+		$(function(){
 
-		$('input[name="<?php echo $k;?>"]').val('<?php echo $v; ?>');
-		<?php endforeach ?>
-	})
-	<?php endif ?>
+	$('.daterangepicker').each(function(index,e){
+		var $(e).val() = $(e);
+		console.log(current);
+		var d = current.split('-');
+		var output = d[2]+'-'+d[1]+'-'+d[0];
+
+		$(e).val(output);
+		console.log(output);
+	});
+
+
+});
+
+
+
+
+		//append holidays to holiday table
+
+
+		//date range plugin
+
+		//$(function() {
 
 
 
@@ -459,103 +589,59 @@
 
 
 
-	$('.datepicker').daterangepicker({
-		opens: 'left',
-		singleDatePicker: true,
-		setDate:'',
+		$('.datepicker').daterangepicker({
+			opens: 'left',
+			singleDatePicker: true,
+			setDate:'',
 
-		locale: {
-			format: 'DD-MM-YYYY'
-		}
-
-	}).val('');
-
-	$('.datepicker2').daterangepicker({
-		opens: 'left',
-		singleDatePicker: true,
-		setDate:'',
-
-		locale: {
-			format: 'DD-MM-YYYY'
-		}
-
-	}).val('');
-//});
-
-//remove prepopulated dates in date picker
-/*$(function(){
-	$('.datepicker').val('');
-
-})*/
-
-
-
-
-</script>
-
-
-
-	<script>
-			$('#select_school').change(function(){
-				var target= '/campaigns/getSchoolHolidays/'+$('#select_school').val();
-
-				$('.school_row').remove();
-				$.ajax({
-					url: target,
-					type: 'GET',
-					//data: {match_postcode:start},
-					success: function(data, textStatus, XMLHttpRequest)
-					{
-
-						data = JSON.parse(data);
-						Object.keys(data).forEach(function(key){
-							console.log( data[key].name);
-
-
-
-							var table = $('#holidays');
-
-							var start_date ='<td><input  type="text" name="start_date[]" value="'+data[key].start_date+'" class="form-control"></td>';
-							var end_date ='<td><input  type="text" name="end_date[]" value="'+data[key].end_date+'" class="form-control"></td>';
-							var holiday ='<td><input  type="text" name="holiday[]" value="'+data[key].holiday_name+'" class="form-control"></td>';
-							var row = $('<tr class="school_row">').html(start_date + end_date + holiday);
-							table.find('tr:last').prev().after(row);
-							//table.append(row);
-						});
-					}
-				});
-
-			})
-
-
-
-	</script>
-
-
-	<script>
-
-		$("#check_all").click(function(){
-
-			$('.comp').prop('checked', true);
+			locale: {
+				format: 'DD-MM-YYYY'
+			}
 
 		});
 
+		$('.datepicker2').daterangepicker({
+			opens: 'left',
+			singleDatePicker: true,
+			setDate:'',
 
+			locale: {
+				format: 'DD-MM-YYYY'
+			}
+
+		});
+		//});
+
+		//remove prepopulated dates in date picker
+		/*$(function(){
+			$('.datepicker').val('');
+
+		})*/
+
+
+		<?php if (isset($error)): ?>
+
+		$(function(){
+			<?php foreach($error as $e): ?>
+			$('input[name="<?php echo $e;?>"]').addClass('error-box');
+			<?php endforeach ?>
+		})
+		<?php endif ?>
 
 	</script>
 
 
 
 
-<script>
-	$(function(){
+	<script>
+		$(function(){
 
-		$("#calculate").click(function(){
+			$("#calculate").click(function(){
 				var target = '/campaigns/calculateDates';
 				var start =$('[name="campaign_place_start_date"]').val()
-			var end =$('[name="campaign_place_end_date"]').val()
-			var campStart= $('[name="campaign_start_date"]').val();
-			//alert($('[name="campaign_place_start_date"]').val());
+				var end =$('[name="campaign_place_end_date"]').val()
+				var campStart= $('[name="campaign_start_date"]').val();
+				//alert($('[name="campaign_place_start_date"]').val());
 				//var start =$('#campaign_place_start_date').val();
 				$.ajax({
 					url: target,
@@ -564,22 +650,34 @@
 					success: function(data, textStatus, XMLHttpRequest)
 					{
 						data = JSON.parse(data);
-							Object.keys(data).forEach(function(key){
+						Object.keys(data).forEach(function(key){
 							console.log(key + '=' + data[key]);
-								$('[name="'+key+'"]').val(data[key]);
-							});
+							$('[name="'+key+'"]').val(data[key]);
+						});
 					}
 				});
-		});
-	})
+			});
+		})
 
-</script>
-
-
-<script>
-    $(function(){
+	</script>
 
 
-        $( "#school" ).autocomplete({source: "http://mploy.local/schools/getSchools/?"});
-    })
-</script>
+	<script>
+
+
+		$(function(){
+
+
+			$(".datepicker").inputmask({"mask": "99/99/9999", "placeholder":"dd/mm/yyyy"});
+
+
+		})
+
+
+		$(function(){
+
+
+			$( "#school" ).autocomplete({source: "http://mploy.local/schools/getSchools/?"});
+		})
+	</script>
+

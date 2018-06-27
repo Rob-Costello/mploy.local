@@ -1,6 +1,5 @@
 
-
-<?php $this->load->view('templates/campaign_header'); ?>
+<?php $this->load->view('templates/header'); ?>
 
 
 <div class="content-wrapper">
@@ -34,14 +33,16 @@
 							<!--- Schools contacts -->
 
 							<?php if (isset($error)): ?>
-								<div class=""
-								<h4>Please complete the highlighted fields</h4>
+								<div class="alert alert-danger alert-dismissable">
+									<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+									Please complete the highlighted fields
+								</div>
 							<?php endif ?>
 
 							<div class="box">
 
 								<div class="box-header with-border">
-									<h3 class="box-title">Campaign Details</h3>
+									<h3 class="box-title">Contact Details</h3>
 								</div>
 
 
@@ -63,7 +64,7 @@
 												<div class="form-group">
 
 													<div class="">
-														<label >Students to Place</label>
+														<label >Places to be sourced by MPLOY</label>
 														<input type="number" name="students_to_place" class="form-control" value="<?php echo $entries['students_to_place']?>" placeholder="" autocomplete="off" >
 													</div>
 												</div>
@@ -144,19 +145,19 @@
 														<tbody>
 
 														<?php foreach ($holiday as $hol): ?>
-														<tr class="school_row">
+															<tr class="school_row">
 
-															<td>
-																<input value="<?php echo $hol['start_date']; ?>" id="1start_date" name="start_date[]" type="text" class=" form-control">
-															</td>
-															<td>
-																<input value="<?php echo $hol['end_date']; ?>" id="1end_date" name="end_date[]" type="text" class=" form-control">
-															</td>
-															<td>
-																<input value="<?php echo $hol['holiday_name']; ?>"" name="holiday[]" type="text" class="form-control">
-															</td>
+																<td>
+																	<input value="<?php echo $hol['start_date']; ?>" id="1start_date" name="start_date[]" type="text" class=" datepicker form-control">
+																</td>
+																<td>
+																	<input value="<?php echo $hol['end_date']; ?>" id="1end_date" name="end_date[]" type="text" class=" datepicker form-control">
+																</td>
+																<td>
+																	<input value="<?php echo $hol['holiday_name']; ?>"" name="holiday[]" type="text" class="form-control">
+																</td>
 
-														</tr>
+															</tr>
 														<?php endforeach ?>
 														<tr id="last_row" style="background-color:#fff;border-color:#fff">
 															<td></td>
@@ -232,10 +233,18 @@
 												<div class="col-md-4">
 													<label style="float:top" >Campaign Status</label>
 													<div class="form-group">
-														<label class="">
-															<input id="active" name="active" type="checkbox" value="<?php echo $entries['active']; ?>" <?php if($entries['active'] == 1) echo ' checked' ;?>  >
 
-														</label>
+															<select class="form-control">
+
+																<option <?php if($entries['active'] == 1) echo ' selected' ?> value="1"> Active</option>
+																<option <?php if($entries['active'] == 0) echo ' selected' ?> value="0"> Inactive</option>
+
+
+
+															</select>
+
+
+
 													</div>
 												</div>
 
@@ -252,7 +261,7 @@
 
 												<!-- Modal -->
 												<div id="myModal" class="modal fade" role="dialog">
-													<div class="modal-dialog">
+													<div style="width: 60% !important;" class="modal-dialog">
 
 														<!-- Modal content-->
 														<div class="modal-content">
@@ -267,8 +276,18 @@
 
 																<div class="row">
 																	<div class="col-md-12">
+																		<div id="total"> <h1>0</h1> </div>
 																		<div class="form-group">
 
+																			<div class="input-group">
+
+																				<input style="margin:20px; padding:19px;" type="text" name="search" class="form-control" placeholder="Employer postcode" autocomplete="off">
+																				<span class="input-group-btn">
+								                <button style="z-index:100" type="button"  id="search-btn"  class="btn btn-flat btn-mploy">
+								                    <i class=" fa fa-search"></i>
+								                </button>
+                                                </span>
+																			</div>
 
 																		</div>
 																	</div>
@@ -278,11 +297,11 @@
 
 																<div class="row">
 																	<div class="col-md-12">
-																		<div class="col-md-offset-8" ><button  id="check_all" class="btn btn-mploy" type="button">Select All</button>
+																		<div class="col-md-offset-10" ><button  id="check_all" class="btn btn-mploy" type="button">Select All</button>
 																			<button type="button" class="btn btn-mploy-submit" data-dismiss="modal">Save</button>
 																		</div>
 
-																		<div id="loading"> <h2>Please wait loading results..</h2></div>
+																		<div style="display:none" id="loading"> <h2>Please wait loading results..</h2></div>
 																		<table class="table table-bordered table-striped" id="companyTable">
 
 																			<thead>
@@ -301,8 +320,6 @@
 
 															</div>
 															<div class="modal-footer">
-																<button  class="btn btn-mploy" >Add Entry</button>
-																<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
 															</div>
 														</div>
@@ -311,19 +328,20 @@
 												</div>
 
 
+												<div style="padding-bottom:100px;" id="row">
 												<div class="col-md-6">
+
 
 													<div class="input-group">
 
-														<input style="margin:20px; padding:19px;" type="text" name="search" class="form-control" placeholder="Employer postcode" autocomplete="off">
-														<span class="input-group-btn">
-								                <button style="z-index:100" type="button"  id="search-btn" data-toggle="modal" data-target="#myModal" class="btn btn-flat btn-mploy">
-								                    <i class=" fa fa-search"></i>
+
+								                <button style="z-index:100" type="button"   data-toggle="modal" data-target="#myModal" class="btn btn-flat btn-mploy">
+								                    Add Companies to Campaign
 								                </button>
-                                                </span>
+
 													</div>
 
-
+													</div>
 												</div>
 
 
@@ -369,7 +387,7 @@
 
 	<?php $this->load->view('templates/footer'); ?>
 
-	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	<script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
 
 	<script>
@@ -380,12 +398,12 @@
 
 		});
 
-//populates companies popup box with data
-	$("#search-btn").click(function(){
-			var target = '/campaigns/getBusiness';
+		//populates companies popup box with data
+		$("#search-btn").click(function(){
+			var target = '/campaigns/getBusiness/<?php echo $entries['campaign_id'] ?>';
 			var start =$('[name="search"]').val();
-
-
+			var i = 0;
+			$('#loading').show();
 			$.ajax({
 				url: target,
 				type: 'POST',
@@ -394,7 +412,7 @@
 				{
 					data = JSON.parse(data);
 					Object.keys(data).forEach(function(key){
-						console.log( data[key].name);
+						i++;
 						var check = '<td> <input class="comp" type="checkbox" name="campaign_employer_id[]" value="'+data[key].comp_id+'" > </td>';
 						var name = '<td>'+ data[key].name+' </td>';
 						var address = '<td>'+ data[key].address1 + ' ' + data[key].address2 + ', '+ data[key].postcode + '</td>';
@@ -402,6 +420,7 @@
 						$('#companyTable').append(row);
 					});
 					$('#loading').hide();
+				$('#total').html('<h1>'+i+' Results</h1>')
 				}
 
 			});
@@ -410,13 +429,13 @@
 
 		// row constructor for add school holiday functions
 		function addRow(tbl =''){
-				var start_date ='<td><input  type="text" name="start_date[]" value="" class="datepicker2 form-control"></td>';
-				var end_date ='<td><input  type="text" name="end_date[]" value="" class="datepicker2 form-control"></td>';
-				var holiday ='<td><input  type="text" name="holiday[]" value="" class="form-control"></td>';
-				var row = $('<tr tbl>').html(start_date + end_date + holiday );
-				return row;
+			var start_date ='<td><input  type="text" name="start_date[]" value="" class="datepicker2 form-control"></td>';
+			var end_date ='<td><input  type="text" name="end_date[]" value="" class="datepicker2 form-control"></td>';
+			var holiday ='<td><input  type="text" name="holiday[]" value="" class="form-control"></td>';
+			var row = $('<tr tbl>').html(start_date + end_date + holiday );
+			return row;
 		}
-// listener for school drop down  populates school holidays when option changed
+		// listener for school drop down  populates school holidays when option changed
 		$('#select_school').change(function(){
 			var target= '/campaigns/getSchoolHolidays/'+$('#select_school').val();
 			$('.school_row').remove();
@@ -459,19 +478,19 @@
 
 	</script>
 
-<script>
-	$(function(){
-		$('#active').change(function(){
+	<script>
+		$(function(){
+			$('#active').change(function(){
 
-			if(this.checked){
-				$('#active').val('1')
-			}else{
-				$('#active').val('0');
-			}
+				if(this.checked){
+					$('#active').val('1')
+				}else{
+					$('#active').val('0');
+				}
+			})
 		})
-	})
 
-</script>
+	</script>
 
 	<script>
 		/*
@@ -491,15 +510,7 @@
 });
 
 
-		//check for errors in form
-		<?php if (isset($error)): ?>
 
-		$(function(){
-			<?php foreach($error as $e): ?>
-			$('input[name="<?php echo $e;?>"]').addClass('error-box');
-			<?php endforeach ?>
-		})
-		<?php endif ?>
 
 		//append holidays to holiday table
 
@@ -593,9 +604,20 @@
 		})
 
 	</script>
+	<script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
 
 
 	<script>
+
+
+		$(function(){
+
+
+			$(".datepicker").inputmask({"mask": "99/99/9999", "placeholder":"dd/mm/yyyy"});
+
+
+		})
+
 		$(function(){
 
 

@@ -64,7 +64,7 @@
 												<div class="form-group">
 
 													<div class="">
-														<label >Students to Place</label>
+														<label >Places to be sourced by MPLOY</label>
 														<input type="number" name="students_to_place" class="form-control" value="<?php echo $entries['students_to_place']?>" placeholder="" autocomplete="off" >
 													</div>
 												</div>
@@ -148,10 +148,10 @@
 															<tr class="school_row">
 
 																<td>
-																	<input value="<?php echo $hol['start_date']; ?>" id="1start_date" name="start_date[]" type="text" class=" form-control">
+																	<input value="<?php echo $hol['start_date']; ?>" id="1start_date" name="start_date[]" type="text" class=" datepicker form-control">
 																</td>
 																<td>
-																	<input value="<?php echo $hol['end_date']; ?>" id="1end_date" name="end_date[]" type="text" class=" form-control">
+																	<input value="<?php echo $hol['end_date']; ?>" id="1end_date" name="end_date[]" type="text" class=" datepicker form-control">
 																</td>
 																<td>
 																	<input value="<?php echo $hol['holiday_name']; ?>"" name="holiday[]" type="text" class="form-control">
@@ -233,10 +233,18 @@
 												<div class="col-md-4">
 													<label style="float:top" >Campaign Status</label>
 													<div class="form-group">
-														<label class="">
-															<input id="active" name="active" type="checkbox" value="<?php echo $entries['active']; ?>" <?php if($entries['active'] == 1) echo ' checked' ;?>  >
 
-														</label>
+															<select class="form-control">
+
+																<option <?php if($entries['active'] == 1) echo ' selected' ?> value="1"> Active</option>
+																<option <?php if($entries['active'] == 0) echo ' selected' ?> value="0"> Inactive</option>
+
+
+
+															</select>
+
+
+
 													</div>
 												</div>
 
@@ -270,6 +278,15 @@
 																	<div class="col-md-12">
 																		<div class="form-group">
 
+																			<div class="input-group">
+
+																				<input style="margin:20px; padding:19px;" type="text" name="search" class="form-control" placeholder="Employer postcode" autocomplete="off">
+																				<span class="input-group-btn">
+								                <button style="z-index:100" type="button"  id="search-btn"  class="btn btn-flat btn-mploy">
+								                    <i class=" fa fa-search"></i>
+								                </button>
+                                                </span>
+																			</div>
 
 																		</div>
 																	</div>
@@ -370,7 +387,7 @@
 
 	<?php $this->load->view('templates/footer'); ?>
 
-	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	<script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
 
 	<script>
@@ -383,7 +400,7 @@
 
 		//populates companies popup box with data
 		$("#search-btn").click(function(){
-			var target = '/campaigns/getBusiness';
+			var target = '/campaigns/getBusiness/<?php echo $entries['campaign_id'] ?>';
 			var start =$('[name="search"]').val();
 
 
@@ -586,9 +603,20 @@
 		})
 
 	</script>
+	<script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
 
 
 	<script>
+
+
+		$(function(){
+
+
+			$(".datepicker").inputmask({"mask": "99/99/9999", "placeholder":"dd/mm/yyyy"});
+
+
+		})
+
 		$(function(){
 
 

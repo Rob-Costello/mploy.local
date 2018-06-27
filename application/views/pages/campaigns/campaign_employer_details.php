@@ -368,7 +368,7 @@
 												    Notes
 											    </th>
 											    <th>
-												    Student Name
+												    WEX
 											    </th>
 
 										    </tr>
@@ -381,7 +381,7 @@
 											    <td><?php echo $call->date_time ?></td>
 											    <td><?php echo $call->placements ?></td>
 											    <td><?php echo $call->notes ?></td>
-											    <td>Student TBC</td>
+											    <td><button class="btn btn-mploy"> WEX</button></td>
 
 
 

@@ -100,7 +100,8 @@
 
 		                            <?php } else{
 
-		                            	echo $company->$h = '<img src="'.base_url().'assets/dist/img/red.png" class="img-circle" alt="User Image">';
+		                            	$company->$h = '<img src="'.base_url().'assets/dist/img/red.png" class="img-circle" alt="User Image">';
+
 		                            } ?>
 
 

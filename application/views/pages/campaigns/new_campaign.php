@@ -322,9 +322,22 @@
 							                                        <div class="row">
 								                                        <div class="col-md-12">
 									                                        <div class="form-group">
+										                                        <div id="total"> <h1>0</h1> </div>
+										                                        <div class="form-group">
+
+											                                        <div class="input-group">
+
+												                                        <input style="margin:20px; padding:19px;" type="text" name="search" class="form-control" placeholder="Employer postcode" autocomplete="off">
+												                                        <span class="input-group-btn">
+								                <button style="z-index:100" type="button"  id="search-btn"  class="btn btn-flat btn-mploy">
+								                    <i class=" fa fa-search"></i>
+								                </button>
+                                                </span>
+											                                        </div>
 
 
-									                                        </div>
+
+										                                        </div>
 								                                        </div>
 							                                        </div>
 
@@ -367,20 +380,6 @@
 
 
 
-		                                        <div class="col-md-6">
-
-				                                       <div class="input-group">
-
-					                                       <input style="margin:20px; padding:19px;" type="text" name="search" class="form-control" placeholder="Employer postcode">
-					                                       <span class="input-group-btn">
-								                <button style="z-index:100" type="button"  id="search-btn" data-toggle="modal" data-target="#myModal" class="btn btn-flat btn-mploy">
-								                    <i class=" fa fa-search"></i>
-								                </button>
-                                                </span>
-				                                       </div>
-
-
-		                                       </div>
 
 
 
@@ -389,7 +388,24 @@
 	                                        <div class="row">
 												<div class="col-md-12">
 
-	                                        </div>
+													<div style="padding-bottom:100px;" id="row">
+														<div class="col-md-6">
+
+
+															<div class="input-group">
+
+
+																<button style="z-index:100" type="button"   data-toggle="modal" data-target="#myModal" class="btn btn-flat btn-mploy">
+																	Add Companies to Campaign
+																</button>
+
+															</div>
+
+														</div>
+													</div>
+
+
+												</div>
 
 	                                        </div>
                                 
@@ -425,7 +441,7 @@
 
 	<?php $this->load->view('templates/footer'); ?>
 
-	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	<script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 	<script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
 
 
@@ -438,11 +454,12 @@
 		});
 
 		//populates companies popup box with data
+		//populates companies popup box with data
 		$("#search-btn").click(function(){
 			var target = '/campaigns/getBusiness';
 			var start =$('[name="search"]').val();
-
-
+			var i = 0;
+			$('#loading').show();
 			$.ajax({
 				url: target,
 				type: 'POST',
@@ -451,7 +468,7 @@
 				{
 					data = JSON.parse(data);
 					Object.keys(data).forEach(function(key){
-						console.log( data[key].name);
+						i++;
 						var check = '<td> <input class="comp" type="checkbox" name="campaign_employer_id[]" value="'+data[key].comp_id+'" > </td>';
 						var name = '<td>'+ data[key].name+' </td>';
 						var address = '<td>'+ data[key].address1 + ' ' + data[key].address2 + ', '+ data[key].postcode + '</td>';
@@ -459,6 +476,7 @@
 						$('#companyTable').append(row);
 					});
 					$('#loading').hide();
+					$('#total').html('<h1>'+i+' Results</h1>')
 				}
 
 			});

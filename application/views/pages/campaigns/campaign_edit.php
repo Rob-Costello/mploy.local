@@ -335,7 +335,7 @@
 													<div class="input-group">
 
 
-								                <button style="z-index:100" type="button"  id="search-btn" data-toggle="modal" data-target="#myModal" class="btn btn-flat btn-mploy">
+								                <button style="z-index:100" type="button"   data-toggle="modal" data-target="#myModal" class="btn btn-flat btn-mploy">
 								                    Add Companies to Campaign
 								                </button>
 

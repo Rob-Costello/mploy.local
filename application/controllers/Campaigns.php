@@ -198,6 +198,11 @@ class Campaigns extends CI_Controller
 
 				}
 
+				$where['status'] = "status like '%%'";
+				$where['camp_ref'] = $id;
+
+
+
 				$campaign->editCampaign($id,$this->input->post());
 				$data['message'] = 'Campaign  '.$this->input->post('campaign_name') .' Updated ';
 				$this->session->set_flashdata('message', 'Campaign  '.$this->input->post('campaign_name') .' Updated ');
@@ -205,7 +210,12 @@ class Campaigns extends CI_Controller
 			}
 		}
 
+	    $where['status'] = "status like '%%'";
+	    $where['camp_ref'] = $id;
 		$data['dropdown'] = $campaign->getSchools();
+	    $companies = $campaign->getEmployers($where);
+	    $data['company_table'] = $companies['data'];
+		$data['company_count'] = $companies['count'];
 	    $data['entries'] = $campData;
 		$this->load->view('pages/campaigns/campaign_edit', $data);
 	}
@@ -257,8 +267,6 @@ class Campaigns extends CI_Controller
 
 			foreach($dates as $d)
 			{
-
-
 				$_POST[$d] = date("Y-m-d", strtotime(strtr($this->input->post($d), '/', '-')));
 			}
 

@@ -31,6 +31,17 @@ class CampaignsModel extends CI_Model
 
     }
 
+    function campaignCalls($id){
+
+    	return $this->db->query("select count(campaign_ref) as calls, 
+								sum(if(rag_status= 'red' ,1,0)) as rejected, 
+								sum(if(rag_status= 'green',1,0)) as success, 
+								sum(if(rag_status= 'amber',1,0)) as maybe 
+								from mploy_campaign_activity where campaign_ref = '".$id."'")->row_array();
+
+    }
+
+
     function getCampaigns($where = null, $request = null, $limit = null, $offset = null)
     {
        
@@ -162,7 +173,6 @@ class CampaignsModel extends CI_Model
 
     public function campaignEmployerCalls($ref,$id){
 
-
 	    $this->db->join('mploy_campaign_activity_types','mploy_campaign_activity_types.campaign_type_id = mploy_campaign_activity.campaign_activity_type_id');
 	    $this->db->join('users','users.id = mploy_campaign_activity.user_id');
 	    $this->db->where('org_id='.$id);
@@ -281,20 +291,23 @@ class CampaignsModel extends CI_Model
 
 	}
 
-	public function getCompaniesByPostcode($postcode,$campaign=null){
+	public function getCompaniesByPostcode($where,$campaign=null){
 
-		if($campaign == null) {
+		/*if($campaign == null) {
 			$this->db->select('*');
-			$this->db->like('postcode', $postcode, 'right');
+			//$this->db->like('postcode', $postcode, 'right');
 			$query = $this->db->get_where('mploy_organisations', ['organisation_type_id' => '2']);
 		}
 		else{
 
-			$query = $this->db->query("SELECT * FROM  mploy_organisations o
-                                  where comp_id not in 
-                                  (select campaign_employer_id as comp_id from mploy_rel_campaign_employers where campaign_ref='.$campaign.') 
-                                  and organisation_type_id =2 and postcode like '".$postcode."%' ");
-		}
+			/*$query = $this->db->query("SELECT * FROM  mploy_organisations o
+                                  where  not in
+                                  (select campaign_employer_id as comp_id from mploy_rel_campaign_employers where campaign_ref='.$campaign.') comp_id
+                                  and organisation_type_id =2 and postcode like '".$postcode."%' ");*/
+
+			$query = $this->db->query("SELECT * FROM  mploy_organisations o where organisation_type_id =2 ".$where);
+
+		//}
 
 		return $query->result_array();
 

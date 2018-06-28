@@ -276,17 +276,34 @@
 
 																<div class="row">
 																	<div class="col-md-12">
-																		<div id="total"> <h1><?php echo $company_count ?></h1> </div>
+																		<div id="total"> <h1>Showing <?php echo $company_count ?></h1> </div>
 																		<div class="form-group">
 
 																			<div class="input-group">
-
-																				<input style="margin:20px; padding:19px;" type="text" name="search" class="form-control" placeholder="Employer postcode" autocomplete="off">
+																				<div class="col-md-3">
+																					<input style="margin:20px; padding:19px;" type="text" name="name" class="form-control" placeholder="Company name" >
+																				</div>
+																				<div class="col-md-3">
+																					<input style="margin:20px; padding:19px;" type="text" name="address1" class="form-control" placeholder="Address" >
+																				</div>
+																				<div class="col-md-2">
+																					<input style="margin:20px; padding:19px;" type="text" name="postcode" class="form-control" placeholder="Postcode" >
+																				</div>
+																				<div class="col-md-2">
+																					<select style="margin:20px; padding:19px;" name="industry_id" class="form-control">
+																						<option value="">Select Sector</option>
+																					</select>
+																				</div>
+																				<div class="col-md-2">
+																					<input style="margin:20px; padding:19px;" type="text" name="status" class="form-control" placeholder="Status" >
+																				</div>
 																				<span class="input-group-btn">
-								                <button style="z-index:100" type="button"  id="search-btn"  class="btn btn-flat btn-mploy">
-								                    <i class=" fa fa-search"></i>
-								                </button>
-                                                </span>
+                            <button style="z-index:100" type="button"  id="search-btn" class="btn btn-flat btn-mploy">
+                                <i class=" fa fa-search"></i>
+                            </button>
+                            <button class="btn btn-flat btn-mploy" id="clear-form">Clear</button>
+
+                        </span>
 																			</div>
 
 																		</div>
@@ -318,7 +335,7 @@
 																			<?php foreach($company_table as $t):?>
 																			<tr>
 																				<td> <input class="comp" type="checkbox" name="campaign_employer_id[]" checked value="<?php echo $t->comp_id ?>" > </td>
-																				<td> <?php echo $t->name ?> </td>
+																				<td class="compname"><?php echo $t->name ?></td>
 																				<td><?php echo $t->address1 . ' ' . $t->address2 . ', '. $t->postcode ?></td>
 																				<td><?php echo $t->line_of_business?></td>
 																				<td><?php echo $t->status  ?></td>
@@ -418,34 +435,43 @@
 		//populates companies popup box with data
 		$("#search-btn").click(function(){
 			var target = '/campaigns/getBusiness/<?php echo $entries['campaign_id'] ?>';
-			var start =$('[name="search"]').val();
+			//var start =$('[name="search"]').val();
+			var name =$('[name="name"]').val();
+			var status =$('[name="status"]').val();
+			var line_of_business =$('[name="line_of_business"]').val();
+			var address1 =$('[name="address1"]').val();
+			var postcode =$('[name="postcode"]').val();
+			var seen= [];
+
+			$('.compname').each(function(){
+
+				seen[$(this).text()] = 1
+
+			});
+
+
 
 			$('#loading').show();
 			$.ajax({
 				url: target,
 				type: 'POST',
-				data: {match_postcode:start},
+				data: {name:name,status:status,line_of_business:line_of_business,address1:address1,postcode:postcode},
+
 				success: function(data, textStatus, XMLHttpRequest)
 				{
 					data = JSON.parse(data);
 					Object.keys(data).forEach(function(key){
+						if( seen[data[key].name] == undefined) {
+							var check = '<td> <input class="comp" type="checkbox" name="campaign_employer_id[]" value="' + data[key].comp_id + '" > </td>';
+							var name = '<td class="compname">' + data[key].name + '</td>';
+							var address = '<td>' + data[key].address1 + ' ' + data[key].address2 + ', ' + data[key].postcode + '</td>';
+							var business = '<td>' + data[key].line_of_business + '</td>';
+							var status = '<td>' + data[key].status + '</td>';
+							var row = $('<tr>').html(check + name + address + business + status);
 
-						var check = '<td> <input class="comp" type="checkbox" name="campaign_employer_id[]" value="'+data[key].comp_id+'" > </td>';
-						var name = '<td>'+ data[key].name+' </td>';
-						var address = '<td>'+ data[key].address1 + ' ' + data[key].address2 + ', '+ data[key].postcode + '</td>';
-						var business = '<td>'+ data[key].line_of_business+'</td>';
-						var status = '<td>'+ data[key].status+'</td>';
-						var row = $('<tr>').html(check + name + address + business + status);
+							$('#companyTable').append(row);
+						}
 
-						$('#companyTable').append(row);
-					});
-					var seen = {};
-					$('#companyTable tr').each(function() {
-						var txt = $(this).text();
-						if (seen[txt])
-							$(this).remove();
-						else
-							seen[txt] = true;
 					});
 					$('#loading').hide();
 				$('#total').html('<h1>'+($('#companyTable tr').length -1)+' Results</h1>')
@@ -480,7 +506,7 @@
 				{
 					data = JSON.parse(data);
 					Object.keys(data).forEach(function(key){
-						console.log( data[key].name);
+
 						var table = $('#holidays');
 						var start_date ='<td><input  type="text" name="start_date[]" value="'+data[key].start_date+'" class="form-control"></td>';
 						var end_date ='<td><input  type="text" name="end_date[]" value="'+data[key].end_date+'" class="form-control"></td>';

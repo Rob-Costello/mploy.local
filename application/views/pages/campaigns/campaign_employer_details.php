@@ -260,7 +260,8 @@
 
                                     </div>
                                 <div  style="padding-bottom:20px;" class="col-md-offset-8 col-md-3">
-                                    <input type="submit" class="btn btn-mploy-submit" value="New Call" onclick="window.location.replace('/campaigns/newcall/<?php echo $camp_id ?>/<?php echo $comp_id ?>')">
+                                    <input type="submit" class="btn btn-mploy-submit" value="New Call"
+                                           onclick="window.location.replace('/campaigns/newcall/<?php echo $camp_id ?>/<?php echo $comp_id ?>?campid=<?php echo $campaign;?>')">
                                 </div> 
                                    
                                         

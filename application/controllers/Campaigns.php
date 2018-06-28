@@ -355,12 +355,21 @@ class Campaigns extends CI_Controller
 
     }
 
-		function employers( $camp_ref, $pageNo = 0 ){
+
+
+
+
+
+    function employers( $camp_ref, $pageNo = 0 ){
+
+
 
 			$hasSearch = false;
 	        $data['campaign_list'] = $this->availableCampaigns;
 			$campaign= new campaignsModel();
 			$school = $campaign-> lookupCampaign($camp_ref);
+			$data['camp_data']= $school;
+			$data['call_data']= $campaign->campaignCalls($camp_ref);
 
 			$orderby = 'mploy_organisations.org_id';
 			$data['orderby']='';
@@ -429,6 +438,7 @@ class Campaigns extends CI_Controller
 			$data['camp_ref'] = $camp_ref;
 			$data['camp_id'] = $school['select_school'];
 			$data['table']= $campaign->getEmployers($where,null, $this->perPage, $offset);
+
 			$this->load->view('pages/campaigns/campaign_employers',$data);
 
 		}
@@ -436,17 +446,18 @@ class Campaigns extends CI_Controller
 			function employerDetails($camp_ref,$id)
 			{
 
+				$campaign_id = $this->input->get('campid');
 				$data['entries'] = $camp_ref;
 				$data['campaign_list'] = $this->availableCampaigns;
 			    $campaign= new campaignsModel();
 				//$data['employer'] = $campaign->employerDetails($id);
-				$info = $campaign->employerDetails($camp_ref,$id);
+				$info = $campaign->employerDetails($campaign_id,$id);
 				$data['call_message'] = $this->session->flashdata('call_message');
 				$data['employer'] = $info['company'][0];
 				$data['company'] = $info['company'];
 				$data['company_message'] = $this->session->flashdata('company_message');
-				$data['calls'] = $campaign->campaignEmployerCalls($camp_ref,$id);
-				$data['camp_id'] = $camp_ref;	
+				$data['calls'] = $campaign->campaignEmployerCalls($campaign_id,$id);
+				$data['camp_id'] = $camp_ref;
 				$data['comp_id'] = $id;
 				$data['user'] = $this->user;
 				$data['title'] = 'Campaign';
@@ -455,7 +466,7 @@ class Campaigns extends CI_Controller
 				$data['call_table'] = ['User','Type','Reciprocant','Notes','Date','Outcome'];
 				//$data['placements'] = $campaign->getPlacements($camp_ref, $id);
 				$data['placements'] = $campaign->getSuccessfulPlacement($id);
-
+				$data['campaign'] = $campaign_id;
 				$data['student_message']  = $this->session->flashdata('student_message');
 				//$data['company_message'] = 'Updated Company Successfully';
 				if(!empty($_POST)){
@@ -478,14 +489,19 @@ class Campaigns extends CI_Controller
 
 			function newCall($camp_ref,$id)
 			{
-                $data['entries'] = $camp_ref;
+				$campid = $this->input->get('campid');
+				$data['entries'] = $camp_ref;
 				$data['campaign_list'] = $this->availableCampaigns;
 			    $campaign = new campaignsModel();
 				$data['date'] = date('d/m/Y H:i:s');
 				$data['user'] = $this->user;
 				$data['activity'] = $campaign->getActivity();
 				$data['messages']='';
-				$data['camp_id'] = $camp_ref;	
+				$data['camp_id'] = $campid;
+				if($campid == null || $campid =='') {
+					$data['camp_id'] = $camp_ref;
+				}
+
 				$data['comp_id'] = $id;
 
 
@@ -494,7 +510,7 @@ class Campaigns extends CI_Controller
 					$_POST['date_time'] = date('Y-m-d H:i:s');
 					$campaign->newCall($this->input->post());
                     $this->session->set_flashdata('call_message', 'New Call Logged');
-                    redirect('campaigns/employerdetails/'.$camp_ref.'/'.$id,'refresh');
+                    redirect('campaigns/employerdetails/'.$camp_ref.'/'.$id.'?campid='.$campid,'refresh');
 
 				}
 				$this->load->view('pages/campaigns/campaign_employer_new_call',$data);
@@ -706,15 +722,17 @@ class Campaigns extends CI_Controller
 			}
 
 
-
 			function getBusiness($campaign_id = null){
 				$campaign = new CampaignsModel();
 					if (!empty($_POST)) {
-						if ($this->input->post('match_postcode')){
-							$dates = $campaign->getCompaniesByPostcode($this->input->post('match_postcode'),$campaign_id);
-							echo json_encode($dates);
+						$where='';
+						foreach($_POST as $k => $v) {
+							if ($v !== '') {
+								$where .= " and " . $k . " like '%" . $v . "%'";
+							}
 						}
-
+						$dates = $campaign->getCompaniesByPostcode($where);
+						echo json_encode($dates);
 					}
 			}
 

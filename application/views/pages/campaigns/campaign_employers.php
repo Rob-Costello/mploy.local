@@ -53,37 +53,40 @@
 
 								<div class="progress-group">
 									<span class="progress-text">Calls completed</span>
-									<span class="progress-number"><b>160</b>/2000</span>
+									<span class="progress-number"><b><?php echo $call_data['calls'] ?></b>/<?php echo (int)$campaign['count']  ?></span>
 
 									<div class="progress sm">
-										<div class="progress-bar progress-bar-aqua" style="width: 80%"></div>
+
+
+
+										<div class="progress-bar progress-bar-aqua" style="width: <?php if ((int)$call_data['calls']  <= 0 ) echo 0; echo ((int)$call_data['calls']  * 100  / (int)$campaign['count']  )?>%"></div>
 									</div>
 								</div>
 								<!-- /.progress-group -->
 								<div class="progress-group">
 									<span class="progress-text">Rejections</span>
-									<span class="progress-number"><b>310</b>/400</span>
+									<span class="progress-number"><b><?php echo $call_data['rejected'] ?></b>/<?php echo $camp_data['students_to_place']?></span>
 
 									<div class="progress sm">
-										<div class="progress-bar progress-bar-red" style="width: 80%"></div>
+										<div class="progress-bar progress-bar-red" style="width: <?php if ((int)$call_data['rejected']  <= 0 ) echo 0; echo ((int)$call_data['rejected']  * 100  / (int)$camp_data['students_to_place']  )?>%"></div>
 									</div>
 								</div>
 								<!-- /.progress-group -->
 								<div class="progress-group">
 									<span class="progress-text">Successful Placements</span>
-									<span class="progress-number"><b>480</b>/800</span>
+									<span class="progress-number"><b><?php echo $call_data['success'] ?></b>/<?php echo $camp_data['students_to_place']?></span>
 
 									<div class="progress sm">
-										<div class="progress-bar progress-bar-green" style="width: 80%"></div>
+										<div class="progress-bar progress-bar-green" style="width: <?php if ((int)$call_data['success']  <= 0 ) echo 0; echo ((int)$call_data['success']  * 100  / (int)$camp_data['students_to_place']  )?>%"></div>
 									</div>
 								</div>
 								<!-- /.progress-group -->
 								<div class="progress-group">
 									<span class="progress-text">Maybe</span>
-									<span class="progress-number"><b>250</b>/500</span>
+									<span class="progress-number"><b><?php echo $call_data['maybe'] ?></b>/<?php echo $camp_data['students_to_place']?></span>
 
 									<div class="progress sm">
-										<div class="progress-bar progress-bar-yellow" style="width: 80%"></div>
+										<div class="progress-bar progress-bar-yellow" style="width: <?php if ((int)$call_data['maybe']  <= 0 ) echo 0; echo ((int)$call_data['maybe']  * 100  / (int)$camp_data['students_to_place']  )?>%"></div>
 									</div>
 								</div>
 								<!-- /.progress-group -->

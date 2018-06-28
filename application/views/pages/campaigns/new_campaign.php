@@ -306,7 +306,7 @@
 
 		                                        <!-- Modal -->
 		                                        <div id="myModal" class="modal fade" role="dialog">
-			                                        <div class="modal-dialog">
+			                                        <div style="width: 60% !important;" class="modal-dialog">
 
 				                                        <!-- Modal content-->
 				                                        <div class="modal-content">
@@ -319,38 +319,52 @@
 					                                        <div class="modal-body">
 
 
-							                                        <div class="row">
-								                                        <div class="col-md-12">
-									                                        <div class="form-group">
-										                                        <div id="total"> <h1>0</h1> </div>
-										                                        <div class="form-group">
+						                                        <div class="row">
+							                                        <div class="col-md-12">
+								                                        <div id="total">  </div>
+								                                        <div class="form-group">
 
-											                                        <div class="input-group">
-
-												                                        <input style="margin:20px; padding:19px;" type="text" name="search" class="form-control" placeholder="Employer postcode" autocomplete="off">
-												                                        <span class="input-group-btn">
-								                <button style="z-index:100" type="button"  id="search-btn"  class="btn btn-flat btn-mploy">
-								                    <i class=" fa fa-search"></i>
-								                </button>
-                                                </span>
-											                                        </div>
-
-
-
+									                                        <div class="input-group">
+										                                        <div class="col-md-3">
+											                                        <input style="margin:20px; padding:19px;" type="text" name="name" class="form-control" placeholder="Company name" >
 										                                        </div>
+										                                        <div class="col-md-3">
+											                                        <input style="margin:20px; padding:19px;" type="text" name="address1" class="form-control" placeholder="Address" >
+										                                        </div>
+										                                        <div class="col-md-2">
+											                                        <input style="margin:20px; padding:19px;" type="text" name="postcode" class="form-control" placeholder="Postcode" >
+										                                        </div>
+										                                        <div class="col-md-2">
+											                                        <select style="margin:20px; padding:19px;" name="industry_id" class="form-control">
+												                                        <option value="">Select Sector</option>
+											                                        </select>
+										                                        </div>
+										                                        <div class="col-md-2">
+											                                        <input style="margin:20px; padding:19px;" type="text" name="status" class="form-control" placeholder="Status" >
+										                                        </div>
+										                                        <span class="input-group-btn">
+                            <button style="z-index:100" type="button"  id="search-btn" class="btn btn-flat btn-mploy">
+                                <i class=" fa fa-search"></i>
+                            </button>
+                            <button class="btn btn-flat btn-mploy" id="clear-form">Clear</button>
+
+                        </span>
+									                                        </div>
+
 								                                        </div>
 							                                        </div>
+						                                        </div>
 
 
 
-							                                        <div class="row">
-								                                        <div class="col-md-12">
-								                                        <div class="col-md-offset-8" ><button  id="check_all" class="btn btn-mploy" type="button">Select All</button>
+						                                        <div class="row">
+							                                        <div class="col-md-12">
+								                                        <div class="col-md-offset-10" ><button  id="check_all" class="btn btn-mploy" type="button">Select All</button>
 									                                        <button type="button" class="btn btn-mploy-submit" data-dismiss="modal">Save</button>
 								                                        </div>
 
-									                                        <div id="loading"> <h2>Please wait loading results..</h2></div>
-									                                        <table class="table table-bordered table-striped" id="companyTable">
+								                                        <div style="display:none" id="loading"> <h2>Please wait loading results..</h2></div>
+								                                        <table class="table table-bordered table-striped" id="companyTable">
 
 									                                        <thead>
 									                                        <tr>
@@ -358,32 +372,31 @@
 										                                        <th>Company Name</th>
 
 										                                        <th>Address</th>
+										                                        <th>Sector</th>
+										                                        <th>Status</th>
+									                                        </tr>
+									                                        </thead>
+									                                        <tbody>
+
+
+									                                        </tbody>
+
 
 								                                        </table>
-								                                        </div>
 							                                        </div>
+						                                        </div>
 
 
 
 
 					                                        </div>
 					                                        <div class="modal-footer">
-						                                        <button  class="btn btn-mploy" >Add Entry</button>
-						                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
-                                </div>
-                            </div>
+					                                        </div>
+				                                        </div>
 
-                    </div>
-                </div>
-
-
-
-
-
-
-
-	                                        </div>
+			                                        </div>
+		                                        </div>
 
 	                                        <div class="row">
 												<div class="col-md-12">
@@ -444,7 +457,6 @@
 	<script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 	<script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
 
-
 	<script>
 		//check all checkboxes when selecting company
 		$("#check_all").click(function(){
@@ -454,34 +466,52 @@
 		});
 
 		//populates companies popup box with data
-		//populates companies popup box with data
 		$("#search-btn").click(function(){
 			var target = '/campaigns/getBusiness';
-			var start =$('[name="search"]').val();
-			var i = 0;
+			//var start =$('[name="search"]').val();
+			var name =$('[name="name"]').val();
+			var status =$('[name="status"]').val();
+			var line_of_business =$('[name="line_of_business"]').val();
+			var address1 =$('[name="address1"]').val();
+			var postcode =$('[name="postcode"]').val();
+			var seen= [];
+
+			$('.compname').each(function(){
+
+				seen[$(this).text()] = 1;
+				console.log($(this).text());
+
+			});
+
 			$('#loading').show();
 			$.ajax({
 				url: target,
 				type: 'POST',
-				data: {match_postcode:start},
+				data: {name:name,status:status,line_of_business:line_of_business,address1:address1,postcode:postcode},
+
 				success: function(data, textStatus, XMLHttpRequest)
 				{
 					data = JSON.parse(data);
 					Object.keys(data).forEach(function(key){
-						i++;
-						var check = '<td> <input class="comp" type="checkbox" name="campaign_employer_id[]" value="'+data[key].comp_id+'" > </td>';
-						var name = '<td>'+ data[key].name+' </td>';
-						var address = '<td>'+ data[key].address1 + ' ' + data[key].address2 + ', '+ data[key].postcode + '</td>';
-						var row = $('<tr>').html(check + name + address);
-						$('#companyTable').append(row);
+						if( seen[data[key].name] == undefined) {
+
+							var check = '<td> <input class="comp" type="checkbox" name="campaign_employer_id[]" value="' + data[key].comp_id + '" > </td>';
+							var name = '<td class="compname">'+ data[key].name +'</td>';
+							var address = '<td>' + data[key].address1 + ' ' + data[key].address2 + ', ' + data[key].postcode + '</td>';
+							var business = '<td>' + data[key].line_of_business + '</td>';
+							var status = '<td>' + data[key].status + '</td>';
+							var row = $('<tr>').html(check + name + address + business + status);
+
+							$('#companyTable').append(row);
+						}
+
 					});
 					$('#loading').hide();
-					$('#total').html('<h1>'+i+' Results</h1>')
+					$('#total').html('<h1>'+($('#companyTable tr').length -1)+' Results</h1>')
 				}
 
 			});
 		});
-
 
 		// row constructor for add school holiday functions
 		function addRow(tbl =''){
@@ -641,8 +671,6 @@
 				var start =$('[name="campaign_place_start_date"]').val()
 				var end =$('[name="campaign_place_end_date"]').val()
 				var campStart= $('[name="campaign_start_date"]').val();
-				//alert($('[name="campaign_place_start_date"]').val());
-				//var start =$('#campaign_place_start_date').val();
 				$.ajax({
 					url: target,
 					type: 'POST',
@@ -660,6 +688,7 @@
 		})
 
 	</script>
+	<script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
 
 
 	<script>
@@ -673,11 +702,9 @@
 
 		})
 
-
 		$(function(){
 
 
 			$( "#school" ).autocomplete({source: "http://mploy.local/schools/getSchools/?"});
 		})
 	</script>
-

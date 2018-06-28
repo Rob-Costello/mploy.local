@@ -276,7 +276,7 @@
 
 																<div class="row">
 																	<div class="col-md-12">
-																		<div id="total"> <h1>0</h1> </div>
+																		<div id="total"> <h1><?php echo $company_count ?></h1> </div>
 																		<div class="form-group">
 
 																			<div class="input-group">
@@ -310,6 +310,19 @@
 																				<th>Company Name</th>
 
 																				<th>Address</th>
+																			</tr>
+																			</thead>
+																			<tbody>
+																			<?php foreach($company_table as $t):?>
+																			<tr>
+																				<td> <input class="comp" type="checkbox" name="campaign_employer_id[]" checked value="<?php echo $t->comp_id ?>" > </td>
+																				<td> <?php echo $t->name ?> </td>
+																				<td><?php echo $t->address1 . ' ' . $t->address2 . ', '. $t->postcode ?></td>
+																			</tr>
+																			<?php endforeach ?>
+
+																			</tbody>
+
 
 																		</table>
 																	</div>
@@ -402,7 +415,7 @@
 		$("#search-btn").click(function(){
 			var target = '/campaigns/getBusiness/<?php echo $entries['campaign_id'] ?>';
 			var start =$('[name="search"]').val();
-			var i = 0;
+
 			$('#loading').show();
 			$.ajax({
 				url: target,
@@ -412,15 +425,23 @@
 				{
 					data = JSON.parse(data);
 					Object.keys(data).forEach(function(key){
-						i++;
+
 						var check = '<td> <input class="comp" type="checkbox" name="campaign_employer_id[]" value="'+data[key].comp_id+'" > </td>';
 						var name = '<td>'+ data[key].name+' </td>';
 						var address = '<td>'+ data[key].address1 + ' ' + data[key].address2 + ', '+ data[key].postcode + '</td>';
 						var row = $('<tr>').html(check + name + address);
 						$('#companyTable').append(row);
 					});
+					var seen = {};
+					$('#companyTable tr').each(function() {
+						var txt = $(this).text();
+						if (seen[txt])
+							$(this).remove();
+						else
+							seen[txt] = true;
+					});
 					$('#loading').hide();
-				$('#total').html('<h1>'+i+' Results</h1>')
+				$('#total').html('<h1>'+($('#companyTable tr').length -1)+' Results</h1>')
 				}
 
 			});
@@ -585,8 +606,6 @@
 				var start =$('[name="campaign_place_start_date"]').val()
 				var end =$('[name="campaign_place_end_date"]').val()
 				var campStart= $('[name="campaign_start_date"]').val();
-				//alert($('[name="campaign_place_start_date"]').val());
-				//var start =$('#campaign_place_start_date').val();
 				$.ajax({
 					url: target,
 					type: 'POST',

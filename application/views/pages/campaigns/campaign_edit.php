@@ -310,6 +310,8 @@
 																				<th>Company Name</th>
 
 																				<th>Address</th>
+																				<th>Sector</th>
+																				<th>Status</th>
 																			</tr>
 																			</thead>
 																			<tbody>
@@ -318,6 +320,8 @@
 																				<td> <input class="comp" type="checkbox" name="campaign_employer_id[]" checked value="<?php echo $t->comp_id ?>" > </td>
 																				<td> <?php echo $t->name ?> </td>
 																				<td><?php echo $t->address1 . ' ' . $t->address2 . ', '. $t->postcode ?></td>
+																				<td><?php echo $t->line_of_business?></td>
+																				<td><?php echo $t->status  ?></td>
 																			</tr>
 																			<?php endforeach ?>
 
@@ -429,7 +433,10 @@
 						var check = '<td> <input class="comp" type="checkbox" name="campaign_employer_id[]" value="'+data[key].comp_id+'" > </td>';
 						var name = '<td>'+ data[key].name+' </td>';
 						var address = '<td>'+ data[key].address1 + ' ' + data[key].address2 + ', '+ data[key].postcode + '</td>';
-						var row = $('<tr>').html(check + name + address);
+						var business = '<td>'+ data[key].line_of_business+'</td>';
+						var status = '<td>'+ data[key].status+'</td>';
+						var row = $('<tr>').html(check + name + address + business + status);
+
 						$('#companyTable').append(row);
 					});
 					var seen = {};

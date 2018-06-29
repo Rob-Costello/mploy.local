@@ -189,7 +189,14 @@ class Campaigns extends CI_Controller
 					//remove employer id to stop error
 					unset($_POST['campaign_employer_id']);
 				}
+				//remove search fields from form
 				unset($_POST['search']);
+				unset($_POST['name']);
+				unset($_POST['address1']);
+				unset($_POST['postcode']);
+				unset($_POST['industry_id']);
+				unset($_POST['status']);
+
 
 				foreach ($temp as  $t) {
 
@@ -370,7 +377,7 @@ class Campaigns extends CI_Controller
 			$school = $campaign-> lookupCampaign($camp_ref);
 			$data['camp_data']= $school;
 			$data['call_data']= $campaign->campaignCalls($camp_ref);
-
+			$data['campaign_dropdown'] = $camp_ref;
 			$orderby = 'mploy_organisations.org_id';
 			$data['orderby']='';
 			$like = null;

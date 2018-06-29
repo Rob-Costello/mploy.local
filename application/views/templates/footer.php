@@ -1,8 +1,11 @@
 
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <script src="<?php echo base_url()."assets/";?>bower_components/jquery/dist/jquery.min.js"></script>
 
 <script>
-	$.widget.bridge('uibutton', $.ui.button);
+	//$.widget.bridge('uibutton', $.ui.button);
 </script>
 <!-- Bootstrap 3.3.7 -->
 <script src="<?php echo base_url()."assets/";?>bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -38,6 +41,8 @@
 <!-- Date picker -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 <script>
@@ -56,6 +61,8 @@
             }
         });
     }
+
+
     $(function(){
             campaigns($('#school-dropdown').val());
     });
@@ -66,10 +73,29 @@
     });
 	$(function(){
 		$('#campaign-dropdown').change(function(){
+
 			window.location.replace('/campaigns/employers/'+$(this).val()+'/0');
 		});
 	});
-    $(document).ready(function()
+
+
+	<?php if (isset($campaign_dropdown)):?>
+
+    $(function(){
+	    $('#campaign-dropdown').val(<?php echo $campaign_dropdown ?>);
+    });
+	<?php endif ?>
+
+	$(function(){
+	    $('#campaign-dropdown').change(function(){
+
+		    window.location.replace('/campaigns/employers/'+$(this).val()+'/0');
+	    });
+    });
+
+
+
+	$(document).ready(function()
     {
         $('#reset-form').on('click', function()
         {

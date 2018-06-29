@@ -477,13 +477,12 @@
 			var seen= [];
 
 			$('.compname').each(function(){
-
 				seen[$(this).text()] = 1;
 				console.log($(this).text());
-
 			});
 
 			$('#loading').show();
+
 			$.ajax({
 				url: target,
 				type: 'POST',
@@ -515,21 +514,19 @@
 
 		// row constructor for add school holiday functions
 		function addRow(tbl =''){
-			var start_date ='<td><input  type="text" name="start_date[]" value="" class="datepicker2 form-control"></td>';
-			var end_date ='<td><input  type="text" name="end_date[]" value="" class="datepicker2 form-control"></td>';
+			var start_date ='<td><input  type="text" name="start_date[]" value="" class="datepicker'+tbl+' form-control"></td>';
+			var end_date ='<td><input  type="text" name="end_date[]" value="" class="datepicker'+tbl+' form-control"></td>';
 			var holiday ='<td><input  type="text" name="holiday[]" value="" class="form-control"></td>';
 			var row = $('<tr tbl>').html(start_date + end_date + holiday );
 			return row;
 		}
+
 		// listener for school drop down  populates school holidays when option changed
 		$('#select_school').change(function(){
 			var target= '/campaigns/getSchoolHolidays/'+$('#select_school').val();
 			$('.school_row').remove();
 			var table = $('#holidays');
-			//$('#last_row').before(addRow());
-			//table.find('tr:last').prev().before(addRow());
 
-			//table.append(addRow('class="school_row"'));
 			$.ajax({
 				url: target,
 				type: 'GET',
@@ -555,10 +552,19 @@
 
 
 		$('#add-row').click(function(){
-			$('#last_row').before(addRow());
-			$(function() {$('.datepicker2').daterangepicker({opens: 'left',singleDatePicker: true,locale: {
+
+			var num = $('#companyTable tr').length ;
+			$('#last_row').before(addRow(num));
+
+			$(function(){
+
+				$(".datepicker"+num).inputmask({"mask": "99/99/9999", "placeholder":"dd/mm/yyyy"});
+
+			})
+			$(function() {$('.datepicker'+num).daterangepicker({opens: 'left',singleDatePicker: true,locale: {
 					format: 'DD-MM-YYYY'
 				}})});
+
 		});
 
 
@@ -579,74 +585,7 @@
 	</script>
 
 	<script>
-		/*
-		$(function(){
 
-	$('.daterangepicker').each(function(index,e){
-		var $(e).val() = $(e);
-		console.log(current);
-		var d = current.split('-');
-		var output = d[2]+'-'+d[1]+'-'+d[0];
-
-		$(e).val(output);
-		console.log(output);
-	});
-
-
-});
-
-
-
-
-		//append holidays to holiday table
-
-
-		//date range plugin
-
-		//$(function() {
-
-
-
-		$('#campaign_date').daterangepicker({
-			opens: 'left',
-			singleDatePicker: true,
-			setDate:'',
-
-			locale: {
-				format: 'DD-MM-YYYY'
-			}
-		})
-
-
-
-		$('.datepicker').daterangepicker({
-			opens: 'left',
-			singleDatePicker: true,
-			setDate:'',
-
-			locale: {
-				format: 'DD-MM-YYYY'
-			}
-
-		});
-
-		$('.datepicker2').daterangepicker({
-			opens: 'left',
-			singleDatePicker: true,
-			setDate:'',
-
-			locale: {
-				format: 'DD-MM-YYYY'
-			}
-
-		});
-		//});
-
-		//remove prepopulated dates in date picker
-		/*$(function(){
-			$('.datepicker').val('');
-
-		})*/
 
 
 		<?php if (isset($error)): ?>
@@ -694,6 +633,7 @@
 	<script>
 
 
+
 		$(function(){
 
 
@@ -701,6 +641,19 @@
 
 
 		})
+
+
+		$(function() {
+			$('.datepicker').daterangepicker({
+				opens: 'left',
+				singleDatePicker: true,
+				//autoUpdateInput: false,
+				locale: {
+					format: 'DD/MM/YYYY'
+				}
+			}).val('');
+		});
+
 
 		$(function(){
 

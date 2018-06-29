@@ -390,10 +390,6 @@
 											</div>
 
 
-
-
-
-
 											<div class="row">
 												<div class="col-md-4">
 													<input type="submit" class="btn btn-mploy-submit" value="Save Changes">
@@ -421,7 +417,7 @@
 
 	<?php $this->load->view('templates/footer'); ?>
 
-	<script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 
 	<script>
@@ -521,6 +517,20 @@
 		})
 
 
+		$(function() {
+			$('.datepicker').daterangepicker({
+				opens: 'left',
+				singleDatePicker: true,
+				defaultViewDate: null,
+
+				locale: {
+					format: 'DD-MM-YYYY'
+				}
+			});
+		});
+
+
+
 
 		$('#add-row').click(function(){
 			$('#last_row').before(addRow());
@@ -528,6 +538,7 @@
 					format: 'DD-MM-YYYY'
 				}})});
 		});
+
 
 
 	</script>
@@ -656,7 +667,7 @@
 		})
 
 	</script>
-	<script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+	 <script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
 
 
 	<script>

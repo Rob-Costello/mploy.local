@@ -53,7 +53,7 @@
 
 								<div class="progress-group">
 									<span class="progress-text">Calls completed</span>
-									<span class="progress-number"><b><?php echo $call_data['calls'] ?></b>/<?php echo (int)$campaign['count']  ?></span>
+									<span class="progress-number"><b><?php echo $call_data['calls'] ?></b>/<?php echo (int)$campaign['count']; ?></span>
 
 									<div class="progress sm">
 

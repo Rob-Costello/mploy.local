@@ -532,12 +532,6 @@
 
 
 
-		$('#add-row').click(function(){
-			$('#last_row').before(addRow());
-			$(function() {$('.datepicker2').daterangepicker({opens: 'left',singleDatePicker: true,locale: {
-					format: 'DD-MM-YYYY'
-				}})});
-		});
 
 
 
@@ -672,6 +666,21 @@
 
 	<script>
 
+		$('#add-row').click(function(){
+
+			var num = $('#companyTable tr').length ;
+			$('#last_row').before(addRow(num));
+
+			$(function(){
+
+				$(".datepicker"+num).inputmask({"mask": "99/99/9999", "placeholder":"dd/mm/yyyy"});
+
+			})
+			$(function() {$('.datepicker'+num).daterangepicker({opens: 'left',singleDatePicker: true,locale: {
+					format: 'DD-MM-YYYY'
+				}})});
+
+		});
 
 		$(function(){
 

@@ -119,8 +119,8 @@
                 
                                 <div class="row">
                                     <div class="col-md-12">
-                                    <input name="update_company" value="submit" type="submit" class="btn btn-mploy-submit" value="Save Changes">
-                                    <input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/campaigns')">
+                                    <input name="update_company" value="Submit" type="submit" class="btn btn-mploy-submit" value="Save Changes">
+                                    <input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/campaigns/employers/<?php echo $campaign_dropdown ?>/0')">
                                     </div>
                                 </div>
 

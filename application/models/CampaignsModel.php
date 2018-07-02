@@ -140,6 +140,33 @@ class CampaignsModel extends CI_Model
 
     }
 
+	public function updateHolidayDate($id,$data){
+
+
+
+			$this->db->trans_start();
+			$this->db->where('id', $id);
+			$this->db->update('mploy_organisation_holidays', $data);
+			$this->db->trans_complete();
+			return $this->db->trans_status();
+
+
+
+	}
+
+	public function updateCalendarDate($id,$data){
+
+
+
+		$this->db->trans_start();
+		$this->db->where('id', $id);
+		$this->db->update('mploy_calendar', $data);
+		$this->db->trans_complete();
+		return $this->db->trans_status();
+
+
+
+	}
 
     public function getCompanyContact($id){
 

@@ -377,7 +377,9 @@ class Campaigns extends CI_Controller
 			$school = $campaign-> lookupCampaign($camp_ref);
 			$data['camp_data']= $school;
 			$data['call_data']= $campaign->campaignCalls($camp_ref);
-			$data['campaign_dropdown'] = $camp_ref;
+			//$data['campaign_dropdown'] = $camp_ref;
+
+
 			$orderby = 'mploy_organisations.org_id';
 			$data['orderby']='';
 			$like = null;
@@ -428,7 +430,7 @@ class Campaigns extends CI_Controller
 				$page = $this->helpers->page($data['campaign'],'/campaigns/employers/'.$camp_ref,$this->perPage);
 				$this->pagination->initialize($page);
 			}
-
+	    $data['campaign_dropdown']= $camp_ref;
 			$data['pagination_start'] = $offset + 1;
 			$data['pagination_end'] = $data['pagination_start'] + $this->perPage;
 		
@@ -445,7 +447,6 @@ class Campaigns extends CI_Controller
 			$data['camp_ref'] = $camp_ref;
 			$data['camp_id'] = $school['select_school'];
 			$data['table']= $campaign->getEmployers($where,null, $this->perPage, $offset);
-
 			$this->load->view('pages/campaigns/campaign_employers',$data);
 
 		}
@@ -453,9 +454,11 @@ class Campaigns extends CI_Controller
 			function employerDetails($camp_ref,$id)
 			{
 
-				$campaign_id = $this->input->get('campid');
+
+
 				$data['entries'] = $camp_ref;
-				$data['campaign_list'] = $this->availableCampaigns;
+				$data['school_id'] = $camp_ref;
+				$campaign_id = $this->input->get('campid');
 			    $campaign= new campaignsModel();
 				//$data['employer'] = $campaign->employerDetails($id);
 				$info = $campaign->employerDetails($campaign_id,$id);
@@ -464,7 +467,7 @@ class Campaigns extends CI_Controller
 				$data['company'] = $info['company'];
 				$data['company_message'] = $this->session->flashdata('company_message');
 				$data['calls'] = $campaign->campaignEmployerCalls($campaign_id,$id);
-				$data['camp_id'] = $camp_ref;
+
 				$data['comp_id'] = $id;
 				$data['user'] = $this->user;
 				$data['title'] = 'Campaign';
@@ -475,6 +478,7 @@ class Campaigns extends CI_Controller
 				$data['placements'] = $campaign->getSuccessfulPlacement($id);
 				$data['campaign'] = $campaign_id;
 				$data['student_message']  = $this->session->flashdata('student_message');
+				$data['campaign_dropdown']= $camp_ref;
 				//$data['company_message'] = 'Updated Company Successfully';
 				if(!empty($_POST)){
 
@@ -489,6 +493,10 @@ class Campaigns extends CI_Controller
                     }
 
                 }
+				$data['campaign_list'] = $this->availableCampaigns;
+				$data['campaign_id'] = $campaign_id;
+
+				$data['camp_id'] = $camp_ref;
 
 				$this->load->view('pages/campaigns/campaign_employer_details',$data);
 			}
@@ -496,6 +504,8 @@ class Campaigns extends CI_Controller
 
 			function newCall($camp_ref,$id)
 			{
+				$data['campaign_list'] = $this->availableCampaigns;
+
 				$campid = $this->input->get('campid');
 				$data['entries'] = $camp_ref;
 				$data['campaign_list'] = $this->availableCampaigns;
@@ -505,6 +515,7 @@ class Campaigns extends CI_Controller
 				$data['activity'] = $campaign->getActivity();
 				$data['messages']='';
 				$data['camp_id'] = $campid;
+
 				if($campid == null || $campid =='') {
 					$data['camp_id'] = $camp_ref;
 				}
@@ -520,26 +531,50 @@ class Campaigns extends CI_Controller
                     redirect('campaigns/employerdetails/'.$camp_ref.'/'.$id.'?campid='.$campid,'refresh');
 
 				}
+
+				$data['dropdown'] = $campid;
 				$this->load->view('pages/campaigns/campaign_employer_new_call',$data);
 			}
 
 
 
 
-			function findCampaigns(){
+			function findCampaigns($school = null){
 
 				$campaign = new campaignsModel();
-				if(!empty($_POST)) {
-					$school = $this->input->post('school');
+
+				if($school !==null){
 					$list = $campaign->listCampaigns($school);
 					$option= '<option>Select Campaign</option>';
 					foreach($list as $k => $item){
 
 						$option.= '<option value="'.$item['campaign_id'].'">'.$item['campaign_name'].'</option>';
+
+					}
+					return $option;
+
+				}
+
+				 if(!empty($_POST)) {
+					$school = $this->input->post('school');
+					$list = $campaign->listCampaigns($school);
+					$camp = $this->input->post('camp');
+
+					$option= '<option>Select Campaign</option>';
+					foreach($list as $k => $item){
+
+						if($item['campaign_id']==$camp){
+							$option.= '<option selected value="'.$item['campaign_id'].'">'.$item['campaign_name'].'</option>';
+						}
+						else {
+
+							$option .= '<option value="' . $item['campaign_id'] . '">' . $item['campaign_name'] . '</option>';
+						}
+
 					}
 					echo $option;
 				}
-				echo json_encode( "nothing");
+				//echo json_encode( "nothing");
 			}
 
 

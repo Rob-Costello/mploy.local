@@ -51,13 +51,19 @@
     {
         var target = '/campaigns/findCampaigns';
         var data =id;
+        var camp='';
+        <?php if (isset($campaign_dropdown)): ?>
+	    var camp = <?php echo $campaign_dropdown; ?>
+	    <?php endif ?>
+
         $.ajax({
             url: target,
             type: 'POST',
-            data: {school:data},
+            data: {school:data, camp:camp},
             success: function(data, textStatus, XMLHttpRequest)
             {
                 $('#campaign-dropdown').html(data);
+
             }
         });
     }
@@ -65,6 +71,7 @@
 
     $(function(){
             campaigns($('#school-dropdown').val());
+
     });
     $(function(){
         $('#school-dropdown').change(function(){
@@ -79,12 +86,7 @@
 	});
 
 
-	<?php if (isset($campaign_dropdown)):?>
 
-    $(function(){
-	    $('#campaign-dropdown').val(<?php echo $campaign_dropdown ?>);
-    });
-	<?php endif ?>
 
 	$(function(){
 	    $('#campaign-dropdown').change(function(){
@@ -109,6 +111,17 @@
         });
     });
 
+
+    <?php if (isset($campaign_dropdown)):?>
+
+    $(function(){
+
+	    //$('#campaign-dropdown option[value="<?php echo $campaign_dropdown ?>"]').attr('selected','selected');;
+	    ////$('#campaign-dropdown').val(<?php echo $campaign_dropdown ?>);
+	    $('#campaign-dropdown').val(<?php echo $campaign_dropdown ?>);
+	    $('#campaign-dropdown').text(<?php echo $campaign_dropdown ?>);
+    });
+    <?php endif ?>
 </script>
 
 </body>

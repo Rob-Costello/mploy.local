@@ -1,6 +1,21 @@
 
 <?php $this->load->view('templates/header'); ?>
+<?php
+	function percent ($percent)
+	{
 
+		if ($percent < 50) {
+			$color = '#00a65a';
+		}
+		if ($percent > 51) {
+			$color = '#f39c12';
+		}
+		if ($percent > 85) {
+			$color = 'red';
+		}
+		return $color;
+	}
+?>
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
 	<section class="content-header">
@@ -115,20 +130,22 @@
                                 <?php foreach($output as  $key => $campaign){ ?>
 
                                     <!-- /.col -->
-									<div style="margin-right:20px" class="col-md-2"><a href="/campaigns/employers/<?php echo $campaign['campaign_display']->campaign_id ?>/0">
+									<div style="margin-right:20px; " class="col-md-2 "><a href="/campaigns/employers/<?php echo $campaign['campaign_display']->campaign_id ?>/0">
                                         <!--										<p class="text-center">-->
                                         <!--											<strong>Goal Completion</strong>-->
                                         <!--										</p>-->
 
-
-                                        <h3 class="text-center box-title"><?php echo $campaign['campaign_display']->campaign_name; ?></h3>
-                                        <h4 class="box-title"><?php echo date('d/m/Y',strtotime($campaign['campaign_display']->campaign_place_start_date)); ?></h4>
+										<div style="height:80px">
+                                        <h3 style="color:#54667a;" class="text-center box-title"><?php echo $campaign['campaign_display']->campaign_name; ?></h3>
+										</div>
+											<h4 class="box-title"><?php echo date('d/m/Y',strtotime($campaign['campaign_display']->campaign_place_start_date)); ?></h4>
                                         <div class="progress-group">
                                             <span class="progress-text">Companies Contacted</span>
                                             <span class="progress-number"><b> <?php  echo $campaign['call_info'][$key]['call']; ?>
                                                 </b>/<?php echo $callinfo[$key]['info']; ?></span>
                                             <div class="progress sm">
-                                                <div class="progress-bar progress-bar-aqua" style="width: <?php if ((int)$callinfo[$key]['call']  <= 0 ) echo 0; else echo ((int)$callinfo[$key]['call'] * 100  / (int)$callinfo[$key]['info']  )?>%"></div>
+                                                <div class="progress-bar progress-bar-aqua" style="width: <?php if ((int)$callinfo[$key]['call']  <= 0 ) echo 0; else echo $percent = ((int)$callinfo[$key]['call'] * 100  / (int)$callinfo[$key]['info']  )?>%;
+	                                                background-color:<?php echo percent($percent);?> "></div>
                                             </div>
                                         </div>
                                         <!-- /.progress-group -->
@@ -139,55 +156,40 @@
                                                 </b>/ <?php echo $campaign['call_info'][$key]['total'];?></span>
 
                                             <div class="progress sm">
-                                                <div class="progress-bar progress-bar-yellow" style="width: <?php if ((int)$callinfo[$key]['success']  <= 0 ) echo 0; echo ((int)$callinfo[$key]['success'] * 100  / (int)$callinfo[$key]['total']  )?>%"></div>
+                                                <div class="progress-bar progress-bar-yellow" style="width: <?php if ((int)$callinfo[$key]['success']  <= 0 ) echo 0; echo $percent = ((int)$callinfo[$key]['success'] * 100  / (int)$callinfo[$key]['total']  );?>%
+	                                                ;background-color:<?php echo percent($percent);?>"></div>
                                             </div>
                                         </div>
                                         <!-- /.progress-group -->
                                         <div class="progress-group">
                                             <span class="progress-text">Success Rate</span>
-                                            <span class="progress-number"><b>4</b>/100</span>
+                                            <span class="progress-number"><b><?php echo round((int)$callinfo[$key]['success'] * 100  / (int)$callinfo[$key]['total']);?></b>/ <?php echo $callinfo[$key]['info']; ?></span>
 
                                             <div class="progress sm">
-                                                <div class="progress-bar progress-bar-green" style="width: 4%"></div>
+	                                            <div class="progress-bar progress-bar-yellow" style="width: <?php if ((int)$callinfo[$key]['success']  <= 0 ) echo 0; echo $percent = ((int)$callinfo[$key]['success'] * 100  / (int)$callinfo[$key]['total']  );?>%
+		                                            ;background-color:<?php echo percent($percent);?>"></div>
                                             </div>
                                         </div>
 											<div class="progress-group">
-												<span class="progress-text">Time Remaining</span>
+												<span class="progress-text">Days Remaining</span>
 
 
+												<?php
+												$startdate= strtotime($campaign['campaign_display']->campaign_start_date); //Future date
+												$enddate= strtotime($campaign['campaign_display']->employer_engagement_end); //Future date
+												$cmplength = (  $startdate - $enddate);
+												$days = round($cmplength / (60 * 60 * 24));
+												$now = strtotime(date('d/m/Y h:i:s'));
+												$timeleft = ( $enddate - $now);
+												$daysleft = round($timeleft / (60 * 60 * 24));
+												$percent = ($daysleft * 100 / $days);
 
-
+												$color = percent($percent)
+												?>
 
 												<span class="progress-number">
 													<b>
-														<?php
-														$startdate= strtotime($campaign['campaign_display']->campaign_start_date); //Future date.
-														//$startdate=strtotime(date('d/m/Y h:i:s',strtotime('+1 days'))) ;
-
-														$enddate= strtotime($campaign['campaign_display']->employer_engagement_end); //Future date.
-														//$enddate=strtotime(date('d/m/Y h:i:s',strtotime('+90 days'))) ;
-
-														$cmplength = (  $startdate - $enddate);
-														$days = round($cmplength / (60 * 60 * 24));
-														$now = strtotime(date('d/m/Y h:i:s'));
-														$timeleft = ( $enddate - $now);
-														$daysleft = round($timeleft / (60 * 60 * 24));
-														$percent = ($daysleft * 100 / $days);
-														if($percent < 50){
-															$color= '#00a65a';
-														}
-														if($percent >51){
-															$color = '#f39c12';
-														}
-														if ($percent > 85){
-															$color = 'red';
-														}
-
-
-
-												//echo (int)$percent.'%';
-												//echo $daysleft.' Days Remaining / '. $days;
-														 ?>
+														<?php echo $daysleft; ?>
 													</b>
 												</span>
 
@@ -354,8 +356,16 @@
 
 
                                         })
-                                    </script>
 
+
+
+                                    </script>
+								<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.0/jquery.matchHeight-min.js"><script>
+
+										<script>
+
+
+									</script>
 									<!-- /.col -->
 								</div>
 								<!-- /.row -->

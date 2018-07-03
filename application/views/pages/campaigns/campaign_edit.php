@@ -379,8 +379,10 @@
 													</div>
 
 													</div>
-
-													<div class="selected col-md-6"><h1>Selected <?php echo $company_count ?> companies</h1></div>
+													<div class="col-md-6">
+													<div class="selected "><h3>Selected <?php echo $company_count ?> companies</h3></div>
+														 <h3> <?php echo $entries['students_to_place'] * 20; ?> is recommended</h3>
+													</div>
 												</div>
 
 
@@ -673,7 +675,7 @@
 					i++;
 				}
 			})
-			$('.selected').html('<h1>Selected '+i+' companies</h1>');
+			$('.selected').html('<h1>Selected '+i+' companies </h1>');
 
 		});
 

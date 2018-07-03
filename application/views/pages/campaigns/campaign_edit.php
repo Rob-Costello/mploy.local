@@ -234,10 +234,11 @@
 													<label style="float:top" >Campaign Status</label>
 													<div class="form-group">
 
-															<select class="form-control">
+															<select name="active" class="form-control">
 
 																<option <?php if($entries['active'] == 1) echo ' selected' ?> value="1"> Active</option>
-																<option <?php if($entries['active'] == 0) echo ' selected' ?> value="0"> Inactive</option>
+																<option <?php if($entries['active'] == 2) echo ' selected' ?> value="2"> On Hold</option>
+																<option <?php if($entries['active'] == 0) echo ' selected' ?> value="0"> Complete</option>
 
 
 
@@ -275,8 +276,10 @@
 
 
 																<div class="row">
+																	<div class="col-md-6" id="total"> <h1>Showing <?php echo $company_count ?></h1> </div>
+																	<div class="selected col-md-6"><h1>Selected <?php echo $company_count ?> companies</h1></div>
 																	<div class="col-md-12">
-																		<div id="total"> <h1>Showing <?php echo $company_count ?></h1> </div>
+
 																		<div class="form-group">
 
 																			<div class="input-group">
@@ -363,7 +366,7 @@
 
 
 												<div style="padding-bottom:100px;" id="row">
-												<div class="col-md-6">
+												<div class="col-md-3">
 
 
 													<div class="input-group">
@@ -376,6 +379,8 @@
 													</div>
 
 													</div>
+
+													<div class="selected col-md-6"><h1>Selected <?php echo $company_count ?> companies</h1></div>
 												</div>
 
 
@@ -414,7 +419,7 @@
 			</div>
 		</div>
 	</div> <!-- end tab container -->
-
+<input type="hidden" id="counter">
 	<?php $this->load->view('templates/footer'); ?>
 
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -444,8 +449,6 @@
 				seen[$(this).text()] = 1
 
 			});
-
-
 
 			$('#loading').show();
 			$.ajax({
@@ -479,8 +482,8 @@
 
 		// row constructor for add school holiday functions
 		function addRow(tbl =''){
-			var start_date ='<td><input  type="text" name="start_date[]" value="" class="datepicker2 form-control"></td>';
-			var end_date ='<td><input  type="text" name="end_date[]" value="" class="datepicker2 form-control"></td>';
+			var start_date ='<td><input  type="text" name="start_date[]" value="" class="datepicker'+tbl+' form-control"></td>';
+			var end_date ='<td><input  type="text" name="end_date[]" value="" class="datepicker'+tbl+' form-control"></td>';
 			var holiday ='<td><input  type="text" name="holiday[]" value="" class="form-control"></td>';
 			var row = $('<tr tbl>').html(start_date + end_date + holiday );
 			return row;
@@ -516,7 +519,6 @@
 
 		})
 
-
 		$(function() {
 			$('.datepicker').daterangepicker({
 				opens: 'left',
@@ -538,16 +540,7 @@
 	</script>
 
 	<script>
-		$(function(){
-			$('#active').change(function(){
 
-				if(this.checked){
-					$('#active').val('1')
-				}else{
-					$('#active').val('0');
-				}
-			})
-		})
 
 	</script>
 
@@ -637,6 +630,13 @@
 
 
 	<script>
+
+		$(function(){
+
+
+
+		});
+
 		$(function(){
 
 			$("#calculate").click(function(){
@@ -666,9 +666,24 @@
 
 	<script>
 
+		$('.modal-body').click(function(){
+			var i = 0;
+			$('.comp').each(function(){
+				if($(this).prop("checked")){
+					i++;
+				}
+			})
+			$('.selected').html('<h1>Selected '+i+' companies</h1>');
+
+		});
+
+
 		$('#add-row').click(function(){
 
-			var num = $('#companyTable tr').length ;
+			///var num = $('#companyTable tr').length ;
+			var num = $('#counter').val()+1;
+			$('#counter').val(num);
+
 			$('#last_row').before(addRow(num));
 
 			$(function(){
@@ -678,7 +693,7 @@
 			})
 			$(function() {$('.datepicker'+num).daterangepicker({opens: 'left',singleDatePicker: true,locale: {
 					format: 'DD-MM-YYYY'
-				}})});
+				}}).val('')});
 
 		});
 
@@ -695,4 +710,8 @@
 
 			$( "#school" ).autocomplete({source: "http://mploy.local/schools/getSchools/?"});
 		})
+
+
+
+
 	</script>

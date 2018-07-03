@@ -57,14 +57,14 @@
 									<div class="col-md-6">
 										<div class="form-group">
 											<label >Start Date</label>
-											<input type="text" name="start" class="form-control datepicker " value="" placeholder="Jane Doe" autocomplete="off" >
+											<input type="text" name="start" class="form-control datepicker " value="" placeholder="dd/mm/yyyy" autocomplete="off" >
 
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label >End Date</label>
-											<input type="text" name="end" class="form-control datepicker " value="" placeholder="Jane Doe" autocomplete="off" >
+											<input type="text" name="end" class="form-control datepicker " value="" placeholder="dd/mm/yyyy" autocomplete="off" >
 
 										</div>
 									</div>

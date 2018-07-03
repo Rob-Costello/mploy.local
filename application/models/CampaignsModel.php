@@ -31,6 +31,14 @@ class CampaignsModel extends CI_Model
 
     }
 
+    function allCalls(){
+	    $this->db->select('count(campaign_ref) as total, sum(if( date_time > NOW() - INTERVAL 30 DAY,1,0)) as days, ');
+	    $query= $this->db->get('mploy_campaign_activity');
+	    return $query->row_array();
+    }
+
+
+
     function campaignCalls($id){
 
     	return $this->db->query("select count(campaign_ref) as calls, 

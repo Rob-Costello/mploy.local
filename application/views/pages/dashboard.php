@@ -121,7 +121,7 @@
                                         <!--										</p>-->
 
 
-                                        <h3 class="box-title"><?php echo $campaign['campaign_display']->campaign_name; ?></h3>
+                                        <h3 class="text-center box-title"><?php echo $campaign['campaign_display']->campaign_name; ?></h3>
                                         <h4 class="box-title"><?php echo date('d/m/Y',strtotime($campaign['campaign_display']->campaign_place_start_date)); ?></h4>
                                         <div class="progress-group">
                                             <span class="progress-text">Companies Contacted</span>
@@ -151,7 +151,51 @@
                                                 <div class="progress-bar progress-bar-green" style="width: 4%"></div>
                                             </div>
                                         </div>
-                                    </a>
+											<div class="progress-group">
+												<span class="progress-text">Time Remaining</span>
+
+
+
+
+
+												<span class="progress-number">
+													<b>
+														<?php
+														$startdate= strtotime($campaign['campaign_display']->campaign_start_date); //Future date.
+														//$startdate=strtotime(date('d/m/Y h:i:s',strtotime('+1 days'))) ;
+
+														$enddate= strtotime($campaign['campaign_display']->employer_engagement_end); //Future date.
+														//$enddate=strtotime(date('d/m/Y h:i:s',strtotime('+90 days'))) ;
+
+														$cmplength = (  $startdate - $enddate);
+														$days = round($cmplength / (60 * 60 * 24));
+														$now = strtotime(date('d/m/Y h:i:s'));
+														$timeleft = ( $enddate - $now);
+														$daysleft = round($timeleft / (60 * 60 * 24));
+														$percent = ($daysleft * 100 / $days);
+														if($percent < 50){
+															$color= '#00a65a';
+														}
+														if($percent >51){
+															$color = '#f39c12';
+														}
+														if ($percent > 85){
+															$color = 'red';
+														}
+
+
+
+												//echo (int)$percent.'%';
+												//echo $daysleft.' Days Remaining / '. $days;
+														 ?>
+													</b>
+												</span>
+
+												<div class="progress sm">
+													<div class="progress-bar progress-bar-yellow" style="width: <?php  echo $percent; ?>%; background-color: <?php echo $color?>;"></div>
+												</div>
+											</div>
+										</a>
                                     </div>
 									<!-- /.col -->
 
@@ -383,12 +427,12 @@
 
 								<div class="info-box-content">
 									<span class="info-box-text">Calls Logged</span>
-									<span class="info-box-number">182</span>
-
+									<span class="info-box-number"><?php echo $total_calls['total'] ?></span>
+										<?php $percent = $total_calls['days'] * 100 / $total_calls['total']; ?>
 										<div class="progress">
-											<div class="progress-bar" style="width: 40%"></div>
+											<div class="progress-bar" style="width: <?php echo (int)$percent?>%"></div>
 										</div>
-										<span class="progress-description">40% Increase in 30 Days</span>
+										<span class="progress-description"><?php   echo (int)$percent ?>% Increase in 30 Days</span>
 									<!-- /.info-box-content -->
 								</div>
 								<!-- /.info-box -->

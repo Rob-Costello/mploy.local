@@ -61,7 +61,6 @@ class Dashboard extends CI_Controller {
             $info = $customersModel->getPlacements($where); //need to check if placement end date has expired
             $temp = [];
 
-
             foreach ($info as $active) {
                 $callstats = $customersModel->getCallData($c->select_school);
                 $call = 0;
@@ -86,11 +85,7 @@ class Dashboard extends CI_Controller {
         $loginModel = new login();
         $data['login_data'] = $loginModel->loginsCount();
 
-
-
-
-			//$data['placed'] = $placed;
-			//$data['placed'] = $placed;
+            $data['total_calls'] = $campaignsModel->allCalls();
 			$data['callinfo'] = $callInfo;
             $data['output'] = $output;
 			//$data['campaign_calls'] = $campaignsModel->callInfo();

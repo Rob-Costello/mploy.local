@@ -581,26 +581,18 @@ class Campaigns extends CI_Controller
                 $data['title'] = 'Calendar';
                 $data['user'] = $this->user;
                 $campaign = new campaignsModel();
+				$data['campaign_list'] = $this->availableCampaigns;
 
                 if(!empty($_POST)) {
-
-                	//$_POST['start'] =
-					//$_POST['end'] =
 
 					$list = $campaign->newCalendarEntry($id,$this->input->post());
 
                 }
 
 				$data['entries'] = $campaign->getCalendarEntries($id);
-
 				$calendar = $campaign->getCalendarEntries($id);
 				$campaignDates = $campaign->getCampaignDates($id);
-
-				//var_dump($calendar);
-				//var_dump($campaignDates);
-
 				$data['entries']='';
-				//var_dump($campaignDates);
 
 				$dates= [['campaign_place_start_date','campaign_place_end_date'],
 					'mailshot_1_date',
@@ -610,9 +602,7 @@ class Campaigns extends CI_Controller
 					'matching_start','matching_end'];
 
 				$calendarDates = $campaign->getCalendarEntries($id);
-
 				$holidayDates = $campaign->getSchoolHoliday($id);
-
 
 				foreach($holidayDates as $hol){
 
@@ -631,9 +621,6 @@ class Campaigns extends CI_Controller
                 		},';
 
 				}
-
-
-
 
 				foreach($calendarDates as $cal){
 
@@ -717,7 +704,7 @@ class Campaigns extends CI_Controller
 			            $campaign->updateCalendarDate($id,$data);
 		            }
 
-		            if($type == 'cam'){
+		            /*if($type == 'cam'){
 
 			            $dates= [['campaign_place_start_date','campaign_place_end_date'],
 				            'mailshot_1_date',
@@ -726,14 +713,14 @@ class Campaigns extends CI_Controller
 				            'self_place_deadline',
 				            'matching_start','matching_end'];
 
-			            
+
 
 
 			            $data = ['start'=>date('Y-m-d',strtotime($start)),
 				            'end' => date('Y-m-d',strtotime($end))];
 			            $campaign->updateCalendarDate($id,$data);
 
-	                }
+	                }*/
 
 
 	            }

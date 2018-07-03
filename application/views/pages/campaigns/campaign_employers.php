@@ -20,36 +20,18 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="box">
-					<div class="col-md-offset-3"><h2 class=""><?php echo $campaign_name?></h2></div>
+					<div style="padding-top:15px" class=""><h2 class="text-center"><?php echo $campaign_name?></h2></div>
 					<div class="box-header with-border">
 						<h3 class="box-title"> Campaign Progress Dashboard</h3>
 
-						<!--<div class="box-tools pull-right">
-							<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-							</button>
-							<div class="btn-group">
-								<button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
-									<i class="fa fa-wrench"></i></button>
-								<ul class="dropdown-menu" role="menu">
-									<li><a href="#">Action</a></li>
-									<li><a href="#">Another action</a></li>
-									<li><a href="#">Something else here</a></li>
-									<li class="divider"></li>
-									<li><a href="#">Separated link</a></li>
-								</ul>
-							</div>
-							<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-						</div>-->
 					</div>
 					<!-- /.box-header -->
 					<div class="box-body">
 						<div class="row">
 
 							<!-- /.col -->
-							<div class="col-md-11">
-								<p class="text-center">
-									<strong>Goal Completion</strong>
-								</p>
+							<div class="col-md-12">
+
 
 								<div class="progress-group">
 									<span class="progress-text">Calls completed</span>
@@ -65,7 +47,7 @@
 								<!-- /.progress-group -->
 								<div class="progress-group">
 									<span class="progress-text">Rejections</span>
-									<span class="progress-number"><b><?php echo $call_data['rejected'] ?></b>/<?php echo $camp_data['students_to_place']?></span>
+									<span class="progress-number"><b><?php if(is_numeric($call_data['rejected'])) echo $call_data['rejected']; else echo 0; ?></b>/<?php echo $camp_data['students_to_place']?></span>
 
 									<div class="progress sm">
 										<div class="progress-bar progress-bar-red" style="width: <?php if ((int)$call_data['rejected']  <= 0 ) echo 0; echo ((int)$call_data['rejected']  * 100  / (int)$camp_data['students_to_place']  )?>%"></div>
@@ -74,7 +56,7 @@
 								<!-- /.progress-group -->
 								<div class="progress-group">
 									<span class="progress-text">Successful Placements</span>
-									<span class="progress-number"><b><?php echo $call_data['success'] ?></b>/<?php echo $camp_data['students_to_place']?></span>
+									<span class="progress-number"><b><?php if(is_numeric($call_data['success'])) echo $call_data['success']; else echo 0 ?></b>/<?php echo $camp_data['students_to_place']?></span>
 
 									<div class="progress sm">
 										<div class="progress-bar progress-bar-green" style="width: <?php if ((int)$call_data['success']  <= 0 ) echo 0; echo ((int)$call_data['success']  * 100  / (int)$camp_data['students_to_place']  )?>%"></div>
@@ -83,7 +65,7 @@
 								<!-- /.progress-group -->
 								<div class="progress-group">
 									<span class="progress-text">Maybe</span>
-									<span class="progress-number"><b><?php echo $call_data['maybe'] ?></b>/<?php echo $camp_data['students_to_place']?></span>
+									<span class="progress-number"><b><?php if(is_numeric($call_data['maybe'])) echo $call_data['maybe']; else echo 0 ?></b>/<?php echo $camp_data['students_to_place']?></span>
 
 									<div class="progress sm">
 										<div class="progress-bar progress-bar-yellow" style="width: <?php if ((int)$call_data['maybe']  <= 0 ) echo 0; echo ((int)$call_data['maybe']  * 100  / (int)$camp_data['students_to_place']  )?>%"></div>

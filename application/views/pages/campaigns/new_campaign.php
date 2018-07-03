@@ -451,7 +451,7 @@
             </div>
         </div>
     </div> <!-- end tab container -->
-
+<input type="hidden" id="counter">
 	<?php $this->load->view('templates/footer'); ?>
 
 	<script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
@@ -553,7 +553,10 @@
 
 		$('#add-row').click(function(){
 
-			var num = $('#companyTable tr').length ;
+			///var num = $('#companyTable tr').length ;
+			var num = $('#counter').val()+1;
+			$('#counter').val(num);
+
 			$('#last_row').before(addRow(num));
 
 			$(function(){
@@ -563,10 +566,9 @@
 			})
 			$(function() {$('.datepicker'+num).daterangepicker({opens: 'left',singleDatePicker: true,locale: {
 					format: 'DD-MM-YYYY'
-				}})});
+				}}).val('')});
 
 		});
-
 
 	</script>
 
@@ -601,7 +603,6 @@
 
 
 
-
 	<script>
 		$(function(){
 
@@ -630,7 +631,23 @@
 	<script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
 
 
+
 	<script>
+
+
+
+		$('.modal-body').click(function(){
+			var i = 0;
+			$('.comp').each(function(){
+				if($(this).prop("checked")){
+					i++;
+				}
+			})
+			$('.selected').html('<h1>Selected '+i+' companies</h1>');
+
+		});
+
+
 
 
 

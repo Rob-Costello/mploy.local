@@ -5,17 +5,40 @@
 	{
 
 		if ($percent < 50) {
+			//green
 			$color = '#00a65a';
 		}
 		if ($percent > 51) {
+			//amber
 			$color = '#f39c12';
 		}
 		if ($percent > 85) {
+			//red
 			$color = 'red';
 		}
 		return $color;
 	}
-?>
+
+function calls ($percent)
+{
+
+	if ($percent < 50) {
+		//red
+		$color = 'red';
+	}
+	if ($percent > 51) {
+		//amber
+		$color = '#f39c12';
+	}
+	if ($percent > 85) {
+		//green
+		$color = '#00a65a';
+
+	}
+	return $color;
+}
+
+	?>
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
 	<section class="content-header">
@@ -145,7 +168,7 @@
                                                 </b>/<?php echo $callinfo[$key]['info']; ?></span>
                                             <div class="progress sm">
                                                 <div class="progress-bar progress-bar-aqua" style="width: <?php if ((int)$callinfo[$key]['call']  <= 0 ) echo 0; else echo $percent = ((int)$callinfo[$key]['call'] * 100  / (int)$callinfo[$key]['info']  )?>%;
-	                                                background-color:<?php echo percent($percent);?> "></div>
+	                                                background-color:<?php echo calls($percent);?> "></div>
                                             </div>
                                         </div>
                                         <!-- /.progress-group -->
@@ -157,7 +180,7 @@
 
                                             <div class="progress sm">
                                                 <div class="progress-bar progress-bar-yellow" style="width: <?php if ((int)$callinfo[$key]['success']  <= 0 ) echo 0; echo $percent = ((int)$callinfo[$key]['success'] * 100  / (int)$callinfo[$key]['total']  );?>%
-	                                                ;background-color:<?php echo percent($percent);?>"></div>
+	                                                ;background-color:<?php echo calls($percent);?>"></div>
                                             </div>
                                         </div>
                                         <!-- /.progress-group -->
@@ -167,7 +190,7 @@
 
                                             <div class="progress sm">
 	                                            <div class="progress-bar progress-bar-yellow" style="width: <?php if ((int)$callinfo[$key]['success']  <= 0 ) echo 0; echo $percent = ((int)$callinfo[$key]['success'] * 100  / (int)$callinfo[$key]['total']  );?>%
-		                                            ;background-color:<?php echo percent($percent);?>"></div>
+		                                            ;background-color:<?php echo calls($percent);?>"></div>
                                             </div>
                                         </div>
 											<div class="progress-group">
@@ -189,7 +212,7 @@
 
 												<span class="progress-number">
 													<b>
-														<?php echo $daysleft; ?>
+														<?php if($daysleft <0) echo '0'; else echo $daysleft; ?>
 													</b>
 												</span>
 

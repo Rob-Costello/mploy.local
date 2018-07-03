@@ -26,7 +26,7 @@
 
                     <div class="tab-pane active" id="1a">
 
-
+						<div class="col-md-12">
                         <section class="">
 
 
@@ -49,7 +49,7 @@
 
                                 <!-- /.box-header -->
                                 <div class="box-body">
-                                    <form role="form"  method="POST">
+                                    <form id="campaign-form" role="form"  method="POST">
 
 
 
@@ -402,7 +402,7 @@
 												<div class="col-md-12">
 
 													<div style="padding-bottom:100px;" id="row">
-														<div class="col-md-6">
+														<div class="col-md-3">
 
 
 															<div class="input-group">
@@ -415,31 +415,33 @@
 															</div>
 
 														</div>
-													</div>
 
+														<div class="selected col-md-6">
+
+														</div>
 
 												</div>
 
-	                                        </div>
+
                                 
                                     
 
 
 
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-offset-0 col-md-4">
 
-	                                    <input type="submit" class="btn btn-mploy-submit" value="Save Changes">
+	                                    <input id='save' type="button" class="btn btn-mploy-submit" value="Save Changes">
                                     <input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/campaigns')">
                                     </div>
                                 </div>
                                 <input type="hidden" name="active" value="1">
                                 </form>
                             </div>
-
+                            </div>
 
                         </section>
-
+						</div>
 
 
                     </div>
@@ -451,7 +453,8 @@
             </div>
         </div>
     </div> <!-- end tab container -->
-<input type="hidden" id="counter">
+
+	<input type="hidden" id="counter">
 	<?php $this->load->view('templates/footer'); ?>
 
 	<script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
@@ -635,7 +638,6 @@
 	<script>
 
 
-
 		$('.modal-body').click(function(){
 			var i = 0;
 			$('.comp').each(function(){
@@ -643,11 +645,27 @@
 					i++;
 				}
 			})
-			$('.selected').html('<h1>Selected '+i+' companies</h1>');
+			$('.selected').html('<h1>Selected '+i+' companies </h1>');
 
 		});
 
 
+
+		$('#save').click(function(){
+
+			var i = 0;
+			$('.comp').each(function(){
+				if($(this).prop("checked")){
+					i++;
+				}
+			})
+			if(i > 0 ){
+				$('#campaign-form').submit();
+			}else{
+				alert('There are no companies added to this campaign please add companies to the campaign ');
+			}
+
+		});
 
 
 

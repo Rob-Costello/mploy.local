@@ -42,14 +42,7 @@
 					</h2>
 				</div>
 
-				<div style="z-index:100" class="col-md-12">
-					<?php if( $message != '' ) { ?>
-						<div class="alert alert-success alert-dismissable">
-							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-							<?php echo $message; ?>
-						</div>
-					<?php } ?>
-				</div>
+
 				<div style="opacity:0;"  id="message">
 					<?php echo $message; ?>
 
@@ -63,7 +56,15 @@
 
 			</div>
 			<!-- /.box-header -->
-
+			<div style="" class="col-md-12">
+				<?php if( $message != '' ) { ?>
+					<div class="alert alert-success alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+						<?php echo $message; ?>
+					</div>
+				<?php } ?>
+			</div>
+			
 			<div class="box-body">
 
 				<table id="example2" class="table table-bordered table-striped">

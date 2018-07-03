@@ -26,7 +26,7 @@
 
 		<div class="box">
 
-        <div class <div class="col-md-offset-6 col-md-6">
+        <div class="col-md-12">
 				<form  method="POST" class="sidebar-form">
 					<div class="input-group">
 						<input style="margin:20px; padding:19px;" type="text" name="search" class="form-control" placeholder="Search...">

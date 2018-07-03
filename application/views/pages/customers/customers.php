@@ -23,6 +23,7 @@
 
 		<div class="box">
 			<form  method="POST" class="sidebar-form">
+				<div class="col-md-12">
 				<div class="input-group">
 					<input style="margin:20px; padding:19px;" type="text" name="search" class="form-control" placeholder="customer name">
 					<span class="input-group-btn">
@@ -30,6 +31,7 @@
                     <i class=" fa fa-search"></i>
                 </button>
               </span>
+				</div>
 				</div>
 			</form>
 

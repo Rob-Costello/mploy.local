@@ -39,8 +39,6 @@
 
 									<div class="progress sm">
 
-
-
 										<div class="progress-bar progress-bar-aqua" style="width: <?php if ((int)$call_data['calls']  <= 0 ) echo 0; echo ((int)$call_data['calls']  * 100  / (int)$campaign['count']  )?>%"></div>
 									</div>
 								</div>
@@ -74,9 +72,52 @@
 								<!-- /.progress-group -->
 							</div>
 							<!-- /.col -->
+
+							<?php
+
+							function percent ($percent)
+							{
+
+								if ($percent < 50) {
+									$color = '#00a65a';
+								}
+								if ($percent > 51) {
+									$color = '#f39c12';
+								}
+								if ($percent > 85) {
+									$color = 'red';
+								}
+								return $color;
+							}
+							$startdate= strtotime($camp_data['campaign_start_date']); //Future date
+							$enddate= strtotime($camp_data['employer_engagement_end']); //Future date
+							$cmplength = (  $startdate - $enddate);
+							$days = round($cmplength / (60 * 60 * 24));
+							$now = strtotime(date('d/m/Y h:i:s'));
+							$timeleft = ( $enddate - $now);
+							$daysleft = round($timeleft / (60 * 60 * 24));
+							$percent = ($daysleft * 100 / $days);
+
+							$color = percent($percent);
+							?>
+							<div class="col-md-12">
+							<div class="progress-group">
+								<span class="progress-text">Days Remaining</span>
+								<span class="progress-number"><b><?php if(is_numeric($daysleft) || $daysleft >0) echo $daysleft; else echo 0 ?></b>/<?php echo $days?></span>
+
+								<div class="progress sm">
+									<div class="progress-bar progress-bar-yellow" style="width: <?php  echo $percent; ?>%; background-color: <?php echo $color?>;"></div>
+								</div>
+							</div>
+							<!-- /.progress-group -->
 						</div>
-						<!-- /.row -->
-					</div>
+
+
+
+
+
+
+
 					<!-- ./box-body -->
 
 					<!-- /.box-footer -->
@@ -175,7 +216,7 @@
 
 
 		<div class="box">
-			<div class <div class="col-md-offset-6 col-md-6">
+			<div class="col-md-12">
 				<form  method="POST" class="sidebar-form">
 					<div class="input-group">
 						<input style="margin:20px; padding:19px;" type="text" name="search" class="form-control" placeholder="Search...">

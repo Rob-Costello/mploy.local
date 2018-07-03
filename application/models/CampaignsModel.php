@@ -31,6 +31,17 @@ class CampaignsModel extends CI_Model
 
     }
 
+    function campaignCalls($id){
+
+    	return $this->db->query("select count(campaign_ref) as calls, 
+								sum(if(rag_status= 'red' ,1,0)) as rejected, 
+								sum(if(rag_status= 'green',1,0)) as success, 
+								sum(if(rag_status= 'amber',1,0)) as maybe 
+								from mploy_campaign_activity where campaign_ref = '".$id."'")->row_array();
+
+    }
+
+
     function getCampaigns($where = null, $request = null, $limit = null, $offset = null)
     {
        
@@ -129,6 +140,33 @@ class CampaignsModel extends CI_Model
 
     }
 
+	public function updateHolidayDate($id,$data){
+
+
+
+			$this->db->trans_start();
+			$this->db->where('id', $id);
+			$this->db->update('mploy_organisation_holidays', $data);
+			$this->db->trans_complete();
+			return $this->db->trans_status();
+
+
+
+	}
+
+	public function updateCalendarDate($id,$data){
+
+
+
+		$this->db->trans_start();
+		$this->db->where('id', $id);
+		$this->db->update('mploy_calendar', $data);
+		$this->db->trans_complete();
+		return $this->db->trans_status();
+
+
+
+	}
 
     public function getCompanyContact($id){
 
@@ -161,7 +199,6 @@ class CampaignsModel extends CI_Model
     }
 
     public function campaignEmployerCalls($ref,$id){
-
 
 	    $this->db->join('mploy_campaign_activity_types','mploy_campaign_activity_types.campaign_type_id = mploy_campaign_activity.campaign_activity_type_id');
 	    $this->db->join('users','users.id = mploy_campaign_activity.user_id');
@@ -281,13 +318,25 @@ class CampaignsModel extends CI_Model
 
 	}
 
-	public function getCompaniesByPostcode($postcode){
+	public function getCompaniesByPostcode($where,$campaign=null){
 
-		$this->db->select('*');
-    	$this->db->like('postcode',$postcode,'right');
-    	$query = $this->db->get_where('mploy_organisations',['organisation_type_id'=>'2']);
+		/*if($campaign == null) {
+			$this->db->select('*');
+			//$this->db->like('postcode', $postcode, 'right');
+			$query = $this->db->get_where('mploy_organisations', ['organisation_type_id' => '2']);
+		}
+		else{
 
-    	return $query->result_array();
+			/*$query = $this->db->query("SELECT * FROM  mploy_organisations o
+                                  where  not in
+                                  (select campaign_employer_id as comp_id from mploy_rel_campaign_employers where campaign_ref='.$campaign.') comp_id
+                                  and organisation_type_id =2 and postcode like '".$postcode."%' ");*/
+
+			$query = $this->db->query("SELECT * FROM  mploy_organisations o where organisation_type_id =2 ".$where);
+
+		//}
+
+		return $query->result_array();
 
 	}
 

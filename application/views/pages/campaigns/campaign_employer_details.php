@@ -119,8 +119,8 @@
                 
                                 <div class="row">
                                     <div class="col-md-12">
-                                    <input name="update_company" value="submit" type="submit" class="btn btn-mploy-submit" value="Save Changes">
-                                    <input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/campaigns')">
+                                    <input name="update_company" value="Submit" type="submit" class="btn btn-mploy-submit" value="Save Changes">
+                                    <input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/campaigns/employers/<?php echo $campaign_dropdown ?>/0')">
                                     </div>
                                 </div>
 
@@ -260,7 +260,8 @@
 
                                     </div>
                                 <div  style="padding-bottom:20px;" class="col-md-offset-8 col-md-3">
-                                    <input type="submit" class="btn btn-mploy-submit" value="New Call" onclick="window.location.replace('/campaigns/newcall/<?php echo $camp_id ?>/<?php echo $comp_id ?>')">
+                                    <input type="submit" class="btn btn-mploy-submit" value="New Call"
+                                           onclick="window.location.replace('/campaigns/newcall/<?php echo $camp_id ?>/<?php echo $comp_id ?>?campid=<?php echo $campaign;?>')">
                                 </div> 
                                    
                                         
@@ -347,7 +348,7 @@
 
 									    </div>
 									    <div  style="padding-bottom:20px;" class="col-md-offset-8 col-md-3">
-										    <input type="submit" class="btn btn-mploy-submit" value="New Call" onclick="window.location.replace('/campaigns/newplacement/<?php echo $camp_id ?>/<?php echo $comp_id ?>')">
+										    <input type="submit" class="btn btn-mploy-submit" value="Placement" onclick="window.location.replace('/campaigns/newplacement/<?php echo $camp_id ?>/<?php echo $comp_id ?>')">
 									    </div>
 
 
@@ -368,7 +369,7 @@
 												    Notes
 											    </th>
 											    <th>
-												    Student Name
+												    WEX
 											    </th>
 
 										    </tr>
@@ -381,7 +382,7 @@
 											    <td><?php echo $call->date_time ?></td>
 											    <td><?php echo $call->placements ?></td>
 											    <td><?php echo $call->notes ?></td>
-											    <td>Student TBC</td>
+											    <td><button class="btn btn-mploy"> WEX</button></td>
 
 
 

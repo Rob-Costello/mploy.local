@@ -181,24 +181,23 @@
             //Random default events
             events    : [
 
-
 				<?php echo $entries; ?>
-
-
 
             ],
             editable  : true,
             droppable : true, // this allows things to be dropped onto the calendar !!!
             drop      : function (date, allDay) { // this function is called when something is dropped
 
-                // retrieve the dropped element's stored Event Object
+
+            	// retrieve the dropped element's stored Event Object
                 var originalEventObject = $(this).data('eventObject')
 
                 // we need to copy it, so that multiple events don't have a reference to the same object
                 var copiedEventObject = $.extend({}, originalEventObject)
 
                 // assign it the date that was reported
-                copiedEventObject.start           = date
+	            copiedEventObject.id           = response.idEvent
+	            copiedEventObject.start           = date
                 copiedEventObject.allDay          = allDay
                 copiedEventObject.backgroundColor = $(this).css('background-color')
                 copiedEventObject.borderColor     = $(this).css('border-color')
@@ -212,7 +211,45 @@
                     // if so, remove the element from the "Draggable Events" list
                     $(this).remove()
                 }
-            }
+            },
+
+	        eventDrop: function(event, delta, revertFunc) {
+		        var target = '/campaigns/updateCalendar';
+            	var id = event.id;
+            	var update = id.split("-");
+				var start = event.start.format();
+				if(event.end ==null) {
+					var end = event.start.format();
+				}
+				else{
+					var end = event.end.format();
+				}
+
+				$.ajax({
+			        url: target,
+			        type: 'POST',
+			        data: {start:start, end:end, id:update[1], type:update[0], title:event.title},
+			        success: function(data, textStatus, XMLHttpRequest)
+			        {
+				        data = JSON.parse(data);
+				        Object.keys(data).forEach(function(key){
+					        console.log(key + '=' + data[key]);
+					        $('[name="'+key+'"]').val(data[key]);
+				        });
+			        }
+		        });
+
+            	//alert(update[0]);
+		        //alert(event.title + " was dropped on " + event.start.format());
+		        //alert(event.id + " was dropped on " + event.start.format());
+
+		        /*if (!confirm("Are you sure about this change?")) {
+			        revertFunc();
+		        }*/
+
+	        }
+
+
         })
 
         /* ADDING EVENTS */

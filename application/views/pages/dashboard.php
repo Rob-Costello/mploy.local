@@ -208,7 +208,12 @@ function calls ($percent)
 												$daysleft = round($timeleft / (60 * 60 * 24));
 												//$percent = ($daysleft  / $days * 100);
 												$percent = ($daysleft * 100 / $days);
-												$percent = 100 - $percent;
+												//$percent = 100 - $percent;
+												if($percent < 1){
+													$percent = 0;
+
+												}
+
 												$color = percent($percent)
 												?>
 

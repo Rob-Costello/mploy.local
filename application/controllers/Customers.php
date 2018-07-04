@@ -39,9 +39,9 @@ class Customers extends CI_Controller
 		$offset=0;
 		$data['message']='';
 		$data['message'] = $this->session->flashdata('message');
-		if($page > 0)
+		if($id > 0)
 		{
-			$offset = $page * $this->perPage;
+			$offset = $id * $this->perPage ;
 		}
 
 		if(isset($_GET['orderby'])){
@@ -65,10 +65,10 @@ class Customers extends CI_Controller
 		}
 
 
-		$page = $this->page($data['customers'],'/customers',$this->perPage);
+		//$page = $this->page($data['customers'],'/customers',$this->perPage);
 		$this->pagination->initialize($page);
-		$data['pagination_start'] = $offset + 1;
-		$data['pagination_end'] = $data['pagination_start'] + $this->perPage;
+		$data['pagination_start'] = $offset +1 ;
+		$data['pagination_end'] = $data['pagination_start'] + $this->perPage -1;
 
 		if($data['pagination_end'] > $data['customers']['count'])
 		{

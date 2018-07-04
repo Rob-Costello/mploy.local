@@ -206,7 +206,8 @@ function calls ($percent)
 												$now = strtotime(date('d/m/Y h:i:s'));
 												$timeleft = ( $enddate - $now);
 												$daysleft = round($timeleft / (60 * 60 * 24));
-												$percent = ($daysleft  / $days * 100);
+												//$percent = ($daysleft  / $days * 100);
+												$percent = ($daysleft * 100 / $days);
 												$percent = 100 - $percent;
 												$color = percent($percent)
 												?>

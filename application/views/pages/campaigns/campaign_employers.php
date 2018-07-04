@@ -103,7 +103,8 @@
 							if($days >0 ){
 								$percent = ($daysleft * 100 / $days);
 								//$percent = ($daysleft  / $days * 100);
-								$percent = 100 - $percent;
+
+								//$percent = 100 - $percent;
 
 
 							}

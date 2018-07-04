@@ -176,6 +176,12 @@ class Campaigns extends CI_Controller
 			unset($_POST['start_date']);
 			unset($_POST['end_date']);
 			unset($_POST['holiday']);
+			unset($_POST['campaign_employer_id']);
+			unset($_POST['search']);
+			unset($_POST['name']);
+			unset($_POST['address1']);
+			unset($_POST['postcode']);
+			unset($_POST['industry_id']);
 
 			if(!isset($error)) {
 				$temp = [];
@@ -325,6 +331,12 @@ class Campaigns extends CI_Controller
 				//remove employer id to stop error
 				unset($_POST['campaign_employer_id']);
 				unset($_POST['search']);
+				unset($_POST['name']);
+				unset($_POST['address1']);
+				unset($_POST['postcode']);
+				unset($_POST['industry_id']);
+
+
 				//get id for insert as campaign reference
                 $campaign_id = $campaign->createCampaign($this->input->post());
 

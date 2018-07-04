@@ -66,7 +66,7 @@
                                                 <div class="form-group">
 
                                                     <div class="">
-                                                        <label >Students to Place</label>
+                                                        <label >Places to be sourced by Mploy</label>
                                                         <input type="number" name="students_to_place" value="<?php if(array_key_exists('students_to_place',$values)) echo $values['students_to_place'] ?> "  class="form-control" value="" placeholder="" autocomplete="off" required >
                                                     </div>
                                                 </div>

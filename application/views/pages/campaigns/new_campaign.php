@@ -67,7 +67,7 @@
 
                                                     <div class="">
                                                         <label >Students to Place</label>
-                                                        <input type="number" name="students_to_place" value="<?php if(array_key_exists('students_to_place',$values)) echo $values['students_to_place'] ?> "  class="form-control" value="" placeholder="" autocomplete="off" >
+                                                        <input type="number" name="students_to_place" value="<?php if(array_key_exists('students_to_place',$values)) echo $values['students_to_place'] ?> "  class="form-control" value="" placeholder="" autocomplete="off" required >
                                                     </div>
                                                 </div>
                                             </div>
@@ -111,7 +111,7 @@
 
 
 
-		                                                    <input type="text" name="campaign_place_start_date" value="<?php if(array_key_exists('campaign_place_start_date',$values)) echo $values['campaign_place_start_date'] ?> " class="datepicker form-control" value="" placeholder="dd/mm/yyyy" autocomplete="off" >
+		                                                    <input type="text" name="campaign_place_start_date" value="<?php if(array_key_exists('campaign_place_start_date',$values)) echo $values['campaign_place_start_date'] ?> " class="datepicker form-control" value="" placeholder="dd/mm/yyyy" autocomplete="off" required >
 	                                                    </div>
 	                                                    </div>
                                                 </div>
@@ -128,7 +128,7 @@
 		                                                    </div>
 
 
-		                                                    <input type="text" name="campaign_place_end_date" value="<?php if(array_key_exists('campaign_place_start_date',$values)) echo $values['campaign_place_start_date'] ?> " class="datepicker form-control" value="" placeholder="dd/mm/yyyy" autocomplete="off" >
+		                                                    <input type="text" name="campaign_place_end_date" value="<?php if(array_key_exists('campaign_place_start_date',$values)) echo $values['campaign_place_start_date'] ?> " class="datepicker form-control" value="" placeholder="dd/mm/yyyy" autocomplete="off" required >
 	                                                    </div>
 	                                                    </div>
                                                 </div>
@@ -164,10 +164,10 @@
                                                     <tbody>                                               
                                                     <tr>
                                                         <td>
-                                                        <input id="1start_date" name="start_date[]" type="text" class="datepicker form-control">
+                                                        <input id="1start_date" name="start_date[]" type="text" class="datepicker form-control " autocomplete="off">
                                                         </td>
                                                         <td>
-                                                        <input id="1end_date" name="end_date[]" type="text" class="datepicker form-control">
+                                                        <input id="1end_date" name="end_date[]" type="text" class="datepicker form-control" autocomplete="off">
                                                         </td>
                                                         <td>
                                                         <input name="holiday[]" type="text" class="form-control">
@@ -213,7 +213,7 @@
 		                                                </div>
 
 
-		                                                <input name="mailshot_1_date" placeholder="dd/mm/yyyy" type="text" value="<?php if(array_key_exists('mailshot_1_date',$values)) echo $values['mailshot_1_date'] ?> " class="datepicker form-control" >
+		                                                <input name="mailshot_1_date" placeholder="dd/mm/yyyy" type="text" value="<?php if(array_key_exists('mailshot_1_date',$values)) echo $values['mailshot_1_date'] ?> " class="datepicker form-control" required >
 	                                                </div>
 	                                                </div>
                                             </div>
@@ -227,7 +227,7 @@
 		                                                    </div>
 
 
-		                                                    <input name="mailshot_2_date" placeholder="dd/mm/yyyy"value="<?php if(array_key_exists('mailshot_2_date',$values)) echo $values['mailshot_2_date'] ?> " type="text" class="datepicker form-control" >
+		                                                    <input name="mailshot_2_date" placeholder="dd/mm/yyyy"value="<?php if(array_key_exists('mailshot_2_date',$values)) echo $values['mailshot_2_date'] ?> " type="text" class="datepicker form-control" required>
 	                                                    </div>
 	                                                    </div>
                                             </div>
@@ -245,7 +245,7 @@
 		                                            </div>
 
 
-		                                            <input name="employer_engagement_start" placeholder="dd/mm/yyyy" value="<?php if(array_key_exists('employer_engagement_start',$values)) echo $values['employer_engagement_start'] ?> " type="text" class="datepicker form-control" >
+		                                            <input name="employer_engagement_start" placeholder="dd/mm/yyyy" value="<?php if(array_key_exists('employer_engagement_start',$values)) echo $values['employer_engagement_start'] ?> " type="text" class="datepicker form-control" required >
 	                                            </div>
 	                                            </div>
                                         </div>
@@ -259,7 +259,7 @@
 		                                                </div>
 
 
-		                                                <input name="employer_engagement_end" placeholder="dd/mm/yyyy" type="text" value="<?php if(array_key_exists('employer_engagement_end',$values)) echo $values['employer_engagement_end'] ?> " class="datepicker form-control pull-right" id="datepicker">
+		                                                <input name="employer_engagement_end" placeholder="dd/mm/yyyy" type="text" value="<?php if(array_key_exists('employer_engagement_end',$values)) echo $values['employer_engagement_end'] ?> " class="datepicker form-control pull-right" id="datepicker" required>
 	                                                </div>
 	                                                </div>
                                         </div>
@@ -272,7 +272,7 @@
 		                                                </div>
 
 
-		                                                <input name="self_place_deadline" placeholder="dd/mm/yyyy" value="<?php if(array_key_exists('self_place_deadline',$values)) echo $values['self_place_deadline'] ?> " type="text"  class="datepicker form-control" >
+		                                                <input name="self_place_deadline" placeholder="dd/mm/yyyy" value="<?php if(array_key_exists('self_place_deadline',$values)) echo $values['self_place_deadline'] ?> " type="text"  class="datepicker form-control" required >
 	                                                </div>
 	                                                </div>
                                         </div>
@@ -288,7 +288,7 @@
 		                                                </div>
 
 
-		                                                <input placeholder="dd/mm/yyyy" value="<?php if(array_key_exists('matching_end',$values)) echo $values['matching_end'] ?> " name="matching_end" type="text" class="datepicker form-control" >
+		                                                <input placeholder="dd/mm/yyyy" value="<?php if(array_key_exists('matching_end',$values)) echo $values['matching_end'] ?> " name="matching_end" type="text" class="datepicker form-control" required >
 	                                                </div>
 	                                                </div>
                                         </div>
@@ -659,6 +659,7 @@
 					i++;
 				}
 			})
+
 			if(i > 0 ){
 				$('#campaign-form').submit();
 			}else{

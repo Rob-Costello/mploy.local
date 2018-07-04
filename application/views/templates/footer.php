@@ -97,6 +97,32 @@
 
 
 
+	$(function(){
+		$('.paginate_button').each(function(){
+
+			var link = $(this).find("a").attr("href");
+
+			if(link !==undefined) {
+				var lastslashindex = link.lastIndexOf('/');
+				var result= parseInt(link.substring(lastslashindex  + 1));
+				if (isNaN(result)==false) {
+					var val = link.substring(0, lastslashindex);
+					console.log(result);
+					$(this).find("a").attr("href",val+'/'+(result -1));
+
+				}
+
+				//$('.activePage').next('li').addClass('activePage');
+			}
+		})
+
+
+		//$('.activePage').next('li').addClass('activePage');
+		//$('.activePage').removeClass('activePage');
+
+	})
+
+
 	$(document).ready(function()
     {
         $('#reset-form').on('click', function()

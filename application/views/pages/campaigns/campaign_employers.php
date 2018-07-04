@@ -35,11 +35,11 @@
 
 								<div class="progress-group">
 									<span class="progress-text">Calls completed</span>
-									<span class="progress-number"><b><?php echo $call_data['calls'] ?></b>/<?php echo (int)$campaign['count']; ?></span>
+									<span class="progress-number"><b><?php echo $call_data['calls'] ?></b>/<?php echo (int)$camp_data['students_to_place'] * 20; ?></span>
 
 									<div class="progress sm">
 
-										<div class="progress-bar progress-bar-aqua" style="width: <?php if ((int)$call_data['calls']  <= 0 ) echo 0; echo ((int)$call_data['calls']  * 100  / (int)$campaign['count']  )?>%"></div>
+										<div class="progress-bar progress-bar-aqua" style="width: <?php if ((int)$call_data['calls']  <= 0 ) echo 0; echo ((int)$call_data['calls']  * 100  / ((int)$camp_data['students_to_place'] * 20)  )?>%"></div>
 									</div>
 								</div>
 								<!-- /.progress-group -->
@@ -91,12 +91,16 @@
 							}
 							$startdate= strtotime($camp_data['campaign_start_date']); //Future date
 							$enddate= strtotime($camp_data['employer_engagement_end']); //Future date
+
 							$cmplength = (  $startdate - $enddate);
 							$days = round($cmplength / (60 * 60 * 24));
 							$now = strtotime(date('d/m/Y h:i:s'));
 							$timeleft = ( $enddate - $now);
 							$daysleft = round($timeleft / (60 * 60 * 24));
+							$percent=0;
+							if($days >0 ){
 							$percent = ($daysleft * 100 / $days);
+							}
 
 							$color = percent($percent);
 							?>

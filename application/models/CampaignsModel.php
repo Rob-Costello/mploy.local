@@ -206,9 +206,19 @@ class CampaignsModel extends CI_Model
 
     }
 
-    public function campaignEmployerCalls($ref,$id){
+    public function campaignEmployerCalls($ref,$id=null){
 
-	    $this->db->join('mploy_campaign_activity_types','mploy_campaign_activity_types.campaign_type_id = mploy_campaign_activity.campaign_activity_type_id');
+    	if($id==null){
+
+		    $this->db->join('mploy_campaign_activity_types','mploy_campaign_activity_types.campaign_type_id = mploy_campaign_activity.campaign_activity_type_id');
+		    $this->db->join('users','users.id = mploy_campaign_activity.user_id');
+
+		    $calls = $this->db->get_where('mploy_campaign_activity','campaign_ref='.$ref);
+		    return $calls->result();
+
+	    }
+
+    	$this->db->join('mploy_campaign_activity_types','mploy_campaign_activity_types.campaign_type_id = mploy_campaign_activity.campaign_activity_type_id');
 	    $this->db->join('users','users.id = mploy_campaign_activity.user_id');
 	    $this->db->where('org_id='.$id);
 	    $calls = $this->db->get_where('mploy_campaign_activity','campaign_ref='.$ref);
@@ -374,6 +384,16 @@ class CampaignsModel extends CI_Model
 
     	$query = $this->db->get_where('mploy_contacts','school_id ='.$school.' and placement_company_id ='.$id);
     	return $query->result();
+
+	}
+
+
+	public function getAllPlacements($school){
+
+		$this->db->select('*');
+
+		$query = $this->db->get_where('mploy_contacts','school_id ='.$school);
+		return $query->result();
 
 	}
 

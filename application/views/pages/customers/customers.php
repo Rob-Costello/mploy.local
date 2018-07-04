@@ -64,7 +64,7 @@
 					</div>
 				<?php } ?>
 			</div>
-			
+
 			<div class="box-body">
 
 				<table id="example2" class="table table-bordered table-striped">

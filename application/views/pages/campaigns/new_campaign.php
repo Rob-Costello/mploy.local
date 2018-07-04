@@ -58,7 +58,7 @@
                                                 <div class="form-group">
 
                                                     <label class=" ">Campaign Name</label>
-                                                    <input  type="text" name="campaign_name" class="form-control" value="<?php if(array_key_exists('campaign_name',$values)) echo $values['campaign_name'] ?> " placeholder="Campaign Name" >
+                                                    <input  type="text" name="campaign_name" class="form-control" value="<?php if(array_key_exists('campaign_name',$values)) echo $values['campaign_name'] ?> " placeholder="Campaign Name" required>
 
                                                 </div>
                                             </div>
@@ -195,7 +195,7 @@
 		                                                </div>
 
 
-		                                                <input type="text" value="<?php echo date('d/m/Y'); ?>" class=" form-control" id="campaign_date" placeholder="dd/mm/yyyy" name="campaign_start_date" >
+		                                                <input type="text" value="<?php echo date('d/m/Y'); ?>" class=" form-control" id="campaign_date" placeholder="dd/mm/yyyy" name="campaign_start_date" required >
                                                 </div>
                                                 </div>
 

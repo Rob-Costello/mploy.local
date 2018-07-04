@@ -168,7 +168,7 @@ function calls ($percent)
                                                 </b>/<?php echo $campaign['campaign_display']->students_to_place * 20; ?></span>
                                             <div class="progress sm">
                                                 <div class="progress-bar progress-bar-aqua" style="width: <?php if ((int)$callinfo[$key]['call']  <= 0 ) echo 0; else echo $percent = ((int)$callinfo[$key]['call'] * 100  / (int)$callinfo[$key]['info']  )?>%;
-	                                                background-color:<?php echo calls($percent);?> "></div>
+	                                                "></div>
                                             </div>
                                         </div>
                                         <!-- /.progress-group -->
@@ -180,7 +180,7 @@ function calls ($percent)
 
                                             <div class="progress sm">
                                                 <div class="progress-bar progress-bar-yellow" style="width: <?php if ((int)$callinfo[$key]['success']  <= 0 ) echo 0; echo $percent = ((int)$callinfo[$key]['success'] * 100  / (int)$callinfo[$key]['total']  );?>%
-	                                                ;background-color:<?php echo calls($percent);?>"></div>
+	                                                ;"></div>
                                             </div>
                                         </div>
                                         <!-- /.progress-group -->
@@ -189,8 +189,8 @@ function calls ($percent)
                                             <span class="progress-number"><b><?php echo round((int)$callinfo[$key]['success'] );?></b>/ <?php if($callinfo[$key]['all'] =='') echo 0; else echo $callinfo[$key]['all']; ?></span>
 
                                             <div class="progress sm">
-	                                            <div class="progress-bar progress-bar-yellow" style="width: <?php if ((int)$callinfo[$key]['success']  <= 0 || $callinfo[$key]['all']=='' ) echo 0; else echo $percent = ((int)$callinfo[$key]['success'] * 100  / (int)$callinfo[$key]['all']  );?>%
-		                                            ;background-color:<?php echo calls($percent);?>"></div>
+	                                            <div class="progress-bar progress-bar-red" style="width: <?php if ((int)$callinfo[$key]['success']  <= 0 || $callinfo[$key]['all']=='' ) echo 0; else echo $percent = ((int)$callinfo[$key]['success'] * 100  / (int)$callinfo[$key]['all']  );?>%
+		                                            ;"></div>
                                             </div>
                                         </div>
 											<div class="progress-group">

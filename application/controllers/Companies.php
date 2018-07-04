@@ -67,7 +67,7 @@ class Companies extends CI_Controller
         if($data['pagination_end'] > $data['companies']['count']) {
             $data['pagination_end'] = $data['companies']['count'];
         }
-
+		$data['message'] = $this->session->flashdata('message');
         $data['pagination'] = $this->pagination->create_links();
 		$data['user'] = $this->user;
 		$data['title'] = 'Companies';
@@ -184,8 +184,26 @@ class Companies extends CI_Controller
 
     }
 
+	function newCompany()
+	{
 
-	function view($id=0, $page = null, $pageNo = 0 ){
+
+		$data['user'] = $this->user;
+		$company = new CompaniesModel();
+		if (!empty($_POST)) {
+			$success = $company->addCompany($this->input->post());
+			$this->session->set_flashdata('message', 'Company' . $this->input->post('name') . ' created');
+			redirect('companies/','refresh');
+
+		}
+
+		$this->load->view('pages/companies/companies_new_company',$data);
+	}
+
+
+
+
+    function view($id=0, $page = null, $pageNo = 0 ){
 
         $company= new CompaniesModel();
         if(!empty($_POST)){

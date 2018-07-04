@@ -22,43 +22,64 @@
 
 
 		<div class="box">
-			<div class="box-header"></div>
 			<div class="box-header">
-				<h2 class="box-title">
-					<?= $title; ?>
-				</h2>
-			</div>
-			<!-- /.box-header -->
-			<div class="box-body">
-
-                <form id="companyFilter" method="POST" class="sidebar-form">
-                    <div class="input-group">
-                        <div class="col-md-3">
-                            <input style="margin:20px; padding:19px;" type="text" name="name" class="form-control" placeholder="Company name" value="<?php if(isset($post_data['name'])) echo $post_data['name']; ?>">
-                        </div>
-                        <div class="col-md-3">
-                            <input style="margin:20px; padding:19px;" type="text" name="town" class="form-control" placeholder="Town" value="<?php if(isset($post_data['town'])) echo $post_data['town']; ?>">
-                        </div>
-                        <div class="col-md-2">
-                            <input style="margin:20px; padding:19px;" type="text" name="postcode" class="form-control" placeholder="Postcode" value="<?php if(isset($post_data['postcode'])) echo $post_data['postcode']; ?>">
-                        </div>
-                        <div class="col-md-2">
-                            <select style="margin:20px; padding:19px;" name="industry_id" class="form-control">
-                                <option value="">Select Sector</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2">
-                            <input style="margin:20px; padding:19px;" type="text" name="status" class="form-control" placeholder="Status" value="<?php if(isset($post_data['status'])) echo $post_data['status']; ?>">
-                        </div>
-                        <span class="input-group-btn">
+				<form id="companyFilter" method="POST" class="sidebar-form">
+					<div class="input-group">
+						<div class="col-md-3">
+							<input style="margin:20px; padding:19px;" type="text" name="name" class="form-control" placeholder="Company name" value="<?php if(isset($post_data['name'])) echo $post_data['name']; ?>">
+						</div>
+						<div class="col-md-3">
+							<input style="margin:20px; padding:19px;" type="text" name="town" class="form-control" placeholder="Town" value="<?php if(isset($post_data['town'])) echo $post_data['town']; ?>">
+						</div>
+						<div class="col-md-2">
+							<input style="margin:20px; padding:19px;" type="text" name="postcode" class="form-control" placeholder="Postcode" value="<?php if(isset($post_data['postcode'])) echo $post_data['postcode']; ?>">
+						</div>
+						<div class="col-md-2">
+							<select style="margin:20px; padding:19px;" name="industry_id" class="form-control">
+								<option value="">Select Sector</option>
+							</select>
+						</div>
+						<div class="col-md-2">
+							<input style="margin:20px; padding:19px;" type="text" name="status" class="form-control" placeholder="Status" value="<?php if(isset($post_data['status'])) echo $post_data['status']; ?>">
+						</div>
+						<span class="input-group-btn">
                             <button style="z-index:100" type="submit"  id="search-btn" class="btn btn-flat btn-mploy">
                                 <i class=" fa fa-search"></i>
                             </button>
                             <button class="btn btn-flat btn-mploy" id="clear-form">Clear</button>
 
                         </span>
-                    </div>
-                </form>
+					</div>
+				</form>
+			</div>
+			<div class="box-header">
+				<div style="z-index:100" class="col-md-12">
+					<?php if( $message != '' ) { ?>
+						<div class="alert alert-success alert-dismissable">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+							<?php echo $message; ?>
+						</div>
+					<?php } ?>
+				</div>
+				<div style="opacity:0;"  id="message">
+					<?php echo $message; ?>
+
+				</div>
+
+
+				<h2 class="box-title">
+					<?= $title; ?>
+				</h2>
+			</div>
+			<!-- /.box-header -->
+			<div class="box-body">
+				<div  class="addButton col-md-offset-9 col-md-3">
+
+					<button class="  btn btn-mploy-submit waves-effect waves-light" style="float:right" onclick="window.location.replace('/companies/newcompany')"><i class="fa fa-plus"></i>
+						<span class="buttonText">Add Company</span></button>
+				</div>
+				<div class="col-md-12">
+
 				<table id="example2" class="table table-bordered table-striped">
 					<thead>
 					<tr>

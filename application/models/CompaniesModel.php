@@ -31,6 +31,13 @@ class CompaniesModel extends CI_Model
     }
 
 
+
+	public function	addCompany($data){
+
+		$this->db->insert('mploy_organisations', $data);
+
+    }
+
     public function updateCompanyContact($id,$data){
 
         $this->db->trans_start();

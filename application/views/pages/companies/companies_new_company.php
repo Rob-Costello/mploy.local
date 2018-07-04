@@ -11,14 +11,7 @@
 	</section>
 
 	<div class="container-fluid ">
-		<div class="col-md-12">
-			<?php if( $messages != '' ) { ?>
-				<div class="alert alert-success alert-dismissable">
-					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-					<?php echo $messages; ?>
-				</div>
-			<?php } ?>
-		</div>
+
 		<div class=" ">
 			<div id="exTab1" class="content">
 
@@ -35,7 +28,7 @@
 
 							<h4>
 
-								Customer Details
+								Add new company
 							</h4>
 							<div class="">
 
@@ -50,7 +43,7 @@
 											<div class="col-md-6">
 												<div class="form-group">
 
-													<label >Customer Name</label>
+													<label >Business Name</label>
 													<input type="text" name="name" class="form-control"  placeholder="Customer Name" required>
 
 												</div>
@@ -60,7 +53,7 @@
 
 													<div class="">
 														<label >Phone</label>
-														<input type="text" name="phone_number" class="form-control"  placeholder="01234 56789" autocomplete="off" required>
+														<input type="text" name="phone_number" class="form-control"  placeholder="Phone Number" autocomplete="off" required>
 													</div>
 												</div>
 											</div>
@@ -74,7 +67,7 @@
 													<label class=" ">
 														Address 1
 													</label>
-													<input type="text" name="address1" class="form-control" placeholder="Address Line 1" >
+													<input type="text" name="address1" class="form-control" placeholder="Address Line 1" required >
 
 												</div>
 											</div>
@@ -125,7 +118,7 @@
 													<label class=" ">
 														Postcode
 													</label>
-													<input type="text" name="postcode" class="form-control"  placeholder="Postcode" >
+													<input type="text" name="postcode" class="form-control"  placeholder="Postcode" required>
 
 												</div>
 											</div>
@@ -137,18 +130,55 @@
 													<label class=" ">
 														Organisation Type
 													</label>
-													<select name="organisation_type_id" class="form-control" required>
-														<option >Select Organisation Type</option>
-														<option value="1">School</option>
-														<option value="4">Local Authority</option>
-														<option value="5">College</option>
+													<input type="hidden" name="organisation_type_id" class="form-control" value="2">
 
-													</select>
+
+
 
 												</div>
 											</div>
 
-											<input type="hidden" value="1" name="organisation_type_id">
+											<input type="hidden" value="2" name="organisation_type_id">
+
+											<!--/span-->
+										</div>
+
+
+										<div class="row">
+											<div class="col-md-4">
+												<div class="form-group">
+
+													<label class=" ">
+														Number of Employees
+													</label>
+													<input type="text" name="no_of_employees" class="form-control"  placeholder="1 - 4" required>
+
+												</div>
+											</div>
+
+
+											<div class="col-md-4">
+												<div class="form-group">
+													<label class=" ">
+														Risk
+													</label>
+													<select class="form-control" name="risk">
+														<option value="Low" >Low</option>
+														<option value="Medium" >Medium</option>
+														<option value="High" >High</option>
+
+													</select>
+												</div>
+											</div>
+
+											<div class="col-md-4">
+												<div class="form-group">
+													<label class=" ">
+														Employers Liability Insurance Company
+													</label>
+													<input type="text" name="employers_liability_ins_company" class="form-control"  placeholder="e.g. Norwich Union" required>
+												</div>
+											</div>
 
 											<!--/span-->
 										</div>

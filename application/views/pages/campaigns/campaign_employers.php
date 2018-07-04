@@ -79,13 +79,14 @@
 							{
 
 								if ($percent < 50) {
-									$color = '#00a65a';
+									$color = 'red';
 								}
 								if ($percent > 51) {
 									$color = '#f39c12';
 								}
 								if ($percent > 85) {
-									$color = 'red';
+									$color = '#00a65a';
+
 								}
 								return $color;
 							}
@@ -97,9 +98,14 @@
 							$now = strtotime(date('d/m/Y h:i:s'));
 							$timeleft = ( $enddate - $now);
 							$daysleft = round($timeleft / (60 * 60 * 24));
+
 							$percent=0;
 							if($days >0 ){
-							$percent = ($daysleft * 100 / $days);
+						//	$percent = ($daysleft * 100 / $days);
+								$percent = ($daysleft  / $days * 100);
+								$percent = 100 - $percent;
+
+
 							}
 
 							$color = percent($percent);

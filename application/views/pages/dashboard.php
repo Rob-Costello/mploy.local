@@ -5,16 +5,17 @@
 	{
 
 		if ($percent < 50) {
-			//green
-			$color = '#00a65a';
+			//red
+			$color = 'red';
 		}
 		if ($percent > 51) {
 			//amber
 			$color = '#f39c12';
 		}
 		if ($percent > 85) {
-			//red
-			$color = 'red';
+			//green
+			$color = '#00a65a';
+
 		}
 		return $color;
 	}
@@ -205,8 +206,8 @@ function calls ($percent)
 												$now = strtotime(date('d/m/Y h:i:s'));
 												$timeleft = ( $enddate - $now);
 												$daysleft = round($timeleft / (60 * 60 * 24));
-												$percent = ($daysleft * 100 / $days);
-
+												$percent = ($daysleft  / $days * 100);
+												$percent = 100 - $percent;
 												$color = percent($percent)
 												?>
 

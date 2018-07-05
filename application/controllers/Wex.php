@@ -49,6 +49,9 @@ class Wex extends CI_Controller
 	function checkValid(){
 
 
+		$this->login->login_check_force();
+
+
 
 
 

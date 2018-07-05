@@ -26,7 +26,11 @@
 
 
         <div class="box">
+			<div class="col-md-12">
 
+				<h1 class="text-center"><?php echo $school_name; ?></h1>
+
+			</div>
 			<button style="margin-top:10px; margin-left:10px" type="button" class=" btn btn-mploy-submit waves-effect waves-light" data-toggle="modal" data-target="#myModal">New Calendar Entry</button>
 
 			<!-- Modal -->

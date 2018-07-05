@@ -342,7 +342,15 @@ class CampaignsModel extends CI_Model
 		$query = $this->db->get_where('mploy_campaigns','campaign_id = '.$id );
 		return $query->row_array();
 	}
-	
+
+
+	public function getSchoolName($id){
+
+		$this->db->select('name');
+    	$query = $this->db->get_where('mploy_organisations','school_id = '.$id )->row_array();
+		return $query;
+
+	}
 
 	public function title($id){
 
@@ -356,22 +364,7 @@ class CampaignsModel extends CI_Model
 
 	public function getCompaniesByPostcode($where,$campaign=null){
 
-		/*if($campaign == null) {
-			$this->db->select('*');
-			//$this->db->like('postcode', $postcode, 'right');
-			$query = $this->db->get_where('mploy_organisations', ['organisation_type_id' => '2']);
-		}
-		else{
-
-			/*$query = $this->db->query("SELECT * FROM  mploy_organisations o
-                                  where  not in
-                                  (select campaign_employer_id as comp_id from mploy_rel_campaign_employers where campaign_ref='.$campaign.') comp_id
-                                  and organisation_type_id =2 and postcode like '".$postcode."%' ");*/
-
 			$query = $this->db->query("SELECT * FROM  mploy_organisations o where organisation_type_id =2 ".$where);
-
-		//}
-
 		return $query->result_array();
 
 	}

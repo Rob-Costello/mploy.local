@@ -89,7 +89,8 @@ class Campaigns extends CI_Controller
 			}
 
 			$data['school_id'] = $campData['select_school'];
-
+		$data['camp_id'] = $campData['select_school'];
+		$data['campaign_dropdown'] = $campData['campaign_id'];
 		$data['campaign_list'] = $this->availableCampaigns;
 		$data['user']=$this->user;
 		$output ="";
@@ -653,6 +654,7 @@ class Campaigns extends CI_Controller
                 $data['user'] = $this->user;
                 $campaign = new campaignsModel();
 				$data['campaign_list'] = $this->availableCampaigns;
+				$data['school_name'] = $campaign->getSchoolName($id)['name'];
 
                 if(!empty($_POST)) {
 

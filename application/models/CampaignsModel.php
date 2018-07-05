@@ -266,6 +266,14 @@ class CampaignsModel extends CI_Model
 
 	}
 
+	function dropHoliday($id){
+
+		$this->db->where('id', $id);
+		$this->db->delete('mploy_organisation_holidays');
+
+
+	}
+
 	function setSchoolHoliday($data){
 
     	$this->db->insert('mploy_organisation_holidays', $data);
@@ -279,6 +287,16 @@ class CampaignsModel extends CI_Model
     	return $query->result_array();
 
 	}
+
+	function updateSchoolHoliday($id,$data){
+
+		$this->db->trans_start();
+		$this->db->where('id', $id);
+		$this->db->update('mploy_organisation_holidays', $data);
+		$this->db->trans_complete();
+
+	}
+
 
 	function checkHoliday($id,$data){
 

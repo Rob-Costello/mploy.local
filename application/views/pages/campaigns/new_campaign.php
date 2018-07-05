@@ -172,6 +172,8 @@
                                                         <td>
                                                         <input name="holiday[]" type="text" class="form-control">
                                                         </td>
+	                                                    <td> <button type="button" class="btn" style="border:none; background-color: transparent;" onclick="holiday(this)" > <i class="fa fa-remove" style="font-size:14px;color:red"></i> </button></td>
+
 
                                                     </tr>
                                                     <tr id="last_row" style="background-color:#fff;border-color:#fff">
@@ -184,8 +186,7 @@
                                                 </table>
                                             </div>
                                             </div><!--end col-->
-                                        <div class="row">
-    .                                        <div class="col-md-4">
+                                        <div class="row"><div class="col-md-4">
                                                 <div class="form-group">
                                                 <label >Campaign Start Date </label>
 
@@ -520,16 +521,19 @@
 			var start_date ='<td><input  type="text" name="start_date[]" value="" class="datepicker'+tbl+' form-control"></td>';
 			var end_date ='<td><input  type="text" name="end_date[]" value="" class="datepicker'+tbl+' form-control"></td>';
 			var holiday ='<td><input  type="text" name="holiday[]" value="" class="form-control"></td>';
-			var row = $('<tr tbl>').html(start_date + end_date + holiday );
+			var del = '<td> <button type="button" class="btn" style="border:none; background-color: transparent;" onclick="holiday(this)" > <i class="fa fa-remove" style="font-size:14px;color:red"></i> </button></td>';
+			var row = $('<tr tbl>').html(start_date + end_date + holiday + del );
 			return row;
 		}
 
-		// listener for school drop down  populates school holidays when option changed
 		$('#select_school').change(function(){
 			var target= '/campaigns/getSchoolHolidays/'+$('#select_school').val();
 			$('.school_row').remove();
 			var table = $('#holidays');
+			//$('#last_row').before(addRow());
+			//table.find('tr:last').prev().before(addRow());
 
+			//table.append(addRow('class="school_row"'));
 			$.ajax({
 				url: target,
 				type: 'GET',
@@ -538,12 +542,13 @@
 				{
 					data = JSON.parse(data);
 					Object.keys(data).forEach(function(key){
-						console.log( data[key].name);
+						console.log(data[key].hol_id);
 						var table = $('#holidays');
 						var start_date ='<td><input  type="text" name="start_date[]" value="'+data[key].start_date+'" class="form-control"></td>';
 						var end_date ='<td><input  type="text" name="end_date[]" value="'+data[key].end_date+'" class="form-control"></td>';
 						var holiday ='<td><input  type="text" name="holiday[]" value="'+data[key].holiday_name+'" class="form-control"></td>';
-						var row = $('<tr class="school_row">').html(start_date + end_date + holiday);
+						var del = '<td> <button type="button" class="btn" style="border:none; background-color: transparent;" onclick="holiday(this,'+data[key].id+')" > <i class="fa fa-remove" style="font-size:14px;color:red"></i> </button></td>';
+						var row = $('<tr class="school_row">').html(start_date + end_date + holiday + del);
 						$('#last_row').before(row);
 						//table.append(row);
 					});
@@ -551,6 +556,7 @@
 			});
 
 		})
+
 
 
 
@@ -668,6 +674,26 @@
 
 		});
 
+		function holiday(item,id=null){
+
+			if(id==null){
+
+				$(item).closest('tr').remove();
+
+			}
+			else {
+				var target = '/campaigns/removeholiday';
+				$.ajax({
+					url: target,
+					type: 'POST',
+					data: {hol_id: id},
+					success: function (data, textStatus, XMLHttpRequest) {
+						$(item).closest('tr').remove();
+					}
+				});
+			}
+
+		}
 
 
 		$(function(){

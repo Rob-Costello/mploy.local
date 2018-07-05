@@ -97,12 +97,13 @@ class Campaigns extends CI_Controller
 		$holidays = [];
 
 		foreach($schoolHolidays as $hol){
-			if ($hol['start_date'] =='1970-01-01' || $hol['end_date'] =='1970-01-01' ){
+			if ($hol['start_date'] =='1970-01-01' || $hol['end_date'] =='1970-01-01' || $hol['holiday_name'] =='' ){
 				continue;
 			}
 			$holidays[] = ['start_date' => date("d/m/Y", strtotime(strtr($hol['start_date'], '/', '-'))),
 			'end_date'=>date("d/m/Y", strtotime(strtr($hol['end_date'], '/', '-'))),
-			'holiday_name' => $hol['holiday_name']];
+			'holiday_name' => $hol['holiday_name'],
+				'hol_id'=>$hol['id']];
 		}
 
 	    $data['holiday'] = $holidays;
@@ -136,19 +137,30 @@ class Campaigns extends CI_Controller
 			$start = $this->input->post('start_date');
 			$end = $this->input->post('end_date');
 			$holiday = $this->input->post('holiday');
+			$hol_id = $this->input->post('hol_id');
 			$school = $this->input->post('select_school');
 
 			if(null !== $start){
 
 				for($i=0; $i < count($start); $i++){
 
-					$available = $campaign->checkHoliday($school,['start_date'=>$start[$i],'end_date' => $end[$i], 'holiday_name' => $holiday[$i]]);
+					if(isset($hol_id[$i])){
 
-					if($available==null){
-						$campaign->setSchoolHoliday(['start_date'=>date('Y-m-d',strtotime($start[$i])),
-							'end_date' => date('Y-m-d',strtotime($end[$i])),
+						$campaign->updateSchoolHoliday($hol_id[$i],['start_date'=>date('Y-m-d', strtotime(str_replace('/','-',$start[$i]))),
+							'end_date' => date('Y-m-d', strtotime(str_replace('/','-',$end[$i]))),
 							'holiday_name' =>$holiday[$i],
-							'school_id'=>$this->input->post('select_school')]);
+							'school_id'=>$this->input->post('select_school')] );
+
+					}
+					else{
+
+						if($start[$i]!='' && $end[$i]!='' && $holiday[$i] !='') {
+
+							$campaign->setSchoolHoliday(['start_date' => date('Y-m-d', strtotime(str_replace('/','-',$start[$i]))),
+								'end_date' => date('Y-m-d', strtotime(str_replace('/','-',$end[$i]))),
+								'holiday_name' => $holiday[$i],
+								'school_id' => $this->input->post('select_school')]);
+						}
 					}
 				}
 
@@ -172,7 +184,7 @@ class Campaigns extends CI_Controller
 				$data['error'] = $error;
 			}
 
-
+			unset($_POST['hol_id']);
 			unset($_POST['start_date']);
 			unset($_POST['end_date']);
 			unset($_POST['holiday']);
@@ -234,6 +246,16 @@ class Campaigns extends CI_Controller
 	}
 
 
+	function removeHoliday(){
+
+		$campaign = new CampaignsModel();
+		if(!empty($_POST)) {
+			$id = $this->input->post('hol_id');
+			$campaign->dropHoliday($id);
+		}
+
+	}
+
 
 	function getSelectedCompanies($id)
 	{
@@ -284,20 +306,51 @@ class Campaigns extends CI_Controller
 			}
 
 
+
 			$start = $this->input->post('start_date');
 			$end = $this->input->post('end_date');
 			$holiday = $this->input->post('holiday');
+			$hol_id = $this->input->post('hol_id');
 			$school = $this->input->post('select_school');
+			$holidaystext ='';
+			$c=0;
 			if(null !== $start){
+
 				for($i=0; $i < count($start); $i++){
-					$available = $campaign->checkHoliday($school,['start_date'=>$start[$i],'end_date' => $end[$i], 'holiday_name' => $holiday[$i]]);
-					if($available==null){
-						$campaign->setSchoolHoliday(['start_date'=>date('Y-m-d',strtotime($start[$i])),
-													 'end_date' => date('Y-m-d',strtotime($end[$i])),
-													 'holiday_name' =>$holiday[$i],
-													'school_id'=>$this->input->post('select_school')]);
+
+					if(isset($hol_id[$i])){
+
+						$campaign->updateSchoolHoliday($hol_id[$i],['start_date'=>date('Y-m-d',strtotime($start[$i])),
+							'end_date' => date('Y-m-d',strtotime($end[$i])),
+							'holiday_name' =>$holiday[$i],
+							'school_id'=>$this->input->post('select_school')] );
+
+					}else{
+
+						if($start[$i]!='' && $end[$i]!='' && $holiday[$i] !='') {
+
+							if ($start[$i] != '') {
+
+								$array[] = ['start_date' => date('Y-m-d', strtotime(str_replace('/','-',$start[$i]))),
+									'end_date' => date('Y-m-d', strtotime(str_replace('/','-',$end[$i]))),
+									'holiday_name' => $holiday[$i],
+									'school_id' => $this->input->post('select_school')];
+
+								$campaign->setSchoolHoliday(
+									['start_date' => date('Y-m-d', strtotime(str_replace('/','-',$start[$i]))),
+										'end_date' => date('Y-m-d', strtotime(str_replace('/','-',$end[$i]))),
+										'holiday_name' => $holiday[$i],
+										'school_id' => $this->input->post('select_school')]);
+								$holidaystext .= $holiday[$i] . ' ';
+
+								$c++;
+							}
+						}
+
 					}
+
 				}
+
 			}
 
 			//make dates db friendly
@@ -318,6 +371,7 @@ class Campaigns extends CI_Controller
 				$data['error'] = $error;
 			}
 
+			unset($_POST['hol_id']);
 			unset($_POST['start_date']);
 			unset($_POST['end_date']);
 			unset($_POST['holiday']);
@@ -738,8 +792,6 @@ class Campaigns extends CI_Controller
 	            }
 
             }
-
-
 
 
             function getSchoolHolidays($id)

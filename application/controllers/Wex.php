@@ -50,6 +50,8 @@ class Wex extends CI_Controller
 
 
 
+
+
 	}
 
 

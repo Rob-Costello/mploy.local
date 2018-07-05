@@ -188,7 +188,6 @@ class Campaigns extends CI_Controller
 			unset($_POST['start_date']);
 			unset($_POST['end_date']);
 			unset($_POST['holiday']);
-			unset($_POST['campaign_employer_id']);
 			unset($_POST['search']);
 			unset($_POST['name']);
 			unset($_POST['address1']);
@@ -197,6 +196,7 @@ class Campaigns extends CI_Controller
 
 			if(!isset($error)) {
 				$temp = [];
+
 				if(null!==($this->input->post('campaign_employer_id'))){
 
 					foreach ($this->input->post('campaign_employer_id') as $employer) {
@@ -204,10 +204,12 @@ class Campaigns extends CI_Controller
 						$temp[] = ['campaign_employer_id' => $employer, 'org_campaign_ref' => $_POST['select_school'] ];
 
 					}
+
 					//remove employer id to stop error
-					unset($_POST['campaign_employer_id']);
+
 				}
 				//remove search fields from form
+				unset($_POST['campaign_employer_id']);
 				unset($_POST['search']);
 				unset($_POST['name']);
 				unset($_POST['address1']);
@@ -219,9 +221,12 @@ class Campaigns extends CI_Controller
 				foreach ($temp as  $t) {
 
 					$t['campaign_ref'] = $id;
+
 					$campaign->addCompaniesToCampaign($t);
 
 				}
+
+
 
 				$where['status'] = "status like '%%'";
 				$where['camp_ref'] = $id;

@@ -245,9 +245,11 @@ class Companies extends CI_Controller
         }
 
         $data['placements'] = $company->getPlacementHistory($id);
-	    var_dump($data['placements']);
+
         $data['calls'] = $company->getCallHistory($id);
-		$data['contacts'] = $company->getHistory(['mploy_campaign_activity.org_id'=>$data['id']], null, $this->perPage, $offset);
+		//var_dump($data['calls']);
+
+        $data['contacts'] = $company->getHistory(['mploy_campaign_activity.org_id'=>$data['id']], null, $this->perPage, $offset);
         $page = $this->page($data['contacts'],'/companies/contacts/',$this->perPage);
         $this->pagination->initialize($page);
         $data['pagination_start'] = $offset + 1;

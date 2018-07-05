@@ -137,8 +137,11 @@ class CompaniesModel extends CI_Model
 	function getPlacementHistory($id)
 	{
     	$this->db->select('*');
-    	$where ="placement_company_id ='".$id."'";
-    	$query = $this->db->get_where('mploy_contacts', $where);
+		$this->db->join('mploy_campaigns', 'mploy_campaigns.campaign_id = mploy_campaign_activity.campaign_ref', 'left');
+		$this->db->join('mploy_organisations', 'mploy_organisations.school_id = mploy_campaigns.select_school', 'left');
+		$where ="mploy_campaign_activity.org_id ='".$id."'";
+
+    	$query = $this->db->get_where('mploy_campaign_activity', $where);
 
     	return $query->result();
 
@@ -148,6 +151,7 @@ class CompaniesModel extends CI_Model
 
 
 		$this->db->join('mploy_campaign_activity_types','mploy_campaign_activity_types.campaign_type_id = mploy_campaign_activity.campaign_activity_type_id');
+		$this->db->join('users', 'users.id = mploy_campaign_activity.user_id', 'left');
 		//$this->db->where('org_id='.$id);
 		$calls = $this->db->get_where('mploy_campaign_activity','org_id='.$company);
 		return $calls->result();

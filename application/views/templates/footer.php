@@ -146,6 +146,7 @@
 	    ////$('#campaign-dropdown').val(<?php echo $campaign_dropdown ?>);
 	    $('#campaign-dropdown').val(<?php echo $campaign_dropdown ?>);
 	    $('#campaign-dropdown').text(<?php echo $campaign_dropdown ?>);
+        $('#edit').html('<a href="/campaigns/edit/<?php echo $campaign_dropdown ?>/0"><i class="fa fa-edit fa-2x"</a>');
     });
     <?php endif ?>
 </script>

@@ -46,7 +46,7 @@ class Wex extends CI_Controller
 
 	}
 
-	function checkvalid(){
+	function checkValid(){
 
 
 

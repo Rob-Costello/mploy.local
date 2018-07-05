@@ -11,67 +11,42 @@ class Wex extends CI_Controller
 
 		$this->load->model('login');
 		$this->load->library('ion_auth');
-
-		$this->login->login_check_force();
-		$this->user = $this->ion_auth->user()->row();
-		$this->perPage =20;
-		$this->offset =0;
-		$this->load->library('pagination');
-		$this->load->library('helpers');
+		//$this->login->login_check_force();
+		//$this->user = $this->ion_auth->user()->row();
 		$this->load->model('WexModel');
+		$this->load->library('session');
 
 
 	}
 
 
 	function convertBlob($string){
-		$start = '|';
-		$end = ':';
-		$string = ' ' . $string;
-		$ini = strpos($string, $start);
-		if ($ini == 0) return '';
-		$ini += strlen($start);
-		$len = strpos($string, $end, $ini) - $ini;
-		return substr($string, $ini, $len);
-
+		$split = explode(';',$string);
+		$email = explode('|',$split[1]);
+		$val = explode(':',$email[1]);
+		return str_replace('"','',$val[2]);
 
 	}
 
 
 
-	function index($pageNo = 0)
+	function index()
 	{
 		$wex = new WexModel();
+		$key = '';
 
-		if($_POST){
-
-			$this->input->post('key');
-
-		}
-		$session = $wex->getSession();
-		//var_dump($session);
-
-
-
-
-
-
-
-		foreach($session as $s){
-
-			var_dump($this->convertBlob($s->data[0]));
-
-			$val = explode(';',$s->data);
-			//var_dump($val);
-			//var_dump(unserialize($s->data));
-			//$array = explode(';', $s->data);
-				//var_dump($array);
-			//$test = 'email|s:15:"admin@admin.com';
-			 //strpos($test,'|');
-
-
+		if($_POST)
+		{
+			$key = $this->input->post('key');
+			$session = $wex->getSession($key);
+			$userid = $wex->getWexId($this->convertBlob($session->data));
+			echo json_encode( ['user_id' => $userid->wex_id]);
 		}
 
+
+	}
+
+	function checkvalid(){
 
 
 

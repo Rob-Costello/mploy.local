@@ -49,7 +49,7 @@ class Dashboard extends CI_Controller {
 		$data['user_count'] = count($usersModel->getUsers()['data']);
 		$data['campaigns_count'] = count($campaignsModel->getCampaigns()['data']);
 
-		$data['campaigns_display'] = $campaignsModel->getCampaigns(null, null, 5, 0)['data'];
+		$data['campaigns_display'] = $campaignsModel->getCampaigns('active=1','campaign_id' , 5, 0)['data'];
 		$callInfo = [];
 		$output = [];
         $call = 0;

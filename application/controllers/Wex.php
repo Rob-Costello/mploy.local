@@ -96,6 +96,7 @@ class Wex extends CI_Controller
 			echo $this->validateUser($key);
 		}
 		else{
+
 			echo json_encode(['error' => 'No Session Data Provided']);
 
 		}

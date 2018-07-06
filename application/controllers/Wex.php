@@ -37,13 +37,13 @@ class Wex extends CI_Controller
 		$session = $wex->getSession($key);
 
 		if ($session == null) {
-			return json_encode(['error' => 'error message']);
+			return json_encode(['error' => 'Invalid Session']);
 
 		}
 		$userid = $wex->getWexId($this->convertBlob($session->data));
 
 		if ($userid == null) {
-			return json_encode(['error' => 'error message']);
+			return json_encode(['error' => 'No Wex ID']);
 		}
 
 		return json_encode(['user_id' => $userid->wex_id]);
@@ -96,7 +96,7 @@ class Wex extends CI_Controller
 			echo $this->validateUser($key);
 		}
 		else{
-			//echo json_encode(['error' => 'error message']);
+			echo json_encode(['error' => 'No Session Data Provided']);
 
 		}
 

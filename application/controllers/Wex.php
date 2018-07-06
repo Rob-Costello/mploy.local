@@ -34,7 +34,6 @@ class Wex extends CI_Controller
 	function validateUser($key)
 	{
 		$wex = new WexModel();
-
 		$session = $wex->getSession($key);
 
 		if ($session == null) {
@@ -53,7 +52,7 @@ class Wex extends CI_Controller
 
 
 	function encryptSession($username=null){
-		//$username='admin@admin.com';
+		$username='admin@admin.com';
 		$wex = new WexModel();
 		$session = $wex->getCiSession($username)['id'];
 
@@ -80,6 +79,7 @@ class Wex extends CI_Controller
 	//check if user is valid if valid return encrypted session id
 	function checkValid()
 	{
+
 		$this->login->login_check_force();
 		$user = $this->ion_auth->user()->row();
 		echo $this->encryptSession($user->username);
@@ -93,8 +93,8 @@ class Wex extends CI_Controller
 			$encKey = $this->input->post('key');
 
 			$key= $this->decrypt($encKey);
-			echo $key;
-			//echo $this->validateUser($key);
+
+			echo $this->validateUser($key);
 		}
 		else{
 

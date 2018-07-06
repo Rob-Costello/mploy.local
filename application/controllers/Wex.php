@@ -34,6 +34,7 @@ class Wex extends CI_Controller
 	function validateUser($key)
 	{
 		$wex = new WexModel();
+
 		$session = $wex->getSession($key);
 
 		if ($session == null) {
@@ -92,8 +93,8 @@ class Wex extends CI_Controller
 			$encKey = $this->input->post('key');
 
 			$key= $this->decrypt($encKey);
-
-			echo $this->validateUser($key);
+			echo $key;
+			//echo $this->validateUser($key);
 		}
 		else{
 

@@ -67,7 +67,7 @@
 
                                                     <div class="">
                                                         <label >Places to be sourced by Mploy</label>
-                                                        <input type="number" name="students_to_place" value="<?php if(array_key_exists('students_to_place',$values)) echo $values['students_to_place'] ?> "  class="form-control" value="" placeholder="" autocomplete="off" required >
+                                                        <input type="number" id="students_to_place" name="students_to_place" value="<?php if(array_key_exists('students_to_place',$values)) echo $values['students_to_place'] ?> "  class="form-control" value="" placeholder="" autocomplete="off" required >
                                                     </div>
                                                 </div>
                                             </div>
@@ -510,7 +510,13 @@
 
 					});
 					$('#loading').hide();
-					$('#total').html('<h1>'+($('#companyTable tr').length -1)+' Results</h1>')
+					var recommended = '';
+
+					if( $('#students_to_place').val() !=''){
+						recommended = ($('#students_to_place').val() * 20) +' Companies Recommended </h1>';
+					}
+					$('#total').html('<h1>'+($('#companyTable tr').length -1)+' Results '+ recommended);
+					$('.selected').html('<h1>'+($('#companyTable tr').length -1)+' Results '+ recommended);
 				}
 
 			});
@@ -651,7 +657,7 @@
 					i++;
 				}
 			})
-			$('.selected').html('<h1>Selected '+i+' companies </h1>');
+			//$('.selected').html('<h1>Selected '+i+' companies </h1>');
 
 		});
 

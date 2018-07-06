@@ -30,5 +30,12 @@ class WexModel extends CI_Model
 
 	}
 
+	public function getCiSession($username ){
+
+		return $this->db->query("select id from ci_sessions where data like '%".$username."%' order by timestamp desc limit 1")->row_array();
+
+	}
+
+
 }
 

@@ -23,6 +23,7 @@
 
 		<div class="box">
 			<form  method="POST" class="sidebar-form">
+				<div class="col-md-12">
 				<div class="input-group">
 					<input style="margin:20px; padding:19px;" type="text" name="search" class="form-control" placeholder="customer name">
 					<span class="input-group-btn">
@@ -30,6 +31,7 @@
                     <i class=" fa fa-search"></i>
                 </button>
               </span>
+				</div>
 				</div>
 			</form>
 
@@ -40,14 +42,7 @@
 					</h2>
 				</div>
 
-				<div style="z-index:100" class="col-md-12">
-					<?php if( $message != '' ) { ?>
-						<div class="alert alert-success alert-dismissable">
-							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-							<?php echo $message; ?>
-						</div>
-					<?php } ?>
-				</div>
+
 				<div style="opacity:0;"  id="message">
 					<?php echo $message; ?>
 
@@ -61,6 +56,14 @@
 
 			</div>
 			<!-- /.box-header -->
+			<div style="" class="col-md-12">
+				<?php if( $message != '' ) { ?>
+					<div class="alert alert-success alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+						<?php echo $message; ?>
+					</div>
+				<?php } ?>
+			</div>
 
 			<div class="box-body">
 

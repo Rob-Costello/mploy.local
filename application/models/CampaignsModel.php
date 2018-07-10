@@ -31,6 +31,14 @@ class CampaignsModel extends CI_Model
 
     }
 
+    function allCalls(){
+	    $this->db->select('count(campaign_ref) as total, sum(if( date_time > NOW() - INTERVAL 30 DAY,1,0)) as days, ');
+	    $query= $this->db->get('mploy_campaign_activity');
+	    return $query->row_array();
+    }
+
+
+
     function campaignCalls($id){
 
     	return $this->db->query("select count(campaign_ref) as calls, 
@@ -198,9 +206,19 @@ class CampaignsModel extends CI_Model
 
     }
 
-    public function campaignEmployerCalls($ref,$id){
+    public function campaignEmployerCalls($ref,$id=null){
 
-	    $this->db->join('mploy_campaign_activity_types','mploy_campaign_activity_types.campaign_type_id = mploy_campaign_activity.campaign_activity_type_id');
+    	if($id==null){
+
+		    $this->db->join('mploy_campaign_activity_types','mploy_campaign_activity_types.campaign_type_id = mploy_campaign_activity.campaign_activity_type_id');
+		    $this->db->join('users','users.id = mploy_campaign_activity.user_id');
+
+		    $calls = $this->db->get_where('mploy_campaign_activity','campaign_ref='.$ref);
+		    return $calls->result();
+
+	    }
+
+    	$this->db->join('mploy_campaign_activity_types','mploy_campaign_activity_types.campaign_type_id = mploy_campaign_activity.campaign_activity_type_id');
 	    $this->db->join('users','users.id = mploy_campaign_activity.user_id');
 	    $this->db->where('org_id='.$id);
 	    $calls = $this->db->get_where('mploy_campaign_activity','campaign_ref='.$ref);
@@ -248,6 +266,14 @@ class CampaignsModel extends CI_Model
 
 	}
 
+	function dropHoliday($id){
+
+		$this->db->where('id', $id);
+		$this->db->delete('mploy_organisation_holidays');
+
+
+	}
+
 	function setSchoolHoliday($data){
 
     	$this->db->insert('mploy_organisation_holidays', $data);
@@ -261,6 +287,16 @@ class CampaignsModel extends CI_Model
     	return $query->result_array();
 
 	}
+
+	function updateSchoolHoliday($id,$data){
+
+		$this->db->trans_start();
+		$this->db->where('id', $id);
+		$this->db->update('mploy_organisation_holidays', $data);
+		$this->db->trans_complete();
+
+	}
+
 
 	function checkHoliday($id,$data){
 
@@ -306,7 +342,15 @@ class CampaignsModel extends CI_Model
 		$query = $this->db->get_where('mploy_campaigns','campaign_id = '.$id );
 		return $query->row_array();
 	}
-	
+
+
+	public function getSchoolName($id){
+
+		$this->db->select('name');
+    	$query = $this->db->get_where('mploy_organisations','school_id = '.$id )->row_array();
+		return $query;
+
+	}
 
 	public function title($id){
 
@@ -320,22 +364,7 @@ class CampaignsModel extends CI_Model
 
 	public function getCompaniesByPostcode($where,$campaign=null){
 
-		/*if($campaign == null) {
-			$this->db->select('*');
-			//$this->db->like('postcode', $postcode, 'right');
-			$query = $this->db->get_where('mploy_organisations', ['organisation_type_id' => '2']);
-		}
-		else{
-
-			/*$query = $this->db->query("SELECT * FROM  mploy_organisations o
-                                  where  not in
-                                  (select campaign_employer_id as comp_id from mploy_rel_campaign_employers where campaign_ref='.$campaign.') comp_id
-                                  and organisation_type_id =2 and postcode like '".$postcode."%' ");*/
-
 			$query = $this->db->query("SELECT * FROM  mploy_organisations o where organisation_type_id =2 ".$where);
-
-		//}
-
 		return $query->result_array();
 
 	}
@@ -366,6 +395,16 @@ class CampaignsModel extends CI_Model
 
     	$query = $this->db->get_where('mploy_contacts','school_id ='.$school.' and placement_company_id ='.$id);
     	return $query->result();
+
+	}
+
+
+	public function getAllPlacements($school){
+
+		$this->db->select('*');
+
+		$query = $this->db->get_where('mploy_contacts','school_id ='.$school);
+		return $query->result();
 
 	}
 

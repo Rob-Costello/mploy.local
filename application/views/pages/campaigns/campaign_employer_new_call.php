@@ -142,7 +142,7 @@
                                         </div>
 
                                 </div>
-                                <input type="hidden" value="<?php echo $camp_id; ?>" name="campaign_ref">
+                                <input type="hidden" value="<?php echo $dropdown; ?>" name="campaign_ref">
                                 <input type="hidden" value="<?php echo $comp_id; ?>" name="org_id">
                                 <input type="submit" class="btn btn-mploy-submit" value="Save Changes">
                                 <input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/campaigns/employerdetails/<?php echo $camp_id ?>/<?php echo $comp_id; ?>?campid=<?php echo $campaign_dropdown ?>')">

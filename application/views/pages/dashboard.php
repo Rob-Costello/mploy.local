@@ -1,6 +1,45 @@
 
 <?php $this->load->view('templates/header'); ?>
+<?php
+	function percent ($percent)
+	{
 
+		if ($percent < 50) {
+			//red
+			$color = 'red';
+		}
+		if ($percent > 51) {
+			//amber
+			$color = '#f39c12';
+		}
+		if ($percent > 85) {
+			//green
+			$color = '#00a65a';
+
+		}
+		return $color;
+	}
+
+function calls ($percent)
+{
+
+	if ($percent < 50) {
+		//red
+		$color = 'red';
+	}
+	if ($percent > 51) {
+		//amber
+		$color = '#f39c12';
+	}
+	if ($percent > 85) {
+		//green
+		$color = '#00a65a';
+
+	}
+	return $color;
+}
+
+	?>
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
 	<section class="content-header">
@@ -115,43 +154,80 @@
                                 <?php foreach($output as  $key => $campaign){ ?>
 
                                     <!-- /.col -->
-									<div style="margin-right:20px" class="col-md-2"><a href="/campaigns/employers/<?php echo $campaign['campaign_display']->campaign_id ?>/0">
+									<div style="margin-right:20px; " class="col-md-2 "><a href="/campaigns/employers/<?php echo $campaign['campaign_display']->campaign_id ?>/0">
                                         <!--										<p class="text-center">-->
                                         <!--											<strong>Goal Completion</strong>-->
                                         <!--										</p>-->
 
-
-                                        <h3 class="box-title"><?php echo $campaign['campaign_display']->campaign_name; ?></h3>
-                                        <h4 class="box-title"><?php echo date('d/m/Y',strtotime($campaign['campaign_display']->campaign_place_start_date)); ?></h4>
+										<div style="height:80px">
+                                        <h3 style="color:#54667a;" class="text-center box-title"><?php echo $campaign['campaign_display']->campaign_name; ?></h3>
+										</div>
+											<h4 class="box-title"><?php echo date('d/m/Y',strtotime($campaign['campaign_display']->campaign_place_start_date)); ?></h4>
                                         <div class="progress-group">
                                             <span class="progress-text">Companies Contacted</span>
                                             <span class="progress-number"><b> <?php  echo $campaign['call_info'][$key]['call']; ?>
-                                                </b>/<?php echo $callinfo[$key]['info']; ?></span>
+                                                </b>/<?php echo $campaign['campaign_display']->students_to_place * 20; ?></span>
                                             <div class="progress sm">
-                                                <div class="progress-bar progress-bar-aqua" style="width: <?php if ((int)$callinfo[$key]['call']  <= 0 ) echo 0; else echo ((int)$callinfo[$key]['call'] * 100  / (int)$callinfo[$key]['info']  )?>%"></div>
+                                                <div class="progress-bar progress-bar-aqua" style="width: <?php if ((int)$callinfo[$key]['call']  <= 0 ) echo 0; else echo $percent = ((int)$callinfo[$key]['call'] * 100  / (int)$callinfo[$key]['info']  )?>%;
+	                                                "></div>
                                             </div>
                                         </div>
                                         <!-- /.progress-group -->
                                         <div class="progress-group">
                                             <span class="progress-text">Places Agreed</span>
 
-	                                        <span class="progress-number"><b><?php echo $campaign['call_info'][$key]['success']; ?>
+	                                        <span class="progress-number"><b><?php if($campaign['call_info'][$key]['success'] =='') echo 0; else echo $campaign['call_info'][$key]['success']; ?>
                                                 </b>/ <?php echo $campaign['call_info'][$key]['total'];?></span>
 
                                             <div class="progress sm">
-                                                <div class="progress-bar progress-bar-yellow" style="width: <?php if ((int)$callinfo[$key]['success']  <= 0 ) echo 0; echo ((int)$callinfo[$key]['success'] * 100  / (int)$callinfo[$key]['total']  )?>%"></div>
+                                                <div class="progress-bar progress-bar-yellow" style="width: <?php if ((int)$callinfo[$key]['success']  <= 0 ) echo 0; echo $percent = ((int)$callinfo[$key]['success'] * 100  / (int)$callinfo[$key]['total']  );?>%
+	                                                ;"></div>
                                             </div>
                                         </div>
                                         <!-- /.progress-group -->
                                         <div class="progress-group">
                                             <span class="progress-text">Success Rate</span>
-                                            <span class="progress-number"><b>4</b>/100</span>
+                                            <span class="progress-number"><b><?php echo round((int)$callinfo[$key]['success'] );?></b>/ <?php if($callinfo[$key]['all'] =='') echo 0; else echo $callinfo[$key]['all']; ?></span>
 
                                             <div class="progress sm">
-                                                <div class="progress-bar progress-bar-green" style="width: 4%"></div>
+	                                            <div class="progress-bar progress-bar-red" style="width: <?php if ((int)$callinfo[$key]['success']  <= 0 || $callinfo[$key]['all']=='' ) echo 0; else echo $percent = ((int)$callinfo[$key]['success'] * 100  / (int)$callinfo[$key]['all']  );?>%
+		                                            ;"></div>
                                             </div>
                                         </div>
-                                    </a>
+											<div class="progress-group">
+												<span class="progress-text">Days Remaining</span>
+
+
+												<?php
+												$startdate= strtotime($campaign['campaign_display']->campaign_start_date); //Future date
+												$enddate= strtotime($campaign['campaign_display']->employer_engagement_end); //Future date
+												$cmplength = (  $startdate - $enddate);
+												$days = round($cmplength / (60 * 60 * 24));
+												$now = strtotime(date('d/m/Y h:i:s'));
+												$timeleft = ( $enddate - $now);
+												$daysleft = round($timeleft / (60 * 60 * 24));
+												//$percent = ($daysleft  / $days * 100);
+												$percent = ($daysleft * 100 / $days);
+												//$percent = 100 - $percent;
+												if($percent < 1){
+													$percent = 0;
+
+												}
+
+												$color = percent($percent)
+												?>
+
+												<span class="progress-number">
+													<b>
+														<?php if($daysleft <0) echo '0'; else echo $daysleft; ?> / <?php echo $days; ?>
+													</b>
+												</span>
+
+												<div class="progress sm">
+													<div class="progress-bar progress-bar-yellow" style="width: <?php  echo $percent; ?>%; background-color: <?php echo $color?>;"></div>
+												</div>
+											</div>
+										</a>
                                     </div>
 									<!-- /.col -->
 
@@ -310,8 +386,16 @@
 
 
                                         })
-                                    </script>
 
+
+
+                                    </script>
+								<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.0/jquery.matchHeight-min.js"><script>
+
+										<script>
+
+
+									</script>
 									<!-- /.col -->
 								</div>
 								<!-- /.row -->
@@ -383,12 +467,12 @@
 
 								<div class="info-box-content">
 									<span class="info-box-text">Calls Logged</span>
-									<span class="info-box-number">182</span>
-
+									<span class="info-box-number"><?php echo $total_calls['total'] ?></span>
+										<?php $percent = $total_calls['days'] * 100 / $total_calls['total']; ?>
 										<div class="progress">
-											<div class="progress-bar" style="width: 40%"></div>
+											<div class="progress-bar" style="width: <?php echo (int)$percent?>%"></div>
 										</div>
-										<span class="progress-description">40% Increase in 30 Days</span>
+										<span class="progress-description"><?php   echo (int)$percent ?>% Increase in 30 Days</span>
 									<!-- /.info-box-content -->
 								</div>
 								<!-- /.info-box -->

@@ -226,7 +226,7 @@
     </div>
     
     
-    <div style="padding-top:20px;" class="col-md-6">
+    <div style="padding-top:20px;" class="col-md-7">
         <div class=" ">
             <div id="exTab1" class="">
 
@@ -259,13 +259,13 @@
                                         <?php echo $call_message; ?>
 
                                     </div>
-                                <div  style="padding-bottom:20px;" class="col-md-offset-8 col-md-3">
+                                <div  style="padding-bottom:20px;" class="col-md-offset-10 col-md-2">
                                     <input type="submit" class="btn btn-mploy-submit" value="New Call"
                                            onclick="window.location.replace('/campaigns/newcall/<?php echo $camp_id ?>/<?php echo $comp_id ?>?campid=<?php echo $campaign;?>')">
                                 </div> 
                                    
                                         
-                                    <table id="example2" class="table table-bordered table-striped">
+                                   <div class="col-md-12"> <table id="example2" style="width: 100% !important;" class="table table-bordered table-striped">
                                         <thead>
                                         <tr>
                                             <?php foreach($call_table as $heading):?>
@@ -295,6 +295,7 @@
                                         </tbody>
 
                                     </table>
+                                   </div>
 
                             </div>
 
@@ -314,7 +315,7 @@
     </div>
 
 
-	    <div style="padding-top:20px;" class="col-md-6">
+	    <div style="padding-top:20px;" class="col-md-5">
 		    <div class=" ">
 			    <div id="exTab1" class="">
 
@@ -347,13 +348,14 @@
 										    <?php echo $student_message; ?>
 
 									    </div>
-									    <div  style="padding-bottom:20px;" class="col-md-offset-8 col-md-3">
-										    <input type="submit" class="btn btn-mploy-submit" value="Placement" onclick="window.location.replace('/campaigns/newplacement/<?php echo $camp_id ?>/<?php echo $comp_id ?>')">
-									    </div>
+									    <!--
+									    <div  style="displaypadding-bottom:20px;" class="col-md-offset-9 col-md-3">
+										    <input type="submit" class="btn btn-mploy-submit" value="Placement" onclick="window.location.replace('/campaigns/newplacement/<?php //echo $camp_id ?>/<?php echo $comp_id ?>')">
+									    </div>-->
 
 
-
-									    <table id="example2" class="table table-bordered table-striped">
+										<div class="col-md-12">
+									    <table id="example2" style="width: 100% !important;" class="table table-bordered table-striped">
 										    <thead>
 										    <tr>
 											  <th>
@@ -393,7 +395,7 @@
 										    </tbody>
 
 									    </table>
-
+										</div>
 
 								    </div>
 

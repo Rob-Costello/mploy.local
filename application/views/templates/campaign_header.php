@@ -97,10 +97,15 @@
 				</form>
 				<?php if (isset($school_id)): ?>
 				<div style="margin-top:10px;" class="col-md-3">
+					<div class="col-md-6">
 					<a href="/campaigns/calendar/<?php echo $school_id ?>"><i class="fa fa-calendar fa-2x" aria-hidden="true"></i></a>
+					</div>
+					<div class="col-md-6" id="edit">
+					</div>
+
 				</div>
 				<?php endif ?>
-			</div>
+
 
             <div class="navbar-custom-menu">
 

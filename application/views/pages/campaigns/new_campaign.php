@@ -26,7 +26,7 @@
 
                     <div class="tab-pane active" id="1a">
 
-
+						<div class="col-md-12">
                         <section class="">
 
 
@@ -49,7 +49,7 @@
 
                                 <!-- /.box-header -->
                                 <div class="box-body">
-                                    <form role="form"  method="POST">
+                                    <form id="campaign-form" role="form"  method="POST">
 
 
 
@@ -58,7 +58,7 @@
                                                 <div class="form-group">
 
                                                     <label class=" ">Campaign Name</label>
-                                                    <input  type="text" name="campaign_name" class="form-control" value="<?php if(array_key_exists('campaign_name',$values)) echo $values['campaign_name'] ?> " placeholder="Campaign Name" >
+                                                    <input  type="text" name="campaign_name" class="form-control" value="<?php if(array_key_exists('campaign_name',$values)) echo $values['campaign_name'] ?> " placeholder="Campaign Name" required>
 
                                                 </div>
                                             </div>
@@ -66,8 +66,8 @@
                                                 <div class="form-group">
 
                                                     <div class="">
-                                                        <label >Students to Place</label>
-                                                        <input type="number" name="students_to_place" value="<?php if(array_key_exists('students_to_place',$values)) echo $values['students_to_place'] ?> "  class="form-control" value="" placeholder="" autocomplete="off" >
+                                                        <label >Places to be sourced by Mploy</label>
+                                                        <input type="number" id="students_to_place" name="students_to_place" value="<?php if(array_key_exists('students_to_place',$values)) echo $values['students_to_place'] ?> "  class="form-control" value="" placeholder="" autocomplete="off" required >
                                                     </div>
                                                 </div>
                                             </div>
@@ -111,7 +111,7 @@
 
 
 
-		                                                    <input type="text" name="campaign_place_start_date" value="<?php if(array_key_exists('campaign_place_start_date',$values)) echo $values['campaign_place_start_date'] ?> " class="datepicker form-control" value="" placeholder="dd/mm/yyyy" autocomplete="off" >
+		                                                    <input type="text" name="campaign_place_start_date" value="<?php if(array_key_exists('campaign_place_start_date',$values)) echo $values['campaign_place_start_date'] ?> " class="datepicker form-control" value="" placeholder="dd/mm/yyyy" autocomplete="off" required >
 	                                                    </div>
 	                                                    </div>
                                                 </div>
@@ -128,7 +128,7 @@
 		                                                    </div>
 
 
-		                                                    <input type="text" name="campaign_place_end_date" value="<?php if(array_key_exists('campaign_place_start_date',$values)) echo $values['campaign_place_start_date'] ?> " class="datepicker form-control" value="" placeholder="dd/mm/yyyy" autocomplete="off" >
+		                                                    <input type="text" name="campaign_place_end_date" value="<?php if(array_key_exists('campaign_place_start_date',$values)) echo $values['campaign_place_start_date'] ?> " class="datepicker form-control" value="" placeholder="dd/mm/yyyy" autocomplete="off" required >
 	                                                    </div>
 	                                                    </div>
                                                 </div>
@@ -164,14 +164,16 @@
                                                     <tbody>                                               
                                                     <tr>
                                                         <td>
-                                                        <input id="1start_date" name="start_date[]" type="text" class="datepicker form-control">
+                                                        <input id="1start_date" name="start_date[]" type="text" class="datepicker form-control " autocomplete="off">
                                                         </td>
                                                         <td>
-                                                        <input id="1end_date" name="end_date[]" type="text" class="datepicker form-control">
+                                                        <input id="1end_date" name="end_date[]" type="text" class="datepicker form-control" autocomplete="off">
                                                         </td>
                                                         <td>
                                                         <input name="holiday[]" type="text" class="form-control">
                                                         </td>
+	                                                    <td> <button type="button" class="btn" style="border:none; background-color: transparent;" onclick="holiday(this)" > <i class="fa fa-remove" style="font-size:14px;color:red"></i> </button></td>
+
 
                                                     </tr>
                                                     <tr id="last_row" style="background-color:#fff;border-color:#fff">
@@ -184,8 +186,7 @@
                                                 </table>
                                             </div>
                                             </div><!--end col-->
-                                        <div class="row">
-    .                                        <div class="col-md-4">
+                                        <div class="row"><div class="col-md-4">
                                                 <div class="form-group">
                                                 <label >Campaign Start Date </label>
 
@@ -195,7 +196,7 @@
 		                                                </div>
 
 
-		                                                <input type="text" value="<?php echo date('d/m/Y'); ?>" class=" form-control" id="campaign_date" placeholder="dd/mm/yyyy" name="campaign_start_date" >
+		                                                <input type="text" value="<?php echo date('d/m/Y'); ?>" class=" form-control" id="campaign_date" placeholder="dd/mm/yyyy" name="campaign_start_date" required >
                                                 </div>
                                                 </div>
 
@@ -213,7 +214,7 @@
 		                                                </div>
 
 
-		                                                <input name="mailshot_1_date" placeholder="dd/mm/yyyy" type="text" value="<?php if(array_key_exists('mailshot_1_date',$values)) echo $values['mailshot_1_date'] ?> " class="datepicker form-control" >
+		                                                <input name="mailshot_1_date" placeholder="dd/mm/yyyy" type="text" value="<?php if(array_key_exists('mailshot_1_date',$values)) echo $values['mailshot_1_date'] ?> " class="datepicker form-control" required >
 	                                                </div>
 	                                                </div>
                                             </div>
@@ -227,7 +228,7 @@
 		                                                    </div>
 
 
-		                                                    <input name="mailshot_2_date" placeholder="dd/mm/yyyy"value="<?php if(array_key_exists('mailshot_2_date',$values)) echo $values['mailshot_2_date'] ?> " type="text" class="datepicker form-control" >
+		                                                    <input name="mailshot_2_date" placeholder="dd/mm/yyyy"value="<?php if(array_key_exists('mailshot_2_date',$values)) echo $values['mailshot_2_date'] ?> " type="text" class="datepicker form-control" required>
 	                                                    </div>
 	                                                    </div>
                                             </div>
@@ -245,7 +246,7 @@
 		                                            </div>
 
 
-		                                            <input name="employer_engagement_start" placeholder="dd/mm/yyyy" value="<?php if(array_key_exists('employer_engagement_start',$values)) echo $values['employer_engagement_start'] ?> " type="text" class="datepicker form-control" >
+		                                            <input name="employer_engagement_start" placeholder="dd/mm/yyyy" value="<?php if(array_key_exists('employer_engagement_start',$values)) echo $values['employer_engagement_start'] ?> " type="text" class="datepicker form-control" required >
 	                                            </div>
 	                                            </div>
                                         </div>
@@ -259,7 +260,7 @@
 		                                                </div>
 
 
-		                                                <input name="employer_engagement_end" placeholder="dd/mm/yyyy" type="text" value="<?php if(array_key_exists('employer_engagement_end',$values)) echo $values['employer_engagement_end'] ?> " class="datepicker form-control pull-right" id="datepicker">
+		                                                <input name="employer_engagement_end" placeholder="dd/mm/yyyy" type="text" value="<?php if(array_key_exists('employer_engagement_end',$values)) echo $values['employer_engagement_end'] ?> " class="datepicker form-control pull-right" id="datepicker" required>
 	                                                </div>
 	                                                </div>
                                         </div>
@@ -272,7 +273,7 @@
 		                                                </div>
 
 
-		                                                <input name="self_place_deadline" placeholder="dd/mm/yyyy" value="<?php if(array_key_exists('self_place_deadline',$values)) echo $values['self_place_deadline'] ?> " type="text"  class="datepicker form-control" >
+		                                                <input name="self_place_deadline" placeholder="dd/mm/yyyy" value="<?php if(array_key_exists('self_place_deadline',$values)) echo $values['self_place_deadline'] ?> " type="text"  class="datepicker form-control" required >
 	                                                </div>
 	                                                </div>
                                         </div>
@@ -288,7 +289,7 @@
 		                                                </div>
 
 
-		                                                <input placeholder="dd/mm/yyyy" value="<?php if(array_key_exists('matching_end',$values)) echo $values['matching_end'] ?> " name="matching_end" type="text" class="datepicker form-control" >
+		                                                <input placeholder="dd/mm/yyyy" value="<?php if(array_key_exists('matching_end',$values)) echo $values['matching_end'] ?> " name="matching_end" type="text" class="datepicker form-control" required >
 	                                                </div>
 	                                                </div>
                                         </div>
@@ -402,7 +403,7 @@
 												<div class="col-md-12">
 
 													<div style="padding-bottom:100px;" id="row">
-														<div class="col-md-6">
+														<div class="col-md-3">
 
 
 															<div class="input-group">
@@ -415,31 +416,33 @@
 															</div>
 
 														</div>
-													</div>
 
+														<div class="selected col-md-6">
+
+														</div>
 
 												</div>
 
-	                                        </div>
+
                                 
                                     
 
 
 
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-offset-0 col-md-4">
 
-	                                    <input type="submit" class="btn btn-mploy-submit" value="Save Changes">
+	                                    <input id='save' type="button" class="btn btn-mploy-submit" value="Save Changes">
                                     <input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/campaigns')">
                                     </div>
                                 </div>
                                 <input type="hidden" name="active" value="1">
                                 </form>
                             </div>
-
+                            </div>
 
                         </section>
-
+						</div>
 
 
                     </div>
@@ -452,6 +455,7 @@
         </div>
     </div> <!-- end tab container -->
 
+	<input type="hidden" id="counter">
 	<?php $this->load->view('templates/footer'); ?>
 
 	<script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
@@ -506,7 +510,13 @@
 
 					});
 					$('#loading').hide();
-					$('#total').html('<h1>'+($('#companyTable tr').length -1)+' Results</h1>')
+					var recommended = '';
+
+					if( $('#students_to_place').val() !=''){
+						recommended = ($('#students_to_place').val() * 20) +' Companies Recommended </h1>';
+					}
+					$('#total').html('<h1>'+($('#companyTable tr').length -1)+' Results '+ recommended);
+					$('.selected').html('<h1>'+($('#companyTable tr').length -1)+' Results '+ recommended);
 				}
 
 			});
@@ -517,16 +527,19 @@
 			var start_date ='<td><input  type="text" name="start_date[]" value="" class="datepicker'+tbl+' form-control"></td>';
 			var end_date ='<td><input  type="text" name="end_date[]" value="" class="datepicker'+tbl+' form-control"></td>';
 			var holiday ='<td><input  type="text" name="holiday[]" value="" class="form-control"></td>';
-			var row = $('<tr tbl>').html(start_date + end_date + holiday );
+			var del = '<td> <button type="button" class="btn" style="border:none; background-color: transparent;" onclick="holiday(this)" > <i class="fa fa-remove" style="font-size:14px;color:red"></i> </button></td>';
+			var row = $('<tr tbl>').html(start_date + end_date + holiday + del );
 			return row;
 		}
 
-		// listener for school drop down  populates school holidays when option changed
 		$('#select_school').change(function(){
 			var target= '/campaigns/getSchoolHolidays/'+$('#select_school').val();
 			$('.school_row').remove();
 			var table = $('#holidays');
+			//$('#last_row').before(addRow());
+			//table.find('tr:last').prev().before(addRow());
 
+			//table.append(addRow('class="school_row"'));
 			$.ajax({
 				url: target,
 				type: 'GET',
@@ -535,12 +548,13 @@
 				{
 					data = JSON.parse(data);
 					Object.keys(data).forEach(function(key){
-						console.log( data[key].name);
+						console.log(data[key].hol_id);
 						var table = $('#holidays');
 						var start_date ='<td><input  type="text" name="start_date[]" value="'+data[key].start_date+'" class="form-control"></td>';
 						var end_date ='<td><input  type="text" name="end_date[]" value="'+data[key].end_date+'" class="form-control"></td>';
 						var holiday ='<td><input  type="text" name="holiday[]" value="'+data[key].holiday_name+'" class="form-control"></td>';
-						var row = $('<tr class="school_row">').html(start_date + end_date + holiday);
+						var del = '<td> <button type="button" class="btn" style="border:none; background-color: transparent;" onclick="holiday(this,'+data[key].id+')" > <i class="fa fa-remove" style="font-size:14px;color:red"></i> </button></td>';
+						var row = $('<tr class="school_row">').html(start_date + end_date + holiday + del);
 						$('#last_row').before(row);
 						//table.append(row);
 					});
@@ -551,9 +565,13 @@
 
 
 
+
 		$('#add-row').click(function(){
 
-			var num = $('#companyTable tr').length ;
+			///var num = $('#companyTable tr').length ;
+			var num = $('#counter').val()+1;
+			$('#counter').val(num);
+
 			$('#last_row').before(addRow(num));
 
 			$(function(){
@@ -563,10 +581,9 @@
 			})
 			$(function() {$('.datepicker'+num).daterangepicker({opens: 'left',singleDatePicker: true,locale: {
 					format: 'DD-MM-YYYY'
-				}})});
+				}}).val('')});
 
 		});
-
 
 	</script>
 
@@ -601,7 +618,6 @@
 
 
 
-
 	<script>
 		$(function(){
 
@@ -630,8 +646,60 @@
 	<script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
 
 
+
 	<script>
 
+
+		$('.modal-body').click(function(){
+			var i = 0;
+			$('.comp').each(function(){
+				if($(this).prop("checked")){
+					i++;
+				}
+			})
+			//$('.selected').html('<h1>Selected '+i+' companies </h1>');
+
+		});
+
+
+
+		$('#save').click(function(){
+
+			var i = 0;
+			$('.comp').each(function(){
+				if($(this).prop("checked")){
+					i++;
+				}
+			})
+
+			if(i > 0 ){
+				$('#campaign-form').submit();
+			}else{
+				alert('There are no companies added to this campaign please add companies to the campaign ');
+			}
+
+		});
+
+		function holiday(item,id=null){
+
+			if(id==null){
+
+				$(item).closest('tr').remove();
+
+			}
+			else {
+				var target = '/campaigns/removeholiday';
+				$.ajax({
+					url: target,
+					type: 'POST',
+					data: {hol_id: id},
+					success: function (data, textStatus, XMLHttpRequest) {
+						$(item).closest('tr').remove();
+					}
+				});
+			}
+
+		}
 
 
 		$(function(){

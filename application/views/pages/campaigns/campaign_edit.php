@@ -1,5 +1,5 @@
 
-<?php $this->load->view('templates/header'); ?>
+<?php $this->load->view('templates/campaign_header'); ?>
 
 
 <div class="content-wrapper">
@@ -147,8 +147,9 @@
 														<?php foreach ($holiday as $hol): ?>
 															<tr class="school_row">
 
+																<input type="hidden" name="hol_id[]" value="<?php echo $hol['hol_id']?>">
 																<td>
-																	<input value="<?php echo $hol['start_date']; ?>" id="1start_date" name="start_date[]" type="text" class=" datepicker form-control">
+																	<input value="<?php echo  $hol['start_date']; ?>" id="1start_date" name="start_date[]" type="text" class=" datepicker form-control">
 																</td>
 																<td>
 																	<input value="<?php echo $hol['end_date']; ?>" id="1end_date" name="end_date[]" type="text" class=" datepicker form-control">
@@ -156,6 +157,7 @@
 																<td>
 																	<input value="<?php echo $hol['holiday_name']; ?>"" name="holiday[]" type="text" class="form-control">
 																</td>
+																<td> <button type="button" class="btn" style="border:none; background-color: transparent;" onclick="holiday(this,'<?php echo $hol["hol_id"]?>')" > <i class="fa fa-remove" style="font-size:14px;color:red"></i> </button></td>
 
 															</tr>
 														<?php endforeach ?>
@@ -234,10 +236,11 @@
 													<label style="float:top" >Campaign Status</label>
 													<div class="form-group">
 
-															<select class="form-control">
+															<select name="active" class="form-control">
 
 																<option <?php if($entries['active'] == 1) echo ' selected' ?> value="1"> Active</option>
-																<option <?php if($entries['active'] == 0) echo ' selected' ?> value="0"> Inactive</option>
+																<option <?php if($entries['active'] == 2) echo ' selected' ?> value="2"> On Hold</option>
+																<option <?php if($entries['active'] == 0) echo ' selected' ?> value="0"> Complete</option>
 
 
 
@@ -275,8 +278,10 @@
 
 
 																<div class="row">
+																	<div class="col-md-6" id="total"> <h1>Showing <?php echo $company_count ?></h1> </div>
+																	<div class="selected col-md-6"><h1>Selected <?php echo $company_count ?> companies</h1></div>
 																	<div class="col-md-12">
-																		<div id="total"> <h1>Showing <?php echo $company_count ?></h1> </div>
+
 																		<div class="form-group">
 
 																			<div class="input-group">
@@ -363,7 +368,7 @@
 
 
 												<div style="padding-bottom:100px;" id="row">
-												<div class="col-md-6">
+												<div class="col-md-3">
 
 
 													<div class="input-group">
@@ -375,6 +380,10 @@
 
 													</div>
 
+													</div>
+													<div class="col-md-6">
+													<div class="selected "><h3>Selected <?php echo $company_count ?> companies</h3></div>
+														 <h3> <?php echo $entries['students_to_place'] * 20; ?> is recommended</h3>
 													</div>
 												</div>
 
@@ -414,7 +423,7 @@
 			</div>
 		</div>
 	</div> <!-- end tab container -->
-
+<input type="hidden" id="counter">
 	<?php $this->load->view('templates/footer'); ?>
 
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -444,8 +453,6 @@
 				seen[$(this).text()] = 1
 
 			});
-
-
 
 			$('#loading').show();
 			$.ajax({
@@ -479,10 +486,12 @@
 
 		// row constructor for add school holiday functions
 		function addRow(tbl =''){
-			var start_date ='<td><input  type="text" name="start_date[]" value="" class="datepicker2 form-control"></td>';
-			var end_date ='<td><input  type="text" name="end_date[]" value="" class="datepicker2 form-control"></td>';
+			var start_date ='<td><input  type="text" name="start_date[]" value="" class="datepicker'+tbl+' form-control"></td>';
+			var end_date ='<td><input  type="text" name="end_date[]" value="" class="datepicker'+tbl+' form-control"></td>';
 			var holiday ='<td><input  type="text" name="holiday[]" value="" class="form-control"></td>';
-			var row = $('<tr tbl>').html(start_date + end_date + holiday );
+			var del = '<td> <button type="button" class="btn" style="border:none; background-color: transparent;" onclick="holiday(this)" > <i class="fa fa-remove" style="font-size:14px;color:red"></i> </button></td>';
+
+			var row = $('<tr tbl>').html(start_date + end_date + holiday + del );
 			return row;
 		}
 		// listener for school drop down  populates school holidays when option changed
@@ -502,12 +511,13 @@
 				{
 					data = JSON.parse(data);
 					Object.keys(data).forEach(function(key){
-
+						console.log(data[key].hol_id);
 						var table = $('#holidays');
 						var start_date ='<td><input  type="text" name="start_date[]" value="'+data[key].start_date+'" class="form-control"></td>';
 						var end_date ='<td><input  type="text" name="end_date[]" value="'+data[key].end_date+'" class="form-control"></td>';
 						var holiday ='<td><input  type="text" name="holiday[]" value="'+data[key].holiday_name+'" class="form-control"></td>';
-						var row = $('<tr class="school_row">').html(start_date + end_date + holiday);
+						var del = '<td> <button type="button" class="btn" style="border:none; background-color: transparent;" onclick="holiday(this,'+data[key].id+')" > <i class="fa fa-remove" style="font-size:14px;color:red"></i> </button></td>';
+						var row = $('<tr class="school_row">').html(start_date + end_date + holiday + del);
 						$('#last_row').before(row);
 						//table.append(row);
 					});
@@ -515,7 +525,6 @@
 			});
 
 		})
-
 
 		$(function() {
 			$('.datepicker').daterangepicker({
@@ -538,88 +547,12 @@
 	</script>
 
 	<script>
-		$(function(){
-			$('#active').change(function(){
 
-				if(this.checked){
-					$('#active').val('1')
-				}else{
-					$('#active').val('0');
-				}
-			})
-		})
 
 	</script>
 
 	<script>
-		/*
-		$(function(){
 
-	$('.daterangepicker').each(function(index,e){
-		var $(e).val() = $(e);
-		console.log(current);
-		var d = current.split('-');
-		var output = d[2]+'-'+d[1]+'-'+d[0];
-
-		$(e).val(output);
-		console.log(output);
-	});
-
-
-});
-
-
-
-
-		//append holidays to holiday table
-
-
-		//date range plugin
-
-		//$(function() {
-
-
-
-		$('#campaign_date').daterangepicker({
-			opens: 'left',
-			singleDatePicker: true,
-			setDate:'',
-
-			locale: {
-				format: 'DD-MM-YYYY'
-			}
-		})
-
-
-
-		$('.datepicker').daterangepicker({
-			opens: 'left',
-			singleDatePicker: true,
-			setDate:'',
-
-			locale: {
-				format: 'DD-MM-YYYY'
-			}
-
-		});
-
-		$('.datepicker2').daterangepicker({
-			opens: 'left',
-			singleDatePicker: true,
-			setDate:'',
-
-			locale: {
-				format: 'DD-MM-YYYY'
-			}
-
-		});
-		//});
-
-		//remove prepopulated dates in date picker
-		/*$(function(){
-			$('.datepicker').val('');
-
-		})*/
 
 
 		<?php if (isset($error)): ?>
@@ -637,6 +570,13 @@
 
 
 	<script>
+
+		$(function(){
+
+
+
+		});
+
 		$(function(){
 
 			$("#calculate").click(function(){
@@ -666,9 +606,45 @@
 
 	<script>
 
+
+		function holiday(item,id=null){
+
+			if(id==null){
+
+				$(item).closest('tr').remove();
+
+			}
+			else {
+				var target = '/campaigns/removeholiday';
+				$.ajax({
+					url: target,
+					type: 'POST',
+					data: {hol_id: id},
+					success: function (data, textStatus, XMLHttpRequest) {
+						$(item).closest('tr').remove();
+					}
+				});
+			}
+		}
+
+		$('.modal-body').click(function(){
+			var i = 0;
+			$('.comp').each(function(){
+				if($(this).prop("checked")){
+					i++;
+				}
+			})
+			$('.selected').html('<h1>Selected '+i+' companies </h1>');
+
+		});
+
+
 		$('#add-row').click(function(){
 
-			var num = $('#companyTable tr').length ;
+			///var num = $('#companyTable tr').length ;
+			var num = $('#counter').val()+1;
+			$('#counter').val(num);
+
 			$('#last_row').before(addRow(num));
 
 			$(function(){
@@ -678,7 +654,7 @@
 			})
 			$(function() {$('.datepicker'+num).daterangepicker({opens: 'left',singleDatePicker: true,locale: {
 					format: 'DD-MM-YYYY'
-				}})});
+				}}).val('')});
 
 		});
 
@@ -695,4 +671,8 @@
 
 			$( "#school" ).autocomplete({source: "http://mploy.local/schools/getSchools/?"});
 		})
+
+
+
+
 	</script>

@@ -27,9 +27,13 @@
                                     <table id="example2" class="table table-bordered table-striped">
                                         <thead>
                                         <tr>
-                                            <?php foreach($table_header as $heading):?>
-                                                <th><?php echo $heading; ?> </th>
-                                            <?php endforeach;?>
+
+                                                <th>Date </th>
+	                                            <th>School</th>
+	                                            <th>Student</th>
+	                                            <th></th>
+
+
 
                                         </tr>
                                         </thead>
@@ -38,10 +42,10 @@
                                         <?php foreach($placements as $history): ?>
                                             <tr>
 
-                                               <td><?php echo $history->first_name . ' ' . $history->last_name ?></td>
-	                                            <td><?php echo $history->placement_start_date ?></td>
-	                                            <td><?php echo $history->job_title ?></td>
-	                                            <td><?php echo $history->school_name ?></td>
+                                               <td><?php echo $history->date_time ?></td>
+	                                            <td><?php echo $history->name ?></td>
+	                                            <td><?php echo 'TBC'//echo $history->job_title ?></td>
+	                                            <td><button type="button" class="btn btn-mploy"> WEX</button></td>
                                             </tr>
                                         <?php endforeach ?>
                                         </tbody>
@@ -57,9 +61,15 @@
                                     <table id="example2" class="table table-bordered table-striped">
                                         <thead>
                                         <tr>
-                                            <?php foreach($calls_header as $heading):?>
-                                                <th><?php echo $heading; ?> </th>
-                                            <?php endforeach;?>
+
+                                                <th>Date / Time</th>
+	                                            <th>Caller</th>
+	                                            <th>Receiver</th>
+	                                            <th>Notes</th>
+	                                            <th>Status</th>
+
+
+
 
                                         </tr>
                                         </thead>
@@ -69,11 +79,15 @@
                                             <tr>
 
 
+	                                            <td><?php echo $history->date_time; ?></td>
+	                                            <td><?php echo $history->first_name .' ' .$history->last_name ; ?></td>
+	                                            <td><?php echo $history->receiver; ?></td>
 
-                                                    <td><?php $history->campaign_activity_type_id; ?></td>
-	                                            <td><?php $history->notes; ?></td>
-	                                            <td><?php $history->date_time; ?></td>
-	                                            <td><?php $history->rag_status; ?></td>
+	                                            <td><?php echo $history->notes; ?></td>
+
+
+	                                            <td><?php if($history->rag_status=='') $history->rag_status ='red';  echo '<img src="'.base_url().'assets/dist/img/'.$history->rag_status.'.png" class="img-circle" alt="User Image">'; ?></td>
+
 
 
 

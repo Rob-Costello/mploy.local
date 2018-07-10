@@ -1,0 +1,1 @@
+ALTER TABLE `mploy_organisation_holidays` ADD `id` INT(20) NOT NULL AUTO_INCREMENT AFTER `holiday_name`, ADD PRIMARY KEY (`id`);

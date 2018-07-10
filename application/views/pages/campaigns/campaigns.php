@@ -26,7 +26,7 @@
 
 		<div class="box">
 
-        <div class <div class="col-md-offset-6 col-md-6">
+        <div class="col-md-12">
 				<form  method="POST" class="sidebar-form">
 					<div class="input-group">
 						<input style="margin:20px; padding:19px;" type="text" name="search" class="form-control" placeholder="Search...">
@@ -92,13 +92,20 @@
                             <?php if($h == 'campaign_place_start_date' || $h == 'campaign_place_end_date') { ?>
                                 <?php echo date('d/m/Y', strtotime($company->$h)); ?>
                             <?php } else {?>
+
 	                            <?php if($h == 'active') { ?>
 
-		                            <?php if($company->$h == 1){ ?>
+		                            <?php if($company->$h == '1'){ ?>
 
 		                           <?php $company->$h = '<img src="'.base_url().'assets/dist/img/green.png" class="img-circle" alt="User Image">'; ?>
 
-		                            <?php } else{
+		                            <?php } ?>
+		                            <?php if($company->$h == '2'){ ?>
+
+			                            <?php $company->$h = '<img src="'.base_url().'assets/dist/img/amber.png" class="img-circle" alt="User Image">'; ?>
+
+		                            <?php } ?>
+		                            <?php if($company->$h == '0'){
 
 		                            	$company->$h = '<img src="'.base_url().'assets/dist/img/red.png" class="img-circle" alt="User Image">';
 

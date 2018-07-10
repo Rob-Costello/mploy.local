@@ -201,11 +201,26 @@ function calls ($percent)
 												<?php
 												$startdate= strtotime($campaign['campaign_display']->campaign_start_date); //Future date
 												$enddate= strtotime($campaign['campaign_display']->employer_engagement_end); //Future date
-												$cmplength = (  $startdate - $enddate);
-												$days = round($cmplength / (60 * 60 * 24));
+
+												$diff = ( $startdate - $enddate);
+
+												$years = floor($diff / (365*60*60*24));
+												$months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
+												$days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
+
+												//$days = round($cmplength / (60 * 60 * 24));
 												$now = strtotime(date('d/m/Y h:i:s'));
-												$timeleft = ( $enddate - $now);
-												$daysleft = round($timeleft / (60 * 60 * 24));
+												$timeleft = (   $enddate - $now);
+
+												$years = floor($timeleft / (365*60*60*24));
+												$months = floor(($timeleft- $years * 365*60*60*24) / (30*60*60*24));
+												$day = floor(($timeleft - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
+
+
+												//$daysleft = round($day / (60 * 60 * 24));
+												$daysleft = $day;
+
+
 												//$percent = ($daysleft  / $days * 100);
 												$percent = ($daysleft * 100 / $days);
 												//$percent = 100 - $percent;

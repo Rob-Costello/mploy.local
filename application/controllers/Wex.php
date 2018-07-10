@@ -109,6 +109,8 @@ class Wex extends CI_Controller
 
 	function sendRequest($page=null){
 
+
+
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, 'http://mploy.local/wex');
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -133,6 +135,59 @@ class Wex extends CI_Controller
 	function decrypt($string){
 
 		return $this->encryption->decrypt($string);
+
+	}
+
+
+	function getXml(){
+		$url = 'https://www.workexperiences.co.uk/export.cfm';
+		$username ='MployAuto:2B2C235F3FE8105F579B97CE293D9C';
+		//$post = ['Type' => 3,'ids'=>'6491','postcode'=>'wa104an'];
+		$post = ['Type' => 3, 'Postcode'=>'WA104AN'];
+		$postData = http_build_query($post);
+		$headr[] = 'Content-Type: 	application/x-www-form-urlencoded;charset=UTF-8';
+		$headr[] = 'Authorisation: Basic '.base64_encode($username);
+
+		/*$xml ='<data> <school>
+				<id>31</id>
+				<placement_year>2017</placement_year> </school>
+				<students>
+				 <student>
+				<upn>123</upn>
+				<uln>456</uln> <member_id>0</member_id> <school_id>2089</school_id> <placement_year>2017</placement_year> <first_name>Joe</first_name> <last_name>Blogs2</last_name> <date_of_birth>12/08/2008</date_of_birth>
+				</student> </students>
+				</data>';*/
+
+		//$post =
+		//$xml =
+
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $headr);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+		curl_setopt($ch, CURLOPT_VERBOSE, 1);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+		//curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
+		$content=curl_exec($ch);
+		$export = new SimpleXMLElement($content);
+		return $export;
+
+	}
+
+
+
+	function schools(){
+
+		$schools = $this->getXml();
+
+		foreach ($schools as $school){
+
+			var_dump($school);
+			echo '<br/><br/>';
+		}
 
 	}
 

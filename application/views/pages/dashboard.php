@@ -170,7 +170,7 @@ function calls ($percent)
                                             <span class="progress-number"><b> <?php if($callinfo[$key]['all'] =='') echo 0; else echo $callinfo[$key]['all']; ?>
                                                 </b>/<?php  echo $callinfo[$key]['employers'][0]; ?></span>
                                             <div class="progress sm">
-                                                <div class="progress-bar progress-bar-aqua" style="width: <?php if ((int)$callinfo[$key]['all']  <= 0 ) echo 0; else echo $percent = ((int)$callinfo[$key]['all'] * 100  / (int)$callinfo[$key]['info']  )?>%;
+                                                <div class="progress-bar progress-bar-aqua" style="width: <?php if ((int)$callinfo[$key]['all']  <= 0 ) echo 0; else echo $percent = ((int)$callinfo[$key]['all'] * 100  / (int)$callinfo[$key]['employers'][0]  )?>%;
 	                                                "></div>
                                             </div>
                                         </div>

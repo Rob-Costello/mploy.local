@@ -31,5 +31,70 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 	}
 
+	//takes array and outputs xml
+	 function getXml($data = null){
+		 $url = 'https://www.workexperiences.co.uk/export.cfm';
+		 $username ='MployAuto:2B2C235F3FE8105F579B97CE293D9C';
+		 //$post = ['Type' => 3,'ids'=>'6491','postcode'=>'wa104an'];
+		 $postData = http_build_query($data);
+		 $headr[] = 'Content-Type: 	application/x-www-form-urlencoded;charset=UTF-8';
+		 $headr[] = 'Authorisation: Basic '.base64_encode($username);
+
+		 $ch = curl_init();
+		 curl_setopt($ch, CURLOPT_HTTPHEADER, $headr);
+		 curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+		 curl_setopt($ch, CURLOPT_VERBOSE, 1);
+		 curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+		 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+		 curl_setopt($ch, CURLOPT_URL, $url);
+		 curl_setopt($ch, CURLOPT_POST, 1);
+		 curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+		 $content=curl_exec($ch);
+		 $export = new SimpleXMLElement($content);
+		 return $export;
+
+	 }
+
+
+	 //takes xml and outputs xml
+	 function setXml($data = null){
+
+		 $url = 'https://www.workexperiences.co.uk/import.cfm';
+		 $username ='MployAuto:2B2C235F3FE8105F579B97CE293D9C';
+		 $headr[] = 'Content-Type: 	application/xml';
+		 $headr[] = 'Authorisation: Basic '.base64_encode($username);
+
+		 $xml = '<data> 
+				<schools>
+				<school>
+				<name>Test School 1</name>
+				<type>School</type>
+				<address1>Forestry Drive</address1> 
+				<town>Cheltenham</town> 
+				<county>Gloucestershire</county>
+				<postcode>FC5 8ST</postcode> 
+				<teacher_first_name>Jo</teacher_first_name> 
+				<teacher_last_name>Forest</teacher_last_name> 
+				<teacher_email>JoForest@example.com</teacher_email>
+				</school> </schools>
+				</data>';
+
+		 $headr[]= "Content-length: " . strlen($xml);
+		 $ch = curl_init();
+		 curl_setopt($ch, CURLOPT_HTTPHEADER, $headr);
+		 curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+		 curl_setopt($ch, CURLOPT_VERBOSE, 1);
+		 curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+		 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+		 curl_setopt($ch, CURLOPT_URL, $url);
+		 curl_setopt($ch, CURLOPT_POST, 1);
+		 curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
+		 $content=curl_exec($ch);
+		 $export = new SimpleXMLElement($content);
+		 return $export;
+
+	 }
+
+
 
 }

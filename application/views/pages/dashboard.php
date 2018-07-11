@@ -151,7 +151,9 @@ function calls ($percent)
 							<div class="box-body">
 								<div class="row">
 
-                                <?php foreach($output as  $key => $campaign){ ?>
+                                <?php foreach($output as   $campaign){
+                                	$key = $campaign['campaign_display']->campaign_id;
+                                	?>
 
                                     <!-- /.col -->
 									<div style="margin-right:20px; " class="col-md-2 "><a href="/campaigns/employers/<?php echo $campaign['campaign_display']->campaign_id ?>/0">
@@ -165,10 +167,10 @@ function calls ($percent)
 											<h4 class="box-title"><?php echo date('d/m/Y',strtotime($campaign['campaign_display']->campaign_place_start_date)); ?></h4>
                                         <div class="progress-group">
                                             <span class="progress-text">Companies Contacted</span>
-                                            <span class="progress-number"><b> <?php  echo $campaign['call_info'][$key]['call']; ?>
-                                                </b>/<?php echo $campaign['campaign_display']->students_to_place * 20; ?></span>
+                                            <span class="progress-number"><b> <?php if($callinfo[$key]['all'] =='') echo 0; else echo $callinfo[$key]['all']; ?>
+                                                </b>/<?php  echo $callinfo[$key]['employers'][0]; ?></span>
                                             <div class="progress sm">
-                                                <div class="progress-bar progress-bar-aqua" style="width: <?php if ((int)$callinfo[$key]['call']  <= 0 ) echo 0; else echo $percent = ((int)$callinfo[$key]['call'] * 100  / (int)$callinfo[$key]['info']  )?>%;
+                                                <div class="progress-bar progress-bar-aqua" style="width: <?php if ((int)$callinfo[$key]['all']  <= 0 ) echo 0; else echo $percent = ((int)$callinfo[$key]['all'] * 100  / (int)$callinfo[$key]['employers'][0]  )?>%;
 	                                                "></div>
                                             </div>
                                         </div>
@@ -177,10 +179,10 @@ function calls ($percent)
                                             <span class="progress-text">Places Agreed</span>
 
 	                                        <span class="progress-number"><b><?php if($campaign['call_info'][$key]['success'] =='') echo 0; else echo $campaign['call_info'][$key]['success']; ?>
-                                                </b>/ <?php echo $campaign['call_info'][$key]['total'];?></span>
+                                                </b>/ <?php echo  $campaign['campaign_display']->students_to_place;?></span>
 
                                             <div class="progress sm">
-                                                <div class="progress-bar progress-bar-yellow" style="width: <?php if ((int)$callinfo[$key]['success']  <= 0 ) echo 0; echo $percent = ((int)$callinfo[$key]['success'] * 100  / (int)$callinfo[$key]['total']  );?>%
+                                                <div class="progress-bar progress-bar-yellow" style="width: <?php if ((int)$callinfo[$key]['success']  <= 0 ) echo 0; echo $percent = ((int)$callinfo[$key]['success'] * 100  / (int)$campaign['campaign_display']->students_to_place );?>%
 	                                                ;"></div>
                                             </div>
                                         </div>

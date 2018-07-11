@@ -41,9 +41,9 @@ class CampaignsModel extends CI_Model
 
     function campaignCalls($id){
 
-    	return $this->db->query("select count(campaign_ref) as calls, 
+    	return $this->db->query("select count( DISTINCT campaign_ref) as calls, 
 								sum(if(rag_status= 'red' ,1,0)) as rejected, 
-								sum(if(rag_status= 'green',1,0)) as success, 
+								sum(case when rag_status= 'green' then placements else 0 end) as success, 
 								sum(if(rag_status= 'amber',1,0)) as maybe 
 								from mploy_campaign_activity where campaign_ref = '".$id."'")->row_array();
 
@@ -87,23 +87,28 @@ class CampaignsModel extends CI_Model
                                   and '.$where['status'].'
                                   and organisation_type_id =2')->result();
 
-
-            //$this->db->join('mploy_contacts','mploy_organisations.main_contact_id = mploy_contacts.id','left');
-            //$this->db->join('mploy_rel_campaign_employers','mploy_organisations.comp_id = mploy_rel_campaign_employers.campaign_employer_id' );
-
             if($like !==null) {
 				$this->db->like('name',$like,'both');
 			}
 			$this->db->order_by($request);
-            //$this->db->where_in('comp_id', '(select campaign_employer_id from `mploy_rel_campaign_employers where campaign_ref ='.$camp.'  )');
-            //$query = $this->db->get_where('mploy_organisations', $where)->result();
             $count = count($query);
         }
         return array('data' => $query, 'count' => $count);
     }
 
+	function countEmployers($where )
+	{
+			$this->db->select('campaign_employer_id ');
+			$this->db->from('mploy_rel_campaign_employers');
+			$query = $this->db->where($where)->count_all_results();
 
-    public function campName($ref){
+		return array( $query);
+	}
+
+
+
+
+	public function campName($ref){
 
     	$this->db->select('campaign_name');
     	$query = $this->db->get_where('mploy_campaigns','where campaign_ref ='.$ref);

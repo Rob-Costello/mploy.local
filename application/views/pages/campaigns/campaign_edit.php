@@ -99,6 +99,9 @@
 											<div class="col-md-4">
 												<div class="form-group">
 
+
+
+
 													<div class="">
 														<label >Placement Start Date</label>
 														<input type="text" name="campaign_place_start_date" class="datepicker form-control" value="<?php echo $entries['campaign_place_start_date'] ?>" placeholder="01/01/2018" autocomplete="off" >
@@ -175,7 +178,7 @@
 												<div class="col-md-4">
 													<div class="form-group">
 														<label >Campaign Start Date </label>
-														<input type="text" id="campaign_date" class=" form-control" value="<?php echo $entries['campaign_start_date'] ?>"  name="campaign_start_date" >
+														<input type="text" id="campaign_date" class="datepicker form-control" value="<?php echo $entries['campaign_start_date'] ?>"  name="campaign_start_date" >
 													</div>
 
 												</div>
@@ -306,7 +309,7 @@
                             <button style="z-index:100" type="button"  id="search-btn" class="btn btn-flat btn-mploy">
                                 <i class=" fa fa-search"></i>
                             </button>
-                            <button class="btn btn-flat btn-mploy" id="clear-form">Clear</button>
+                            <button type="button" class="btn btn-flat btn-mploy" id="clear-form">Clear</button>
 
                         </span>
 																			</div>

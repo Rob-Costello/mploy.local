@@ -35,38 +35,38 @@
 
 								<div class="progress-group">
 									<span class="progress-text">Calls completed</span>
-									<span class="progress-number"><b><?php echo $call_data['calls'] ?></b>/<?php echo (int)$camp_data['students_to_place'] * 20; ?></span>
+									<span class="progress-number"><b><?php echo $call_data['calls'] ?></b>/<?php echo (int)count($campaign['data']); ?></span>
 
 									<div class="progress sm">
 
-										<div class="progress-bar progress-bar-aqua" style="width: <?php if ((int)$call_data['calls']  <= 0 ) echo 0; echo ((int)$call_data['calls']  * 100  / ((int)$camp_data['students_to_place'] * 20)  )?>%"></div>
+										<div class="progress-bar progress-bar-aqua" style="width: <?php if ((int)$call_data['calls']  <= 0 ) echo 0; echo ((int)$call_data['calls']  * 100  / ((int)count($campaign['data']))  )?>%"></div>
 									</div>
 								</div>
 								<!-- /.progress-group -->
 								<div class="progress-group">
 									<span class="progress-text">Rejections</span>
-									<span class="progress-number"><b><?php if(is_numeric($call_data['rejected'])) echo $call_data['rejected']; else echo 0; ?></b>/<?php echo $camp_data['students_to_place']?></span>
+									<span class="progress-number"><b><?php if(is_numeric($call_data['rejected'])) echo $call_data['rejected']; else echo 0; ?></b>/<?php echo count($campaign['data']); ?></span>
 
 									<div class="progress sm">
-										<div class="progress-bar progress-bar-red" style="width: <?php if ((int)$call_data['rejected']  <= 0 ) echo 0; echo ((int)$call_data['rejected']  * 100  / (int)$camp_data['students_to_place']  )?>%"></div>
+										<div class="progress-bar progress-bar-red" style="width: <?php if ((int)$call_data['rejected']  <= 0 ) echo 0; echo ((int)$call_data['rejected']  * 100  / (int)count($campaign['data'])  )?>%"></div>
 									</div>
 								</div>
 								<!-- /.progress-group -->
 								<div class="progress-group">
-									<span class="progress-text">Successful Placements</span>
-									<span class="progress-number"><b><?php if(is_numeric($call_data['success'])) echo $call_data['success']; else echo 0 ?></b>/<?php echo $camp_data['students_to_place']?></span>
+									<span class="progress-text">Success</span>
+									<span class="progress-number"><b><?php if(is_numeric($call_data['success'])) echo $call_data['success']; else echo 0 ?></b>/<?php echo count($campaign['data']); ?></span>
 
 									<div class="progress sm">
-										<div class="progress-bar progress-bar-green" style="width: <?php if ((int)$call_data['success']  <= 0 ) echo 0; echo ((int)$call_data['success']  * 100  / (int)$camp_data['students_to_place']  )?>%"></div>
+										<div class="progress-bar progress-bar-green" style="width: <?php if ((int)$call_data['success']  <= 0 ) echo 0; echo ((int)$call_data['success']  * 100  / (int)count($campaign['data'])  )?>%"></div>
 									</div>
 								</div>
 								<!-- /.progress-group -->
 								<div class="progress-group">
 									<span class="progress-text">Maybe</span>
-									<span class="progress-number"><b><?php if(is_numeric($call_data['maybe'])) echo $call_data['maybe']; else echo 0 ?></b>/<?php echo $camp_data['students_to_place']?></span>
+									<span class="progress-number"><b><?php if(is_numeric($call_data['maybe'])) echo $call_data['maybe']; else echo 0 ?></b>/<?php echo count($campaign['data']); ?></span>
 
 									<div class="progress sm">
-										<div class="progress-bar progress-bar-yellow" style="width: <?php if ((int)$call_data['maybe']  <= 0 ) echo 0; echo ((int)$call_data['maybe']  * 100  / (int)$camp_data['students_to_place']  )?>%"></div>
+										<div class="progress-bar progress-bar-yellow" style="width: <?php if ((int)$call_data['maybe']  <= 0 ) echo 0; echo ((int)$call_data['maybe']  * 100  / (int)count($campaign['data'])  )?>%"></div>
 									</div>
 								</div>
 								<!-- /.progress-group -->
@@ -273,6 +273,7 @@
 					</tr>
 					</thead>
 					<tbody>
+
 					<?php foreach($campaign['data'] as $company): ?>
 					<tr>
 						<td><?php echo $company->name; ?>, <?php echo $company->town; ?></td>

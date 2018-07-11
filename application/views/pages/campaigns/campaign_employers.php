@@ -255,10 +255,6 @@
 				<table id="example2" class="table table-bordered table-striped">
 					<thead>
 					<tr>
-
-
-
-
 						<?php for($i=0; $i< count($headings); $i++ ):?>
 							<th>
 								<form method="get">

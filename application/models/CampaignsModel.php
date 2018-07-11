@@ -41,11 +41,31 @@ class CampaignsModel extends CI_Model
 
     function campaignCalls($id){
 
-    	return $this->db->query("select count( DISTINCT org_id) as calls, 
-								sum(if(rag_status= 'red' ,1,0)) as rejected, 
-								sum(case when rag_status= 'green' then placements else 0 end) as success, 
-								sum(if(rag_status= 'amber',1,0)) as maybe 
-								from mploy_campaign_activity where campaign_ref = '".$id."'")->row_array();
+        $return = array( 'calls' => 0, 'rejected' => 0, 'success' => 0, 'maybe' => 0 );
+
+        $result =  $this->db->query("select count(*) as calls, 
+								SUM( CASE WHEN  rag_status= 'red' THEN 1 ELSE 0 END )  as rejected, 
+								SUM( CASE WHEN  rag_status= 'green' THEN 1 ELSE 0 END ) as success, 
+								SUM( CASE WHEN  rag_status= 'amber' THEN 1 ELSE 0 END ) as maybe 
+								from mploy_campaign_activity where campaign_ref = '".$id."' GROUP BY org_id ")->result();
+
+        foreach( $result as $r ) {
+            foreach ($return as $k => $v) {
+
+                if( $r->$k > 0 ) {
+                    $return[$k] = $v + 1;
+
+                    if( $k != 'calls' ) {
+                        break;
+                    }
+                }
+
+            }
+
+        }
+
+        return $return;
+
 
     }
 

@@ -537,7 +537,6 @@ class Campaigns extends CI_Controller
 				$data['company'] = $info['company'];
 				$data['company_message'] = $this->session->flashdata('company_message');
 				$data['calls'] = $campaign->campaignEmployerCalls($campaign_id,$id);
-
 				$data['comp_id'] = $id;
 				$data['user'] = $this->user;
 				$data['title'] = 'Campaign';
@@ -552,7 +551,7 @@ class Campaigns extends CI_Controller
 				//$data['company_message'] = 'Updated Company Successfully';
 				if(!empty($_POST)){
 
-				    if($this->input->post('update_company') == 'submit'){
+				    if($this->input->post('update_company') == 'Submit'){
 				        $company = new companiesModel();
 				        unset($_POST['update_company']);
 				        $company->updateCompany($id,$this->input->post());
@@ -859,19 +858,25 @@ class Campaigns extends CI_Controller
 				$placement = ['employer_engagement_end'=>'-9 week', 'self_place_deadline' =>'-7 week','matching_end' =>'-7 week'];
 				if (!empty($_POST)) {
 					if ($this->input->post('campaign_place_start_date')) {
-						$start = new DateTime();
-						$start->setTimestamp( strtotime($this->input->post('campaign_start_date')));
-						$place_start = new DateTime();
-						$place_start->setTimestamp( strtotime($this->input->post('campaign_place_start_date')));
-						$place_end = new DateTime();
-						$place_end->setTimestamp(strtotime($this->input->post('campaign_place_end_date')));
+						//$start = new DateTime();
+						//$start->setTimestamp( strtotime($this->input->post('campaign_start_date')))->format('d/m/Y');
+						//$start = $start->format('d/m/Y');
+						$start = date('Y/m/d',strtotime(str_replace('/','-',$this->input->post('campaign_start_date'))));
+						$place_start  = date('Y/m/d',strtotime(str_replace('/','-',$this->input->post('campaign_place_start_date'))));
+						//$place_start = new DateTime();
+						//$place_start = $place_start->format('d/m/Y');
+						//$place_start->setTimestamp( $this->input->post('campaign_place_start_date'))->format('d/m/Y');
+
+						//$place_start = date("d/m/Y", strtotime(strtr(($this->input->post('campaign_place_start_date'), '/', '-')));
+
+						//echo $this->input->post('campaign_place_start_date');
 						$array = [];
 							foreach ($dates as $k => $day){
 								if(in_array($k,(array_keys($placement)))){
-									$array[$k] = date ('d/m/Y',strtotime( $day));
+									$array[$k] = date ('d/m/Y',strtotime( $place_start.' '. $day));
 								}
                                 else {
-                                    $array[$k] = date('d/m/Y', strtotime( $day));
+                                    $array[$k] = date('d/m/Y', strtotime( $start. ' '. $day));
                                 }
 							}
 

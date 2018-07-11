@@ -56,27 +56,21 @@ class Dashboard extends CI_Controller {
 		foreach ($data['campaigns_display'] as $c) {
             //$where = "select_school = " . $c->select_school . " and campaign_place_start_date < now() and campaign_place_end_date > '" . date("Y-m-d") . "'";
             $where = "select_school = " . $c->select_school . " ";
-            $info = $customersModel->getPlacements($where); //need to check if placement end date has expired
+            $information = $customersModel->getPlacements($where); //need to check if placement end date has expired
             $temp = [];
 
-            foreach ($info as $active) {
+            foreach ($information as $active) {
                 //$callstats = $customersModel->getCallData($c->select_school);
 	            $campCalls = $campaignsModel->campaignCalls($c->campaign_id);
 	            $call = $campCalls['success'];
 
-                /*foreach ($callstats as $stat) {
-                    if ($stat->rag_status == 'green') {
-                        $call++;
-                    }
-                }*/
-
                 $calls = $campaignsModel->callInfo($c->select_school, $c->employer_engagement_end)['calls'];
 
                 $info = $campaignsModel->callAmmount($c->select_school)['total'];
+	            $employers = $campaignsModel->countEmployers('campaign_ref =' .$c->campaign_id);
 
-                $callInfo[] = ['call' => $calls, 'info' => $info, 'success' => $call, 'total' => $active['students_to_place'],'all'=>$campCalls['calls']];
+                $callInfo[$c->campaign_id] = ['call' => $calls, 'info' => $info, 'success' => $call, 'total' => $active['students_to_place'],'all'=>$campCalls['calls'], 'employers'=>$employers];
 
-                //$placed[] = ['success'=>$call, 'total'=> $active['students_to_place']] ;
 
             }
             $output[]  = ['campaign_display'=>$c,'call_info'=>$callInfo];

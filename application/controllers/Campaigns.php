@@ -449,9 +449,6 @@ class Campaigns extends CI_Controller
 			$school = $campaign-> lookupCampaign($camp_ref);
 			$data['camp_data']= $school;
 			$data['call_data']= $campaign->campaignCalls($camp_ref);
-			//$data['campaign_dropdown'] = $camp_ref;
-
-
 			$orderby = 'mploy_organisations.org_id';
 			$data['orderby']='';
 			$like = null;
@@ -558,7 +555,6 @@ class Campaigns extends CI_Controller
                         $this->session->set_flashdata('company_message', 'Updated company details');
                         $data['company_message'] = 'Updated Company Successfully';
                         redirect('campaigns/employerdetails/'.$camp_ref.'/'.$id);
-                        //$this->load->view('pages/campaigns/campaign_employer_details',$data);
                     }
 
                 }
@@ -858,18 +854,8 @@ class Campaigns extends CI_Controller
 				$placement = ['employer_engagement_end'=>'-9 week', 'self_place_deadline' =>'-7 week','matching_end' =>'-7 week'];
 				if (!empty($_POST)) {
 					if ($this->input->post('campaign_place_start_date')) {
-						//$start = new DateTime();
-						//$start->setTimestamp( strtotime($this->input->post('campaign_start_date')))->format('d/m/Y');
-						//$start = $start->format('d/m/Y');
 						$start = date('Y/m/d',strtotime(str_replace('/','-',$this->input->post('campaign_start_date'))));
 						$place_start  = date('Y/m/d',strtotime(str_replace('/','-',$this->input->post('campaign_place_start_date'))));
-						//$place_start = new DateTime();
-						//$place_start = $place_start->format('d/m/Y');
-						//$place_start->setTimestamp( $this->input->post('campaign_place_start_date'))->format('d/m/Y');
-
-						//$place_start = date("d/m/Y", strtotime(strtr(($this->input->post('campaign_place_start_date'), '/', '-')));
-
-						//echo $this->input->post('campaign_place_start_date');
 						$array = [];
 							foreach ($dates as $k => $day){
 								if(in_array($k,(array_keys($placement)))){

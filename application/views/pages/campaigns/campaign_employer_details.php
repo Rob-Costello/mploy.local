@@ -169,7 +169,7 @@
                                 <div class="box-body">
                                     <form role="form"  method="POST">
                                         
-                                    <table id="example2" class="table table-bordered table-striped">
+                                    <table id="example2" class="table table-bordered table-hover">
                                         <thead>
                                         <tr>
                                             <?php foreach($contacts_table as $heading):?>
@@ -226,7 +226,7 @@
     </div>
     
     
-    <div style="padding-top:20px;" class="col-md-7">
+    <div style="padding-top:20px;" class="col-md-6">
         <div class=" ">
             <div id="exTab1" class="">
 
@@ -246,7 +246,8 @@
 
                                 <!-- /.box-header -->
                                 <div class="box-body">
-                                    <div style="z-index:100" class="col-md-12">
+
+	                                <div style="z-index:100" class="col-md-12">
                                         <?php if( $call_message != '' ) { ?>
                                             <div class="alert alert-success alert-dismissable">
                                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -259,13 +260,15 @@
                                         <?php echo $call_message; ?>
 
                                     </div>
-                                <div  style="padding-bottom:20px;" class="col-md-offset-10 col-md-2">
+                                <div  style="padding-bottom:20px;" class="col-md-offset-9 ">
                                     <input type="submit" class="btn btn-mploy-submit" value="New Call"
                                            onclick="window.location.replace('/campaigns/newcall/<?php echo $camp_id ?>/<?php echo $comp_id ?>?campid=<?php echo $campaign;?>')">
                                 </div> 
                                    
                                         
-                                   <div class="col-md-12"> <table id="example2" style="width: 100% !important;" class="table table-bordered table-striped">
+                                   <div class="col-md-12">
+	                                   <div class="table-responsive-md">
+	                                   <table id="example2" class="table table-bordered table-hover">
                                         <thead>
                                         <tr>
                                             <?php foreach($call_table as $heading):?>
@@ -296,6 +299,7 @@
 
                                     </table>
                                    </div>
+                                   </div>
 
                             </div>
 
@@ -315,7 +319,7 @@
     </div>
 
 
-	    <div style="padding-top:20px;" class="col-md-5">
+	    <div style="padding-top:20px;" class="col-md-6">
 		    <div class=" ">
 			    <div id="exTab1" class="">
 
@@ -354,8 +358,9 @@
 									    </div>-->
 
 
-										<div class="col-md-12">
-									    <table id="example2" style="width: 100% !important;" class="table table-bordered table-striped">
+										<div class="col-sm-12 col-md-12">
+											<div class="table-responsive">
+											<table id="example2" style="width: 100% !important;" class="table table-bordered table-hover">
 										    <thead>
 										    <tr>
 											  <th>
@@ -395,7 +400,8 @@
 										    </tbody>
 
 									    </table>
-										</div>
+											</div>
+											</div>
 
 								    </div>
 

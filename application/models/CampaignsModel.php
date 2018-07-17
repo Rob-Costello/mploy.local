@@ -96,26 +96,28 @@ class CampaignsModel extends CI_Model
 
         $this->db->select('*');
         $this->db->limit($limit, $offset);
-        if ($where == null) {
-            $this->db->order_by($request);
-            $query = $this->db->get('mploy_organisations');
-            $count = $this->db->from('mploy_organisations')->count_all_results();
-        } else {
 
-            $query = $this->db->query('SELECT * FROM  mploy_organisations o
-                                  left join mploy_contacts as c on o.main_contact_id = c.id
-                                  where comp_id in 
-                                  (select campaign_employer_id from mploy_rel_campaign_employers where campaign_ref=' . $where['camp_ref'] . ') 
-                                  and ' . $where['status'] . '
-                                  and organisation_type_id =2')->result();
+        $this->db->order_by($request);
 
-            if ($like !== null) {
-                $this->db->like('name', $like, 'both');
+        foreach( $where as $k => $v ){
+            if( $k == '' ){
+                $this->db->where($v);
+            } else {
+                $this->db->where($k, $v);
             }
-            $this->db->order_by($request);
-            $count = count($query);
         }
-        return array('data' => $query, 'count' => $count);
+
+        $this->db->select('mploy_organisations.*, mploy_campaign_activity.*');
+        $this->db->join('mploy_organisations', 'mploy_rel_campaign_employers.campaign_employer_id = mploy_organisations.id', 'left');
+        $this->db->join('mploy_contacts', 'mploy_contacts.id = mploy_organisations.main_contact_id', 'left');
+        $this->db->join('(select max(id) max_id, org_id FROM mploy_campaign_activity group by org_id) as a1', 'a1.org_id = mploy_organisations.org_id', 'left');
+        $this->db->join('mploy_campaign_activity', 'mploy_campaign_activity.id = a1.max_id', 'left');
+        $this->db->group_by('mploy_organisations.id');
+        $query = $this->db->get('mploy_rel_campaign_employers');
+
+        $count = $this->db->from('mploy_organisations')->count_all_results();
+
+        return array('data' => $query->result(), 'count' => $count);
     }
 
     function countEmployers($where)

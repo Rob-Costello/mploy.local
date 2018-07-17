@@ -427,7 +427,6 @@ class Campaigns extends CI_Controller
     function employers($camp_ref, $pageNo = 0)
     {
 
-        $hasSearch = false;
         $data['campaign_list'] = $this->availableCampaigns;
         $campaign = new campaignsModel();
         $school = $campaign->lookupCampaign($camp_ref);
@@ -443,12 +442,6 @@ class Campaigns extends CI_Controller
 
         }
 
-        if (!empty($_POST)) {
-
-            $like = $this->input->post('search');
-            $hasSearch = true;
-        }
-
         $data['user'] = $this->user;
         $data['headings'] = ['Name', 'Main Telephone', 'Address', 'Line of Business', 'Status'];
         $data['fields'] = ['name', 'phone', 'address1', 'line_of_business', 'status'];
@@ -458,29 +451,36 @@ class Campaigns extends CI_Controller
             $offset = $pageNo * $this->perPage;
         }
 
-        //$where['organisation_type_id'] = '2' ;
-        //$where = $camp_ref;
         $data['status'] = 'all';
-        $where['status'] = "status like '%%'";
-        $where['camp_ref'] = $camp_ref;
-        if (isset($_GET['status'])) {
-            if ($_GET['status'] !== 'all') {
-                $where['status'] = "status='" . $_GET['status'] . "'";
+        $where['mploy_rel_campaign_employers.campaign_ref'] = $camp_ref;
+        if (isset($_GET)) {
+            if (isset($_GET['status']) ){
+
+                if( $_GET['status'] == 2 ){
+                    $where[] = "( rag_status = 1 OR rag_status = 2 )";
+
+                } else if( $_GET['status'] == 3 ){
+                    $where[] = "( rag_status = 3 OR rag_status IS NULL )";
+
+                } else if( $_GET['status'] !== 'all') {
+                     $where['rag_status'] = $_GET['status'];
+                }
+
+                $data['status'] = $_GET['status'];
 
             }
 
+            if( isset($_GET['search']) ){
 
-            $data['status'] = $_GET['status'];
+                $where[] = "( mploy_organisations.name LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.address1 LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.address2 LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.town LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.county LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.country LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.postcode LIKE '%" . $_GET['search'] . "%')";
+
+            }
         }
 
-        if ($hasSearch) {
-            $data['campaign'] = $campaign->getEmployers($where, $orderby, $like, null, null, $camp_ref);
-            $page = $this->helpers->page($data['campaign'], '/campaigns/employers/' . $camp_ref, count($data['campaign']));
-        } else {
             $data['campaign'] = $campaign->getEmployers($where, $orderby, $like, $this->perPage, $offset, $camp_ref);
             $page = $this->helpers->page($data['campaign'], '/campaigns/employers/' . $camp_ref, $this->perPage);
             $this->pagination->initialize($page);
-        }
+
         $data['campaign_dropdown'] = $camp_ref;
         $data['pagination_start'] = $offset + 1;
         $data['pagination_end'] = $data['pagination_start'] + $this->perPage;
@@ -493,7 +493,7 @@ class Campaigns extends CI_Controller
         $data['campaign_name'] = $school['campaign_name'];
         $data['pagination'] = $this->pagination->create_links();
         $data['user'] = $this->user;
-        $data['title'] = 'Campaign';
+        $data['title'] = 'Employers';
         $data['nav'] = 'campaign';
         $data['camp_ref'] = $camp_ref;
         $data['camp_id'] = $school['select_school'];
@@ -540,7 +540,6 @@ class Campaigns extends CI_Controller
         $data['call_table'] = ['User', 'Type', 'Reciprocant', 'Notes', 'Date', 'Outcome'];
         $data['placements'] = $campaign->getSuccessfulPlacement($campaign_id);
         $data['placements_total'] = $campaign->getCampaign($campaign_id)['placements'];
-        print_r($data['placements_total']);
         $data['campaign'] = $campaign_id;
         $data['student_message'] = $this->session->flashdata('student_message');
         $data['campaign_dropdown'] = $camp_ref;

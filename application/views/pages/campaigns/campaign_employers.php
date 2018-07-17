@@ -39,7 +39,7 @@
 
 									<div class="progress sm">
 
-										<div class="progress-bar progress-bar-aqua" style="width: <?php if ((int)$call_data['calls']  <= 0 ) echo 0; echo ((int)$call_data['calls']  * 100  / ((int)count($campaign['data']))  )?>%"></div>
+										<div class="progress-bar progress-bar-aqua" style="width: <?php if ((int)$call_data['calls']  <= 0 || (int)count($campaign['data']) <= 0 ) echo 0; else echo ((int)$call_data['calls']  * 100  / ((int)count($campaign['data']))  )?>%"></div>
 									</div>
 								</div>
 								<!-- /.progress-group -->
@@ -48,7 +48,7 @@
 									<span class="progress-number"><b><?php if(is_numeric($call_data['rejected'])) echo $call_data['rejected']; else echo 0; ?></b>/<?php echo count($campaign['data']); ?></span>
 
 									<div class="progress sm">
-										<div class="progress-bar progress-bar-red" style="width: <?php if ((int)$call_data['rejected']  <= 0 ) echo 0; echo ((int)$call_data['rejected']  * 100  / (int)count($campaign['data'])  )?>%"></div>
+										<div class="progress-bar progress-bar-red" style="width: <?php if ((int)$call_data['rejected']  <= 0  || (int)count($campaign['data']) <= 0 ) echo 0; else echo ((int)$call_data['rejected']  * 100  / (int)count($campaign['data'])  )?>%"></div>
 									</div>
 								</div>
 								<!-- /.progress-group -->
@@ -57,7 +57,7 @@
 									<span class="progress-number"><b><?php if(is_numeric($call_data['success'])) echo $call_data['success']; else echo 0 ?></b>/<?php echo count($campaign['data']); ?></span>
 
 									<div class="progress sm">
-										<div class="progress-bar progress-bar-green" style="width: <?php if ((int)$call_data['success']  <= 0 ) echo 0; echo ((int)$call_data['success']  * 100  / (int)count($campaign['data'])  )?>%"></div>
+										<div class="progress-bar progress-bar-green" style="width: <?php if ((int)$call_data['success']  <= 0 || (int)count($campaign['data']) <= 0) echo 0; else echo ((int)$call_data['success']  * 100  / (int)count($campaign['data'])  )?>%"></div>
 									</div>
 								</div>
 								<!-- /.progress-group -->
@@ -66,7 +66,7 @@
 									<span class="progress-number"><b><?php if(is_numeric($call_data['maybe'])) echo $call_data['maybe']; else echo 0 ?></b>/<?php echo count($campaign['data']); ?></span>
 
 									<div class="progress sm">
-										<div class="progress-bar progress-bar-yellow" style="width: <?php if ((int)$call_data['maybe']  <= 0 ) echo 0; echo ((int)$call_data['maybe']  * 100  / (int)count($campaign['data'])  )?>%"></div>
+										<div class="progress-bar progress-bar-yellow" style="width: <?php if ((int)$call_data['maybe']  <= 0 || (int)count($campaign['data']) <= 0 ) echo 0; else echo ((int)$call_data['maybe']  * 100  / (int)count($campaign['data'])  )?>%"></div>
 									</div>
 								</div>
 								<!-- /.progress-group -->
@@ -145,87 +145,6 @@
 	</section>
 
 
-	<section style="min-height:100px !important" class="content">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="box">
-					<div class="box-header with-border">
-						<h3 class="box-title">Mode</h3>
-
-						<div class="box-tools pull-right">
-							<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-							</button>
-							<div class="btn-group">
-								<button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
-									<i class="fa fa-wrench"></i></button>
-								<ul class="dropdown-menu" role="menu">
-									<li><a href="#">Action</a></li>
-									<li><a href="#">Another action</a></li>
-									<li><a href="#">Something else here</a></li>
-									<li class="divider"></li>
-									<li><a href="#">Separated link</a></li>
-								</ul>
-							</div>
-							<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-						</div>
-					</div>
-					<!-- /.box-header -->
-					<div class="box-body">
-						<div class="row">
-
-							<div class="col-md-3">
-
-								<form method="GET" >
-									<button class="btn <?php if($status == 'all') echo 'btn-mploy' ?>" name="status" value="all"> All</button>
-								</form>
-
-							</div>
-
-
-
-							<div class="col-md-3">
-
-								<form method="GET" >
-									<button class="btn <?php if($status == 'pending') echo 'btn-mploy' ?>" name="status" value="pending"> Pending</button>
-								</form>
-
-							</div>
-
-
-							<div class="col-md-3">
-
-								<form method="GET" >
-									<button class="btn <?php if($status == 'available') echo 'btn-mploy' ?>"name="status" value="available"> Available</button>
-								</form>
-
-							</div>
-
-
-							<div class="col-md-3">
-
-								<form method="GET" >
-									<button class="btn <?php if($status == 'not willing to take') echo 'btn-mploy' ?>" name="status" value="not willing to take"> Not Willing</button>
-								</form>
-
-							</div>
-
-
-							<!-- /.col -->
-
-							<!-- /.col -->
-						</div>
-						<!-- /.row -->
-					</div>
-					<!-- ./box-body -->
-
-					<!-- /.box-footer -->
-				</div>
-				<!-- /.box -->
-			</div>
-			<!-- /.col -->
-		</div>
-	</section>
-
 	<!-- Main content -->
 	<section class="content">
 
@@ -233,26 +152,55 @@
 
 		<div class="box">
 			<div class="col-md-12">
-				<form  method="POST" class="sidebar-form">
-					<div class="input-group">
-						<input style="margin:20px; padding:19px;" type="text" name="search" class="form-control" placeholder="Search...">
-						<span class="input-group-btn">
-                <button style="z-index:100" type="submit"  id="search-btn" class="btn btn-flat btn-mploy">
-                    <i class=" fa fa-search"></i>
-                </button>
-              </span>
-					</div>
-				</form>
 
-			<div class="box-header"></div>
-			<div class="box-header">
-				<h2 class="box-title">
-					<?= $title; ?>
-				</h2>
-			</div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3 class="box-title">
+                            <?= $title; ?>
+                        </h3>
+                    </div>
+                    <div class="col-md-6">
+                        <form  method="GET" class="sidebar-form">
+                            <div class="input-group">
+                                <input style="margin:20px; padding:19px;" type="text" name="search" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                    <button style="z-index:100" type="submit"  id="search-btn" class="btn btn-flat btn-mploy">
+                                        <i class=" fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
 			<!-- /.box-header -->
 			<div class="box-body">
-				<table id="example2" class="table table-bordered table-striped">
+
+
+                <div class="row">
+
+                    <div class="col-md-12">
+
+                        <form method="GET">
+                            <button class="btn <?php if($status == 'all') echo 'btn-mploy' ?>" name="status" value="all"> All</button>
+
+                            <button class="btn <?php if($status == '2') echo 'btn-mploy' ?>" name="status" value="2"> Yes</button>
+
+                            <button class="btn <?php if($status == '3') echo 'btn-mploy' ?>"name="status" value="3"> Maybe</button>
+
+                            <button class="btn <?php if($status == '4') echo 'btn-mploy' ?>" name="status" value="4"> No</button>
+                        </form>
+
+                    </div>
+
+
+                    <!-- /.col -->
+
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+
+				<table id="example2" class="table table-bordered table-striped" style="margin-top: 20px">
 					<thead>
 					<tr>
 						<?php for($i=0; $i< count($headings); $i++ ):?>
@@ -280,7 +228,7 @@
 							<?php echo $company->line_of_business;?>
 						</td>
 						<td>
-							<?php echo $company->status;?>
+                            <img src="<?php echo base_url()."assets/";?>dist/img/<?php if($company->rag_status == null) echo 3; echo $company->rag_status ?>.png" class="img-circle" alt="Status">
 						</td>
 						<td><a class="" href="/campaigns/employerdetails/<?php echo $camp_id ?>/<?php echo $company->comp_id;?>?campid=<?php echo $camp_ref ?>">
 								<i class="fa fa-edit"></i> </a></td>

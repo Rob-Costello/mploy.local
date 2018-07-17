@@ -334,7 +334,7 @@
 							    <div class="box">
 
 								    <div class="box-header with-border">
-									    <h3 class="box-title">Placements </h3>
+									    <h3 class="box-title">Placements (<?php echo $placements_total; ?>)</h3>
 								    </div>
 
 								    <!-- /.box-header -->
@@ -386,7 +386,7 @@
 										    <?php foreach($placements as $call): ?>
 										    <tr>
 											    <td><?php echo $call->receiver?></td>
-											    <td><?php echo $call->date_time ?></td>
+											    <td><?php echo date("d/m/Y H:i", strtotime($call->date_time)); ?></td>
 											    <td><?php echo $call->placements ?></td>
 											    <td><?php echo $call->notes ?></td>
 											    <td><button class="btn btn-mploy"> WEX</button></td>

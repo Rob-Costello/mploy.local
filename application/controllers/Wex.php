@@ -55,8 +55,8 @@ class Wex extends CI_Controller
 		$username='admin@admin.com';
 		$wex = new WexModel();
 		$session = $wex->getCiSession($username)['id'];
-
-		return $this->encrypt($session);
+		return 'fd574e64effaf40050831aa93cef8820ca64f2eb6f26f62ef8d1c2a5e9792d4984800b71e00c8f0481f97bd1ccf358ef986b96d46c0ce3be20dc4d602fcb11c10MHVpUmL88lmi+2NxOq750aoEddEIXzzuQgO2OiIRq1qBL7ZS469mdlkQ56ykfZxvRzAE1dFm1lh1+gqYAtcmg==';
+		//return $this->encrypt($session);
 
 	}
 
@@ -253,6 +253,21 @@ class Wex extends CI_Controller
 	}
 
 
+
+	function reply($company,$campaign)
+	{
+
+		if(!empty($_GET)){
+
+
+
+
+		}
+
+
+
+
+	}
 
 
 

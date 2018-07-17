@@ -5,6 +5,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  class Helpers
 {
 
+	function __construct(){
+
+		$CI =& get_instance();
+		$this->CI = $CI =& get_instance();
+		$CI->load->model('WexModel');
+		$CI->load->library('session');
+		$CI->load->library('encryption');
+    }
+
+
+
+
 	function page($model, $baseurl, $perPage = 5,$suffix=null)
 	{
 		$pagConfig['suffix'] = $suffix;
@@ -31,7 +43,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 	}
 
-	//takes array and outputs xml
+	 function encrypt($text)
+	 {
+		 $this->CI->load->library('encryption');
+
+		 $ciphertext = $this->CI->encryption->encrypt($text);
+		 return  $ciphertext;
+	 }
+
+
+	 //takes array and outputs xml
 	 function getXml($data = null){
 		 $url = 'https://www.workexperiences.co.uk/export.cfm';
 		 $username ='MployAuto:2B2C235F3FE8105F579B97CE293D9C';
@@ -94,6 +115,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		 return $export;
 
 	 }
+
+	 function encryptSession($username=null){
+		 $username='admin@admin.com';
+
+		 $wex = new WexModel();
+		 $session = $wex->getCiSession($username)['id'];
+		 //$session = $wex->getCiSession($username)['id'];
+
+		 return $this->encrypt($session);
+
+	 }
+
 
 
 

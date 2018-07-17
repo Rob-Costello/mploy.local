@@ -41,7 +41,7 @@ class CampaignsModel extends CI_Model
 
     function campaignCalls($id){
 
-        $return = array( 'calls' => 0, 'rejected' => 0, 'success' => 0, 'maybe' => 0 );
+        $return = array( 'calls' => 0,  'success' => 0, 'rejected' => 0, 'maybe' => 0 );
 
         $result =  $this->db->query("select count(*) as calls, 
 								SUM( CASE WHEN  rag_status= 'red' THEN 1 ELSE 0 END )  as rejected, 
@@ -220,7 +220,8 @@ class CampaignsModel extends CI_Model
 
     public function employerDetails($ref, $id)
     {
-        $this->db->join('mploy_contacts','mploy_organisations.comp_id = mploy_contacts.org_id','left');
+        $this->db->select('mploy_organisations.*, mploy_contacts.first_name,mploy_contacts.last_name,mploy_contacts.job_title,mploy_contacts.phone,mploy_contacts.email' );
+    	$this->db->join('mploy_contacts','mploy_organisations.comp_id = mploy_contacts.org_id','left');
         $company = $this->db->get_where('mploy_organisations','comp_id ='.$id);
         
         //$this->db->join('mploy_contacts','mploy_campaign_activity.user_id = mploy_contacts.id');
@@ -440,6 +441,7 @@ class CampaignsModel extends CI_Model
 		$query = $this->db->get_where('mploy_campaign_activity',['rag_status'=>'green', 'mploy_campaign_activity.org_id' => $id]);
 		return $query->result();
 	}
+
 
 
 

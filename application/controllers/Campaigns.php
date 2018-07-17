@@ -528,6 +528,7 @@ class Campaigns extends CI_Controller
 				$campaign_id = $this->input->get('campid');
 			    $campaign= new campaignsModel();
 				//$data['employer'] = $campaign->employerDetails($id);
+
 				$info = $campaign->employerDetails($campaign_id,$id);
 				$data['call_message'] = $this->session->flashdata('call_message');
 				$data['employer'] = $info['company'][0];
@@ -561,9 +562,7 @@ class Campaigns extends CI_Controller
 
                 $data['campaign_list'] = $this->availableCampaigns;
 				$data['campaign_dropdown'] = $campaign_id;
-
 				$data['camp_id'] = $camp_ref;
-
 				$this->load->view('pages/campaigns/campaign_employer_details',$data);
 			}
 

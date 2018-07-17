@@ -42,10 +42,12 @@
                                         <?php foreach($placements as $history): ?>
                                             <tr>
 
-                                               <td><?php echo $history->date_time ?></td>
+	                                            <td><?php echo $history->date_time ?></td>
 	                                            <td><?php echo $history->name ?></td>
 	                                            <td><?php echo 'TBC'//echo $history->job_title ?></td>
-	                                            <td><button type="button" class="btn btn-mploy"> WEX</button></td>
+	                                            <td><a href="https://www.workexperiences.co.uk/businesses/company.cfm?sso_key=<?php echo $user_string?>&id=<?php echo $history->org_id;?>">
+
+		                                            <button type="button" class="btn btn-mploy"> WEX</button></a></td>
                                             </tr>
                                         <?php endforeach ?>
                                         </tbody>

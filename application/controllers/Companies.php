@@ -246,6 +246,9 @@ class Companies extends CI_Controller
 
         $data['placements'] = $company->getPlacementHistory($id);
 
+        $data['user_string'] =   $this->helpers->encryptSession($username=null);
+
+
         $data['calls'] = $company->getCallHistory($id);
 		//var_dump($data['calls']);
 

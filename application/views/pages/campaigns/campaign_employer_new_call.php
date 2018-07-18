@@ -103,15 +103,15 @@
 														<button id="dropdown-button" class="btn " style="border: solid 1px ;  border-color: #f7f3f7;" type="button" data-toggle="dropdown">Status
 															<span class="caret"></span></button>
 														<ul id="rag-dropdown" class="dropdown-menu">
-															<li onclick="setValue('red')"   name= 'red' class="rag-option" value="red" >
-																<img src="<?php echo base_url()."assets/";?>dist/img/red.png" class="img-circle" alt="User Image">
+															<li onclick="setValue('4')" class="rag-option" value="4" >
+																<img src="<?php echo base_url()."assets/";?>dist/img/4.png" class="img-circle" alt="User Image">
 															</li>
-															<li style="marign:auto;" onclick="setValue('amber')"  name= 'red' class="rag-option" value="amber" >
-																<img  src="<?php echo base_url()."assets/";?>dist/img/amber.png" class="img-circle" alt="User Image">
+															<li style="marign:auto;" onclick="setValue('3')" class="rag-option" value="3" >
+																<img  src="<?php echo base_url()."assets/";?>dist/img/3.png" class="img-circle" alt="User Image">
 															</li>
 
-															<li onclick="setValue('green')"  name= 'red' class="rag-option" value="green" >
-																<img src="<?php echo base_url()."assets/";?>dist/img/green.png" class="img-circle" alt="User Image">
+															<li onclick="setValue('2')" class="rag-option" value="2" >
+																<img src="<?php echo base_url()."assets/";?>dist/img/2.png" class="img-circle" alt="User Image">
 															</li>
 														</ul>
 													</div>

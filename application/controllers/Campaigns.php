@@ -225,7 +225,7 @@ class Campaigns extends CI_Controller
 
 
                 $where['status'] = "status like '%%'";
-                $where['camp_ref'] = $id;
+                $where['campaign_ref'] = $id;
 
 
                 $campaign->editCampaign($id, $this->input->post());
@@ -236,7 +236,7 @@ class Campaigns extends CI_Controller
         }
 
         $where['status'] = "status like '%%'";
-        $where['camp_ref'] = $id;
+        $where['mploy_campaign_activity.campaign_ref'] = $id;
         $data['dropdown'] = $campaign->getSchools();
         $companies = $campaign->getEmployers($where);
         $data['company_table'] = $companies['data'];
@@ -278,7 +278,6 @@ class Campaigns extends CI_Controller
         $output = "";
 
         if (!empty($_POST)) {
-
 
             $required = ['campaign_name',
                 'students_to_place',

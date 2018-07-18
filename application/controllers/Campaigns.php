@@ -480,7 +480,17 @@ class Campaigns extends CI_Controller
 
         }
 
+        if( count($where) == 1 ){
+
+            $where[] = " (rag_status > 1 OR rag_status IS NULL)";
+            $orderby = 'date_time ASC';
+
+        }
+
         $data['campaign'] = $campaign->getEmployers($where, $orderby, $like, $this->perPage, $offset, $camp_ref);
+
+        $this->session->set_userdata('company_nav', $data['campaign']['array']);
+
         $page = $this->helpers->page($data['campaign'], '/campaigns/employers/' . $camp_ref, $this->perPage);
         $this->pagination->initialize($page);
 
@@ -534,6 +544,14 @@ class Campaigns extends CI_Controller
         $data['employer'] = $info['company'][0];
         $data['company'] = $info['company'];
         $data['company_message'] = $this->session->flashdata('company_message');
+
+        $data['prev'] = null;
+        $data['next'] = null;
+
+        if( array_search ( $id, $this->session->company_nav) > 0 )
+            $data['prev'] = $this->session->company_nav[ array_search ( $id, $this->session->company_nav) - 1];
+        if(  array_search ( $id, $this->session->company_nav) != count($this->session->company_nav) )
+            $data['next'] = $this->session->company_nav[ array_search ( $id, $this->session->company_nav) + 1 ];
 
         $data['calls'] = $company->getCompanyCalls( $id);
         $data['comp_id'] = $id;

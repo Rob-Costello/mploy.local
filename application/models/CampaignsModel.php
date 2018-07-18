@@ -96,7 +96,6 @@ class CampaignsModel extends CI_Model
 
         $this->db->select('*');
         $this->db->limit($limit, $offset);
-
         $this->db->order_by($request);
 
         foreach( $where as $k => $v ){
@@ -115,6 +114,7 @@ class CampaignsModel extends CI_Model
         $this->db->group_by('mploy_organisations.id');
         $query = $this->db->get('mploy_rel_campaign_employers');
 
+        $this->db->order_by($request);
         foreach( $where as $k => $v ){
             if( $k == '' ){
                 $this->db->where($v);
@@ -129,9 +129,17 @@ class CampaignsModel extends CI_Model
         $this->db->join('(select max(id) max_id, org_id FROM mploy_campaign_activity group by org_id) as a1', 'a1.org_id = mploy_organisations.org_id', 'left');
         $this->db->join('mploy_campaign_activity', 'mploy_campaign_activity.id = a1.max_id', 'left');
         $this->db->group_by('mploy_organisations.id');
-        $count = $this->db->get('mploy_rel_campaign_employers');
-        $count = count($count->result());
-        return array('data' => $query->result(), 'count' => $count);
+        $countResult = $this->db->get('mploy_rel_campaign_employers');
+        $count = count($countResult->result());
+
+        $arraySet = array();
+        foreach($countResult->result() as $k => $v){
+
+            $arraySet[] = $v->comp_id;
+
+        }
+
+        return array('data' => $query->result(), 'count' => $count, 'array' => $arraySet);
     }
 
     function getSelectedEmployers($where = null, $request = null, $like = null, $limit = null, $offset = null){

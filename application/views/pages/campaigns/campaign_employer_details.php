@@ -5,10 +5,7 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h3>
-
-          
-        </h3>
+        <h3>&nbsp;</h3>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
             <li class="active">School Details</li>
@@ -17,6 +14,19 @@
     </section>
 
     <div class="container-fluid ">
+
+
+            <div class="col-md-4">
+                <?php if($prev !== null) { ?><a class="btn btn-mploy-cancel" href="/campaigns/employerdetails/<?php echo $camp_id ?>/<?php echo $prev;?>?campid=<?php echo $campaign ?>">PREV</a><?php } ?>
+            </div>
+
+            <div class="col-md-4">
+                <a class="btn btn-mploy-cancel center-block" href="/campaigns/employers/<?php echo $campaign ?>/0">BACK TO EMPLOYERS LIST</a>
+            </div>
+
+            <div class="col-md-4" style="margin-bottom: 20px;">
+                <?php if($next !== null) { ?><a class="btn btn-mploy-submit pull-right" href="/campaigns/employerdetails/<?php echo $camp_id ?>/<?php echo $next;?>?campid=<?php echo $campaign ?>">NEXT</a><?php } ?>
+            </div>
         <div class="col-md-7">
         <div class=" ">
             <div id="exTab1" class="">

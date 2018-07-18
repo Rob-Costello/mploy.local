@@ -244,13 +244,8 @@ class Companies extends CI_Controller
             $offset = $page * $this->perPage;
         }
 
-        $data['placements'] = $company->getPlacementHistory($id);
-
         $data['user_string'] =   $this->helpers->encryptSession($username=null);
 
-
-        $data['calls'] = $company->getCallHistory($id);
-		//var_dump($data['calls']);
 
         $data['contacts'] = $company->getHistory(['mploy_campaign_activity.org_id'=>$data['id']], null, $this->perPage, $offset);
         $page = $this->page($data['contacts'],'/companies/contacts/',$this->perPage);
@@ -264,6 +259,12 @@ class Companies extends CI_Controller
 
         $header = ['Name', 'Start Date', 'Job Title', 'School Name'];
         $data['calls_header'] = ['Type','Notes','Date','Outcome'];
+        $companyData = $company->getCompany($id);
+
+        $data['contacts_table'] = ['Name', 'Position', 'Phone', 'Email'];
+        $data['call_table'] = ['User', 'Type', 'Reciprocant', 'Notes', 'Date', 'Outcome'];
+        $data['calls'] = $company->getCompanyCalls( $id);
+        $data['placements'] = $company->getCompanyPlacements($companyData['id']);
 
 	    $pretty = [];
         array_walk($header, function ($item, $key) use (&$pretty) {

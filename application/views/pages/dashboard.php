@@ -152,11 +152,12 @@ function calls ($percent)
 								<div class="row">
 
                                 <?php foreach($output as   $campaign){
+
                                 	$key = $campaign['campaign_display']->campaign_id;
                                 	?>
 
                                     <!-- /.col -->
-									<div style="margin-right:20px; " class="col-md-2 "><a href="/campaigns/employers/<?php echo $campaign['campaign_display']->campaign_id ?>/0">
+									<div class="col-md-2 "><a href="/campaigns/employers/<?php echo $campaign['campaign_display']->campaign_id ?>/0">
                                         <!--										<p class="text-center">-->
                                         <!--											<strong>Goal Completion</strong>-->
                                         <!--										</p>-->

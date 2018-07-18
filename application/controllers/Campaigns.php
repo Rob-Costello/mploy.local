@@ -457,33 +457,32 @@ class Campaigns extends CI_Controller
 
         $data['status'] = 'all';
         $where['mploy_rel_campaign_employers.campaign_ref'] = $camp_ref;
-        if (isset($_GET)) {
-            if (isset($_GET['status']) ){
 
-                if( $_GET['status'] == 2 ){
-                    $where[] = "( rag_status = 1 OR rag_status = 2 )";
+        if (isset($_GET['status']) ){
 
-                } else if( $_GET['status'] == 3 ){
-                    $where[] = "( rag_status = 3 OR rag_status IS NULL )";
+            if( $_GET['status'] == 2 ){
+                $where[] = "( rag_status = 1 OR rag_status = 2 )";
 
-                } else if( $_GET['status'] !== 'all') {
-                     $where['rag_status'] = $_GET['status'];
-                }
+            } else if( $_GET['status'] == 3 ){
+                $where[] = "( rag_status = 3 OR rag_status IS NULL )";
 
-                $data['status'] = $_GET['status'];
-
+            } else if( $_GET['status'] !== 'all') {
+                 $where['rag_status'] = $_GET['status'];
             }
 
-            if( isset($_GET['search']) ){
+            $data['status'] = $_GET['status'];
 
-                $where[] = "( mploy_organisations.name LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.address1 LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.address2 LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.town LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.county LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.country LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.postcode LIKE '%" . $_GET['search'] . "%')";
-
-            }
         }
 
-            $data['campaign'] = $campaign->getEmployers($where, $orderby, $like, $this->perPage, $offset, $camp_ref);
-            $page = $this->helpers->page($data['campaign'], '/campaigns/employers/' . $camp_ref, $this->perPage);
-            $this->pagination->initialize($page);
+        if( isset($_GET['search']) ){
+
+            $where[] = "( mploy_organisations.name LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.address1 LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.address2 LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.town LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.county LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.country LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.postcode LIKE '%" . $_GET['search'] . "%')";
+
+        }
+
+        $data['campaign'] = $campaign->getEmployers($where, $orderby, $like, $this->perPage, $offset, $camp_ref);
+        $page = $this->helpers->page($data['campaign'], '/campaigns/employers/' . $camp_ref, $this->perPage);
+        $this->pagination->initialize($page);
 
         $data['campaign_dropdown'] = $camp_ref;
         $data['pagination_start'] = $offset + 1;
@@ -492,7 +491,6 @@ class Campaigns extends CI_Controller
         if ($data['pagination_end'] > $data['campaign']['count']) {
             $data['pagination_end'] = $data['campaign']['count'];
         }
-
 
         $data['campaign_name'] = $school['campaign_name'];
         $data['pagination'] = $this->pagination->create_links();

@@ -156,7 +156,7 @@ function calls ($percent)
                                 	?>
 
                                     <!-- /.col -->
-									<div style="margin-right:20px; " class="col-md-2 "><a href="/campaigns/employers/<?php echo $campaign['campaign_display']->campaign_id ?>/0">
+									<div class="col-md-2 "><a href="/campaigns/employers/<?php echo $campaign['campaign_display']->campaign_id ?>/0">
                                         <!--										<p class="text-center">-->
                                         <!--											<strong>Goal Completion</strong>-->
                                         <!--										</p>-->

@@ -117,8 +117,8 @@
                             <?php } ?>
 						</td>
 						<?php endforeach ?>
-                        <td><a class="" href="/campaigns/employers/<?php echo $company->campaign_id; ?>/0"> <i class="fa fa-play"></i> </a></td>
-						<td><a class="" href="/campaigns/edit/<?php echo $company->campaign_id; ?>/0"> <i class="fa fa-edit"></i> </a></td>
+                        <td><a class="btn btn-mploy-submit waves-effect waves-light" href="/campaigns/employers/<?php echo $company->campaign_id; ?>/0"> RUN </a></td>
+						<td><a class="btn btn-mploy-cancel" href="/campaigns/edit/<?php echo $company->campaign_id; ?>/0"> EDIT </a></td>
 					</tr>
 					<?php endforeach ?>
 					</tbody>

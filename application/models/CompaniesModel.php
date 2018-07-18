@@ -88,6 +88,29 @@ class CompaniesModel extends CI_Model
 
     }
 
+    public function getCompanyCalls($id)
+    {
+
+        $this->db->join('mploy_campaign_activity_types', 'mploy_campaign_activity_types.campaign_type_id = mploy_campaign_activity.campaign_activity_type_id');
+        $this->db->join('users', 'users.id = mploy_campaign_activity.user_id');
+        $this->db->where('org_id=' . $id);
+        $this->db->order_by('date_time', 'DESC');
+        $calls = $this->db->get_where('mploy_campaign_activity');
+        return $calls->result();
+    }
+
+    public function getCompanyPlacements($id){
+
+        $this->db->select('mploy_organisations.*, mploy_campaigns.*, mploy_rel_campaign_employers.*');
+        $this->db->join('mploy_campaigns', 'mploy_rel_campaign_employers.campaign_ref = mploy_campaigns.campaign_id');
+        $this->db->join('mploy_organisations', 'mploy_campaigns.select_school = mploy_organisations.school_id');
+        $this->db->where('campaign_employer_id=' . $id);
+        $this->db->order_by('campaign_place_start_date', 'DESC');
+        $calls = $this->db->get_where('mploy_rel_campaign_employers');
+        return $calls->result();
+
+    }
+
     public function updateCompany($id,$data){
 
         $this->db->trans_start();

@@ -33,7 +33,7 @@
 							<div class="col-md-12">
 
 
-								<div class="progress-group">
+								<!-- <div class="progress-group">
 									<span class="progress-text">Calls completed</span>
 									<span class="progress-number"><b><?php echo $call_data['calls'] ?></b>/<?php echo (int)count($campaign['data']); ?></span>
 
@@ -41,32 +41,32 @@
 
 										<div class="progress-bar progress-bar-aqua" style="width: <?php if ((int)$call_data['calls']  <= 0 || (int)count($campaign['data']) <= 0 ) echo 0; else echo ((int)$call_data['calls']  * 100  / ((int)count($campaign['data']))  )?>%"></div>
 									</div>
-								</div>
+								</div> -->
 								<!-- /.progress-group -->
 								<div class="progress-group">
 									<span class="progress-text">Rejections</span>
-									<span class="progress-number"><b><?php if(is_numeric($call_data['rejected'])) echo $call_data['rejected']; else echo 0; ?></b>/<?php echo count($campaign['data']); ?></span>
+									<span class="progress-number"><b><?php if(is_numeric($call_data['rejected'])) echo $call_data['rejected']; else echo 0; ?></b>/<?php echo $call_data['calls'] ?></span>
 
 									<div class="progress sm">
-										<div class="progress-bar progress-bar-red" style="width: <?php if ((int)$call_data['rejected']  <= 0  || (int)count($campaign['data']) <= 0 ) echo 0; else echo ((int)$call_data['rejected']  * 100  / (int)count($campaign['data'])  )?>%"></div>
+										<div class="progress-bar progress-bar-red" style="width: <?php if ((int)$call_data['rejected']  <= 0  || (int)count($call_data['calls']) <= 0 ) echo 0; else echo (100 / (int)$call_data['calls']) * (int)$call_data['rejected'];  ?>%"></div>
 									</div>
 								</div>
 								<!-- /.progress-group -->
 								<div class="progress-group">
 									<span class="progress-text">Success</span>
-									<span class="progress-number"><b><?php if(is_numeric($call_data['success'])) echo $call_data['success']; else echo 0 ?></b>/<?php echo count($campaign['data']); ?></span>
+									<span class="progress-number"><b><?php if(is_numeric($call_data['success'])) echo $call_data['success']; else echo 0 ?></b>/<?php echo $call_data['calls'] ?></span>
 
 									<div class="progress sm">
-										<div class="progress-bar progress-bar-green" style="width: <?php if ((int)$call_data['success']  <= 0 || (int)count($campaign['data']) <= 0) echo 0; else echo ((int)$call_data['success']  * 100  / (int)count($campaign['data'])  )?>%"></div>
+										<div class="progress-bar progress-bar-green" style="width: <?php if ((int)$call_data['success']  <= 0 || (int)count($call_data['calls']) <= 0) echo 0; else echo ( 100 / (int)$call_data['calls'] )  * (int)$call_data['success'];  ?>%"></div>
 									</div>
 								</div>
 								<!-- /.progress-group -->
 								<div class="progress-group">
 									<span class="progress-text">Maybe</span>
-									<span class="progress-number"><b><?php if(is_numeric($call_data['maybe'])) echo $call_data['maybe']; else echo 0 ?></b>/<?php echo count($campaign['data']); ?></span>
+									<span class="progress-number"><b><?php if(is_numeric($call_data['maybe'])) echo $call_data['maybe']; else echo 0 ?></b>/<?php echo $call_data['calls'] ?></span>
 
 									<div class="progress sm">
-										<div class="progress-bar progress-bar-yellow" style="width: <?php if ((int)$call_data['maybe']  <= 0 || (int)count($campaign['data']) <= 0 ) echo 0; else echo ((int)$call_data['maybe']  * 100  / (int)count($campaign['data'])  )?>%"></div>
+										<div class="progress-bar progress-bar-yellow" style="width: <?php if ((int)$call_data['maybe']  <= 0 || (int)count($call_data['calls']) <= 0 ) echo 0; else echo (100 / (int)$call_data['calls']) * (int)$call_data['maybe']; ?>%"></div>
 									</div>
 								</div>
 								<!-- /.progress-group -->
@@ -227,11 +227,15 @@
 						<td>
 							<?php echo $company->line_of_business;?>
 						</td>
+                        <td>
+                            <?php if($company->date_time !== null) echo date("d/m/Y H:i", strtotime($company->date_time));?>
+                        </td>
 						<td>
                             <img src="<?php echo base_url()."assets/";?>dist/img/<?php if($company->rag_status == null) echo 3; echo $company->rag_status ?>.png" class="img-circle" alt="Status">
 						</td>
-						<td><a class="" href="/campaigns/employerdetails/<?php echo $camp_id ?>/<?php echo $company->comp_id;?>?campid=<?php echo $camp_ref ?>">
-								<i class="fa fa-edit"></i> </a></td>
+						<td><a class="btn btn-mploy-submit" href="/campaigns/employerdetails/<?php echo $camp_id ?>/<?php echo $company->comp_id;?>?campid=<?php echo $camp_ref ?>">
+                                CALL
+                            </a></td>
 
 					</tr>
 					<?php endforeach ?>

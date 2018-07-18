@@ -69,6 +69,11 @@ class Campaigns extends CI_Controller
         $this->load->view('pages/campaigns/campaigns', $data);
     }
 
+    function getNumberPlacements( $id ){
+
+
+
+    }
 
     function edit($id, $school_id)
     {
@@ -442,8 +447,8 @@ class Campaigns extends CI_Controller
         }
 
         $data['user'] = $this->user;
-        $data['headings'] = ['Name', 'Main Telephone', 'Address', 'Line of Business', 'Status'];
-        $data['fields'] = ['name', 'phone', 'address1', 'line_of_business', 'status'];
+        $data['headings'] = ['Name', 'Main Telephone', 'Address', 'Line of Business', 'Last Contacted', 'Status'];
+        $data['fields'] = ['name', 'phone', 'address1', 'line_of_business', 'date_time', 'status'];
         $offset = 0;
 
         if ($pageNo > 0) {
@@ -452,33 +457,42 @@ class Campaigns extends CI_Controller
 
         $data['status'] = 'all';
         $where['mploy_rel_campaign_employers.campaign_ref'] = $camp_ref;
-        if (isset($_GET)) {
-            if (isset($_GET['status']) ){
 
-                if( $_GET['status'] == 2 ){
-                    $where[] = "( rag_status = 1 OR rag_status = 2 )";
+        if (isset($_GET['status']) ){
 
-                } else if( $_GET['status'] == 3 ){
-                    $where[] = "( rag_status = 3 OR rag_status IS NULL )";
+            if( $_GET['status'] == 2 ){
+                $where[] = "( rag_status = 1 OR rag_status = 2 )";
 
-                } else if( $_GET['status'] !== 'all') {
-                     $where['rag_status'] = $_GET['status'];
-                }
+            } else if( $_GET['status'] == 3 ){
+                $where[] = "( rag_status = 3 OR rag_status IS NULL )";
 
-                $data['status'] = $_GET['status'];
-
+            } else if( $_GET['status'] !== 'all') {
+                 $where['rag_status'] = $_GET['status'];
             }
 
-            if( isset($_GET['search']) ){
+            $data['status'] = $_GET['status'];
 
-                $where[] = "( mploy_organisations.name LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.address1 LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.address2 LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.town LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.county LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.country LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.postcode LIKE '%" . $_GET['search'] . "%')";
-
-            }
         }
 
-            $data['campaign'] = $campaign->getEmployers($where, $orderby, $like, $this->perPage, $offset, $camp_ref);
-            $page = $this->helpers->page($data['campaign'], '/campaigns/employers/' . $camp_ref, $this->perPage);
-            $this->pagination->initialize($page);
+        if( isset($_GET['search']) ){
+
+            $where[] = "( mploy_organisations.name LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.address1 LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.address2 LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.town LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.county LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.country LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.postcode LIKE '%" . $_GET['search'] . "%')";
+
+        }
+
+        if( count($where) == 1 ){
+
+            $where[] = " (rag_status > 1 OR rag_status IS NULL)";
+            $orderby = 'date_time ASC';
+
+        }
+
+        $data['campaign'] = $campaign->getEmployers($where, $orderby, $like, $this->perPage, $offset, $camp_ref);
+
+        $this->session->set_userdata('company_nav', $data['campaign']['array']);
+
+        $page = $this->helpers->page($data['campaign'], '/campaigns/employers/' . $camp_ref, $this->perPage);
+        $this->pagination->initialize($page);
 
         $data['campaign_dropdown'] = $camp_ref;
         $data['pagination_start'] = $offset + 1;
@@ -487,7 +501,6 @@ class Campaigns extends CI_Controller
         if ($data['pagination_end'] > $data['campaign']['count']) {
             $data['pagination_end'] = $data['campaign']['count'];
         }
-
 
         $data['campaign_name'] = $school['campaign_name'];
         $data['pagination'] = $this->pagination->create_links();
@@ -524,21 +537,31 @@ class Campaigns extends CI_Controller
         $data['school_id'] = $camp_ref;
         $campaign_id = $this->input->get('campid');
         $campaign = new campaignsModel();
+        $company = new CompaniesModel();
 
         $info = $campaign->employerDetails($campaign_id, $id);
         $data['call_message'] = $this->session->flashdata('call_message');
         $data['employer'] = $info['company'][0];
         $data['company'] = $info['company'];
         $data['company_message'] = $this->session->flashdata('company_message');
-        $data['calls'] = $campaign->campaignEmployerCalls($campaign_id, $id);
+
+        $data['prev'] = null;
+        $data['next'] = null;
+
+        if( array_search ( $id, $this->session->company_nav) > 0 )
+            $data['prev'] = $this->session->company_nav[ array_search ( $id, $this->session->company_nav) - 1];
+        if(  array_search ( $id, $this->session->company_nav) != count($this->session->company_nav) )
+            $data['next'] = $this->session->company_nav[ array_search ( $id, $this->session->company_nav) + 1 ];
+
+        $data['calls'] = $company->getCompanyCalls( $id);
         $data['comp_id'] = $id;
         $data['user'] = $this->user;
         $data['title'] = 'Campaign';
         $data['nav'] = 'campaign';
         $data['contacts_table'] = ['Name', 'Position', 'Phone', 'Email'];
         $data['call_table'] = ['User', 'Type', 'Reciprocant', 'Notes', 'Date', 'Outcome'];
-        $data['placements'] = $campaign->getSuccessfulPlacement($campaign_id);
-        $data['placements_total'] = $campaign->getCampaign($campaign_id)['placements'];
+        $data['placements'] = $company->getCompanyPlacements($info['company'][0]->id);
+        $data['placements_total'] = $campaign->getPlacementsCount($info['company'][0]->id, $campaign_id);
         $data['campaign'] = $campaign_id;
         $data['student_message'] = $this->session->flashdata('student_message');
         $data['campaign_dropdown'] = $camp_ref;
@@ -582,6 +605,8 @@ class Campaigns extends CI_Controller
 
         $data['campaign_dropdown'] = $campid;
         $data['dropdown'] = $campid;
+        $info = $campaign->employerDetails(null, $id);
+        $data['company_root_id'] = $info['company'][0]->id;
         $this->load->view('pages/campaigns/campaign_employer_new_call', $data);
     }
 

@@ -235,10 +235,10 @@ class Campaigns extends CI_Controller
             }
         }
 
-        $where['status'] = "status like '%%'";
-        $where['mploy_campaign_activity.campaign_ref'] = $id;
+        $where[] = "status like '%%'";
+        $where['campaign_ref'] = $id;
         $data['dropdown'] = $campaign->getSchools();
-        $companies = $campaign->getEmployers($where);
+        $companies = $campaign->getSelectedEmployers($where);
         $data['company_table'] = $companies['data'];
         $data['company_count'] = $companies['count'];
         $data['entries'] = $campData;

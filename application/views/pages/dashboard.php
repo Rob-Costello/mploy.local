@@ -152,6 +152,7 @@ function calls ($percent)
 								<div class="row">
 
                                 <?php foreach($output as   $campaign){
+
                                 	$key = $campaign['campaign_display']->campaign_id;
                                 	?>
 

@@ -275,7 +275,7 @@ class CampaignsModel extends CI_Model
 
     public function employerDetails($ref, $id)
     {
-        $this->db->select('mploy_organisations.*, mploy_contacts.first_name,mploy_contacts.last_name,mploy_contacts.job_title,mploy_contacts.phone,mploy_contacts.email');
+        $this->db->select('mploy_organisations.*, mploy_contacts.first_name,mploy_contacts.last_name,mploy_contacts.job_title,mploy_contacts.phone,mploy_contacts.email,mploy_organisations.id');
         $this->db->join('mploy_contacts', 'mploy_organisations.comp_id = mploy_contacts.org_id', 'left');
         $company = $this->db->get_where('mploy_organisations', 'comp_id =' . $id);
 
@@ -303,6 +303,7 @@ class CampaignsModel extends CI_Model
         $this->db->join('mploy_campaign_activity_types', 'mploy_campaign_activity_types.campaign_type_id = mploy_campaign_activity.campaign_activity_type_id');
         $this->db->join('users', 'users.id = mploy_campaign_activity.user_id');
         $this->db->where('org_id=' . $id);
+        $this->db->order_by('date_time', 'DESC');
         $calls = $this->db->get_where('mploy_campaign_activity', 'campaign_ref=' . $ref);
         return $calls->result();
     }
@@ -320,7 +321,7 @@ class CampaignsModel extends CI_Model
         if(isset($data['placements']) && $data['placements'] > 0)
         {
             $placements = $data['placements'];
-            $this->addPlacements( $data['campaign_ref'], $placements );
+            $this->addPlacements( $data['org_id'], $data['campaign_ref'], $placements );
         }
 
         $this->db->insert('mploy_campaign_activity', $data);
@@ -442,11 +443,12 @@ class CampaignsModel extends CI_Model
 
     }
 
-    public function addPlacements($id, $placements){
+    public function addPlacements( $id, $campaign_ref, $placements){
 
         $this->db->set('placements', $placements, FALSE);
-        $this->db->where('campaign_id', $id);
-        $this->db->update('mploy_campaigns');
+        $this->db->where('campaign_employer_id', $id);
+        $this->db->where('campaign_ref', $campaign_ref);
+        $this->db->update('mploy_rel_campaign_employers');
 
     }
 
@@ -457,6 +459,14 @@ class CampaignsModel extends CI_Model
         return $query->row_array();
     }
 
+    function getPlacementsCount($org_id, $campaign_ref){
+        $this->db->select('placements');
+        $this->db->where('campaign_employer_id', $org_id);
+        $this->db->where('campaign_ref', $campaign_ref);
+        $query = $this->db->get('mploy_rel_campaign_employers');
+        return $query->row_object()->placements;
+
+    }
 
     public function getSchoolName($id)
     {
@@ -536,6 +546,7 @@ class CampaignsModel extends CI_Model
         $this->db->where("(rag_status = 1 OR rag_status = 2)");
         $this->db->where("placements >", 0);
         $this->db->where("campaign_ref", $id);
+        $this->db->order_by('date_time', 'DESC');
         $query = $this->db->get('mploy_campaign_activity');
         return $query->result();
     }

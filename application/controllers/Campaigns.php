@@ -69,6 +69,11 @@ class Campaigns extends CI_Controller
         $this->load->view('pages/campaigns/campaigns', $data);
     }
 
+    function getNumberPlacements( $id ){
+
+
+
+    }
 
     function edit($id, $school_id)
     {
@@ -442,8 +447,8 @@ class Campaigns extends CI_Controller
         }
 
         $data['user'] = $this->user;
-        $data['headings'] = ['Name', 'Main Telephone', 'Address', 'Line of Business', 'Status'];
-        $data['fields'] = ['name', 'phone', 'address1', 'line_of_business', 'status'];
+        $data['headings'] = ['Name', 'Main Telephone', 'Address', 'Line of Business', 'Last Contacted', 'Status'];
+        $data['fields'] = ['name', 'phone', 'address1', 'line_of_business', 'date_time', 'status'];
         $offset = 0;
 
         if ($pageNo > 0) {
@@ -524,21 +529,23 @@ class Campaigns extends CI_Controller
         $data['school_id'] = $camp_ref;
         $campaign_id = $this->input->get('campid');
         $campaign = new campaignsModel();
+        $company = new CompaniesModel();
 
         $info = $campaign->employerDetails($campaign_id, $id);
         $data['call_message'] = $this->session->flashdata('call_message');
         $data['employer'] = $info['company'][0];
         $data['company'] = $info['company'];
         $data['company_message'] = $this->session->flashdata('company_message');
-        $data['calls'] = $campaign->campaignEmployerCalls($campaign_id, $id);
+
+        $data['calls'] = $company->getCompanyCalls( $id);
         $data['comp_id'] = $id;
         $data['user'] = $this->user;
         $data['title'] = 'Campaign';
         $data['nav'] = 'campaign';
         $data['contacts_table'] = ['Name', 'Position', 'Phone', 'Email'];
         $data['call_table'] = ['User', 'Type', 'Reciprocant', 'Notes', 'Date', 'Outcome'];
-        $data['placements'] = $campaign->getSuccessfulPlacement($campaign_id);
-        $data['placements_total'] = $campaign->getCampaign($campaign_id)['placements'];
+        $data['placements'] = $company->getCompanyPlacements($info['company'][0]->id);
+        $data['placements_total'] = $campaign->getPlacementsCount($info['company'][0]->id, $campaign_id);
         $data['campaign'] = $campaign_id;
         $data['student_message'] = $this->session->flashdata('student_message');
         $data['campaign_dropdown'] = $camp_ref;
@@ -582,6 +589,8 @@ class Campaigns extends CI_Controller
 
         $data['campaign_dropdown'] = $campid;
         $data['dropdown'] = $campid;
+        $info = $campaign->employerDetails(null, $id);
+        $data['company_root_id'] = $info['company'][0]->id;
         $this->load->view('pages/campaigns/campaign_employer_new_call', $data);
     }
 

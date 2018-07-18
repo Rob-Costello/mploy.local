@@ -227,11 +227,15 @@
 						<td>
 							<?php echo $company->line_of_business;?>
 						</td>
+                        <td>
+                            <?php if($company->date_time !== null) echo date("d/m/Y H:i", strtotime($company->date_time));?>
+                        </td>
 						<td>
                             <img src="<?php echo base_url()."assets/";?>dist/img/<?php if($company->rag_status == null) echo 3; echo $company->rag_status ?>.png" class="img-circle" alt="Status">
 						</td>
-						<td><a class="" href="/campaigns/employerdetails/<?php echo $camp_id ?>/<?php echo $company->comp_id;?>?campid=<?php echo $camp_ref ?>">
-								<i class="fa fa-edit"></i> </a></td>
+						<td><a class="btn btn-mploy-submit" href="/campaigns/employerdetails/<?php echo $camp_id ?>/<?php echo $company->comp_id;?>?campid=<?php echo $camp_ref ?>">
+                                CALL
+                            </a></td>
 
 					</tr>
 					<?php endforeach ?>

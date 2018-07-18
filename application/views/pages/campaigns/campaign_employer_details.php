@@ -119,8 +119,7 @@
                 
                                 <div class="row">
                                     <div class="col-md-12">
-                                    <input name="update_company" value="Submit" type="submit" class="btn btn-mploy-submit" value="Save Changes">
-                                    <input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/campaigns/employers/<?php echo $campaign_dropdown ?>/0')">
+                                    <input name="update_company" value="Save" type="submit" class="btn btn-mploy-submit">
                                     </div>
                                 </div>
 
@@ -171,41 +170,26 @@
                                         
                                     <table id="example2" class="table table-bordered table-hover">
                                         <thead>
-                                        <tr>
-                                            <?php foreach($contacts_table as $heading):?>
-                                                <th><?php echo $heading; ?> </th>
-                                            <?php endforeach;?>
+                                            <tr>
+                                                <?php foreach($contacts_table as $heading):?>
+                                                    <th><?php echo $heading; ?> </th>
+                                                <?php endforeach;?>
 
-                                        </tr>
+                                            </tr>
                                         </thead>
                                         <tbody>
-                                        
-                                        <?php foreach($company as $school): ?>
-                                            <tr>
-
-                                               
-
+                                            <?php foreach($company as $school): ?>
+                                                <tr>
                                                     <td><?php echo $school->first_name .' ' .$school->last_name; ?></td>
                                                     <td><?php echo $school->job_title ?></td>
                                                     <td><?php echo $school->phone ?></td>
-                                                    <td><?php echo $school->email ?></td>
-                                              
-
-                                            
-                                        <?php endforeach ?>
-
-                                            </tr>
+                                                    <td><a href="mailto:<?php echo $school->email ?>"><?php echo $school->email ?></a></td>
+                                                </tr>
+                                            <?php endforeach ?>
                                         </tbody>
 
                                     </table>
 
-                                       
-                                            
-                                       
-
-                                       
-                
-                              
                                 <input type="hidden" name="active" value="1">
                                 </form>
                             </div>
@@ -213,13 +197,9 @@
 
                         </section>
 
-
-
                     </div>
 
                 </div> <!-- end tab content -->
-
-
 
             </div>
         </div>
@@ -227,198 +207,13 @@
     
     
     <div style="padding-top:20px;" class="col-md-6">
-        <div class=" ">
-            <div id="exTab1" class="">
-
-                <div class="tab-content clearfix">
-
-                    <div class="tab-pane active" id="1a">
-
-                        <section class="">
-                            <!-- Main content School Details-->
-                            <!--- Schools contacts -->
-
-                            <div class="box">
-
-                                <div class="box-header with-border">
-                                    <h3 class="box-title">Call History </h3>
-                                </div>
-
-                                <!-- /.box-header -->
-                                <div class="box-body">
-
-	                                <div style="z-index:100" class="col-md-12">
-                                        <?php if( $call_message != '' ) { ?>
-                                            <div class="alert alert-success alert-dismissable">
-                                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                                <?php echo $call_message; ?>
-                                            </div>
-                                        <?php } ?>
-                                    </div>
-
-                                    <div style="opacity:0;"  id="message">
-                                        <?php echo $call_message; ?>
-
-                                    </div>
-                                <div  style="padding-bottom:20px;" class="col-md-offset-9 ">
-                                    <input type="submit" class="btn btn-mploy-submit" value="New Call"
-                                           onclick="window.location.replace('/campaigns/newcall/<?php echo $camp_id ?>/<?php echo $comp_id ?>?campid=<?php echo $campaign;?>')">
-                                </div> 
-                                   
-                                        
-                                   <div class="col-md-12">
-	                                   <div class="table-responsive-md">
-	                                   <table id="example2" class="table table-bordered table-hover">
-                                        <thead>
-                                        <tr>
-                                            <?php foreach($call_table as $heading):?>
-                                                <th><?php echo $heading; ?> </th>
-                                            <?php endforeach;?>
-
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        
-                                        <?php foreach($calls as $call): ?>
-                                            <tr>
-                                                    <td><?php echo $call->first_name . ' ' . $call->last_name; ?></td>
-                                                    <td><?php echo $call->description ?></td>
-                                                    <td><?php echo $call->receiver ?></td>
-                                                    <td><?php echo $call->notes ?></td>
-                                                    <td><?php echo date("d/m/Y H:i", strtotime($call->date_time)); ?></td>
-                                                    <td>
-														<img src="<?php echo base_url()."assets/";?>dist/img/<?php echo $call->rag_status ?>.png" class="img-circle" alt="Status">
-														</td>
-                                              
-
-                                            
-                                        <?php endforeach ?>
-
-                                            </tr>
-                                        </tbody>
-
-                                    </table>
-                                   </div>
-                                   </div>
-
-                            </div>
-
-
-                        </section>
-
-
-
-                    </div>
-
-                </div> <!-- end tab content -->
-
-
-
-            </div>
-        </div>
+        <?php $this->view('pages/companies/components/call_history'); ?>
     </div>
 
 
-	    <div style="padding-top:20px;" class="col-md-6">
-		    <div class=" ">
-			    <div id="exTab1" class="">
-
-				    <div class="tab-content clearfix">
-
-					    <div class="tab-pane active" id="1a">
-
-						    <section class="">
-							    <!-- Main content School Details-->
-							    <!--- Schools contacts -->
-
-							    <div class="box">
-
-								    <div class="box-header with-border">
-									    <h3 class="box-title">Placements (<?php echo $placements_total; ?>)</h3>
-								    </div>
-
-								    <!-- /.box-header -->
-								    <div class="box-body">
-									    <div style="z-index:100" class="col-md-12">
-										    <?php if( $student_message != '' ) { ?>
-											    <div class="alert alert-success alert-dismissable">
-												    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-												    <?php echo $student_message; ?>
-											    </div>
-										    <?php } ?>
-									    </div>
-
-									    <div style="opacity:0;"  id="message">
-										    <?php echo $student_message; ?>
-
-									    </div>
-									    <!--
-									    <div  style="displaypadding-bottom:20px;" class="col-md-offset-9 col-md-3">
-										    <input type="submit" class="btn btn-mploy-submit" value="Placement" onclick="window.location.replace('/campaigns/newplacement/<?php //echo $camp_id ?>/<?php echo $comp_id ?>')">
-									    </div>-->
-
-
-										<div class="col-sm-12 col-md-12">
-											<div class="table-responsive">
-											<table id="example2" style="width: 100% !important;" class="table table-bordered table-hover">
-										    <thead>
-										    <tr>
-											  <th>
-												  Receiver
-											  </th>
-											    <th>
-												    Date
-											    </th>
-											    <th>
-												    Agreed Placements
-											    </th>
-											    <th>
-												    Notes
-											    </th>
-											    <th>
-												    WEX
-											    </th>
-
-										    </tr>
-										    </thead>
-										    <tbody>
-
-										    <?php foreach($placements as $call): ?>
-										    <tr>
-											    <td><?php echo $call->receiver?></td>
-											    <td><?php echo date("d/m/Y H:i", strtotime($call->date_time)); ?></td>
-											    <td><?php echo $call->placements ?></td>
-											    <td><?php echo $call->notes ?></td>
-											    <td><button class="btn btn-mploy"> WEX</button></td>
-
-
-
-
-											    <?php endforeach ?>
-
-										    </tr>
-										    </tbody>
-
-									    </table>
-											</div>
-											</div>
-
-								    </div>
-
-
-						    </section>
-
-
-
-					    </div>
-
-				    </div> <!-- end tab content -->
-
-
-
-			    </div>
-		    </div>
-	    </div>
+    <div style="padding-top:20px;" class="col-md-6">
+        <?php $this->view('pages/companies/components/placements'); ?>
+    </div>
 
 
 

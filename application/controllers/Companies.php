@@ -247,7 +247,7 @@ class Companies extends CI_Controller
         $data['user_string'] =   $this->helpers->encryptSession($username=null);
 
 
-        $data['contacts'] = $company->getHistory(['mploy_campaign_activity.org_id'=>$data['id']], null, $this->perPage, $offset);
+        $data['contacts'] = $company->getHistory(['mploy_organisation_contact_history.org_id'=>$data['id']], null, $this->perPage, $offset);
         $page = $this->page($data['contacts'],'/companies/contacts/',$this->perPage);
         $this->pagination->initialize($page);
         $data['pagination_start'] = $offset + 1;

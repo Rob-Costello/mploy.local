@@ -135,7 +135,7 @@ class CustomersModel extends CI_Model
 
     public function getActivity(){
 
-        $query = $this->db->get('mploy_campaign_activity_types');
+        $query = $this->db->get('mploy_organisation_contact_history_types');
         return $query->result();
 
     }
@@ -150,14 +150,14 @@ class CustomersModel extends CI_Model
             $count = $this->db->from('mploy_campaigns')->count_all_results();
         } else {
             // $query = $this->db->get_where('mploy_campaigns', $where);
-            //$this->db->join('mploy_campaign_activity','mploy_campaign_activity.campaign_ref = mploy_campaigns.select_school ','left');
-            $this->db->join('users','users.id = mploy_campaign_activity.user_id');
+            //$this->db->join('mploy_organisation_contact_history','mploy_organisation_contact_history.campaign_ref = mploy_campaigns.select_school ','left');
+            $this->db->join('users','users.id = mploy_organisation_contact_history.user_id');
 
-            $this->db->join('mploy_campaign_activity_types','mploy_campaign_activity_types.campaign_type_id = mploy_campaign_activity.campaign_activity_type_id');
-            $query = $this->db->get_where('mploy_campaign_activity', $where);
+            $this->db->join('mploy_organisation_contact_history_types','mploy_organisation_contact_history_types.campaign_type_id = mploy_organisation_contact_history.campaign_activity_type_id');
+            $query = $this->db->get_where('mploy_organisation_contact_history', $where);
 
             $this->db->select('*');
-            $count = $this->db->from('mploy_campaign_activity')->where($where)->count_all_results();
+            $count = $this->db->from('mploy_organisation_contact_history')->where($where)->count_all_results();
 
         }
         return array('data' => $query->result(), 'count' => $count);
@@ -169,7 +169,7 @@ class CustomersModel extends CI_Model
 
         $timestamp = strtotime($data['date_time']);
         $data['date_time']= date("Y-m-d H:i:s", $timestamp);
-        $this->db->insert('mploy_campaign_activity', $data);
+        $this->db->insert('mploy_organisation_contact_history', $data);
 
     }
 
@@ -197,7 +197,7 @@ class CustomersModel extends CI_Model
             $count = $this->db->from('mploy_contacts')->count_all_results();
         } else {
             //$where = 'school_id=3';
-            //$this->db->join('mploy_campaign_activity','mploy_campaigns.campaign_id = mploy_campaign_activity.campaign_ref ',);
+            //$this->db->join('mploy_organisation_contact_history','mploy_campaigns.campaign_id = mploy_organisation_contact_history.campaign_ref ',);
 
             $query = $this->db->get_where('mploy_campaigns', $where);
 
@@ -211,7 +211,7 @@ class CustomersModel extends CI_Model
     function getCallData($id){
 
         $this->db->select('*');
-        $query = $this->db->get_where('mploy_campaign_activity', ['campaign_ref'=>$id]);
+        $query = $this->db->get_where('mploy_organisation_contact_history', ['campaign_ref'=>$id]);
         return  $query->result();
 
     }
@@ -229,7 +229,7 @@ class CustomersModel extends CI_Model
         $query = $this->db->query('SELECT * FROM  mploy_organisations o
                                   left join mploy_contacts as c on o.main_contact_id = c.id
                                   where comp_id in 
-                                  (select campaign_employer_id from mploy_rel_campaign_employers where org_campaign_ref='.$school.') 
+                                  (select campaign_employer_id from mploy_rel_campaign_employers where org_id='.$school.') 
                                   and organisation_type_id =2')->result();
 
         return  $query;

@@ -12,6 +12,7 @@ class Campaigns extends CI_Controller
         $this->load->library('ion_auth');
         $this->load->model('CampaignsModel');
         $this->load->model('CompaniesModel');
+        $this->load->model('DataModel');
         $this->login->login_check_force();
         $this->user = $this->ion_auth->user()->row();
         $this->perPage = 20;
@@ -69,185 +70,83 @@ class Campaigns extends CI_Controller
         $this->load->view('pages/campaigns/campaigns', $data);
     }
 
-    function getNumberPlacements( $id ){
-
-
-
-    }
-
-    function edit($id, $school_id)
+    function edit($id)
     {
 
-        $campaign = new CampaignsModel();
+        $campaignModel = new CampaignsModel();
+        $dataModel = new DataModel();
+        $data['user'] = $this->user;
+        $data['campaign_list'] = $this->availableCampaigns;
 
-        $dates = ['campaign_start_date', 'campaign_place_start_date',
+        // Get Campaign data and format dates
+        $campaignData = $campaignModel->getCampaign($id);
+        $campaignDates = array(
+            'campaign_start_date', 'campaign_place_start_date',
             'campaign_place_end_date', 'mailshot_1_date', 'mailshot_2_date',
             'employer_engagement_start', 'employer_engagement_end', 'self_place_deadline',
-            'matching_start', 'matching_end'];
+            'matching_start', 'matching_end');
 
-        $campData = $campaign->getCampaign($id);
+        foreach ($campaignDates as $date) {
 
-        foreach ($dates as $date) {
+            $campaignData[$date] = $dataModel->convertDateToFriendly($campaignData[$date]);
+        }
 
-            $campData[$date] = date("d/m/Y", strtotime(strtr($campData[$date], '/', '-')));
+        //Handle form post
+        if (!empty($_POST)) {
+
+            //Prepare campaign dates to store in DB
+            foreach ($campaignDates as $d) {
+                $_POST[$d] = $dataModel->convertDateToUnix($this->input->post($d));
+            }
+
+            $campaignModel->addHolidays(
+                $this->input->post('start_date'),
+                $this->input->post('end_date'),
+                $this->input->post('holiday'),
+                $this->input->post('hol_id')
+            );
+            unset($_POST['start_date'], $_POST['end_date'], $_POST['holiday'], $_POST['hol_id']);
+
+
+            //Add companies to campaign
+            if (null !== ($this->input->post('campaign_employer_id'))) {
+
+                $campaignModel->addCompaniesToCampaign($id, $this->input->post('campaign_employer_id'));
+
+                unset($_POST['campaign_employer_id']);
+
+            }
+
+            //Remove posts not needed for campaign update
+            unset($_POST['name'], $_POST['address1'], $_POST['postcode'], $_POST['industry_id'], $_POST['status']);
+
+            $campaignModel->editCampaign($id, $this->input->post());
+            $data['message'] = 'Campaign  ' . $this->input->post('campaign_name') . ' Updated ';
+            $this->session->set_flashdata('message', 'Campaign  ' . $this->input->post('campaign_name') . ' Updated ');
+            redirect('campaigns', 'refresh');
 
         }
 
-        $data['school_id'] = $campData['select_school'];
-        $data['camp_id'] = $campData['select_school'];
-        $data['campaign_dropdown'] = $campData['campaign_id'];
-        $data['campaign_list'] = $this->availableCampaigns;
-        $data['user'] = $this->user;
-        $output = "";
-        $schoolHolidays = $campaign->getSchoolHoliday($data['school_id']);
+        $data['org_id'] = $campaignData['org_id'];
+        $schoolHolidays = $campaignModel->getSchoolHoliday($data['org_id']);
         $holidays = [];
 
         foreach ($schoolHolidays as $hol) {
             if ($hol['start_date'] == '1970-01-01' || $hol['end_date'] == '1970-01-01' || $hol['holiday_name'] == '') {
                 continue;
             }
-            $holidays[] = ['start_date' => date("d/m/Y", strtotime(strtr($hol['start_date'], '/', '-'))),
-                'end_date' => date("d/m/Y", strtotime(strtr($hol['end_date'], '/', '-'))),
+            $holidays[] = ['start_date' => $dataModel->convertDateToFriendly($hol['start_date'], '/', '-'),
+                'end_date' => $dataModel->convertDateToFriendly($hol['end_date'], '/', '-'),
                 'holiday_name' => $hol['holiday_name'],
                 'hol_id' => $hol['id']];
         }
 
         $data['holiday'] = $holidays;
-
-        if (!empty($_POST)) {
-            if ($this->input->post('active') == '') {
-                $_POST['active'] = 0;
-
-            }
-            $required = ['campaign_name',
-                'students_to_place',
-                'self_placing_students',
-                'select_school',
-                'campaign_place_start_date',
-                'campaign_start_date',
-                'mailshot_1_date',
-                'mailshot_2_date',
-                'employer_engagement_start',
-                'employer_engagement_end',
-                'self_place_deadline',
-                'matching_start',
-                'matching_end'];
-
-            foreach ($dates as $d) {
-                $_POST[$d] = date("Y-m-d", strtotime(strtr($this->input->post($d), '/', '-')));
-
-            }
-
-            $start = $this->input->post('start_date');
-            $end = $this->input->post('end_date');
-            $holiday = $this->input->post('holiday');
-            $hol_id = $this->input->post('hol_id');
-            $school = $this->input->post('select_school');
-
-            if (null !== $start) {
-
-                for ($i = 0; $i < count($start); $i++) {
-
-                    if (isset($hol_id[$i])) {
-
-                        $campaign->updateSchoolHoliday($hol_id[$i], ['start_date' => date('Y-m-d', strtotime(str_replace('/', '-', $start[$i]))),
-                            'end_date' => date('Y-m-d', strtotime(str_replace('/', '-', $end[$i]))),
-                            'holiday_name' => $holiday[$i],
-                            'school_id' => $this->input->post('select_school')]);
-
-                    } else {
-
-                        if ($start[$i] != '' && $end[$i] != '' && $holiday[$i] != '') {
-
-                            $campaign->setSchoolHoliday(['start_date' => date('Y-m-d', strtotime(str_replace('/', '-', $start[$i]))),
-                                'end_date' => date('Y-m-d', strtotime(str_replace('/', '-', $end[$i]))),
-                                'holiday_name' => $holiday[$i],
-                                'school_id' => $this->input->post('select_school')]);
-                        }
-                    }
-                }
-
-            }
-
-            //make dates db friendly
-            foreach ($dates as $d) {
-                $_POST[$d] = date("Y-m-d", strtotime($this->input->post($d)));
-
-            }
-
-            foreach ($required as $r) {
-                if ($_POST[$r] == '' || empty($_POST[$r]) || !isset($_POST[$r])) {
-                    $error[] = $r;
-                }
-            }
-
-
-            if (isset($error)) {
-                $data['error'] = $error;
-            }
-
-            unset($_POST['hol_id']);
-            unset($_POST['start_date']);
-            unset($_POST['end_date']);
-            unset($_POST['holiday']);
-            unset($_POST['search']);
-            unset($_POST['name']);
-            unset($_POST['address1']);
-            unset($_POST['postcode']);
-            unset($_POST['industry_id']);
-
-            if (!isset($error)) {
-                $temp = [];
-
-                if (null !== ($this->input->post('campaign_employer_id'))) {
-
-                    foreach ($this->input->post('campaign_employer_id') as $employer) {
-
-                        $temp[] = ['campaign_employer_id' => $employer, 'org_campaign_ref' => $_POST['select_school']];
-
-                    }
-
-                    //remove employer id to stop error
-
-                }
-                //remove search fields from form
-                unset($_POST['campaign_employer_id']);
-                unset($_POST['search']);
-                unset($_POST['name']);
-                unset($_POST['address1']);
-                unset($_POST['postcode']);
-                unset($_POST['industry_id']);
-                unset($_POST['status']);
-
-
-                foreach ($temp as $t) {
-
-                    $t['campaign_ref'] = $id;
-
-                    $campaign->addCompaniesToCampaign($t);
-
-                }
-
-
-                $where['status'] = "status like '%%'";
-                $where['campaign_ref'] = $id;
-
-
-                $campaign->editCampaign($id, $this->input->post());
-                $data['message'] = 'Campaign  ' . $this->input->post('campaign_name') . ' Updated ';
-                $this->session->set_flashdata('message', 'Campaign  ' . $this->input->post('campaign_name') . ' Updated ');
-                redirect('campaigns', 'refresh');
-            }
-        }
-
-        $where[] = "status like '%%'";
-        $where['campaign_ref'] = $id;
-        $data['dropdown'] = $campaign->getSchools();
-        $companies = $campaign->getSelectedEmployers($where);
-        $data['company_table'] = $companies['data'];
-        $data['company_count'] = $companies['count'];
-        $data['entries'] = $campData;
+        $data['schools'] = $campaignModel->getSchools();
+        $data['companies'] = $campaignModel->getSelectedEmployers(['campaign_id' => $id, "status like '%%'"]);
+        $data['campaign'] = $campaignData;
         $this->load->view('pages/campaigns/campaign_edit', $data);
+
     }
 
 
@@ -380,7 +279,7 @@ class Campaigns extends CI_Controller
 
             if (!isset($error)) {
                 foreach ($this->input->post('campaign_employer_id') as $employer) {
-                    $temp[] = ['campaign_employer_id' => $employer, 'org_campaign_ref' => $_POST['select_school']];
+                    $temp[] = ['campaign_employer_id' => $employer, 'org_id' => $_POST['select_school']];
                 }
 
                 //remove employer id to stop error
@@ -458,29 +357,29 @@ class Campaigns extends CI_Controller
         $data['status'] = 'all';
         $where['mploy_rel_campaign_employers.campaign_ref'] = $camp_ref;
 
-        if (isset($_GET['status']) ){
+        if (isset($_GET['status'])) {
 
-            if( $_GET['status'] == 2 ){
+            if ($_GET['status'] == 2) {
                 $where[] = "( rag_status = 1 OR rag_status = 2 )";
 
-            } else if( $_GET['status'] == 3 ){
+            } else if ($_GET['status'] == 3) {
                 $where[] = "( rag_status = 3 OR rag_status IS NULL )";
 
-            } else if( $_GET['status'] !== 'all') {
-                 $where['rag_status'] = $_GET['status'];
+            } else if ($_GET['status'] !== 'all') {
+                $where['rag_status'] = $_GET['status'];
             }
 
             $data['status'] = $_GET['status'];
 
         }
 
-        if( isset($_GET['search']) ){
+        if (isset($_GET['search'])) {
 
             $where[] = "( mploy_organisations.name LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.address1 LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.address2 LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.town LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.county LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.country LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.postcode LIKE '%" . $_GET['search'] . "%')";
 
         }
 
-        if( count($where) == 1 ){
+        if (count($where) == 1) {
 
             $where[] = " (rag_status > 1 OR rag_status IS NULL)";
             $orderby = 'date_time ASC';
@@ -548,12 +447,12 @@ class Campaigns extends CI_Controller
         $data['prev'] = null;
         $data['next'] = null;
 
-        if( array_search ( $id, $this->session->company_nav) > 0 )
-            $data['prev'] = $this->session->company_nav[ array_search ( $id, $this->session->company_nav) - 1];
-        if(  array_search ( $id, $this->session->company_nav) != count($this->session->company_nav) )
-            $data['next'] = $this->session->company_nav[ array_search ( $id, $this->session->company_nav) + 1 ];
+        if (array_search($id, $this->session->company_nav) > 0)
+            $data['prev'] = $this->session->company_nav[array_search($id, $this->session->company_nav) - 1];
+        if (array_search($id, $this->session->company_nav) != count($this->session->company_nav))
+            $data['next'] = $this->session->company_nav[array_search($id, $this->session->company_nav) + 1];
 
-        $data['calls'] = $company->getCompanyCalls( $id);
+        $data['calls'] = $company->getCompanyCalls($id);
         $data['comp_id'] = $id;
         $data['user'] = $this->user;
         $data['title'] = 'Campaign';

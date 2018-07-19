@@ -79,7 +79,7 @@ class CompaniesModel extends CI_Model
             $this->db->join('mploy_contacts','mploy_contacts.id = mploy_organisations.main_contact_id','left');
             //$this->db->join('mploy_contact_history', 'mploy_contact_history.receiver = mploy_contacts.id','left');
             $this->db->where($where);
-            $this->db->where('mploy_organisations.org_id is not null');
+            $this->db->where('mploy_organisations.id');
 
             $query=$this->db->get();
             $count = $this->db->from('mploy_organisations')->where($where)->count_all_results();
@@ -91,11 +91,11 @@ class CompaniesModel extends CI_Model
     public function getCompanyCalls($id)
     {
 
-        $this->db->join('mploy_campaign_activity_types', 'mploy_campaign_activity_types.campaign_type_id = mploy_campaign_activity.campaign_activity_type_id');
-        $this->db->join('users', 'users.id = mploy_campaign_activity.user_id');
+        $this->db->join('mploy_organisation_contact_history_types', 'mploy_organisation_contact_history_types.campaign_type_id = mploy_organisation_contact_history.campaign_activity_type_id');
+        $this->db->join('users', 'users.id = mploy_organisation_contact_history.user_id');
         $this->db->where('org_id=' . $id);
         $this->db->order_by('date_time', 'DESC');
-        $calls = $this->db->get_where('mploy_campaign_activity');
+        $calls = $this->db->get_where('mploy_organisation_contact_history');
         return $calls->result();
     }
 
@@ -143,14 +143,14 @@ class CompaniesModel extends CI_Model
 			$count = $this->db->from('mploy_campaigns')->count_all_results();
 		} else {
 			// $query = $this->db->get_where('mploy_campaigns', $where);
-			//$this->db->join('mploy_campaign_activity','mploy_campaign_activity.campaign_ref = mploy_campaigns.select_school ','left');
-			$this->db->join('users','users.id = mploy_campaign_activity.user_id');
+			//$this->db->join('mploy_organisation_contact_history','mploy_organisation_contact_history.campaign_ref = mploy_campaigns.select_school ','left');
+			$this->db->join('users','users.id = mploy_organisation_contact_history.user_id');
 
-			$this->db->join('mploy_campaign_activity_types','mploy_campaign_activity_types.campaign_type_id = mploy_campaign_activity.campaign_activity_type_id');
-			$query = $this->db->get_where('mploy_campaign_activity', $where);
+			$this->db->join('mploy_organisation_contact_history_types','mploy_organisation_contact_history_types.campaign_type_id = mploy_organisation_contact_history.campaign_activity_type_id');
+			$query = $this->db->get_where('mploy_organisation_contact_history', $where);
 
 			$this->db->select('*');
-			$count = $this->db->from('mploy_campaign_activity')->where($where)->count_all_results();
+			$count = $this->db->from('mploy_organisation_contact_history')->where($where)->count_all_results();
 
 		}
 		return array('data' => $query->result(), 'count' => $count);
@@ -160,11 +160,11 @@ class CompaniesModel extends CI_Model
 	function getPlacementHistory($id)
 	{
     	$this->db->select('*');
-		$this->db->join('mploy_campaigns', 'mploy_campaigns.campaign_id = mploy_campaign_activity.campaign_ref', 'left');
+		$this->db->join('mploy_campaigns', 'mploy_campaigns.campaign_id = mploy_organisation_contact_history.campaign_ref', 'left');
 		$this->db->join('mploy_organisations', 'mploy_organisations.school_id = mploy_campaigns.select_school', 'left');
-		$where ="mploy_campaign_activity.org_id ='".$id."'";
+		$where ="mploy_organisation_contact_history.org_id ='".$id."'";
 
-    	$query = $this->db->get_where('mploy_campaign_activity', $where);
+    	$query = $this->db->get_where('mploy_organisation_contact_history', $where);
 
     	return $query->result();
 
@@ -173,20 +173,20 @@ class CompaniesModel extends CI_Model
 	function getCallHistory($company){
 
 
-		$this->db->join('mploy_campaign_activity_types','mploy_campaign_activity_types.campaign_type_id = mploy_campaign_activity.campaign_activity_type_id');
-		$this->db->join('users', 'users.id = mploy_campaign_activity.user_id', 'left');
+		$this->db->join('mploy_organisation_contact_history_types','mploy_organisation_contact_history_types.campaign_type_id = mploy_organisation_contact_history.campaign_activity_type_id');
+		$this->db->join('users', 'users.id = mploy_organisation_contact_history.user_id', 'left');
 
 		//$this->db->where('org_id='.$id);
-		$calls = $this->db->get_where('mploy_campaign_activity','org_id='.$company);
+		$calls = $this->db->get_where('mploy_organisation_contact_history','org_id='.$company);
 		return $calls->result();
 
 
 
 
     	$this->db->select('*');
-		$this->db->join('mploy_campaign_activity_types','mploy_campaign_activity_types.campaign_type_id = mploy_campaign_activity.campaign_activity_type_id');
-		//$calls = $this->db->get_where('mploy_campaign_activity','org_id='.$company);
-		$calls = $this->db->get_where('mploy_campaign_activity','org_id='.$company);
+		$this->db->join('mploy_organisation_contact_history_types','mploy_organisation_contact_history_types.campaign_type_id = mploy_organisation_contact_history.campaign_activity_type_id');
+		//$calls = $this->db->get_where('mploy_organisation_contact_history','org_id='.$company);
+		$calls = $this->db->get_where('mploy_organisation_contact_history','org_id='.$company);
 		return $calls->result();
 
 	}
@@ -204,13 +204,13 @@ class CompaniesModel extends CI_Model
         } else {
 
         	$this->db->from('mploy_campaigns');
-        	$this->db->join('mploy_campaign_activity','mploy_campaign_activity.campaign_ref = mploy_campaigns.campaign_id','left');
+        	$this->db->join('mploy_organisation_contact_history','mploy_organisation_contact_history.campaign_ref = mploy_campaigns.campaign_id','left');
 			$this->db->order_by($request);
             //$this->db->join('mploy_contact_history', 'mploy_contact_history.receiver = mploy_contacts.id','left');
             $this->db->where($where);
             $query = $this->db->get();
             //$query = $this->db->get_where('mploy_campaigns', $where);
-            $count = $this->db->from('mploy_campaign_activity')->where($where)->count_all_results();
+            $count = $this->db->from('mploy_organisation_contact_history')->where($where)->count_all_results();
         }
         return array('data' => $query->result(), 'count' => $count);
 

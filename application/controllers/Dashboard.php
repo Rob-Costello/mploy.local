@@ -49,31 +49,32 @@ class Dashboard extends CI_Controller {
 		$data['user_count'] = count($usersModel->getUsers()['data']);
 		$data['campaigns_count'] = count($campaignsModel->getCampaigns()['data']);
 
-		$data['campaigns_display'] = $campaignsModel->getCampaigns('active=1','campaign_id' , null, 0)['data'];
+		$data['campaigns_display'] = $campaignsModel->getCampaigns('active=1','mploy_campaigns.id' , null, 0)['data'];
 		$callInfo = [];
 		$output = [];
         $call = 0;
 		foreach ($data['campaigns_display'] as $c) {
             //$where = "select_school = " . $c->select_school . " and campaign_place_start_date < now() and campaign_place_end_date > '" . date("Y-m-d") . "'";
-            $where = "select_school = " . $c->select_school . " ";
+            $where = "org_id = " . $c->org_id . " ";
             $information = $customersModel->getPlacements($where); //need to check if placement end date has expired
             $temp = [];
 
             foreach ($information as $active) {
                 //$callstats = $customersModel->getCallData($c->select_school);
-	            $campCalls = $campaignsModel->campaignCalls($c->campaign_id);
+	            $campCalls = $campaignsModel->campaignCalls($c->id);
 	            $call = $campCalls['success'];
 
-                $calls = $campaignsModel->callInfo($c->select_school, $c->employer_engagement_end)['calls'];
+                $calls = $campaignsModel->callInfo($c->org_id, $c->employer_engagement_end)['calls'];
 
-                $info = $campaignsModel->callAmmount($c->select_school)['total'];
-	            $employers = $campaignsModel->countEmployers('campaign_ref =' .$c->campaign_id);
+                $info = $campaignsModel->callAmmount($c->org_id)['total'];
+	            $employers = $campaignsModel->countEmployers('campaign_id =' .$c->id);
 
-                $callInfo[$c->campaign_id] = ['call' => $calls, 'info' => $info, 'success' => $call, 'total' => $active['students_to_place'],'all'=>$campCalls['calls'], 'employers'=>$employers];
+                $callInfo[$c->id] = ['call' => $calls, 'info' => $info, 'success' => $call, 'total' => $active['students_to_place'],'all'=>$campCalls['calls'], 'employers'=>$employers];
 
 
             }
             $output[]  = ['campaign_display'=>$c,'call_info'=>$callInfo];
+            //print_r($campaignsModel->getCampaignPlacesCount($c->id));
         }
 
         $loginModel = new login();

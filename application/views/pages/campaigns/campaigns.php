@@ -84,41 +84,24 @@
 					</tr>
 					</thead>
 					<tbody>
-					<?php foreach($campaigns['data'] as $company): ?>
+					<?php foreach($campaigns['data'] as $campaign): ?>
                     <tr>    
                     <?php foreach($headings as $h): ?>
                    
 						<td>
                             <?php if($h == 'campaign_place_start_date' || $h == 'campaign_place_end_date') { ?>
-                                <?php echo date('d/m/Y', strtotime($company->$h)); ?>
-                            <?php } else {?>
+                                <?php echo date('d/m/Y', strtotime($campaign->$h)); ?>
+                            <?php } else if($h == 'active') { ?>
 
-	                            <?php if($h == 'active') { ?>
+		                           <img src="<?php echo base_url(); ?>assets/dist/img/<?php echo $campaign->$h; ?>.png" class="img-circle" alt="User Image">
 
-		                            <?php if($company->$h == '1'){ ?>
-
-		                           <?php $company->$h = '<img src="'.base_url().'assets/dist/img/green.png" class="img-circle" alt="User Image">'; ?>
-
-		                            <?php } ?>
-		                            <?php if($company->$h == '2'){ ?>
-
-			                            <?php $company->$h = '<img src="'.base_url().'assets/dist/img/amber.png" class="img-circle" alt="User Image">'; ?>
-
-		                            <?php } ?>
-		                            <?php if($company->$h == '0'){
-
-		                            	$company->$h = '<img src="'.base_url().'assets/dist/img/red.png" class="img-circle" alt="User Image">';
-
-		                            } ?>
-
-
-	                         <?php   } ?>
-                                <?php echo $company->$h; ?>
+	                         <?php   } else { ?>
+                                <?php echo $campaign->$h; ?>
                             <?php } ?>
 						</td>
 						<?php endforeach ?>
-                        <td><a class="btn btn-mploy-submit waves-effect waves-light" href="/campaigns/employers/<?php echo $company->campaign_id; ?>/0"> RUN </a></td>
-						<td><a class="btn btn-mploy-cancel" href="/campaigns/edit/<?php echo $company->campaign_id; ?>/0"> EDIT </a></td>
+                        <td><a class="btn btn-mploy-submit waves-effect waves-light" href="/campaigns/employers/<?php echo $campaign->id; ?>/0"> RUN </a></td>
+						<td><a class="btn btn-mploy-cancel" href="/campaigns/edit/<?php echo $campaign->id; ?>/0"> EDIT </a></td>
 					</tr>
 					<?php endforeach ?>
 					</tbody>

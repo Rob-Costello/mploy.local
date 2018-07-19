@@ -249,7 +249,7 @@ class Campaigns extends CI_Controller
         $orderby = 'mploy_organisations.org_id';
         $data['orderby'] = '';
         $like = null;
-        $data['school_id'] = $school['select_school'];
+        $data['school_id'] = $school['org_id'];
         if (isset($_GET['orderby'])) {
             $orderby = $this->input->get('orderby');
             $data['orderby'] = '?orderby=' . $orderby;
@@ -266,7 +266,7 @@ class Campaigns extends CI_Controller
         }
 
         $data['status'] = 'all';
-        $where['mploy_rel_campaign_employers.campaign_ref'] = $camp_ref;
+        $where['mploy_rel_campaign_employers.campaign_id'] = $camp_ref;
 
         if (isset($_GET['status'])) {
 
@@ -318,7 +318,7 @@ class Campaigns extends CI_Controller
         $data['title'] = 'Employers';
         $data['nav'] = 'campaign';
         $data['camp_ref'] = $camp_ref;
-        $data['camp_id'] = $school['select_school'];
+        $data['camp_id'] = $school['org_id'];
         $data['table'] = $campaign->getEmployers($where, null, $this->perPage, $offset);
         $this->load->view('pages/campaigns/campaign_employers', $data);
 

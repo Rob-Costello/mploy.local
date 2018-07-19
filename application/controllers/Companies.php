@@ -23,11 +23,10 @@ class Companies extends CI_Controller
 	function index( $pageNo = 0 )
 	{
 
-
+        $companies = new CompaniesModel();
         $where = 'organisation_type_id =2 ';
 		$data['headings'] = ['name' => 'Name', 'phone' => 'Main Telephone','first_name'=>'Main Contact','status'=>'Status'];
-		$companies = new CompaniesModel();
-        $offset=0;
+		$offset=0;
 
         if($pageNo > 0){
 			$offset = $pageNo * $this->perPage;
@@ -41,24 +40,15 @@ class Companies extends CI_Controller
 			$data['orderby'] = '?orderby='.$orderby;
 		}
 
-        if(!empty($_POST)){
+        if(!empty($_POST)) {
 
-            foreach($_POST as $k => $v){
-                $where .= " and mploy_organisations." . $k . " like '%".$v."%'";
+            foreach ($_POST as $k => $v) {
+                $where .= " and mploy_organisations." . $k . " like '%" . $v . "%'";
             }
-            $data['companies'] = $companies->getCompanies($where, $orderby, $this->perPage, $offset);
-            $page = $this->page($data['companies'],'/companies',$this->perPage);
-        }else{
-
-            $data['companies'] = $companies->getCompanies($where, $orderby, $this->perPage, $offset);
-            $page = $this->page($data['companies'],'/companies',$this->perPage);
 
         }
 
-
-		$where = ['organisation_type_id' => '2'] ;
-		//$data['companies'] = $companies->getCompanies($where, $orderby, $this->perPage, $offset);
-        //$data['companies']=$output;
+        $data['companies'] = $companies->getCompanies($where, $orderby, $this->perPage, $offset);
         $page = $this->helpers->page($data['companies'],'/companies',$this->perPage,$data['orderby']);
         $this->pagination->initialize($page);
         $data['pagination_start'] = $offset + 1;
@@ -207,13 +197,13 @@ class Companies extends CI_Controller
 
         $company= new CompaniesModel();
         if(!empty($_POST)){
-            $success = $company->updateCompany($id,$this->input->post());
+            $company->updateCompany($id,$this->input->post());
             $data['message'] = "Information updated";
         }
         $data['id'] = $id;
         $data['page'] = $page;
         $data['user']=$this->user;
-        $data['dropdown'] = $company->getDropDown();
+        $data['dropdown'] = array();
         switch($page){
             case 'contacts':
                 $this->contacts($id, $pageNo);
@@ -224,8 +214,8 @@ class Companies extends CI_Controller
                 break;
 
             default:
-                $data['table']= $company->getCompany($id);
-                $this->load->view('pages/campaigns/campaign_view',$data);
+                $data['company']= $company->getCompany($id);
+                $this->load->view('pages/companies/company_view',$data);
 
         }
 

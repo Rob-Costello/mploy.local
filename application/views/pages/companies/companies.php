@@ -105,7 +105,7 @@
 							<?php echo $company->status;?>
 
 						</td>
-						<td><a class="" href="/companies/view/<?php echo $company->comp_id;?>"> <i class="fa fa-edit"></i> </a></td>
+						<td><a class="" href="/companies/view/<?php echo $company->id;?>"> <i class="fa fa-edit"></i> </a></td>
 
 					</tr>
 					<?php endforeach ?>

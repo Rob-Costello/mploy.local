@@ -66,7 +66,7 @@ class CompaniesModel extends CI_Model
 
     function getCompanies($where = null, $request = null, $limit = null, $offset = null)
     {
-        $this->db->select('* ');
+        $this->db->select('*, mploy_organisations.id ');
         $this->db->limit($limit, $offset);
         //$this->db->join('mploy_company_contacts mcc', 'mcc.id = mc.contact_id', 'left');
         if( $where == null ) {
@@ -79,7 +79,6 @@ class CompaniesModel extends CI_Model
             $this->db->join('mploy_contacts','mploy_contacts.id = mploy_organisations.main_contact_id','left');
             //$this->db->join('mploy_contact_history', 'mploy_contact_history.receiver = mploy_contacts.id','left');
             $this->db->where($where);
-            $this->db->where('mploy_organisations.id');
 
             $query=$this->db->get();
             $count = $this->db->from('mploy_organisations')->where($where)->count_all_results();
@@ -114,7 +113,7 @@ class CompaniesModel extends CI_Model
     public function updateCompany($id,$data){
 
         $this->db->trans_start();
-        $this->db->where('comp_id', $id);
+        $this->db->where('id', $id);
         $this->db->update('mploy_organisations', $data);
         $this->db->trans_complete();
         return $this->db->trans_status();
@@ -129,7 +128,7 @@ class CompaniesModel extends CI_Model
 
     public function getCompany($id){
 
-        $query = $this->db->get_where('mploy_organisations','org_id ='.$id);
+        $query = $this->db->get_where('mploy_organisations','id ='.$id);
         return $query->row_array();
 
     }

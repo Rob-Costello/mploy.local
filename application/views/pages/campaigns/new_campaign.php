@@ -89,10 +89,10 @@
                                                 <div class="form-group">
 
                                                     <label class=" ">School</label>
-                                                    <select class="form-control" name="select_school" id="select_school">
+                                                    <select class="form-control" name="org_id" id="select_school">
 														<option>Select School</option>
-	                                                    <?php foreach($dropdown as $d): ?>
-															<option value="<?php echo $d->school_id ?>"><?php echo $d->name;?></option>
+	                                                    <?php foreach($schools as $d): ?>
+															<option value="<?php echo $d->id ?>"><?php echo $d->name;?></option>
 														<?php endforeach ?>
 													</select>
 
@@ -135,6 +135,24 @@
                                             </div><!--end col-->
                                         
                                         </div> <!--end row-->
+
+                                        <div class="row">
+
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+
+                                                    <label>Type</label>
+                                                    <select class="form-control" name="campaign_type_id" id="select_school" required>
+                                                        <option>Select Type</option>
+                                                        <?php foreach($types as $t): print_r($t) ?>
+                                                            <option value="<?php echo $t->id ?>"><?php echo $t->name;?></option>
+                                                        <?php endforeach ?>
+                                                    </select>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
                                         
                                         
                                         <div class="row">
@@ -498,7 +516,7 @@
 					Object.keys(data).forEach(function(key){
 						if( seen[data[key].name] == undefined) {
 
-							var check = '<td> <input class="comp" type="checkbox" name="campaign_employer_id[]" value="' + data[key].comp_id + '" > </td>';
+							var check = '<td> <input class="comp" type="checkbox" name="campaign_employer_id[]" value="' + data[key].id + '" > </td>';
 							var name = '<td class="compname">'+ data[key].name +'</td>';
 							var address = '<td>' + data[key].address1 + ' ' + data[key].address2 + ', ' + data[key].postcode + '</td>';
 							var business = '<td>' + data[key].line_of_business + '</td>';

@@ -226,6 +226,13 @@ class CampaignsModel extends CI_Model
 
     }
 
+    function getCampaignTypes(){
+
+        $query = $this->db->get('mploy_campaign_types');
+        return $query->result();
+
+    }
+
     public function getSchools()
     {
 

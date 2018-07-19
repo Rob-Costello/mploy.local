@@ -468,7 +468,7 @@
 					data = JSON.parse(data);
 					Object.keys(data).forEach(function(key){
 						if( seen[data[key].name] == undefined) {
-							var check = '<td> <input class="comp" type="checkbox" name="campaign_employer_id[]" value="' + data[key].comp_id + '" > </td>';
+							var check = '<td> <input class="comp" type="checkbox" name="campaign_employer_id[]" value="' + data[key].id + '" > </td>';
 							var name = '<td class="compname">' + data[key].name + '</td>';
 							var address = '<td>' + data[key].address1 + ' ' + data[key].address2 + ', ' + data[key].postcode + '</td>';
 							var business = '<td>' + data[key].line_of_business + '</td>';

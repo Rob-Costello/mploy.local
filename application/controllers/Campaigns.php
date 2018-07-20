@@ -200,26 +200,21 @@ class Campaigns extends CI_Controller
             );
             unset($_POST['start_date'], $_POST['end_date'], $_POST['holiday'], $_POST['hol_id']);
 
-                //remove employer id to stop error
-                unset($_POST['campaign_employer_id']);
-                unset($_POST['search']);
-                unset($_POST['name']);
-                unset($_POST['address1']);
-                unset($_POST['postcode']);
-                unset($_POST['industry_id']);
+            //remove employer id to stop error
+            unset($_POST['campaign_employer_id']);
+            unset($_POST['search']);
+            unset($_POST['name']);
+            unset($_POST['address1']);
+            unset($_POST['postcode']);
+            unset($_POST['industry_id']);
 
 
-                //get id for insert as campaign reference
-                $campaign_id = $campaignModel->createCampaign($this->input->post());
+            //get id for insert as campaign reference
+            $campaign_id = $campaignModel->createCampaign($this->input->post());
 
-                if (null !== ($this->input->post('campaign_employer_id'))) {
-
-                    $campaignModel->addCompaniesToCampaign($campaign_id, $this->input->post('campaign_employer_id'));
-
-                }
-                $data['message'] = 'New Campaign  ' . $this->input->post('campaign_name') . ' Created ';
-                $this->session->set_flashdata('message', 'New Campaign  ' . $this->input->post('campaign_name') . ' Created ');
-                redirect('campaigns', 'refresh');
+            $data['message'] = 'New Campaign  ' . $this->input->post('campaign_name') . ' Created ';
+            $this->session->set_flashdata('message', 'New Campaign  ' . $this->input->post('campaign_name') . ' Created ');
+            redirect('campaigns', 'refresh');
 
         }
 
@@ -324,7 +319,7 @@ class Campaigns extends CI_Controller
 
         if (count($where) == 1) {
 
-            $where[] = " (rag_status > 1 OR rag_status IS NULL)";
+            //$where[] = " (rag_status > 1 OR rag_status IS NULL)";
             $orderby = 'date_time ASC';
 
         }
@@ -361,7 +356,7 @@ class Campaigns extends CI_Controller
 
         if (!empty($_POST)) {
 
-            if ($this->input->post('update_company') == 'Submit') {
+            if ($this->input->post('update_company') == 'Save') {
 
                 unset($_POST['update_company']);
 
@@ -370,7 +365,7 @@ class Campaigns extends CI_Controller
                 $this->session->set_flashdata('company_message', 'Updated company details');
                 $data['company_message'] = 'Updated Company Successfully';
 
-                redirect('campaigns/employerdetails/' . $camp_ref . '/' . $id);
+                //redirect('campaigns/employerdetails/' . $camp_ref . '/' . $id);
             }
 
         }
@@ -390,11 +385,15 @@ class Campaigns extends CI_Controller
         $data['prev'] = null;
         $data['next'] = null;
 
+
         if (array_search($id, $this->session->company_nav) > 0)
             $data['prev'] = $this->session->company_nav[array_search($id, $this->session->company_nav) - 1];
         if (array_search($id, $this->session->company_nav) != count($this->session->company_nav))
             $data['next'] = $this->session->company_nav[array_search($id, $this->session->company_nav) + 1];
         $data['sso_key'] = $this->helpers->checkValid($this->user);
+
+
+
         $data['calls'] = $company->getCompanyCalls($id);
         $data['comp_id'] = $id;
         $data['user'] = $this->user;
@@ -734,6 +733,30 @@ class Campaigns extends CI_Controller
         }
     }
 
+    function mail($email,$message){
+
+	    $this->load->library('email');
+	    $emails = array('paul@hyperext.com','rob@hyperext.com');
+	    $config = array (
+		    'mailtype' => 'html',
+		    'charset'  => 'utf-8',
+		    'priority' => '1'
+	    );
+	    $this->email->initialize($config);
+	    $this->email->from('support@mploy.com', 'Steve Smith');
+
+	    foreach($emails as $e){
+		    $this->email->to($e);
+
+		    //$this->email->subject($subject);
+		    $this->email->subject('mail shot');
+		    $message = $this->load->view('/standard/emails/intro_email');
+		    $this->email->message($message);
+		    $this->email->send();
+	    }
+    }
+
+
 	function sendMailshot($camp_id,$mailshot =7){
 
 		$campaignsModel = new CampaignsModel();
@@ -746,7 +769,7 @@ class Campaigns extends CI_Controller
 
 		foreach($shots as $shot){
 			if ($shot['email'] != '') {
-
+				$emails[]=$shot['email'];
 				$values = ['activity_type_id' => $mailshot,
 					'campaign_id' => $camp_id,
 					'user_id' => $this->user->id,
@@ -756,13 +779,16 @@ class Campaigns extends CI_Controller
 					'date_time' => date("Y-m-d H:i:s"),
 					'mailshot_key' => base64_encode($camp_id . ',' . $shot['org_id'] . ',' . $mailshot . ',' . date('d-m-Y H:i:s'))];
 				$campaignsModel->newCall($values);
-			//put email code here
-			var_dump($values);
-			}
 
+
+			}
+			//$this->mail($emails);
 
 		}
-	}
+
+
+
+    }
 
 
 }

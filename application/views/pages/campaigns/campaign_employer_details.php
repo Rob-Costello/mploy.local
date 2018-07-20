@@ -21,7 +21,7 @@
             </div>
 
             <div class="col-md-4" style="margin-bottom: 20px;">
-                <a class="btn btn-mploy-cancel center-block" href="/campaigns/employers/<?php echo $campaign ?>/0">BACK TO EMPLOYERS LIST</a>
+                <a class="btn btn-mploy-cancel center-block" href="/campaigns/employers/<?php echo $campaign ?>/0">BACK TO CAMPAIGN</a>
             </div>
 
             <div class="col-md-4" style="margin-bottom: 20px;">
@@ -64,7 +64,7 @@
 
                                 <!-- /.box-header -->
                                 <div class="box-body">
-                                    <form role="form"  method="POST">
+                                    <form role="form" action="?campid=<?php echo $campaign ?>" method="POST">
                                         
                                     
                                         <div class="row">

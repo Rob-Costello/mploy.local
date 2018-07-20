@@ -84,10 +84,10 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label >Origin</label>
-                                                    <select name="campaign_activity_type_id" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" required>
+                                                    <select name="activity_type_id" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" required>
                                                         <option></option>
                                                         <?php foreach($activity as $a): ?>
-                                                           <option value="<?php echo $a->campaign_type_id ?>"> <?php echo $a->description; ?> </option>
+                                                           <option value="<?php echo $a->id ?>"> <?php echo $a->description; ?> </option>
                                                         <?php endforeach ?>
                                                     </select>
                                                 </div>
@@ -142,7 +142,7 @@
                                         </div>
 
                                 </div>
-                                <input type="hidden" value="<?php echo $dropdown; ?>" name="campaign_ref">
+                                <input type="hidden" value="<?php echo $dropdown; ?>" name="campaign_id">
                                 <input type="hidden" value="<?php echo $comp_id; ?>" name="org_id">
                                 <input type="submit" class="btn btn-mploy-submit" value="Save Changes">
                                 <input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/campaigns/employerdetails/<?php echo $camp_id ?>/<?php echo $comp_id; ?>?campid=<?php echo $campaign_dropdown ?>')">

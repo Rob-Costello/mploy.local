@@ -43,13 +43,13 @@ class CampaignsModel extends CI_Model
     function campaignCalls($id)
     {
 
-        $return = array('calls' => 0, 'success' => 0, 'rejected' => 0, 'maybe' => 0);
+        $return = array('calls' => 0, 'success' => 0, 'rejected' => 0, 'maybe' => 0, 'placements' => 0);
 
         $result = $this->db->query("select count(*) as calls, 
 								SUM( CASE WHEN  rag_status= 4 THEN 1 ELSE 0 END )  as rejected, 
-								SUM( CASE WHEN  rag_status= 1 OR rag_status= 2 THEN 1 ELSE 0 END ) as success, 
+								SUM( CASE WHEN  rag_status= 1 OR rag_status= 2 THEN 1 ELSE 0 END ) as success,
 								SUM( CASE WHEN  rag_status= 3 THEN 1 ELSE 0 END ) as maybe 
-								from mploy_organisation_contact_history where campaign_id = '" . $id . "' GROUP BY campaign_id  ")->result();
+								from mploy_organisation_contact_history where campaign_id = '" . $id . "' GROUP BY org_id  ")->result();
 
         foreach ($result as $r) {
             foreach ($return as $k => $v) {
@@ -349,7 +349,7 @@ class CampaignsModel extends CI_Model
         if(isset($data['placements']) && $data['placements'] > 0)
         {
             $placements = $data['placements'];
-            $this->addPlacements( $data['org_id'], $data['campaign_ref'], $placements );
+            $this->addPlacements( $data['org_id'], $data['campaign_id'], $placements );
         }
 
         $this->db->insert('mploy_organisation_contact_history', $data);
@@ -359,7 +359,7 @@ class CampaignsModel extends CI_Model
     public function getActivity()
     {
 
-        $query = $this->db->get('mploy_organisation_contact_history_types');
+        $query = $this->db->get('mploy_activity_types');
         return $query->result();
 
     }
@@ -511,8 +511,8 @@ class CampaignsModel extends CI_Model
     public function addPlacements( $id, $campaign_ref, $placements){
 
         $this->db->set('placements', $placements, FALSE);
-        $this->db->where('campaign_employer_id', $id);
-        $this->db->where('campaign_ref', $campaign_ref);
+        $this->db->where('org_id', $id);
+        $this->db->where('campaign_id', $campaign_ref);
         $this->db->update('mploy_rel_campaign_employers');
 
     }

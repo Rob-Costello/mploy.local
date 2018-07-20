@@ -80,10 +80,10 @@
 											<div class="col-md-4">
 												<div class="form-group">
 													<label >Origin</label>
-													<select name="campaign_activity_type_id" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+													<select name="activity_type_id" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
 
 														<?php foreach($activity as $a): ?>
-															<option value="<?php echo $a->campaign_type_id ?>"> <?php echo $a->description; ?> </option>
+															<option value="<?php echo $a->id ?>"> <?php echo $a->description; ?> </option>
 														<?php endforeach ?>
 													</select>
 												</div>
@@ -100,14 +100,14 @@
 															<span class="caret"></span></button>
 														<ul id="rag-dropdown" class="dropdown-menu">
 															<li onclick="setValue('red')"   name= 'red' class="rag-option" value="red" >
-																<img src="<?php echo base_url()."assets/";?>dist/img/red.png" class="img-circle" alt="User Image">
+																<img src="<?php echo base_url()."assets/";?>dist/img/4.png" class="img-circle" alt="User Image">
 															</li>
 															<li style="marign:auto;" onclick="setValue('amber')"  name= 'red' class="rag-option" value="amber" >
-																<img  src="<?php echo base_url()."assets/";?>dist/img/amber.png" class="img-circle" alt="User Image">
+																<img  src="<?php echo base_url()."assets/";?>dist/img/3.png" class="img-circle" alt="User Image">
 															</li>
 
 															<li onclick="setValue('green')"  name= 'red' class="rag-option" value="green" >
-																<img src="<?php echo base_url()."assets/";?>dist/img/green.png" class="img-circle" alt="User Image">
+																<img src="<?php echo base_url()."assets/";?>dist/img/2.png" class="img-circle" alt="User Image">
 															</li>
 														</ul>
 													</div>
@@ -127,7 +127,7 @@
 
                                                     <?php ?>
                                                     <?php foreach($companies as $c): ?>
-												<option value="<?php echo $c->comp_id?>"> <?php  echo $c->name; ?></option>
+												<option value="<?php echo $c->id?>"> <?php  echo $c->name; ?></option>
 												
 												<?php endforeach; ?>
 												
@@ -155,7 +155,7 @@
 										</div>
 
 								</div>
-								<input type="hidden" value="<?php echo $camp_id; ?>" name="campaign_ref">
+								<input type="hidden" value="<?php echo $camp_id; ?>" name="campaign_id">
 								<input type="submit" class="btn btn-mploy-submit" value="Save Changes">
 								<input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/customers/view/<?php echo $camp_id ?>/history')">
 								</form>

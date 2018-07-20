@@ -173,6 +173,7 @@
 							<div class="row">
 
 								<div class="col-md-3">
+									<div id="7"></div>
 									<button class="btn btn-mploy ?>" value="all" onclick="mailshot('7')"> Send Mailshot 1</button>
 								</div>
 								<div class="col-md-3">
@@ -200,11 +201,12 @@
 									</div>
 									<div class="col-md-3">
 										<p>	User: <?php echo $mail[0][0]['username']; ?> </p>
-										<p>	Time: <?php echo $mail[0][0]['date_time']; ?></p>
+										<p>	Time: <?php echo date('d/m/Y H:i:s',strtotime($mail[0][0]['date_time'])); ?></p>
 										<p>	Emails Sent: <?php  echo count($mail[0]); ?></p>
 
 									</div>
-									<div class="col-md-3">
+									<div  class="col-md-3">
+										<div id="8"></div>
 										<button class="btn btn-mploy ?>"  value="pending" onclick="mailshot('8')"> Send Mailshot 2</button>
 									</div>
 									<div class="col-md-3">
@@ -221,18 +223,18 @@
 									<div class="col-md-3">
 										<button class="btn btn-mploy disabled ?>"  value="all" disabled> Send Mailshot 1</button>
 									</div>
-									<div class="col-md-3">
+									<div id="7" class="col-md-3">
 										<p>	User: <?php echo $mail[0][0]['username']; ?> </p>
-										<p>	Time: <?php echo $mail[0][0]['date_time']; ?></p>
+										<p>	Time: <?php echo date('d/m/Y H:i:s',strtotime($mail[0][0]['date_time'])); ?></p>
 										<p>	Emails Sent: <?php  echo count($mail[0]); ?></p>
 									</div>
 									<div class="col-md-3">
 										<button class="btn btn-mploy disabled ?>"  value="pending" disabled> Send Mailshot 2</button>
 									</div>
-									<div class="col-md-3">
+									<div id="8" class="col-md-3">
 
 										<p>	User: <?php echo $mail[1][0]['username']; ?> </p>
-										<p>	Time: <?php echo $mail[1][0]['date_time']; ?></p>
+										<p>	Time: <?php echo date('d/m/Y H:i:s',strtotime($mail[1][0]['date_time'])); ?></p>
 										<p>	Emails Sent: <?php  echo count($mail[1]); ?></p>
 									</div>
 									<!-- /.col -->
@@ -290,7 +292,7 @@
 
                     <div class="col-md-12">
 
-                        <form method="GET">
+                        <form action="/campaigns/employers/<?php echo $camp_ref ?>/0/" method="GET">
                             <button class="btn <?php if($status == 'all') echo 'btn-mploy' ?>" name="status" value="all"> All</button>
 
                             <button class="btn <?php if($status == '2') echo 'btn-mploy' ?>" name="status" value="2"> Yes</button>
@@ -389,7 +391,7 @@
 				//$(item).closest('tr').remove();
 			}
 		});
-
+		$('#'+shot).html('Messages Added to Queue')
 	}
 
 

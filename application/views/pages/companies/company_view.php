@@ -21,6 +21,7 @@
 
 
                         <section class="">
+                            <form method="POST">
 
                             <!-- Main content School Details-->
                             <!--- Schools contacts -->
@@ -33,7 +34,6 @@
 
                                 <!-- /.box-header -->
                                 <div class="box-body">
-                                    <form method="POST">
                                         <!-- text input -->
 
                                         <div class="row">
@@ -232,9 +232,9 @@
                                 </div>
                                 <input type="submit" class="btn btn-mploy-submit" value="Save Changes">
                                 <input type="button" class="btn btn-mploy-cancel" value="Cancel">
-                                </form>
-                            </div>
 
+                            </div>
+                            </form>
 
                         </section>
 

@@ -28,7 +28,7 @@
 
 						<div class="col-md-12">
                         <section class="">
-
+                            <form id="campaign-form" role="form"  method="POST">
 
 	                        <!-- Main content School Details-->
                             <!--- Schools contacts -->
@@ -49,7 +49,7 @@
 
                                 <!-- /.box-header -->
                                 <div class="box-body">
-                                    <form id="campaign-form" role="form"  method="POST">
+
 
 
 
@@ -315,150 +315,18 @@
                                     </div> <!--end row -->
 
 
-	                                        <div class="box-header with-border">
-		                                        <h3 class="box-title">Add Employers to Campaign </h3>
-
-	                                        </div>
-
-	                                        <div class="row">
-
-
-		                                        <!-- Modal -->
-		                                        <div id="myModal" class="modal fade" role="dialog">
-			                                        <div style="width: 60% !important;" class="modal-dialog">
-
-				                                        <!-- Modal content-->
-				                                        <div class="modal-content">
-					                                        <div class="modal-header">
-
-						                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-						                                        <h4 class="modal-title">Add Companies to Campaign</h4>
-
-					                                        </div>
-					                                        <div class="modal-body">
-
-
-						                                        <div class="row">
-							                                        <div class="col-md-12">
-								                                        <div id="total">  </div>
-								                                        <div class="form-group">
-
-									                                        <div class="input-group">
-										                                        <div class="col-md-3">
-											                                        <input style="margin:20px; padding:19px;" type="text" name="name" class="form-control" placeholder="Company name" >
-										                                        </div>
-										                                        <div class="col-md-3">
-											                                        <input style="margin:20px; padding:19px;" type="text" name="address1" class="form-control" placeholder="Address" >
-										                                        </div>
-										                                        <div class="col-md-2">
-											                                        <input style="margin:20px; padding:19px;" type="text" name="postcode" class="form-control" placeholder="Postcode" >
-										                                        </div>
-										                                        <div class="col-md-2">
-											                                        <select style="margin:20px; padding:19px;" name="industry_id" class="form-control">
-												                                        <option value="">Select Sector</option>
-											                                        </select>
-										                                        </div>
-										                                        <div class="col-md-2">
-											                                        <input style="margin:20px; padding:19px;" type="text" name="status" class="form-control" placeholder="Status" >
-										                                        </div>
-										                                        <span class="input-group-btn">
-                            <button style="z-index:100" type="button"  id="search-btn" class="btn btn-flat btn-mploy">
-                                <i class=" fa fa-search"></i>
-                            </button>
-                            <button class="btn btn-flat btn-mploy" id="clear-form">Clear</button>
-
-                        </span>
-									                                        </div>
-
-								                                        </div>
-							                                        </div>
-						                                        </div>
-
-
-
-						                                        <div class="row">
-							                                        <div class="col-md-12">
-								                                        <div class="col-md-offset-10" ><button  id="check_all" class="btn btn-mploy" type="button">Select All</button>
-									                                        <button type="button" class="btn btn-mploy-submit" data-dismiss="modal">Save</button>
-								                                        </div>
-
-								                                        <div style="display:none" id="loading"> <h2>Please wait loading results..</h2></div>
-								                                        <table class="table table-bordered table-striped" id="companyTable">
-
-									                                        <thead>
-									                                        <tr>
-										                                        <th></th>
-										                                        <th>Company Name</th>
-
-										                                        <th>Address</th>
-										                                        <th>Sector</th>
-										                                        <th>Status</th>
-									                                        </tr>
-									                                        </thead>
-									                                        <tbody>
-
-
-									                                        </tbody>
-
-
-								                                        </table>
-							                                        </div>
-						                                        </div>
-
-
-
-
-					                                        </div>
-					                                        <div class="modal-footer">
-
-					                                        </div>
-				                                        </div>
-
-			                                        </div>
-		                                        </div>
-
-	                                        <div class="row">
-												<div class="col-md-12">
-
-													<div style="padding-bottom:100px;" id="row">
-														<div class="col-md-3">
-
-
-															<div class="input-group">
-
-
-																<button style="z-index:100" type="button"   data-toggle="modal" data-target="#myModal" class="btn btn-flat btn-mploy">
-																	Add Companies to Campaign
-																</button>
-
-															</div>
-
-														</div>
-
-														<div class="selected col-md-6">
-
-														</div>
-
-												</div>
-
-
-                                
-                                    
-
-
-
                                 <div class="row">
                                     <div class="col-md-offset-0 col-md-4">
 
-	                                    <input id='save' type="button" class="btn btn-mploy-submit" value="Save Changes">
+	                                    <input type="submit" class="btn btn-mploy-submit" value="Save Changes">
                                     <input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/campaigns')">
                                     </div>
                                 </div>
                                 <input type="hidden" name="active" value="1">
-                                </form>
-                            </div>
-                            </div>
 
+                            </div>
+                            </div>
+                                    </form>
                         </section>
 						</div>
 
@@ -666,37 +534,6 @@
 
 
 	<script>
-
-
-		$('.modal-body').click(function(){
-			var i = 0;
-			$('.comp').each(function(){
-				if($(this).prop("checked")){
-					i++;
-				}
-			})
-			//$('.selected').html('<h1>Selected '+i+' companies </h1>');
-
-		});
-
-
-
-		$('#save').click(function(){
-
-			var i = 0;
-			$('.comp').each(function(){
-				if($(this).prop("checked")){
-					i++;
-				}
-			})
-
-			if(i > 0 ){
-				$('#campaign-form').submit();
-			}else{
-				alert('There are no companies added to this campaign please add companies to the campaign ');
-			}
-
-		});
 
 		function holiday(item,id=null){
 

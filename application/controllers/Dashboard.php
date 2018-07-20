@@ -60,14 +60,14 @@ class Dashboard extends CI_Controller {
             foreach ($information as $active) {
                 //$callstats = $customersModel->getCallData($c->select_school);
 	            $campCalls = $campaignsModel->campaignCalls($c->id);
-	            $call = $campCalls['success'];
+	            $placements = $campaignsModel->getCampaignPlacesCount($c->id);
 
                 $calls = $campaignsModel->callInfo($c->org_id, $c->employer_engagement_end)['calls'];
 
                 $info = $campaignsModel->callAmmount($c->org_id)['total'];
 	            $employers = $campaignsModel->countEmployers('campaign_id =' .$c->id);
 
-                $callInfo[$c->id] = ['call' => $calls, 'info' => $info, 'success' => $call, 'total' => $active['students_to_place'],'all'=>$campCalls['calls'], 'employers'=>$employers];
+                $callInfo[$c->id] = ['call' => $calls, 'info' => $info, 'success' => $placements->placements, 'total' => $active['students_to_place'],'all'=>$campCalls['calls'], 'employers'=>$employers];
 
 
             }

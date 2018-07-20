@@ -43,13 +43,13 @@ class CampaignsModel extends CI_Model
     function campaignCalls($id)
     {
 
-        $return = array('calls' => 0, 'success' => 0, 'rejected' => 0, 'maybe' => 0);
+        $return = array('calls' => 0, 'success' => 0, 'rejected' => 0, 'maybe' => 0, 'placements' => 0);
 
         $result = $this->db->query("select count(*) as calls, 
 								SUM( CASE WHEN  rag_status= 4 THEN 1 ELSE 0 END )  as rejected, 
-								SUM( CASE WHEN  rag_status= 1 OR rag_status= 2 THEN 1 ELSE 0 END ) as success, 
+								SUM( CASE WHEN  rag_status= 1 OR rag_status= 2 THEN 1 ELSE 0 END ) as success,
 								SUM( CASE WHEN  rag_status= 3 THEN 1 ELSE 0 END ) as maybe 
-								from mploy_organisation_contact_history where campaign_id = '" . $id . "' GROUP BY campaign_id  ")->result();
+								from mploy_organisation_contact_history where campaign_id = '" . $id . "' GROUP BY org_id  ")->result();
 
         foreach ($result as $r) {
             foreach ($return as $k => $v) {

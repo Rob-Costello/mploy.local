@@ -744,13 +744,13 @@ class Campaigns extends CI_Controller
 	    );
 	    $this->email->initialize($config);
 	    $this->email->from('support@mploy.com', 'Steve Smith');
-
+:
 	    foreach($emails as $e){
 		    $this->email->to($e);
 
 		    //$this->email->subject($subject);
 		    $this->email->subject('mail shot');
-		    $message = $this->load->view('/standard/emails/intro_email');
+		    $message = $this->load->view('/pages/emails/mailshot');
 		    $this->email->message($message);
 		    $this->email->send();
 	    }

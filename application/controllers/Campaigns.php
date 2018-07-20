@@ -232,10 +232,18 @@ class Campaigns extends CI_Controller
 
     }
 
+	function checkSent($mailshot,$camp_ref){
+		$campaign = new campaignsModel();
+		$sent = $campaign->getSentEmails($camp_ref,$mailshot);
+		$emails = [];
+		array_walk($sent,function(&$v, &$k) use (&$emails){$emails[] = "'".$v['receiver']."'";});
+		//build array of sent emails to exclude
+		return $sent = implode(",",$emails);
+	}
+
 
     function employers($camp_ref, $pageNo = 0)
     {
-
         $data['campaign_list'] = $this->availableCampaigns;
         $campaignModel = new campaignsModel();
         $campaign = $campaignModel->lookupCampaign($camp_ref);
@@ -250,15 +258,39 @@ class Campaigns extends CI_Controller
             $data['orderby'] = '?orderby=' . $orderby;
 
         }
+	    $sent = $this->checkSent(7,$camp_ref);
+        $shots = $campaignModel->getMailshot($camp_ref,$sent,7);
+
+        //counts emails
+	    array_walk($shots,function(&$v, &$k) use (&$emails){ if($v['email'] !='' || null!=$v['email'])$emails[] = $v;});
+
+	    $data['mailshot']=1;
+
+	    if(count($emails)==0){
+		    $data['mailshot']=2;
+		    $sent = $this->checkSent(8,$camp_ref);
+		    $shots2 = $campaignModel->getMailshot($camp_ref,$sent,8);
+		    $emails = [];
+
+
+		    array_walk($shots2,function(&$v, &$k) use (&$emails){ if($v['email'] !='')$emails[] = $v;});
+
+
+		    if( count($emails)==0){
+			    $data['mailshot']=3; // make mailshot void as both have been sent
+		    }
+	    }
 
         $data['user'] = $this->user;
         $data['headings'] = ['Name', 'Main Telephone', 'Address', 'Line of Business', 'Last Contacted', 'Status'];
         $data['fields'] = ['name', 'phone', 'address1', 'line_of_business', 'date_time', 'status'];
         $offset = 0;
 
-        if ($pageNo > 0) {
-            $offset = $pageNo * $this->perPage;
-        }
+
+	    if ($pageNo > 0) {
+		    $pageNo = $pageNo -1;
+		    $offset = $pageNo * $this->perPage;
+	    }
 
         $data['status'] = 'all';
         $where['mploy_rel_campaign_employers.campaign_id'] = $camp_ref;
@@ -306,8 +338,9 @@ class Campaigns extends CI_Controller
         if ($data['pagination_end'] > $data['campaign']['count']) {
             $data['pagination_end'] = $data['campaign']['count'];
         }
+	    $data['mail'] = [$campaignModel->getSentEmails($camp_ref,'7'),$campaignModel->getSentEmails($camp_ref,'8')];
 
-        $data['campaign_name'] = $campaign['campaign_name'];
+	    $data['campaign_name'] = $campaign['campaign_name'];
         $data['pagination'] = $this->pagination->create_links();
         $data['user'] = $this->user;
         $data['title'] = 'Employers';
@@ -352,12 +385,14 @@ class Campaigns extends CI_Controller
         $data['prev'] = null;
         $data['next'] = null;
 
-        if( count($this->session->company_nav) > 1) {
-            if (array_search($id, $this->session->company_nav) > 0)
-                $data['prev'] = $this->session->company_nav[array_search($id, $this->session->company_nav) - 1];
-            if (array_search($id, $this->session->company_nav)+1 != count($this->session->company_nav))
-                $data['next'] = $this->session->company_nav[array_search($id, $this->session->company_nav) + 1];
-        }
+
+        if (array_search($id, $this->session->company_nav) > 0)
+            $data['prev'] = $this->session->company_nav[array_search($id, $this->session->company_nav) - 1];
+        if (array_search($id, $this->session->company_nav) != count($this->session->company_nav))
+            $data['next'] = $this->session->company_nav[array_search($id, $this->session->company_nav) + 1];
+        $data['sso_key'] = $this->helpers->checkValid($this->user);
+
+
 
         $data['calls'] = $company->getCompanyCalls($id);
         $data['comp_id'] = $id;
@@ -696,6 +731,63 @@ class Campaigns extends CI_Controller
             $dates = $campaign->getCompaniesByPostcode($where);
             echo json_encode($dates);
         }
+    }
+
+    function mail($email,$message){
+
+	    $this->load->library('email');
+	    $emails = array('paul@hyperext.com','rob@hyperext.com');
+	    $config = array (
+		    'mailtype' => 'html',
+		    'charset'  => 'utf-8',
+		    'priority' => '1'
+	    );
+	    $this->email->initialize($config);
+	    $this->email->from('support@mploy.com', 'Steve Smith');
+
+	    foreach($emails as $e){
+		    $this->email->to($e);
+
+		    //$this->email->subject($subject);
+		    $this->email->subject('mail shot');
+		    $message = $this->load->view('/standard/emails/intro_email');
+		    $this->email->message($message);
+		    $this->email->send();
+	    }
+    }
+
+
+	function sendMailshot($camp_id,$mailshot =7){
+
+		$campaignsModel = new CampaignsModel();
+		$sent = $campaignsModel->getSentEmails($camp_id,$mailshot);
+		$emails = [];
+		array_walk($sent,function(&$v, &$k) use (&$emails){$emails[] = "'".$v['receiver']."'";});
+		$sent = implode(",",$emails);
+
+		$shots = $campaignsModel->getMailshot($camp_id,$sent,$mailshot);
+
+		foreach($shots as $shot){
+			if ($shot['email'] != '') {
+				$emails[]=$shot['email'];
+				$values = ['activity_type_id' => $mailshot,
+					'campaign_id' => $camp_id,
+					'user_id' => $this->user->id,
+					'org_id' => $shot['org_id'],
+					'receiver' => $shot['email'],
+					'placements'=>0,
+					'date_time' => date("Y-m-d H:i:s"),
+					'mailshot_key' => base64_encode($camp_id . ',' . $shot['org_id'] . ',' . $mailshot . ',' . date('d-m-Y H:i:s'))];
+				$campaignsModel->newCall($values);
+
+
+			}
+			//$this->mail($emails);
+
+		}
+
+
+
     }
 
 

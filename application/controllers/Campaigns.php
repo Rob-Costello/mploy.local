@@ -287,12 +287,13 @@ class Campaigns extends CI_Controller
 
         if (count($where) == 1) {
 
-            $where[] = " (rag_status > 1 OR rag_status IS NULL)";
+            //$where[] = " (rag_status > 1 OR rag_status IS NULL)";
             $orderby = 'date_time ASC';
 
         }
 
         $data['campaign'] = $campaignModel->getEmployers($where, $orderby, $like, $this->perPage, $offset, $camp_ref);
+      
 
         $this->session->set_userdata('company_nav', $data['campaign']['array']);
 

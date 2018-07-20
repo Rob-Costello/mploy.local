@@ -21,7 +21,7 @@
             </div>
 
             <div class="col-md-4" style="margin-bottom: 20px;">
-                <a class="btn btn-mploy-cancel center-block" href="/campaigns/employers/<?php echo $campaign ?>/0">BACK TO EMPLOYERS LIST</a>
+                <a class="btn btn-mploy-cancel center-block" href="/campaigns/employers/<?php echo $campaign ?>/0">BACK TO CAMPAIGN</a>
             </div>
 
             <div class="col-md-4" style="margin-bottom: 20px;">

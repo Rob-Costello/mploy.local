@@ -352,10 +352,12 @@ class Campaigns extends CI_Controller
         $data['prev'] = null;
         $data['next'] = null;
 
-        if (array_search($id, $this->session->company_nav) > 0)
-            $data['prev'] = $this->session->company_nav[array_search($id, $this->session->company_nav) - 1];
-        if (array_search($id, $this->session->company_nav) != count($this->session->company_nav))
-            $data['next'] = $this->session->company_nav[array_search($id, $this->session->company_nav) + 1];
+        if( count($this->session->company_nav) > 1) {
+            if (array_search($id, $this->session->company_nav) > 0)
+                $data['prev'] = $this->session->company_nav[array_search($id, $this->session->company_nav) - 1];
+            if (array_search($id, $this->session->company_nav)+1 != count($this->session->company_nav))
+                $data['next'] = $this->session->company_nav[array_search($id, $this->session->company_nav) + 1];
+        }
 
         $data['calls'] = $company->getCompanyCalls($id);
         $data['comp_id'] = $id;

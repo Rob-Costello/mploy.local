@@ -210,7 +210,7 @@ class CampaignsModel extends CI_Model
     {
         $this->db->join('mploy_contacts', 'mploy_campaigns.org_id = mploy_contacts.org_id');
         $this->db->group_by('mploy_campaigns.org_id');
-        $company = $this->db->get_where('mploy_campaigns', 'active =1');
+        $company = $this->db->get_where('mploy_campaigns', 'active =1 OR active =2');
 
         return $company->result();
 
@@ -476,7 +476,8 @@ class CampaignsModel extends CI_Model
     public function getCalendarEntries($id)
     {
 
-        $query = $this->db->get_where('mploy_calendar', 'school_id = ' . $id);
+        $this->db->join('mploy_campaigns', 'mploy_campaigns.id = mploy_calendar.campaign_id');
+        $query = $this->db->get_where('mploy_calendar', 'org_id = ' . $id);
         //$count = $this->db->from('mploy_organisations')->count_all_results();
         return $query->result_array();
     }
@@ -485,7 +486,7 @@ class CampaignsModel extends CI_Model
     public function getCampaignDates($id)
     {
 
-        $query = $this->db->get_where('mploy_campaigns', 'select_school = ' . $id);
+        $query = $this->db->get_where('mploy_campaigns', 'org_id = ' . $id);
         //$count = $this->db->from('mploy_organisations')->count_all_results();
         return $query->result_array();
 

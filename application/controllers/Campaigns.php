@@ -529,13 +529,13 @@ class Campaigns extends CI_Controller
                 if (is_array($d)) {
 
                     //$start = 'start		:$.fullCalendar.formatDate('.strtotime($camp[$d[0]]).',"yyyy-MM-dd"), ';
-                    $id = 'id		:\'cam-' . $camp['campaign_id'] . '\',';
+                    $id = 'id		:\'cam-' . $camp['id'] . '\',';
                     $title = 'title          : \'' . $camp['campaign_name'] . ': ' . str_replace(['_', 'date'], ' ', $d[0]) . '\',';
                     $start = 'start		:\'' . date('Y-m-d H:i:s', strtotime($camp[$d[0]])) . '\',';
                     $end = 'end		:\'' . date('Y-m-d H:i:s', strtotime($camp[$d[1]])) . '\',';
 
                 } else {
-                    $id = 'id		:\'cam-' . $camp['campaign_id'] . '\',';
+                    $id = 'id		:\'cam-' . $camp['id'] . '\',';
                     $title = 'title          : \'' . $camp['campaign_name'] . ': ' . str_replace('_', ' ', $d) . '\',';
                     $start = 'start		:\'' . date('Y-m-d H:i:s', strtotime($camp[$d])) . '\',';
                     $end = 'end		:\'' . date('Y-m-d H:i:s', strtotime($camp[$d])) . '\',';

@@ -48,6 +48,7 @@ class Dashboard extends CI_Controller {
 		$data['company_count'] = count($companiesModel->getCompanies('organisation_type_id = 2')['data']);
 		$data['user_count'] = count($usersModel->getUsers()['data']);
 		$data['campaigns_count'] = count($campaignsModel->getCampaigns()['data']);
+		$data['campaigns'] = array();
 
 		$data['campaigns_display'] = $campaignsModel->getCampaigns('active=2','mploy_campaigns.id' , null, 0)['data'];
 		$callInfo = [];

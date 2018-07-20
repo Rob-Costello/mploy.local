@@ -477,7 +477,7 @@ function calls ($percent)
 								<div class="info-box-content">
 									<span class="info-box-text">Calls Logged</span>
 									<span class="info-box-number"><?php echo $total_calls['total'] ?></span>
-										<?php $percent = $total_calls['days'] * 100 / $total_calls['total']; ?>
+										<?php if($total_calls['days'] > 0) { $percent = $total_calls['days'] * 100 / $total_calls['total']; } else {$percent = 0;} ?>
 										<div class="progress">
 											<div class="progress-bar" style="width: <?php echo (int)$percent?>%"></div>
 										</div>

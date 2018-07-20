@@ -115,7 +115,7 @@ class CustomersModel extends CI_Model
     public function updateCustomer($id,$data)
     {
         $this->db->trans_start();
-        $this->db->where('school_id', $id);
+        $this->db->where('id', $id);
         $this->db->update('mploy_organisations', $data);
         $this->db->trans_complete();
         return $this->db->trans_status();
@@ -126,7 +126,7 @@ class CustomersModel extends CI_Model
 
     public function getCustomer($id){
 
-        $query = $this->db->get_where('mploy_organisations','school_id ='.$id);
+        $query = $this->db->get_where('mploy_organisations','id ='.$id);
         return $query->row_array();
 
     }
@@ -135,7 +135,7 @@ class CustomersModel extends CI_Model
 
     public function getActivity(){
 
-        $query = $this->db->get('mploy_organisation_contact_history_types');
+        $query = $this->db->get('mploy_activity_types');
         return $query->result();
 
     }
@@ -153,7 +153,7 @@ class CustomersModel extends CI_Model
             //$this->db->join('mploy_organisation_contact_history','mploy_organisation_contact_history.campaign_ref = mploy_campaigns.select_school ','left');
             $this->db->join('users','users.id = mploy_organisation_contact_history.user_id');
 
-            $this->db->join('mploy_organisation_contact_history_types','mploy_organisation_contact_history_types.campaign_type_id = mploy_organisation_contact_history.campaign_activity_type_id');
+            $this->db->join('mploy_activity_types','mploy_activity_types.id = mploy_organisation_contact_history.activity_type_id');
             $query = $this->db->get_where('mploy_organisation_contact_history', $where);
 
             $this->db->select('*');
@@ -211,7 +211,7 @@ class CustomersModel extends CI_Model
     function getCallData($id){
 
         $this->db->select('*');
-        $query = $this->db->get_where('mploy_organisation_contact_history', ['campaign_ref'=>$id]);
+        $query = $this->db->get_where('mploy_organisation_contact_history', ['campaign_id'=>$id]);
         return  $query->result();
 
     }
@@ -228,8 +228,8 @@ class CustomersModel extends CI_Model
     {
         $query = $this->db->query('SELECT * FROM  mploy_organisations o
                                   left join mploy_contacts as c on o.main_contact_id = c.id
-                                  where comp_id in 
-                                  (select campaign_employer_id from mploy_rel_campaign_employers where org_id='.$school.') 
+                                  where o.id in 
+                                  (select mploy_rel_campaign_employers.org_id from mploy_rel_campaign_employers LEFT JOIN mploy_campaigns ON mploy_rel_campaign_employers.campaign_id = mploy_campaigns.id where mploy_campaigns.org_id='.$school.') 
                                   and organisation_type_id =2')->result();
 
         return  $query;

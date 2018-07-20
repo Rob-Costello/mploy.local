@@ -145,7 +145,7 @@ class CompaniesModel extends CI_Model
 			//$this->db->join('mploy_organisation_contact_history','mploy_organisation_contact_history.campaign_ref = mploy_campaigns.select_school ','left');
 			$this->db->join('users','users.id = mploy_organisation_contact_history.user_id');
 
-			$this->db->join('mploy_organisation_contact_history_types','mploy_organisation_contact_history_types.campaign_type_id = mploy_organisation_contact_history.campaign_activity_type_id');
+			$this->db->join('mploy_activity_types','mploy_activity_types.id = mploy_organisation_contact_history.activity_type_id');
 			$query = $this->db->get_where('mploy_organisation_contact_history', $where);
 
 			$this->db->select('*');

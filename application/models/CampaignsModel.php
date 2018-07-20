@@ -115,7 +115,7 @@ class CampaignsModel extends CI_Model
             }
         }
 
-        $this->db->select('mploy_organisations.*, mploy_organisation_contact_history.*');
+        $this->db->select('mploy_organisation_contact_history.*, mploy_organisations.*');
         $this->db->join('mploy_organisations', 'mploy_rel_campaign_employers.org_id = mploy_organisations.id', 'left');
         $this->db->join('mploy_contacts', 'mploy_contacts.id = mploy_organisations.main_contact_id', 'left');
         $this->db->join('(select max(id) max_id, org_id FROM mploy_organisation_contact_history group by org_id) as a1', 'a1.org_id = mploy_organisations.id', 'left');
@@ -132,7 +132,7 @@ class CampaignsModel extends CI_Model
             }
         }
 
-        $this->db->select('mploy_organisations.*, mploy_organisation_contact_history.*');
+        $this->db->select('mploy_organisation_contact_history.*, mploy_organisations.*');
         $this->db->join('mploy_organisations', 'mploy_rel_campaign_employers.org_id = mploy_organisations.id', 'left');
         $this->db->join('mploy_contacts', 'mploy_contacts.id = mploy_organisations.main_contact_id', 'left');
         $this->db->join('(select max(id) max_id, org_id FROM mploy_organisation_contact_history group by org_id) as a1', 'a1.org_id = mploy_organisations.id', 'left');
@@ -304,8 +304,8 @@ class CampaignsModel extends CI_Model
     public function employerDetails($ref, $id)
     {
         $this->db->select('mploy_organisations.*, mploy_contacts.first_name,mploy_contacts.last_name,mploy_contacts.job_title,mploy_contacts.phone,mploy_contacts.email,mploy_organisations.id');
-        $this->db->join('mploy_contacts', 'mploy_organisations.comp_id = mploy_contacts.org_id', 'left');
-        $company = $this->db->get_where('mploy_organisations', 'comp_id =' . $id);
+        $this->db->join('mploy_contacts', 'mploy_organisations.id = mploy_contacts.org_id', 'left');
+        $company = $this->db->get_where('mploy_organisations', 'mploy_organisations.id =' . $id);
 
         //$this->db->join('mploy_contacts','mploy_organisation_contact_history.user_id = mploy_contacts.id');
 
@@ -374,6 +374,7 @@ class CampaignsModel extends CI_Model
 
     public function lookupCampaign($id)
     {
+        $this->db->select('*, mploy_campaigns.*');
         $this->db->join('mploy_contacts', 'mploy_campaigns.org_id = mploy_contacts.id', 'left');
         $query = $this->db->get_where('mploy_campaigns', 'mploy_campaigns.id=' . $id);
         return $query->row_array();
@@ -525,8 +526,8 @@ class CampaignsModel extends CI_Model
 
     function getPlacementsCount($org_id, $campaign_ref){
         $this->db->select('placements');
-        $this->db->where('campaign_employer_id', $org_id);
-        $this->db->where('campaign_ref', $campaign_ref);
+        $this->db->where('org_id', $org_id);
+        $this->db->where('campaign_id', $campaign_ref);
         $query = $this->db->get('mploy_rel_campaign_employers');
         return $query->row_object()->placements;
 

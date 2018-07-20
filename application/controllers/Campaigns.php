@@ -242,14 +242,14 @@ class Campaigns extends CI_Controller
     {
 
         $data['campaign_list'] = $this->availableCampaigns;
-        $campaign = new campaignsModel();
-        $school = $campaign->lookupCampaign($camp_ref);
-        $data['camp_data'] = $school;
-        $data['call_data'] = $campaign->campaignCalls($camp_ref);
-        $orderby = 'mploy_organisations.org_id';
+        $campaignModel = new campaignsModel();
+        $campaign = $campaignModel->lookupCampaign($camp_ref);
+        $data['camp_data'] = $campaign;
+        $data['call_data'] = $campaignModel->campaignCalls($camp_ref);
+        $orderby = 'mploy_organisations.id';
         $data['orderby'] = '';
         $like = null;
-        $data['school_id'] = $school['org_id'];
+        $data['school_id'] = $campaign['org_id'];
         if (isset($_GET['orderby'])) {
             $orderby = $this->input->get('orderby');
             $data['orderby'] = '?orderby=' . $orderby;
@@ -297,7 +297,7 @@ class Campaigns extends CI_Controller
 
         }
 
-        $data['campaign'] = $campaign->getEmployers($where, $orderby, $like, $this->perPage, $offset, $camp_ref);
+        $data['campaign'] = $campaignModel->getEmployers($where, $orderby, $like, $this->perPage, $offset, $camp_ref);
 
         $this->session->set_userdata('company_nav', $data['campaign']['array']);
 
@@ -312,14 +312,13 @@ class Campaigns extends CI_Controller
             $data['pagination_end'] = $data['campaign']['count'];
         }
 
-        $data['campaign_name'] = $school['campaign_name'];
+        $data['campaign_name'] = $campaign['campaign_name'];
         $data['pagination'] = $this->pagination->create_links();
         $data['user'] = $this->user;
         $data['title'] = 'Employers';
         $data['nav'] = 'campaign';
         $data['camp_ref'] = $camp_ref;
-        $data['camp_id'] = $school['org_id'];
-        $data['table'] = $campaign->getEmployers($where, null, $this->perPage, $offset);
+        $data['table'] = $campaignModel->getEmployers($where, null, $this->perPage, $offset);
         $this->load->view('pages/campaigns/campaign_employers', $data);
 
     }

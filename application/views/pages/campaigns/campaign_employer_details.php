@@ -16,11 +16,11 @@
     <div class="container-fluid ">
 
 
-            <div class="col-md-4">
+            <div class="col-md-4" style="margin-bottom: 20px;">
                 <?php if($prev !== null) { ?><a class="btn btn-mploy-cancel" href="/campaigns/employerdetails/<?php echo $camp_id ?>/<?php echo $prev;?>?campid=<?php echo $campaign ?>">PREV</a><?php } ?>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-4" style="margin-bottom: 20px;">
                 <a class="btn btn-mploy-cancel center-block" href="/campaigns/employers/<?php echo $campaign ?>/0">BACK TO EMPLOYERS LIST</a>
             </div>
 

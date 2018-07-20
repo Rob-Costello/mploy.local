@@ -90,7 +90,7 @@ class CompaniesModel extends CI_Model
     public function getCompanyCalls($id)
     {
 
-        $this->db->join('mploy_organisation_contact_history_types', 'mploy_organisation_contact_history_types.campaign_type_id = mploy_organisation_contact_history.campaign_activity_type_id');
+        $this->db->join('mploy_activity_types', 'mploy_activity_types.id = mploy_organisation_contact_history.activity_type_id');
         $this->db->join('users', 'users.id = mploy_organisation_contact_history.user_id');
         $this->db->where('org_id=' . $id);
         $this->db->order_by('date_time', 'DESC');
@@ -101,9 +101,9 @@ class CompaniesModel extends CI_Model
     public function getCompanyPlacements($id){
 
         $this->db->select('mploy_organisations.*, mploy_campaigns.*, mploy_rel_campaign_employers.*');
-        $this->db->join('mploy_campaigns', 'mploy_rel_campaign_employers.campaign_ref = mploy_campaigns.campaign_id');
-        $this->db->join('mploy_organisations', 'mploy_campaigns.select_school = mploy_organisations.school_id');
-        $this->db->where('campaign_employer_id=' . $id);
+        $this->db->join('mploy_campaigns', 'mploy_rel_campaign_employers.campaign_id = mploy_campaigns.id');
+        $this->db->join('mploy_organisations', 'mploy_campaigns.org_id = mploy_organisations.id');
+        $this->db->where('mploy_rel_campaign_employers.org_id=' . $id);
         $this->db->order_by('campaign_place_start_date', 'DESC');
         $calls = $this->db->get_where('mploy_rel_campaign_employers');
         return $calls->result();

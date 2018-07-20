@@ -349,7 +349,7 @@ class CampaignsModel extends CI_Model
         if(isset($data['placements']) && $data['placements'] > 0)
         {
             $placements = $data['placements'];
-            $this->addPlacements( $data['org_id'], $data['campaign_ref'], $placements );
+            $this->addPlacements( $data['org_id'], $data['campaign_id'], $placements );
         }
 
         $this->db->insert('mploy_organisation_contact_history', $data);
@@ -359,7 +359,7 @@ class CampaignsModel extends CI_Model
     public function getActivity()
     {
 
-        $query = $this->db->get('mploy_organisation_contact_history_types');
+        $query = $this->db->get('mploy_activity_types');
         return $query->result();
 
     }
@@ -511,8 +511,8 @@ class CampaignsModel extends CI_Model
     public function addPlacements( $id, $campaign_ref, $placements){
 
         $this->db->set('placements', $placements, FALSE);
-        $this->db->where('campaign_employer_id', $id);
-        $this->db->where('campaign_ref', $campaign_ref);
+        $this->db->where('org_id', $id);
+        $this->db->where('campaign_id', $campaign_ref);
         $this->db->update('mploy_rel_campaign_employers');
 
     }

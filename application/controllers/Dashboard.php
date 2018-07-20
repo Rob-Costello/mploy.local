@@ -49,10 +49,8 @@ class Dashboard extends CI_Controller {
 		$data['user_count'] = count($usersModel->getUsers()['data']);
 		$data['campaigns_count'] = count($campaignsModel->getCampaigns()['data']);
 
-		$data['campaigns_display'] = $campaignsModel->getCampaigns('active=1','mploy_campaigns.id' , null, 0)['data'];
+		$data['campaigns_display'] = $campaignsModel->getCampaigns('active=2','mploy_campaigns.id' , null, 0)['data'];
 		$callInfo = [];
-		$output = [];
-        $call = 0;
 		foreach ($data['campaigns_display'] as $c) {
             //$where = "select_school = " . $c->select_school . " and campaign_place_start_date < now() and campaign_place_end_date > '" . date("Y-m-d") . "'";
             $where = "org_id = " . $c->org_id . " ";
@@ -73,18 +71,15 @@ class Dashboard extends CI_Controller {
 
 
             }
-            $output[]  = ['campaign_display'=>$c,'call_info'=>$callInfo];
-            //print_r($campaignsModel->getCampaignPlacesCount($c->id));
+            $data['campaigns'][]  = ['campaign_display'=>$c,'call_info'=>$callInfo];
         }
 
         $loginModel = new login();
         $data['login_data'] = $loginModel->loginsCount();
 
-            $data['total_calls'] = $campaignsModel->allCalls();
-			$data['callinfo'] = $callInfo;
-            $data['output'] = $output;
-			//$data['campaign_calls'] = $campaignsModel->callInfo();
-			$this->load->view('pages/dashboard', $data);
+        $data['total_calls'] = $campaignsModel->allCalls();
+        $data['callinfo'] = $callInfo;
+        $this->load->view('pages/dashboard', $data);
 
 
 	}

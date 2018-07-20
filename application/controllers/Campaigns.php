@@ -293,7 +293,6 @@ class Campaigns extends CI_Controller
         }
 
         $data['campaign'] = $campaignModel->getEmployers($where, $orderby, $like, $this->perPage, $offset, $camp_ref);
-      
 
         $this->session->set_userdata('company_nav', $data['campaign']['array']);
 

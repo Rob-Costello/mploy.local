@@ -181,7 +181,7 @@
 
                     <div class="col-md-12">
 
-                        <form method="GET">
+                        <form action="/campaigns/employers/<?php echo $camp_ref ?>/0/" method="GET">
                             <button class="btn <?php if($status == 'all') echo 'btn-mploy' ?>" name="status" value="all"> All</button>
 
                             <button class="btn <?php if($status == '2') echo 'btn-mploy' ?>" name="status" value="2"> Yes</button>

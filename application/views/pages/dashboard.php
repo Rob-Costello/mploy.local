@@ -151,13 +151,13 @@ function calls ($percent)
 							<div class="box-body">
 								<div class="row">
 
-                                <?php foreach($output as   $campaign){
+                                <?php foreach($campaigns as   $campaign){
 
-                                	$key = $campaign['campaign_display']->campaign_id;
+                                	$key = $campaign['campaign_display']->id;
                                 	?>
 
                                     <!-- /.col -->
-									<div class="col-md-2 "><a href="/campaigns/employers/<?php echo $campaign['campaign_display']->campaign_id ?>/0">
+									<div class="col-md-2 "><a href="/campaigns/employers/<?php echo $campaign['campaign_display']->id ?>/0">
                                         <!--										<p class="text-center">-->
                                         <!--											<strong>Goal Completion</strong>-->
                                         <!--										</p>-->
@@ -477,7 +477,7 @@ function calls ($percent)
 								<div class="info-box-content">
 									<span class="info-box-text">Calls Logged</span>
 									<span class="info-box-number"><?php echo $total_calls['total'] ?></span>
-										<?php $percent = $total_calls['days'] * 100 / $total_calls['total']; ?>
+										<?php if($total_calls['days'] > 0) { $percent = $total_calls['days'] * 100 / $total_calls['total']; } else {$percent = 0;} ?>
 										<div class="progress">
 											<div class="progress-bar" style="width: <?php echo (int)$percent?>%"></div>
 										</div>

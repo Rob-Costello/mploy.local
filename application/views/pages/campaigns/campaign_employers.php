@@ -181,7 +181,7 @@
 
                     <div class="col-md-12">
 
-                        <form method="GET">
+                        <form action="/campaigns/employers/<?php echo $camp_ref ?>/0/" method="GET">
                             <button class="btn <?php if($status == 'all') echo 'btn-mploy' ?>" name="status" value="all"> All</button>
 
                             <button class="btn <?php if($status == '2') echo 'btn-mploy' ?>" name="status" value="2"> Yes</button>
@@ -233,7 +233,7 @@
 						<td>
                             <img src="<?php echo base_url()."assets/";?>dist/img/<?php if($company->rag_status == null) echo 3; echo $company->rag_status ?>.png" class="img-circle" alt="Status">
 						</td>
-						<td><a class="btn btn-mploy-submit" href="/campaigns/employerdetails/<?php echo $camp_id ?>/<?php echo $company->comp_id;?>?campid=<?php echo $camp_ref ?>">
+						<td><a class="btn btn-mploy-submit" href="/campaigns/employerdetails/<?php echo $school_id ?>/<?php echo $company->id;?>?campid=<?php echo $camp_ref ?>">
                                 CALL
                             </a></td>
 

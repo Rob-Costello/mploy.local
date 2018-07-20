@@ -56,7 +56,7 @@
 												<div class="form-group">
 
 													<label class=" ">Campaign Name</label>
-													<input type="text" name="campaign_name" class="form-control" value="<?php echo $entries['campaign_name'];?>"   placeholder="Campaign Name" >
+													<input type="text" name="campaign_name" class="form-control" value="<?php echo $campaign['campaign_name'];?>"   placeholder="Campaign Name" >
 
 												</div>
 											</div>
@@ -65,7 +65,7 @@
 
 													<div class="">
 														<label >Places to be sourced by MPLOY</label>
-														<input type="number" name="students_to_place" class="form-control" value="<?php echo $entries['students_to_place']?>" placeholder="" autocomplete="off" >
+														<input type="number" name="students_to_place" class="form-control" value="<?php echo $campaign['students_to_place']?>" placeholder="" autocomplete="off" >
 													</div>
 												</div>
 											</div>
@@ -74,7 +74,7 @@
 												<div class="form-group">
 													<div class="">
 														<label >Self Placing Students </label>
-														<input type="number" name="self_placing_students" class="form-control" value="<?php echo $entries['self_placing_students'] ?>" placeholder="" autocomplete="off" >
+														<input type="number" name="self_placing_students" class="form-control" value="<?php echo $campaign['self_placing_students'] ?>" placeholder="" autocomplete="off" >
 													</div>
 												</div>
 											</div><!--end col-->
@@ -88,9 +88,9 @@
 
 													<label class=" ">School</label>
 
-													<select class="form-control" name="select_school" id="select_school">
-														<?php foreach($dropdown as $d): ?>
-															<option <?php if( $d->school_id ==$school_id ){ echo ' selected ';} ?>value="<?php echo $d->school_id ?>"><?php echo $d->name;?></option>
+													<select class="form-control" name="org_id" id="select_school">
+														<?php foreach($schools as $school): ?>
+															<option <?php if( $school->id == $org_id ){ echo ' selected ';} ?>value="<?php echo $school->id ?>"><?php echo $school->name;?></option>
 														<?php endforeach ?>
 													</select>
 
@@ -104,7 +104,7 @@
 
 													<div class="">
 														<label >Placement Start Date</label>
-														<input type="text" name="campaign_place_start_date" class="datepicker form-control" value="<?php echo $entries['campaign_place_start_date'] ?>" placeholder="01/01/2018" autocomplete="off" >
+														<input type="text" name="campaign_place_start_date" class="datepicker form-control" value="<?php echo $campaign['campaign_place_start_date'] ?>" placeholder="01/01/2018" autocomplete="off" >
 													</div>
 												</div>
 											</div>
@@ -113,7 +113,7 @@
 												<div class="form-group">
 													<div class="">
 														<label >Placement End Date </label>
-														<input type="text" name="campaign_place_end_date" class="datepicker form-control" value="<?php echo $entries['campaign_place_end_date'] ?>" placeholder="01/01/2018" autocomplete="off" >
+														<input type="text" name="campaign_place_end_date" class="datepicker form-control" value="<?php echo $campaign['campaign_place_end_date'] ?>" placeholder="01/01/2018" autocomplete="off" >
 													</div>
 												</div>
 											</div><!--end col-->
@@ -178,7 +178,7 @@
 												<div class="col-md-4">
 													<div class="form-group">
 														<label >Campaign Start Date </label>
-														<input type="text" id="campaign_date" class="datepicker form-control" value="<?php echo $entries['campaign_start_date'] ?>"  name="campaign_start_date" >
+														<input type="text" id="campaign_date" class="datepicker form-control" value="<?php echo $campaign['campaign_start_date'] ?>"  name="campaign_start_date" >
 													</div>
 
 												</div>
@@ -189,14 +189,14 @@
 												<div class="col-md-4">
 													<div class="form-group">
 														<label >Mailshot 1 Date</label>
-														<input name="mailshot_1_date" value="<?php echo $entries['mailshot_1_date'] ?>" type="text" class="datepicker form-control" >
+														<input name="mailshot_1_date" value="<?php echo $campaign['mailshot_1_date'] ?>" type="text" class="datepicker form-control" >
 													</div>
 												</div>
 
 												<div class="col-md-4">
 													<div class="form-group">
 														<label >Mailshot 2 Date</label>
-														<input name="mailshot_2_date" value="<?php echo $entries['mailshot_2_date'] ?>" type="text" class="datepicker form-control" >
+														<input name="mailshot_2_date" value="<?php echo $campaign['mailshot_2_date'] ?>" type="text" class="datepicker form-control" >
 													</div>
 												</div>
 
@@ -207,20 +207,20 @@
 												<div class="col-md-4">
 													<div class="form-group">
 														<label >Employer Engagement Start</label>
-														<input name="employer_engagement_start" value="<?php echo $entries['employer_engagement_start'] ?>" type="text" class="datepicker form-control" >
+														<input name="employer_engagement_start" value="<?php echo $campaign['employer_engagement_start'] ?>" type="text" class="datepicker form-control" >
 													</div>
 												</div>
 
 												<div class="col-md-4">
 													<div class="form-group">
 														<label >Employer Engagement End</label>
-														<input name="employer_engagement_end" type="text" value="<?php echo $entries['employer_engagement_end'] ?>" class="datepicker form-control pull-right" id="datepicker">
+														<input name="employer_engagement_end" type="text" value="<?php echo $campaign['employer_engagement_end'] ?>" class="datepicker form-control pull-right" id="datepicker">
 													</div>
 												</div>
 												<div class="col-md-4">
 													<div class="form-group">
 														<label >Self Place Deadline</label>
-														<input name="self_place_deadline" value="<?php echo $entries['self_place_deadline'] ?>" type="text" class="datepicker form-control" >
+														<input name="self_place_deadline" value="<?php echo $campaign['self_place_deadline'] ?>" type="text" class="datepicker form-control" >
 													</div>
 												</div>
 											</div> <!--end row -->
@@ -232,7 +232,7 @@
 												<div class="col-md-4">
 													<div class="form-group">
 														<label >Matching End</label>
-														<input name="matching_end"  value="<?php echo $entries['matching_end'] ?>" type="text" class="datepicker form-control" >
+														<input name="matching_end"  value="<?php echo $campaign['matching_end'] ?>" type="text" class="datepicker form-control" >
 													</div>
 												</div>
 												<div class="col-md-4">
@@ -241,9 +241,9 @@
 
 															<select name="active" class="form-control">
 
-																<option <?php if($entries['active'] == 1) echo ' selected' ?> value="1"> Active</option>
-																<option <?php if($entries['active'] == 2) echo ' selected' ?> value="2"> On Hold</option>
-																<option <?php if($entries['active'] == 0) echo ' selected' ?> value="0"> Complete</option>
+																<option <?php if($campaign['active'] == 2) echo ' selected' ?> value="2"> Active</option>
+																<option <?php if($campaign['active'] == 3) echo ' selected' ?> value="3"> On Hold</option>
+																<option <?php if($campaign['active'] == 4) echo ' selected' ?> value="4"> Complete</option>
 
 
 
@@ -281,8 +281,8 @@
 
 
 																<div class="row">
-																	<div class="col-md-6" id="total"> <h1>Showing <?php echo $company_count ?></h1> </div>
-																	<div class="selected col-md-6"><h1>Selected <?php echo $company_count ?> companies</h1></div>
+																	<div class="col-md-6" id="total"> <h1>Showing <?php echo $companies['count']; ?></h1> </div>
+																	<div class="selected col-md-6"><h1>Selected <?php echo $companies['count']; ?> companies</h1></div>
 																	<div class="col-md-12">
 
 																		<div class="form-group">
@@ -340,13 +340,13 @@
 																			</tr>
 																			</thead>
 																			<tbody>
-																			<?php foreach($company_table as $t):?>
+																			<?php foreach($companies['data'] as $company):?>
 																			<tr>
-																				<td> <input class="comp" type="checkbox" name="campaign_employer_id[]" checked value="<?php echo $t->comp_id ?>" > </td>
-																				<td class="compname"><?php echo $t->name ?></td>
-																				<td><?php echo $t->address1 . ' ' . $t->address2 . ', '. $t->postcode ?></td>
-																				<td><?php echo $t->line_of_business?></td>
-																				<td><?php echo $t->status  ?></td>
+																				<td> <input class="comp" type="checkbox" name="campaign_employer_id[]" checked value="<?php echo $company->id; ?>" > </td>
+																				<td class="compname"><?php echo $company->name; ?></td>
+																				<td><?php echo $company->address1 . ' ' . $company->address2 . ', '. $company->postcode; ?></td>
+																				<td><?php echo $company->line_of_business; ?></td>
+																				<td><?php echo $company->status; ?></td>
 																			</tr>
 																			<?php endforeach ?>
 
@@ -385,8 +385,8 @@
 
 													</div>
 													<div class="col-md-6">
-													<div class="selected "><h3>Selected <?php echo $company_count ?> companies</h3></div>
-														 <h3> <?php echo $entries['students_to_place'] * 20; ?> is recommended</h3>
+													<div class="selected "><h3>Selected <?php echo $companies['count']; ?> companies</h3></div>
+														 <h3> <?php echo $campaign['students_to_place'] * 20; ?> is recommended</h3>
 													</div>
 												</div>
 
@@ -442,7 +442,7 @@
 
 		//populates companies popup box with data
 		$("#search-btn").click(function(){
-			var target = '/campaigns/getBusiness/<?php echo $entries['campaign_id'] ?>';
+			var target = '/campaigns/getBusiness/<?php echo $campaign['id'] ?>';
 			//var start =$('[name="search"]').val();
 			var name =$('[name="name"]').val();
 			var status =$('[name="status"]').val();
@@ -468,7 +468,7 @@
 					data = JSON.parse(data);
 					Object.keys(data).forEach(function(key){
 						if( seen[data[key].name] == undefined) {
-							var check = '<td> <input class="comp" type="checkbox" name="campaign_employer_id[]" value="' + data[key].comp_id + '" > </td>';
+							var check = '<td> <input class="comp" type="checkbox" name="campaign_employer_id[]" value="' + data[key].id + '" > </td>';
 							var name = '<td class="compname">' + data[key].name + '</td>';
 							var address = '<td>' + data[key].address1 + ' ' + data[key].address2 + ', ' + data[key].postcode + '</td>';
 							var business = '<td>' + data[key].line_of_business + '</td>';

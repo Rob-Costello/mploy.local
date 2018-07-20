@@ -94,7 +94,7 @@
 						<td><?php echo $customer->postcode; ?></td>
 						<td><?php echo $customer->phone_number; ?></td>
 						
-						<td><a class="" href="/customers/view/<?php echo $customer->school_id;?>"> <i class="fa fa-edit"></i> </a></td>
+						<td><a class="" href="/customers/view/<?php echo $customer->id;?>"> <i class="fa fa-edit"></i> </a></td>
 
 					</tr>
 					<?php endforeach ?>

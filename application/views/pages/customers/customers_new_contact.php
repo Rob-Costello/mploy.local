@@ -88,8 +88,8 @@
 											<!--/span-->
 										</div>
 
-								<input type="hidden" name="school_id" value="<?php echo $id; ?>">
-										<input type="hidden" name="contact_type" value="3">
+								<input type="hidden" name="org_id" value="<?php echo $id; ?>">
+										<input type="hidden" name="contact_type_id" value="3">
 								</div>
 								<input type="submit" class="btn btn-mploy-submit" value="Save Changes">
 								<input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/customers/view/<?php echo $id ?>/contacts')">

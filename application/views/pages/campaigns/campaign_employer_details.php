@@ -64,7 +64,7 @@
 
                                 <!-- /.box-header -->
                                 <div class="box-body">
-                                    <form role="form"  method="POST">
+                                    <form role="form" action="?campid=<?php echo $campaign ?>" method="POST">
                                         
                                     
                                         <div class="row">

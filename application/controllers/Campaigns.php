@@ -323,7 +323,7 @@ class Campaigns extends CI_Controller
 
         if (!empty($_POST)) {
 
-            if ($this->input->post('update_company') == 'Submit') {
+            if ($this->input->post('update_company') == 'Save') {
 
                 unset($_POST['update_company']);
 
@@ -332,7 +332,7 @@ class Campaigns extends CI_Controller
                 $this->session->set_flashdata('company_message', 'Updated company details');
                 $data['company_message'] = 'Updated Company Successfully';
 
-                redirect('campaigns/employerdetails/' . $camp_ref . '/' . $id);
+                //redirect('campaigns/employerdetails/' . $camp_ref . '/' . $id);
             }
 
         }

@@ -200,26 +200,21 @@ class Campaigns extends CI_Controller
             );
             unset($_POST['start_date'], $_POST['end_date'], $_POST['holiday'], $_POST['hol_id']);
 
-                //remove employer id to stop error
-                unset($_POST['campaign_employer_id']);
-                unset($_POST['search']);
-                unset($_POST['name']);
-                unset($_POST['address1']);
-                unset($_POST['postcode']);
-                unset($_POST['industry_id']);
+            //remove employer id to stop error
+            unset($_POST['campaign_employer_id']);
+            unset($_POST['search']);
+            unset($_POST['name']);
+            unset($_POST['address1']);
+            unset($_POST['postcode']);
+            unset($_POST['industry_id']);
 
 
-                //get id for insert as campaign reference
-                $campaign_id = $campaignModel->createCampaign($this->input->post());
+            //get id for insert as campaign reference
+            $campaign_id = $campaignModel->createCampaign($this->input->post());
 
-                if (null !== ($this->input->post('campaign_employer_id'))) {
-
-                    $campaignModel->addCompaniesToCampaign($campaign_id, $this->input->post('campaign_employer_id'));
-
-                }
-                $data['message'] = 'New Campaign  ' . $this->input->post('campaign_name') . ' Created ';
-                $this->session->set_flashdata('message', 'New Campaign  ' . $this->input->post('campaign_name') . ' Created ');
-                redirect('campaigns', 'refresh');
+            $data['message'] = 'New Campaign  ' . $this->input->post('campaign_name') . ' Created ';
+            $this->session->set_flashdata('message', 'New Campaign  ' . $this->input->post('campaign_name') . ' Created ');
+            redirect('campaigns', 'refresh');
 
         }
 

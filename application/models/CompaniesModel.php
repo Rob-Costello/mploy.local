@@ -104,6 +104,7 @@ class CompaniesModel extends CI_Model
         $this->db->join('mploy_campaigns', 'mploy_rel_campaign_employers.campaign_id = mploy_campaigns.id');
         $this->db->join('mploy_organisations', 'mploy_campaigns.org_id = mploy_organisations.id');
         $this->db->where('mploy_rel_campaign_employers.org_id=' . $id);
+        $this->db->where('mploy_rel_campaign_employers.placements IS NOT NULL');
         $this->db->order_by('campaign_place_start_date', 'DESC');
         $calls = $this->db->get_where('mploy_rel_campaign_employers');
         return $calls->result();

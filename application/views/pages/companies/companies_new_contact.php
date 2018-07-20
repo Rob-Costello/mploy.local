@@ -132,7 +132,7 @@
 
 
 									<input type="hidden" name="org_id" value="<?php echo $org_id ?>" >
-										<input type="hidden" name="contact_type" value="2" >
+										<input type="hidden" name="contact_type_id" value="2" >
 
 
 

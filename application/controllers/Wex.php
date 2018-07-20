@@ -12,7 +12,7 @@ class Wex extends CI_Controller
 		$this->load->model('login');
 		$this->load->library('ion_auth');
 		//$this->login->login_check_force();
-		$this->user = $this->ion_auth->user()->row();
+		$this->load->model('CampaignsModel');
 		$this->load->model('WexModel');
 		$this->load->library('session');
 		$this->load->library('encryption');
@@ -55,8 +55,8 @@ class Wex extends CI_Controller
 		$username='admin@admin.com';
 		$wex = new WexModel();
 		$session = $wex->getCiSession($username)['id'];
-		return 'fd574e64effaf40050831aa93cef8820ca64f2eb6f26f62ef8d1c2a5e9792d4984800b71e00c8f0481f97bd1ccf358ef986b96d46c0ce3be20dc4d602fcb11c10MHVpUmL88lmi+2NxOq750aoEddEIXzzuQgO2OiIRq1qBL7ZS469mdlkQ56ykfZxvRzAE1dFm1lh1+gqYAtcmg==';
-		//return $this->encrypt($session);
+		//return 'fd574e64effaf40050831aa93cef8820ca64f2eb6f26f62ef8d1c2a5e9792d4984800b71e00c8f0481f97bd1ccf358ef986b96d46c0ce3be20dc4d602fcb11c10MHVpUmL88lmi+2NxOq750aoEddEIXzzuQgO2OiIRq1qBL7ZS469mdlkQ56ykfZxvRzAE1dFm1lh1+gqYAtcmg==';
+		return $this->encrypt($session);
 
 	}
 
@@ -82,7 +82,7 @@ class Wex extends CI_Controller
 
 		$this->login->login_check_force();
 		$user = $this->ion_auth->user()->row();
-		echo $this->encryptSession($user->username);
+		return $this->encryptSession($user->username);
 
 	}
 
@@ -254,12 +254,14 @@ class Wex extends CI_Controller
 
 
 
-	function reply($company,$campaign)
+	function reply()
 	{
-
+		$campaign = new CampaignsModel();
 		if(!empty($_GET)){
+			$key = $this->input->get('key');
+			$response = $this->input->get('response');
 
-
+			$campaign->mailshotResponse(['rag_status'=>$response,'mailshot_key'=>'Responded'],$key);
 
 
 		}
@@ -268,6 +270,30 @@ class Wex extends CI_Controller
 
 
 	}
+
+
+	function thankyou(){
+
+
+		$this->load->view('pages/emails.php');
+
+	}
+
+
+	function register(){
+		$wex = new WexModel();
+
+		if($_POST){
+			$wex->registerUser($this->input->post());
+		}
+
+		$this->load->view('pages/users/customers_register');
+
+	}
+
+
+
+
 
 
 

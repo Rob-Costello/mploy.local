@@ -143,7 +143,116 @@
 			<!-- /.col -->
 		</div>
 	</section>
+	<section style="min-height:100px !important" class="content">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="box">
+					<div class="box-header with-border">
+						<h3 class="box-title">Mailshot</h3>
 
+						<div class="box-tools pull-right">
+							<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+							</button>
+							<div class="btn-group">
+								<button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
+									<i class="fa fa-wrench"></i></button>
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="#">Action</a></li>
+									<li><a href="#">Another action</a></li>
+									<li><a href="#">Something else here</a></li>
+									<li class="divider"></li>
+									<li><a href="#">Separated link</a></li>
+								</ul>
+							</div>
+							<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+						</div>
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body">
+						<?php if($mailshot==1): ?>
+							<div class="row">
+
+								<div class="col-md-3">
+									<button class="btn btn-mploy ?>" value="all" onclick="mailshot('7')"> Send Mailshot 1</button>
+								</div>
+								<div class="col-md-3">
+
+								</div>
+
+								<div class="col-md-3">
+									<button class="btn btn-mploy disabled ?>" name="status" value="pending" disabled> Send Mailshot 2</button>
+								</div>
+								<div class="col-md-3">
+
+								</div>
+								<!-- /.col -->
+
+								<!-- /.col -->
+							</div>
+							<!-- /.row -->
+
+						<?php else: ?>
+							<?php if($mailshot==2): ?>
+								<div class="row">
+
+									<div class="col-md-3">
+										<button class="btn btn-mploy disabled ?>"  value="all" disabled> Send Mailshot 1</button>
+									</div>
+									<div class="col-md-3">
+										<p>	User: <?php echo $mail[0][0]['username']; ?> </p>
+										<p>	Time: <?php echo $mail[0][0]['date_time']; ?></p>
+										<p>	Emails Sent: <?php  echo count($mail[0]); ?></p>
+
+									</div>
+									<div class="col-md-3">
+										<button class="btn btn-mploy ?>"  value="pending" onclick="mailshot('8')"> Send Mailshot 2</button>
+									</div>
+									<div class="col-md-3">
+
+									</div>
+									<!-- /.col -->
+
+									<!-- /.col -->
+								</div>
+
+							<?php else:?>
+								<div class="row">
+
+									<div class="col-md-3">
+										<button class="btn btn-mploy disabled ?>"  value="all" disabled> Send Mailshot 1</button>
+									</div>
+									<div class="col-md-3">
+										<p>	User: <?php echo $mail[0][0]['username']; ?> </p>
+										<p>	Time: <?php echo $mail[0][0]['date_time']; ?></p>
+										<p>	Emails Sent: <?php  echo count($mail[0]); ?></p>
+									</div>
+									<div class="col-md-3">
+										<button class="btn btn-mploy disabled ?>"  value="pending" disabled> Send Mailshot 2</button>
+									</div>
+									<div class="col-md-3">
+
+										<p>	User: <?php echo $mail[1][0]['username']; ?> </p>
+										<p>	Time: <?php echo $mail[1][0]['date_time']; ?></p>
+										<p>	Emails Sent: <?php  echo count($mail[1]); ?></p>
+									</div>
+									<!-- /.col -->
+
+									<!-- /.col -->
+								</div>
+
+							<?php endif ?>
+
+						<?php endif ?>
+					</div>
+					<!-- ./box-body -->
+
+					<!-- /.box-footer -->
+				</div>
+				<!-- /.box -->
+			</div>
+			<!-- /.col -->
+		</div>
+	</section>
 
 	<!-- Main content -->
 	<section class="content">
@@ -264,6 +373,27 @@
 </div>
 
 
+
+<script>
+
+	function mailshot(shot){
+
+
+
+		var target = '/campaigns/sendmailshot/<?php echo $camp_ref?>/'+shot;
+		$.ajax({
+			url: target,
+			type: 'POST',
+			data: {},
+			success: function (data, textStatus, XMLHttpRequest) {
+				//$(item).closest('tr').remove();
+			}
+		});
+
+	}
+
+
+</script>
 
 
 

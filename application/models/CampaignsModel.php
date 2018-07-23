@@ -568,8 +568,9 @@ class CampaignsModel extends CI_Model
 
         foreach( $data as $v ) {
 
-            $this->db->insert('mploy_rel_campaign_employers',  [ 'campaign_id' => $campaign_id, 'org_id' => $v ]);
-
+            $insert_query = $this->db->insert_string('mploy_rel_campaign_employers', [ 'campaign_id' => $campaign_id, 'org_id' => $v ]);
+            $insert_query = str_replace('INSERT INTO','INSERT IGNORE INTO',$insert_query);
+            $this->db->query($insert_query);
         }
 
     }

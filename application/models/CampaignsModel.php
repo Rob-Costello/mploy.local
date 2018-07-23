@@ -699,7 +699,7 @@ class CampaignsModel extends CI_Model
 		}
 
 		$this->db->select('*');
-		$this->db->join('mploy_organisations', 'mploy_rel_campaign_employers.org_id = mploy_organisations.wex_org_id' );
+		$this->db->join('mploy_organisations', 'mploy_rel_campaign_employers.org_id = mploy_organisations.id' );
 		$this->db->join('mploy_contacts','mploy_organisations.main_contact_id = mploy_contacts.id','left');
 
 		$query = $this->db->get_where('mploy_rel_campaign_employers', 'campaign_id='.$campaign.' '.$emailString);

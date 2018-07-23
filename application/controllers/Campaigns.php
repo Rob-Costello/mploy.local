@@ -239,6 +239,8 @@ class Campaigns extends CI_Controller
         $data['campaign_list'] = $this->availableCampaigns;
         $campaignModel = new campaignsModel();
         $campaign = $campaignModel->lookupCampaign($camp_ref);
+        $this->session->set_userdata('SelectedCustomer', $campaign['org_id']);
+        $this->session->set_userdata('SelectedCampaign', $camp_ref);
         $data['camp_data'] = $campaign;
         $data['call_data'] = $campaignModel->campaignCalls($camp_ref);
         $orderby = 'mploy_organisations.id';
@@ -442,11 +444,11 @@ class Campaigns extends CI_Controller
             $option = '<option>Select Campaign</option>';
             foreach ($list as $k => $item) {
 
-                if ($item['campaign_id'] == $camp) {
-                    $option .= '<option selected value="' . $item['campaign_id'] . '">' . $item['campaign_name'] . '</option>';
+                if ($item['id'] == $this->session->SelectedCampaign) {
+                    $option .= '<option selected value="' . $item['id'] . '">' . $item['campaign_name'] . '</option>';
                 } else {
 
-                    $option .= '<option value="' . $item['campaign_id'] . '">' . $item['campaign_name'] . '</option>';
+                    $option .= '<option value="' . $item['id'] . '">' . $item['campaign_name'] . '</option>';
                 }
 
             }

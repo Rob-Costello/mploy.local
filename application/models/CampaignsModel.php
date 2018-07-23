@@ -209,6 +209,7 @@ class CampaignsModel extends CI_Model
     public function availableCampaigns()
     {
         $this->db->join('mploy_contacts', 'mploy_campaigns.org_id = mploy_contacts.org_id');
+        $this->db->join('mploy_organisations', 'mploy_campaigns.org_id = mploy_organisations.id');
         $this->db->group_by('mploy_campaigns.org_id');
         $company = $this->db->get_where('mploy_campaigns', 'active =1 OR active =2');
 
@@ -367,7 +368,7 @@ class CampaignsModel extends CI_Model
     public function listCampaigns($campaign)
     {
 
-        $query = $this->db->get_where('mploy_campaigns', 'select_school=' . $campaign);
+        $query = $this->db->get_where('mploy_campaigns', 'org_id=' . $campaign);
 
         return $query->result_array();
     }

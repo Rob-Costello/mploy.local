@@ -75,16 +75,11 @@
 				<div style="margin-top:10px;" class="col-md-3">
 
 					<select id="school-dropdown" class="form-control">
-						<option>Select School</option>
+						<option>Select Customer</option>
                         <?php foreach($campaign_list as $c): ?>
-						    <?php if(isset($camp_id)): ?>
-		                        <option <?php if($camp_id == $c->select_school) echo ' selected'  ?> value="<?php echo $c->select_school ?>" >
-                                    <?php echo $c->school_name ?>
+		                        <option <?php if($this->session->SelectedCustomer == $c->org_id) echo ' selected'  ?> value="<?php echo $c->org_id ?>" >
+                                    <?php echo $c->name ?>
                                 </option>
-
-                            <?php else: ?>
-                            <option  value="<?php echo $c->select_school ?>" ><?php echo $c->school_name ?></option>
-						    <?php endif ?>
                         <?php endforeach; ?>
 					</select>
 				</div>

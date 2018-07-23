@@ -623,23 +623,6 @@ class Campaigns extends CI_Controller
                 $campaign->updateCalendarDate($id, $data);
             }
 
-            /*if($type == 'cam'){
-
-                $dates= [['campaign_place_start_date','campaign_place_end_date'],
-                    'mailshot_1_date',
-                    'mailshot_2_date',
-                    ['employer_engagement_start','employer_engagement_end'],
-                    'self_place_deadline',
-                    'matching_start','matching_end'];
-
-
-
-
-                $data = ['start'=>date('Y-m-d',strtotime($start)),
-                    'end' => date('Y-m-d',strtotime($end))];
-                $campaign->updateCalendarDate($id,$data);
-
-            }*/
 
 
         }
@@ -758,7 +741,7 @@ class Campaigns extends CI_Controller
 		    $message = $this->load->view('/pages/emails/mailshot',$data,true);
 		    $this->email->message($message);
 		    $this->email->send();
-		    $this->email->clear();
+
 	    }
     }
 

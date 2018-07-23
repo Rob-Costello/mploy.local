@@ -12,6 +12,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		$CI->load->model('WexModel');
 		$CI->load->library('session');
 		$CI->load->library('encryption');
+		$CI->load->library('ion_auth');
+
 
     }
 
@@ -46,9 +48,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 	 function checkValid($user)
 	 {
-
-		 //$this->login->login_check_force();
-		 //$user = $this->ion_auth->user()->row();
 		 return $this->encryptSession($user->username);
 
 	 }
@@ -127,12 +126,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	 }
 
 	 function encryptSession($username=null){
-		 //$username='admin@admin.com';
 
 		 $wex = new WexModel();
 		 $session = $wex->getCiSession($username)['id'];
-		 //$session = $wex->getCiSession($username)['id'];
-
 		 return $this->encrypt($session);
 
 	 }

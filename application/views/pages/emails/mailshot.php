@@ -193,12 +193,16 @@
 		a:hover{
 			color: #000000;
 		}
+		button a{
+			color:white;
+
+		}
 		.yes{
 
 
 			background-color: #4CAF50; /* Green */
 			border: none;
-			color: white;
+			color: white !important;
 			padding: 15px 32px;
 			text-align: center;
 			text-decoration: none;
@@ -207,9 +211,9 @@
 
 		}
 		.no {
-			background-color: #f44336; /* Green */
+			background-color: #f44336; /* red */
 			border: none;
-			color: white;
+			color: #fff !important;
 			padding: 15px 32px;
 			text-align: center;
 			text-decoration: none;
@@ -291,7 +295,7 @@ b6d023fbcffbd0f7&amp;id=3Da062f54e1a&amp;e=3D" target="_blank" style="color: #33
 
 													<p>if you would like to accept a student please click the Yes button below</p>
 													<button class="yes"><a href="<?php echo base_url()?>wex/reply?key=<?php echo $key; ?>&response=1">Yes</a></button>
-													<button clss="no"><a href="<?php echo base_url()?>wex/reply?key=<?php echo $key; ?>&response=4">No</a></button>
+													<button class="no"><a href="<?php echo base_url()?>wex/reply?key=<?php echo $key; ?>&response=4">No</a></button>
 
 													<p>Kind regards</p>
 													<table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="100%" style="width:100.0%">
@@ -315,10 +319,8 @@ Company Registration No 079696001<o:p></o:p></span></p>
 															</td>
 															<td width="57" style="width:42.75pt;padding:0cm 0cm 0cm 0cm"></td>
 															<td width="42" style="width:31.5pt;padding:0cm 0cm 0cm 0cm">
-																<p class="MsoNormal"><a href="http://www.facebook.com/MPloySolutions"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;color:#F78F20;mso-fareast-language:EN-GB;text-decoration:none"><img border="0" width="42" height="43" id="Picture_x0020_5" src="cid:image002.gif@01D419DB.1E92DAE0" alt="Facebook"></span></a><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;color:#707074;mso-fareast-language:EN-GB"><o:p></o:p></span></p>
 															</td>
 															<td width="43" style="width:32.25pt;padding:0cm 0cm 0cm 0cm">
-																<p class="MsoNormal"><a href="https://twitter.com/@MPloySolutions"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;color:#F78F20;mso-fareast-language:EN-GB;text-decoration:none"><img border="0" width="43" height="43" id="_x0000_i1036" src="cid:image003.gif@01D419DB.1E92DAE0" alt="Twitter"></span></a><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;color:#707074;mso-fareast-language:EN-GB"><o:p></o:p></span></p>
 															</td>
 														</tr>
 														</tbody>

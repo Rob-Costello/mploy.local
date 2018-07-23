@@ -172,19 +172,21 @@
 						<?php if($mailshot==1): ?>
 							<div class="row">
 
-								<div class="col-md-3">
+								<div class="col-md-2">
 									<div id="7"></div>
 									<button class="btn btn-mploy ?>" value="all" onclick="mailshot('7')"> Send Mailshot 1</button>
 								</div>
-								<div class="col-md-3">
+								<div class="col-md-2">
 
 								</div>
 
-								<div class="col-md-3">
+								<div class="col-md-2">
 									<button class="btn btn-mploy disabled ?>" name="status" value="pending" disabled> Send Mailshot 2</button>
 								</div>
-								<div class="col-md-3">
+								<div class="col-md-2">
 
+								</div>
+								<div class="col-md-2"  name="status" value="pending"><button class="btn btn-mploy" onclick="window.open('/campaigns/testmailshot/<?php echo $camp_ref ?>/7')"> Test mailshot </button>
 								</div>
 								<!-- /.col -->
 
@@ -196,22 +198,26 @@
 							<?php if($mailshot==2): ?>
 								<div class="row">
 
-									<div class="col-md-3">
+									<div class="col-md-2">
 										<button class="btn btn-mploy disabled ?>"  value="all" disabled> Send Mailshot 1</button>
 									</div>
-									<div class="col-md-3">
+									<div class="col-md-2">
 										<p>	User: <?php echo $mail[0][0]['username']; ?> </p>
 										<p>	Time: <?php echo date('d/m/Y H:i:s',strtotime($mail[0][0]['date_time'])); ?></p>
 										<p>	Emails Sent: <?php  echo count($mail[0]); ?></p>
 
 									</div>
-									<div  class="col-md-3">
+									<div  class="col-md-2">
 										<div id="8"></div>
 										<button class="btn btn-mploy ?>"  value="pending" onclick="mailshot('8')"> Send Mailshot 2</button>
 									</div>
-									<div class="col-md-3">
+									<div class="col-md-2">
 
 									</div>
+
+										<div class="col-md-2"  name="status" value="pending"><button class="btn btn-mploy" onclick="window.open('/campaigns/testmailshot/<?php echo $camp_ref ?>/7')"> Test mailshot </button>
+										</div>
+
 									<!-- /.col -->
 
 									<!-- /.col -->
@@ -220,18 +226,18 @@
 							<?php else:?>
 								<div class="row">
 
-									<div class="col-md-3">
+									<div class="col-md-2">
 										<button class="btn btn-mploy disabled ?>"  value="all" disabled> Send Mailshot 1</button>
 									</div>
-									<div id="7" class="col-md-3">
+									<div id="7" class="col-md-2">
 										<p>	User: <?php echo $mail[0][0]['username']; ?> </p>
 										<p>	Time: <?php echo date('d/m/Y H:i:s',strtotime($mail[0][0]['date_time'])); ?></p>
 										<p>	Emails Sent: <?php  echo count($mail[0]); ?></p>
 									</div>
-									<div class="col-md-3">
+									<div class="col-md-2">
 										<button class="btn btn-mploy disabled ?>"  value="pending" disabled> Send Mailshot 2</button>
 									</div>
-									<div id="8" class="col-md-3">
+									<div id="8" class="col-md-2">
 
 										<p>	User: <?php echo $mail[1][0]['username']; ?> </p>
 										<p>	Time: <?php echo date('d/m/Y H:i:s',strtotime($mail[1][0]['date_time'])); ?></p>
@@ -240,6 +246,8 @@
 									<!-- /.col -->
 
 									<!-- /.col -->
+									<div class="col-md-2"  name="status" value="pending"><button class="btn btn-mploy" onclick="window.open('/campaigns/testmailshot/<?php echo $camp_ref ?>/7')"> Test mailshot </button>
+									</div>
 								</div>
 
 							<?php endif ?>

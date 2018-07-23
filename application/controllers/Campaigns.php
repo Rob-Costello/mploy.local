@@ -736,8 +736,7 @@ class Campaigns extends CI_Controller
     function mail($email,$data){
 
     	$this->load->library('email');
-	    $this->user->email;
-    	$emails = array('rob@hyperext.com');
+    	$emails = array($email);
 	    $config = array (
 		    'mailtype' => 'html',
 		    'charset'  => 'utf-8',
@@ -758,6 +757,39 @@ class Campaigns extends CI_Controller
 		    $this->email->send();
 		    $this->email->clear();
 	    }
+    }
+
+
+	function testMailshot($camp_id,$mailshot =7){
+		$campaignsModel = new CampaignsModel();
+		$sent = $campaignsModel->getSentEmails($camp_id,$mailshot);
+		$emails = [];
+		array_walk($sent,function(&$v, &$k) use (&$emails){$emails[] = "'".$v['receiver']."'";});
+		$sent = implode(",",$emails);
+		$shots = $campaignsModel->getMailshot($camp_id,$sent,$mailshot,true);
+
+		foreach($shots as $shot){
+			if ($shot['email'] != '') {
+				$emails[]=$shot['email'];
+				$values = ['activity_type_id' => $mailshot,
+					'campaign_id' => $camp_id,
+					'user_id' => $this->user->id,
+					'org_id' => $shot['org_id'],
+					'receiver' => $shot['email'],
+					'placements'=>0,
+					'date_time' => date("Y-m-d H:i:s"),
+					'mailshot_key' => base64_encode($camp_id . ',' . $shot['org_id'] . ',' . $mailshot . ',' . date('d-m-Y H:i:s'))];
+
+				$shot['key'] = $values['mailshot_key'];
+				$shot['first_name'] = $this->user->first_name;
+				$data = $shot;
+				$this->mail($this->user->email,$data);
+				//$this->load->view('/pages/emails/mailshot',$data);
+				break;
+
+			}
+		}
+		$this->load->view('/pages/emails/mailshot',$data);
     }
 
 

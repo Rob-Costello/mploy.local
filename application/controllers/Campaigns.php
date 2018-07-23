@@ -733,32 +733,37 @@ class Campaigns extends CI_Controller
         }
     }
 
-    function mail($email,$message){
+    function mail($email,$data){
 
-	    $this->load->library('email');
-	    $emails = array('rob@hyperext.com');
+    	$this->load->library('email');
+	    $this->user->email;
+    	$emails = array('rob@hyperext.com');
 	    $config = array (
 		    'mailtype' => 'html',
 		    'charset'  => 'utf-8',
-		    'priority' => '1'
+		    'priority' => '1',
+		    'protocol' => 'sendmail'
 	    );
+
 	    $this->email->initialize($config);
-	    $this->email->from('support@mploy.com', 'Steve Smith');
+	    $this->email->from( $this->user->email, 'Mploy Support');
 
 	    foreach($emails as $e){
 		    $this->email->to($e);
 
 		    //$this->email->subject($subject);
 		    $this->email->subject('mail shot');
-		    $message = $this->load->view('/pages/emails/mailshot');
+		    $message = $this->load->view('/pages/emails/mailshot',$data,true);
 		    $this->email->message($message);
 		    $this->email->send();
+		    $this->email->clear();
 	    }
     }
 
 
-	function sendMailshot($camp_id,$mailshot =7){
 
+
+	function sendMailshot($camp_id,$mailshot =7){
 		$campaignsModel = new CampaignsModel();
 		$sent = $campaignsModel->getSentEmails($camp_id,$mailshot);
 		$emails = [];
@@ -766,6 +771,13 @@ class Campaigns extends CI_Controller
 		$sent = implode(",",$emails);
 
 		$shots = $campaignsModel->getMailshot($camp_id,$sent,$mailshot);
+
+		ob_start();
+		$size = ob_get_length();
+
+// send headers to tell the browser to close the connection
+		header("Content-Length: $size");
+		header('Connection: close');
 
 		foreach($shots as $shot){
 			if ($shot['email'] != '') {
@@ -778,15 +790,12 @@ class Campaigns extends CI_Controller
 					'placements'=>0,
 					'date_time' => date("Y-m-d H:i:s"),
 					'mailshot_key' => base64_encode($camp_id . ',' . $shot['org_id'] . ',' . $mailshot . ',' . date('d-m-Y H:i:s'))];
-				$campaignsModel->newCall($values);
-
-
 			}
-			//$this->mail($emails);
-
+			$this->mail($emails,$shot);
 		}
-
-
+		ob_end_flush();
+		ob_flush();
+		flush();
 
     }
 

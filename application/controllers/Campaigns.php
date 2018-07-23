@@ -254,8 +254,8 @@ class Campaigns extends CI_Controller
         }
 
         $data['user'] = $this->user;
-        $data['headings'] = ['Name', 'Main Telephone', 'Address', 'Line of Business', 'Last Contacted', 'Status'];
-        $data['fields'] = ['name', 'phone', 'address1', 'line_of_business', 'date_time', 'status'];
+        $data['headings'] = ['Name', 'Main Telephone', 'Address', 'Line of Business', 'Last Contacted', 'Email', 'Status'];
+        $data['fields'] = ['name', 'phone', 'address1', 'line_of_business', 'date_time', 'email', 'status'];
         $offset = 0;
 
         if ($pageNo > 0) {

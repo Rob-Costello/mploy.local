@@ -157,7 +157,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <h3 class="box-title">
-                            <?= $title; ?>
+                            <?= $title; ?> (<?php echo $table['count']; ?>)
                         </h3>
                     </div>
                     <div class="col-md-6">
@@ -229,6 +229,9 @@
 						</td>
                         <td>
                             <?php if($company->date_time !== null) echo date("d/m/Y H:i", strtotime($company->date_time));?>
+                        </td>
+                        <td>
+                            <?php echo $company->email; ?>
                         </td>
 						<td>
                             <img src="<?php echo base_url()."assets/";?>dist/img/<?php if($company->rag_status == null) echo 3; echo $company->rag_status ?>.png" class="img-circle" alt="Status">

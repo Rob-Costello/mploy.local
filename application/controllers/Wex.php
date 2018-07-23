@@ -82,7 +82,7 @@ class Wex extends CI_Controller
 
 		$this->login->login_check_force();
 		$user = $this->ion_auth->user()->row();
-		echo $this->encryptSession($user->username);
+		var_dump( $this->encryptSession($user->username));
 
 	}
 

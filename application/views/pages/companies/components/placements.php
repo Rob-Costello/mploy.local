@@ -61,7 +61,7 @@
                                                 <td><?php echo date("d/m/Y", strtotime($call->campaign_place_start_date)); ?></td>
                                                 <td><?php echo date("d/m/Y", strtotime($call->campaign_place_end_date)); ?></td>
                                                 <td><?php echo $call->placements ?></td>
-		                                        <td><button onclick =window.open("https://www.workexperiences.co.uk/businesses/company.cfm?id=<?php echo $call->wex_org_id ?>&sso_key=<?php echo $sso_key?>",'Mploy',"height=800,width=600") class="btn btn-mploy"> WEX</button></td>
+		                                        <td><a href="https://www.workexperiences.co.uk/businesses/company.cfm?id=<?php echo $call->wex_org_id ?>&sso_key=<?php echo $sso_key?>" target="_blank" class="btn btn-mploy"> WEX</a></td>
                                             </tr>
                                         <?php endforeach ?>
                                         </tbody>

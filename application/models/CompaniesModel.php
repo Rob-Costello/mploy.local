@@ -100,7 +100,7 @@ class CompaniesModel extends CI_Model
 
     public function getCompanyPlacements($id){
 
-        $this->db->select('mploy_organisations.*, mploy_campaigns.*, mploy_rel_campaign_employers.*');
+        $this->db->select('mploy_rel_campaign_employers.*,mploy_organisations.*, mploy_campaigns.*, mploy_organisations.wex_org_id');
         $this->db->join('mploy_campaigns', 'mploy_rel_campaign_employers.campaign_id = mploy_campaigns.id');
         $this->db->join('mploy_organisations', 'mploy_campaigns.org_id = mploy_organisations.id');
         $this->db->where('mploy_rel_campaign_employers.org_id=' . $id);

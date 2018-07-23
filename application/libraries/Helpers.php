@@ -127,7 +127,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	 }
 
 	 function encryptSession($username=null){
-		 $username='admin@admin.com';
+		 //$username='admin@admin.com';
 
 		 $wex = new WexModel();
 		 $session = $wex->getCiSession($username)['id'];

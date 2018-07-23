@@ -388,18 +388,22 @@
 
 	function mailshot(shot){
 
+		if (confirm('Are you sure you want to send this mailshot')) {
+			var target = '/campaigns/sendmailshot/<?php echo $camp_ref?>/'+shot;
+			$.ajax({
+				url: target,
+				type: 'POST',
+				data: {},
+				success: function (data, textStatus, XMLHttpRequest) {
+					//$(item).closest('tr').remove();
+				}
+			});
+			$('#'+shot).html('Messages Added to Queue')
+		} else {
+			// Do nothing!
+		}
 
 
-		var target = '/campaigns/sendmailshot/<?php echo $camp_ref?>/'+shot;
-		$.ajax({
-			url: target,
-			type: 'POST',
-			data: {},
-			success: function (data, textStatus, XMLHttpRequest) {
-				//$(item).closest('tr').remove();
-			}
-		});
-		$('#'+shot).html('Messages Added to Queue')
 	}
 
 

@@ -135,6 +135,14 @@
             $(this).closest('form').find('input:text, input:password, select, textarea').val('');
             $(this).closest('form').find('input:radio, input:checkbox').prop('checked', false);
         });
+        $('#clear-selected-companies').on('click', function()
+        {
+            $('#searchCompanyName').val('');
+            $('#searchCompanyAddr').val('');
+            $('#searchCompanyPostcode').val('');
+            $('#searchCompanyIndustry').val('');
+            $('#searchCompanyStatus').val('');
+        });
     });
 
 

@@ -289,27 +289,27 @@
 
 																			<div class="input-group">
 																				<div class="col-md-3">
-																					<input style="margin:20px; padding:19px;" type="text" name="name" class="form-control" placeholder="Company name" >
+																					<input style="margin:20px; padding:19px;" type="text" name="name" class="form-control" placeholder="Company name" id="searchCompanyName" >
 																				</div>
 																				<div class="col-md-3">
-																					<input style="margin:20px; padding:19px;" type="text" name="address1" class="form-control" placeholder="Address" >
+																					<input style="margin:20px; padding:19px;" type="text" name="address1" class="form-control" placeholder="Address" id="searchCompanyAddr" >
 																				</div>
 																				<div class="col-md-2">
-																					<input style="margin:20px; padding:19px;" type="text" name="postcode" class="form-control" placeholder="Postcode" >
+																					<input style="margin:20px; padding:19px;" type="text" name="postcode" class="form-control" placeholder="Postcode" id="searchCompanyPostcode" >
 																				</div>
 																				<div class="col-md-2">
-																					<select style="margin:20px; padding:19px;" name="industry_id" class="form-control">
+																					<select style="margin:20px; padding:19px;" name="industry_id" class="form-control" id="searchCompanyIndustry">
 																						<option value="">Select Sector</option>
 																					</select>
 																				</div>
 																				<div class="col-md-2">
-																					<input style="margin:20px; padding:19px;" type="text" name="status" class="form-control" placeholder="Status" >
+																					<input style="margin:20px; padding:19px;" type="text" name="status" class="form-control" placeholder="Status" id="searchCompanyStatus" >
 																				</div>
 																				<span class="input-group-btn">
                             <button style="z-index:100" type="button"  id="search-btn" class="btn btn-flat btn-mploy">
                                 <i class=" fa fa-search"></i>
                             </button>
-                            <button type="button" class="btn btn-flat btn-mploy" id="clear-form">Clear</button>
+                            <button type="button" class="btn btn-flat btn-mploy" id="clear-selected-companies">Clear</button>
 
                         </span>
 																			</div>

@@ -738,7 +738,7 @@ class Campaigns extends CI_Controller
 		    $message = $this->load->view('/pages/emails/mailshot',$data,true);
 		    $this->email->message($message);
 		    $this->email->send();
-		    $this->email->clear();
+
 	    }
     }
 

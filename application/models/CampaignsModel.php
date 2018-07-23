@@ -659,4 +659,64 @@ class CampaignsModel extends CI_Model
     }
 
 
+	public function getSentEmails($campaign,$mailshot)
+	{
+		$this->db->select('*');
+		$this->db->join('users', 'users.id = mploy_organisation_contact_history.user_id' );
+
+		$query = $this->db->get_where("mploy_organisation_contact_history","campaign_id=".$campaign." AND activity_type_id =". $mailshot);
+		return $query->result_array();
+	}
+
+
+	public function getMailshot($campaign,$emails,$mailshot=7,$test=false){
+		$emailString ='';
+		if($test){
+			$emails=null;
+		}
+
+		if($emails !=''|| null!=$emails){
+			$emailString = " AND mploy_contacts.email not in (".$emails.") ";
+
+		}
+
+		if($mailshot == 8){
+
+
+			$this->db->select('org_id,receiver as email');
+			$this->db->where('campaign_id',$campaign);
+			$this->db->where('activity_type_id',7);
+			$this->db->not_like('mailshot_key','Responded');
+
+			if($emails !=''){
+				$query = $this->db->get_where('mploy_organisation_contact_history','receiver not in ('.$emails.')');
+			}else{
+				$query = $this->db->get('mploy_organisation_contact_history');
+			}
+
+			//$query = $this->db->get_where('mploy_organisation_contact_history','receiver not in ('.$emails.')');
+			return $query->result_array();
+		}
+
+		$this->db->select('*');
+		$this->db->join('mploy_organisations', 'mploy_rel_campaign_employers.org_id = mploy_organisations.wex_org_id' );
+		$this->db->join('mploy_contacts','mploy_organisations.main_contact_id = mploy_contacts.id','left');
+
+		$query = $this->db->get_where('mploy_rel_campaign_employers', 'campaign_id='.$campaign.' '.$emailString);
+		return $query->result_array();
+
+	}
+
+	public function mailshotResponse($data,$key)
+	{
+
+		$this->db->set($data);
+		$this->db->where('mailshot_key',$key);
+		$this->db->update('mploy_organisation_contact_history');
+
+
+	}
+
+
+
 }

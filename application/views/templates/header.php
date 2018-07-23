@@ -58,7 +58,7 @@
             <span class="logo-mini"><b>M</b>ploy</span>
             <!-- logo for regular state and mobile devices -->
             <div class="logo-lg pull-left">
-				<img style="height: 65px;" src=" <?php echo base_url()?>assets/images/logo.png">
+				<img style="height: 60px; margin-top: 5px;" src=" <?php echo base_url()?>assets/images/logo.png">
 
 			</div>
         </a>

@@ -30,21 +30,12 @@
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="<?php echo base_url()."assets/";?>plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
     <link rel="stylesheet" href="<?php echo base_url()."assets/";?>css/style.css">
-    
-
-
-
-
-    
-
-
-
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-    <script src="<?php echo base_url()."assets/";?>https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="<?php echo base_url()."assets/";?>https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <script src="<?php echo base_url() . "assets/";?>https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="<?php echo base_url() . "assets/";?>https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
     <!-- Google Font -->
@@ -60,7 +51,7 @@
             <span class="logo-mini"><b>M</b>ploy</span>
             <!-- logo for regular state and mobile devices -->
             <div class="logo-lg pull-left">
-				<img style="height: 65px;" src=" <?php echo base_url()?>assets/images/logo.png">
+				<img style="height: 60px; margin-top: 5px;" src=" <?php echo base_url()?>assets/images/logo.png">
 
 			</div>
         </a>

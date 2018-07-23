@@ -458,10 +458,11 @@ class Campaigns extends CI_Controller
     }
 
 
-    function calendar($id, $campaign = null)
+    function calendar($id = null, $campaign = null)
     {
         $data['title'] = 'Calendar';
         $data['user'] = $this->user;
+        $data['org_id'] = $id;
         $campaign = new campaignsModel();
         $data['campaign_list'] = $this->availableCampaigns;
         $data['school_name'] = $campaign->getSchoolName($id)['name'];

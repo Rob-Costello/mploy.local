@@ -56,7 +56,7 @@
                                         <?php foreach($placements as $call): ?>
 
 	                                        <tr>
-                                                <td><?php echo $call->name?></td>
+                                                <td><?php echo $call->school; ?></td>
                                                 <td><?php echo $call->campaign_name ?></td>
                                                 <td><?php echo date("d/m/Y", strtotime($call->campaign_place_start_date)); ?></td>
                                                 <td><?php echo date("d/m/Y", strtotime($call->campaign_place_end_date)); ?></td>

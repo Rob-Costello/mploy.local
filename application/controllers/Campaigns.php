@@ -388,7 +388,7 @@ class Campaigns extends CI_Controller
 
         if (array_search($id, $this->session->company_nav) > 0)
             $data['prev'] = $this->session->company_nav[array_search($id, $this->session->company_nav) - 1];
-        if (array_search($id, $this->session->company_nav) != count($this->session->company_nav))
+        if (array_search($id, $this->session->company_nav) != count($this->session->company_nav)-1)
             $data['next'] = $this->session->company_nav[array_search($id, $this->session->company_nav) + 1];
         $data['sso_key'] = $this->helpers->checkValid($this->user);
 
@@ -773,11 +773,7 @@ class Campaigns extends CI_Controller
 		$shots = $campaignsModel->getMailshot($camp_id,$sent,$mailshot);
 
 		ob_start();
-		$size = ob_get_length();
 
-// send headers to tell the browser to close the connection
-		header("Content-Length: $size");
-		header('Connection: close');
 
 		foreach($shots as $shot){
 			if ($shot['email'] != '') {
@@ -790,8 +786,19 @@ class Campaigns extends CI_Controller
 					'placements'=>0,
 					'date_time' => date("Y-m-d H:i:s"),
 					'mailshot_key' => base64_encode($camp_id . ',' . $shot['org_id'] . ',' . $mailshot . ',' . date('d-m-Y H:i:s'))];
+
+				$shot['key'] = $values['mailshot_key'];
+				$shot['first_name'] = $this->user->first_name;
+				$data = $shot;
+				$this->mail($emails,$shot);
+				$campaignsModel->newCall($values);
+				$size = ob_get_length();
+				header("Content-Length: $size");
+				header('Connection: close');
+
 			}
-			$this->mail($emails,$shot);
+
+
 		}
 		ob_end_flush();
 		ob_flush();

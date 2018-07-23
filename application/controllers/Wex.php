@@ -266,6 +266,7 @@ class Wex extends CI_Controller
 
 		}
 
+		$this->load->view('pages/emails/thankyou');
 
 
 
@@ -275,7 +276,7 @@ class Wex extends CI_Controller
 	function thankyou(){
 
 
-		$this->load->view('pages/emails.php');
+		$this->load->view('pages/emails/thankyou');
 
 	}
 

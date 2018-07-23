@@ -193,6 +193,29 @@
 		a:hover{
 			color: #000000;
 		}
+		.yes{
+
+
+			background-color: #4CAF50; /* Green */
+			border: none;
+			color: white;
+			padding: 15px 32px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+
+		}
+		.no {
+			background-color: #f44336; /* Green */
+			border: none;
+			color: white;
+			padding: 15px 32px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+		}
 	</style></head>
 <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0" style="-webkit-text-size-adjust: none;margin: 0;padding: 0;background-color: #FAFAFA;width: 100% !important; padding-bottom: 50px;">
 <center>
@@ -267,8 +290,8 @@ b6d023fbcffbd0f7&amp;id=3Da062f54e1a&amp;e=3D" target="_blank" style="color: #33
 													</p>
 
 													<p>if you would like to accept a student please click the Yes button below</p>
-													<button><a href="<?php echo base_url()?>reply?key=<?php echo $key; ?>&response=<?php echo $response; ?>">Yes</a></button>
-													<button><a href="<?php echo base_url()?>reply?key=<?php echo $key; ?>&response=<?php echo $response; ?>">No</a></button>
+													<button class="yes"><a href="<?php echo base_url()?>wex/reply?key=<?php echo $key; ?>&response=1">Yes</a></button>
+													<button clss="no"><a href="<?php echo base_url()?>wex/reply?key=<?php echo $key; ?>&response=4">No</a></button>
 
 													<p>Kind regards</p>
 													<table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="100%" style="width:100.0%">

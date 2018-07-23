@@ -753,6 +753,7 @@ class Campaigns extends CI_Controller
 		array_walk($sent,function(&$v, &$k) use (&$emails){$emails[] = "'".$v['receiver']."'";});
 		$sent = implode(",",$emails);
 		$shots = $campaignsModel->getMailshot($camp_id,$sent,$mailshot,true);
+		$data = array();
 
 		foreach($shots as $shot){
 			if ($shot['email'] != '') {
@@ -775,6 +776,7 @@ class Campaigns extends CI_Controller
 
 			}
 		}
+
 		$this->load->view('/pages/emails/mailshot',$data);
     }
 

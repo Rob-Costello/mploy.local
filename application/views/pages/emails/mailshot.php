@@ -283,7 +283,7 @@ b6d023fbcffbd0f7&amp;id=3Da062f54e1a&amp;e=3D" target="_blank" style="color: #33
 
 													<p>My name is <?php echo $first_name?> from Mploy Solutions and I’m working with <?php echo $name?>  to help organise their work experience placements for the forthcoming academic year</p>
 													<p>I am emailing yourself to see if you would consider offering any work experience opportunities for a student from the school.</p>
-													<p>The students are looking for a week block placement from <strong> <?php echo $placement_start_date ." - ".$placement_end_date?></strong></p>
+													<p>The students are looking for a week block placement from <strong> <?php echo $campaign_place_start_date ." - ".$campaign_place_end_date?></strong></p>
 													<p>Work experience is a key part of a students education and we looking for local businesses to help guide students through this part of their school curriculum.  After the students have received training they are there to shadow and assist staff members with their day to day duties, which can hopefully relieve some pressure for a week or so.  I know in a few roles they will have to be supervised by a staff member.  This can be a great opportunity for employees, as it gives them a chance to share their knowledge and learn how to train, encourage and motivate new team members. You will also benefit because you will be having a positive impact on your local community in helping mould and guide future talent. The aim of this experience is to gain an insight into the business, the types of roles you offer and the routes into the different areas of this industry. In a few years time your could even see these students returning for possible job opportunities.</p>
 
 

@@ -183,8 +183,7 @@ function calls ($percent)
                                                 </b>/ <?php echo  $campaign['campaign_display']->students_to_place;?></span>
 
                                             <div class="progress sm">
-                                                <div class="progress-bar progress-bar-yellow" style="width: <?php if ((int)$callinfo[$key]['success']  <= 0 ) echo 0; echo $percent = ((int)$callinfo[$key]['success'] * 100  / (int)$campaign['campaign_display']->students_to_place );?>%
-	                                                ;"></div>
+                                                <div class="progress-bar progress-bar-yellow" style="width: <?php if ((int)$callinfo[$key]['success']  <= 0 ) echo 0; echo $percent = ((int)$callinfo[$key]['success'] * 100  / (int)$campaign['campaign_display']->students_to_place );?>%; background-color: <?php echo percent($percent); ?>;"></div>
                                             </div>
                                         </div>
                                         <!-- /.progress-group -->
@@ -193,7 +192,7 @@ function calls ($percent)
                                             <span class="progress-number"><b><?php echo round((int)$callinfo[$key]['success'] );?></b>/ <?php if($callinfo[$key]['all'] =='') echo 0; else echo $callinfo[$key]['all']; ?></span>
 
                                             <div class="progress sm">
-	                                            <div class="progress-bar progress-bar-red" style="width: <?php if ((int)$callinfo[$key]['success']  <= 0 || $callinfo[$key]['all']=='' ) echo 0; else echo $percent = ((int)$callinfo[$key]['success'] * 100  / (int)$callinfo[$key]['all']  );?>%
+	                                            <div class="progress-bar progress-bar-aqua" style="width: <?php if ((int)$callinfo[$key]['success']  <= 0 || $callinfo[$key]['all']=='' ) echo 0; else echo $percent = ((int)$callinfo[$key]['success'] * 100  / (int)$callinfo[$key]['all']  );?>%
 		                                            ;"></div>
                                             </div>
                                         </div>
@@ -203,8 +202,8 @@ function calls ($percent)
 
 												<?php
 
-												$startdate = new DateTime(date('Y-m-d',strtotime($campaign['campaign_display']->campaign_start_date)));
-												$enddate =  new DateTime(date('Y-m-d',strtotime($campaign['campaign_display']->campaign_place_start_date)));
+												$startdate = new DateTime(date('Y-m-d',strtotime($campaign['campaign_display']->employer_engagement_start)));
+												$enddate =  new DateTime(date('Y-m-d',strtotime($campaign['campaign_display']->employer_engagement_end)));
 												if($startdate > $enddate){
 													$days = 0;
 												}

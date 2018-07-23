@@ -319,7 +319,7 @@
                 </div>
                 <!-- /.row -->
 
-				<table id="example2" class="table table-bordered table-striped" style="margin-top: 20px">
+				<table id="example2" class="table table-bordered table-striped dataTable" style="margin-top: 20px">
 					<thead>
 					<tr>
 						<?php for($i=0; $i< count($headings); $i++ ):?>

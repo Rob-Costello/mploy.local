@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.=w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>EMS</title>
+	<title>Mploy</title>
 	<style type="text/css">
 		#outlook a{
 			padding:0;
@@ -257,7 +257,7 @@ b6d023fbcffbd0f7&amp;id=3Da062f54e1a&amp;e=3D" target="_blank" style="color: #33
 								<tr>
 									<td class="headerContent" style="border-collapse: collapse;color: #202020;font-family: Arial;font-size: 34px;font-weight: bold;line-height: 100%;padding: 0;text-align: center;vertical-align: middle;">
 										<!-- // Begin Module: Standard Header Image \\ -->
-										<div style="text-align: left; background-color: #e87d1e; height: 35px;"></div>
+										<div style="text-align: left; background-color: #e87d1e; height: 70px;"><img src="<?php echo base_url()?>assets/images/logo_white.png" style="height:55px; margin: 8px;"></div>
 										<!-- // End Module: Standard Header Image \\ -->
 
 									</td>
@@ -276,7 +276,7 @@ b6d023fbcffbd0f7&amp;id=3Da062f54e1a&amp;e=3D" target="_blank" style="color: #33
 										<!-- // Begin Module: Standard Content \\ -->
 										<table border="0" cellpadding="20" cellspacing="0" width="100%">
 											<tr>
-												<td valign="top" style=3D"border-collapse: collapse;">
+												<td valign="top" style="border-collapse: collapse;">
 												<div style="color: #505050;font-family: Arial;font-size: 14px;line-height: 150%;text-align: left;">
 
 													<p>Good morning,</p>

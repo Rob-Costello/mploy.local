@@ -105,7 +105,6 @@ class CampaignsModel extends CI_Model
 
         $this->db->select('*');
         $this->db->limit($limit, $offset);
-        $this->db->order_by($request);
 
         foreach( $where as $k => $v ){
             if( $k == '' ){
@@ -113,6 +112,14 @@ class CampaignsModel extends CI_Model
             } else {
                 $this->db->where($k, $v);
             }
+        }
+
+        foreach( $_GET as $k => $v ){
+
+            if( $v == 'ASC' || $v == 'DESC' ){
+                $this->db->order_by($k, $v);
+            }
+
         }
 
         $this->db->select('mploy_organisation_contact_history.*, mploy_organisations.*');
@@ -123,13 +130,21 @@ class CampaignsModel extends CI_Model
         $this->db->group_by('mploy_organisations.id');
         $query = $this->db->get('mploy_rel_campaign_employers');
 
-        $this->db->order_by($request);
+
         foreach( $where as $k => $v ){
             if( $k == '' ){
                 $this->db->where($v);
             } else {
                 $this->db->where($k, $v);
             }
+        }
+
+        foreach( $_GET as $k => $v ){
+
+            if( $v == 'ASC' || $v == 'DESC' ){
+                $this->db->order_by($k, $v);
+            }
+
         }
 
         $this->db->select('mploy_organisation_contact_history.*, mploy_organisations.*');

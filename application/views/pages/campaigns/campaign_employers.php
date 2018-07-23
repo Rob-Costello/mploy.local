@@ -204,16 +204,10 @@
 					<thead>
 					<tr>
 						<?php for($i=0; $i< count($headings); $i++ ):?>
-							<th>
-								<form method="get">
-									<input type="hidden" name="orderby" value="<?php echo $fields[$i] ?>">
-									<button class="no-button"><?php echo $headings[$i]; ?> <i class=" fa fa-sort"></i></button>
-								</form>
-
-							</th>
+                            <th class="<?php if(isset($_GET[$fields[$i]]) ) { if( $_GET[$fields[$i]] == 'ASC' ) echo 'sorting_asc'; elseif($_GET[$fields[$i]] == 'DESC') echo 'sorting_desc'; } else echo 'sorting'; ?>" rowspan="1" colspan="1" onclick="window.open(appendParmaterURL('<?php echo $fields[$i]; ?>', '<?php if(isset($_GET[$fields[$i]]) && $_GET[$fields[$i]] == 'ASC') echo 'DESC'; else echo 'ASC'; ?>'),'_self');"><?php echo $headings[$i]; ?></th>
 						<?php endfor;?>
 
-					<th></th>
+					    <th></th>
 					</tr>
 					</thead>
 					<tbody>

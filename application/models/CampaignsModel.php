@@ -640,9 +640,11 @@ class CampaignsModel extends CI_Model
 	}
 
 
-	public function getMailshot($campaign,$emails,$mailshot=7){
+	public function getMailshot($campaign,$emails,$mailshot=7,$test=false){
 		$emailString ='';
-
+		if($test){
+			$emails=null;
+		}
 
 		if($emails !=''|| null!=$emails){
 			$emailString = " AND mploy_contacts.email not in (".$emails.") ";

@@ -388,7 +388,7 @@ class Campaigns extends CI_Controller
 
         if (array_search($id, $this->session->company_nav) > 0)
             $data['prev'] = $this->session->company_nav[array_search($id, $this->session->company_nav) - 1];
-        if (array_search($id, $this->session->company_nav) != count($this->session->company_nav))
+        if (array_search($id, $this->session->company_nav) != count($this->session->company_nav)-1)
             $data['next'] = $this->session->company_nav[array_search($id, $this->session->company_nav) + 1];
         $data['sso_key'] = $this->helpers->checkValid($this->user);
 
@@ -736,8 +736,7 @@ class Campaigns extends CI_Controller
     function mail($email,$data){
 
     	$this->load->library('email');
-	    $this->user->email;
-    	$emails = array('rob@hyperext.com');
+    	$emails = array($email);
 	    $config = array (
 		    'mailtype' => 'html',
 		    'charset'  => 'utf-8',
@@ -761,23 +760,13 @@ class Campaigns extends CI_Controller
     }
 
 
-
-
-	function sendMailshot($camp_id,$mailshot =7){
+	function testMailshot($camp_id,$mailshot =7){
 		$campaignsModel = new CampaignsModel();
 		$sent = $campaignsModel->getSentEmails($camp_id,$mailshot);
 		$emails = [];
 		array_walk($sent,function(&$v, &$k) use (&$emails){$emails[] = "'".$v['receiver']."'";});
 		$sent = implode(",",$emails);
-
-		$shots = $campaignsModel->getMailshot($camp_id,$sent,$mailshot);
-
-		ob_start();
-		$size = ob_get_length();
-
-// send headers to tell the browser to close the connection
-		header("Content-Length: $size");
-		header('Connection: close');
+		$shots = $campaignsModel->getMailshot($camp_id,$sent,$mailshot,true);
 
 		foreach($shots as $shot){
 			if ($shot['email'] != '') {
@@ -790,8 +779,58 @@ class Campaigns extends CI_Controller
 					'placements'=>0,
 					'date_time' => date("Y-m-d H:i:s"),
 					'mailshot_key' => base64_encode($camp_id . ',' . $shot['org_id'] . ',' . $mailshot . ',' . date('d-m-Y H:i:s'))];
+
+				$shot['key'] = $values['mailshot_key'];
+				$shot['first_name'] = $this->user->first_name;
+				$data = $shot;
+				$this->mail($this->user->email,$data);
+				//$this->load->view('/pages/emails/mailshot',$data);
+				break;
+
 			}
-			$this->mail($emails,$shot);
+		}
+		$this->load->view('/pages/emails/mailshot',$data);
+    }
+
+
+
+
+	function sendMailshot($camp_id,$mailshot =7){
+		$campaignsModel = new CampaignsModel();
+		$sent = $campaignsModel->getSentEmails($camp_id,$mailshot);
+		$emails = [];
+		array_walk($sent,function(&$v, &$k) use (&$emails){$emails[] = "'".$v['receiver']."'";});
+		$sent = implode(",",$emails);
+
+		$shots = $campaignsModel->getMailshot($camp_id,$sent,$mailshot);
+
+		ob_start();
+
+
+		foreach($shots as $shot){
+			if ($shot['email'] != '') {
+				$emails[]=$shot['email'];
+				$values = ['activity_type_id' => $mailshot,
+					'campaign_id' => $camp_id,
+					'user_id' => $this->user->id,
+					'org_id' => $shot['org_id'],
+					'receiver' => $shot['email'],
+					'placements'=>0,
+					'date_time' => date("Y-m-d H:i:s"),
+					'mailshot_key' => base64_encode($camp_id . ',' . $shot['org_id'] . ',' . $mailshot . ',' . date('d-m-Y H:i:s'))];
+
+				$shot['key'] = $values['mailshot_key'];
+				$shot['first_name'] = $this->user->first_name;
+				$data = $shot;
+				$this->mail($emails,$shot);
+				$campaignsModel->newCall($values);
+				$size = ob_get_length();
+				header("Content-Length: $size");
+				header('Connection: close');
+
+			}
+
+
 		}
 		ob_end_flush();
 		ob_flush();

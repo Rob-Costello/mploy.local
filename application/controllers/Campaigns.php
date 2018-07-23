@@ -466,7 +466,7 @@ class Campaigns extends CI_Controller
 
         if (!empty($_POST)) {
 
-            $list = $campaign->newCalendarEntry($id, $this->input->post());
+            $campaign->newCalendarEntry($id, $this->input->post());
 
         }
 

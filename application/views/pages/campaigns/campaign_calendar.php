@@ -251,7 +251,8 @@
 			        revertFunc();
 		        }*/
 
-	        }
+	        },
+            displayEventTime: false
 
 
         })

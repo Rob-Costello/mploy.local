@@ -383,7 +383,7 @@ class CampaignsModel extends CI_Model
     public function newCalendarEntry($id, $data)
     {
 
-        $values = array_merge(['school_id' => $id], $data);
+        $values = array_merge(['org_id' => $id], $data);
 
         $this->db->insert('mploy_calendar', $values);
 
@@ -476,8 +476,8 @@ class CampaignsModel extends CI_Model
     public function getCalendarEntries($id)
     {
 
-        $this->db->join('mploy_campaigns', 'mploy_campaigns.id = mploy_calendar.campaign_id');
-        $query = $this->db->get_where('mploy_calendar', 'org_id = ' . $id);
+        $this->db->join('mploy_campaigns', 'mploy_campaigns.org_id = mploy_calendar.org_id');
+        $query = $this->db->get_where('mploy_calendar', 'mploy_campaigns.org_id = ' . $id);
         //$count = $this->db->from('mploy_organisations')->count_all_results();
         return $query->result_array();
     }

@@ -736,7 +736,7 @@ class Campaigns extends CI_Controller
     function mail($email,$message){
 
 	    $this->load->library('email');
-	    $emails = array('paul@hyperext.com','rob@hyperext.com');
+	    $emails = array('rob@hyperext.com');
 	    $config = array (
 		    'mailtype' => 'html',
 		    'charset'  => 'utf-8',

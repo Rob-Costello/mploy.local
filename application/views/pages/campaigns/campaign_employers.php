@@ -230,18 +230,21 @@
 										<button class="btn btn-mploy disabled ?>"  value="all" disabled> Send Mailshot 1</button>
 									</div>
 									<div id="7" class="col-md-2">
-										<p>	User: <?php echo $mail[0][0]['username']; ?> </p>
-										<p>	Time: <?php echo date('d/m/Y H:i:s',strtotime($mail[0][0]['date_time'])); ?></p>
-										<p>	Emails Sent: <?php  echo count($mail[0]); ?></p>
+                                        <?php if(isset($mail[0][0]['username'])) { ?>
+                                            <p>	User: <?php echo $mail[0][0]['username']; ?> </p>
+                                            <p>	Time: <?php echo date('d/m/Y H:i:s',strtotime($mail[0][0]['date_time'])); ?></p>
+                                            <p>	Emails Sent: <?php  echo count($mail[0]); ?></p>
+                                        <?php } ?>
 									</div>
 									<div class="col-md-2">
 										<button class="btn btn-mploy disabled ?>"  value="pending" disabled> Send Mailshot 2</button>
 									</div>
 									<div id="8" class="col-md-2">
-
-										<p>	User: <?php echo $mail[1][0]['username']; ?> </p>
-										<p>	Time: <?php echo date('d/m/Y H:i:s',strtotime($mail[1][0]['date_time'])); ?></p>
-										<p>	Emails Sent: <?php  echo count($mail[1]); ?></p>
+                                        <?php if(isset($mail[1][0]['username'])) { ?>
+                                            <p>	User: <?php echo $mail[1][0]['username']; ?> </p>
+                                            <p>	Time: <?php echo date('d/m/Y H:i:s',strtotime($mail[1][0]['date_time'])); ?></p>
+                                            <p>	Emails Sent: <?php  echo count($mail[1]); ?></p>
+                                        <?php } ?>
 									</div>
 									<!-- /.col -->
 
@@ -349,9 +352,7 @@
 						<td>
                             <img src="<?php echo base_url()."assets/";?>dist/img/<?php if($company->rag_status == null) echo 3; echo $company->rag_status ?>.png" class="img-circle" alt="Status">
 						</td>
-						<td><a class="btn btn-mploy-submit" href="/campaigns/employerdetails/<?php echo $school_id ?>/<?php echo $company->id;?>?campid=<?php echo $camp_ref ?>">
-                                CALL
-                            </a></td>
+						<td><a class="btn btn-mploy-submit" href="/campaigns/employerdetails/<?php echo $school_id ?>/<?php echo $company->id;?>?campid=<?php echo $camp_ref ?>">CALL</a></td>
 
 					</tr>
 					<?php endforeach ?>

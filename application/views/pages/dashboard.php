@@ -442,12 +442,12 @@ function calls ($percent)
 
 								<div class="info-box-content">
 									<span class="info-box-text">Emails Sent</span>
-									<span class="info-box-number">92,050</span>
-
-									<div class="progress">
-										<div class="progress-bar" style="width: 20%"></div>
-									</div>
-									<span class="progress-description">20% Increase in 30 Days</span>
+									<span class="info-box-number"><?php echo $total_emails['total'] ?></span>
+                                    <?php if($total_emails['days'] > 0) { $percent = $total_emails['days'] * 100 / $total_emails['total']; } else {$percent = 0;} ?>
+                                    <div class="progress">
+                                        <div class="progress-bar" style="width: <?php echo (int)$percent?>%"></div>
+                                    </div>
+                                    <span class="progress-description"><?php   echo (int)$percent ?>% Increase in 30 Days</span>
 								</div>
 								<!-- /.info-box-content -->
 							</div>

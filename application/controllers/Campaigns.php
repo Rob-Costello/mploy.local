@@ -810,7 +810,7 @@ class Campaigns extends CI_Controller
 				$shot['key'] = $values['mailshot_key'];
 				$shot['first_name'] = $this->user->first_name;
 				$data = $shot;
-				$this->mail($emails,$shot);
+				//$this->mail($emails,$shot);
 				$campaignsModel->newCall($values);
 				$size = ob_get_length();
 				header("Content-Length: $size");

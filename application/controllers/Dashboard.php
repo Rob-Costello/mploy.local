@@ -79,6 +79,7 @@ class Dashboard extends CI_Controller {
         $data['login_data'] = $loginModel->loginsCount();
 
         $data['total_calls'] = $campaignsModel->allCalls();
+        $data['total_emails'] = $campaignsModel->allEmails();
         $data['callinfo'] = $callInfo;
         $this->load->view('pages/dashboard', $data);
 

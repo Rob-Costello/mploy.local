@@ -302,14 +302,11 @@
 																						<option value="">Select Sector</option>
 																					</select>
 																				</div>
-																				<div class="col-md-2">
-																					<input style="margin:20px; padding:19px;" type="text" name="status" class="form-control" placeholder="Status" id="searchCompanyStatus" >
-																				</div>
 																				<span class="input-group-btn">
                             <button style="z-index:100" type="button"  id="search-btn" class="btn btn-flat btn-mploy">
                                 <i class=" fa fa-search"></i>
                             </button>
-                            <button type="button" class="btn btn-flat btn-mploy" id="clear-selected-companies">Clear</button>
+                            <button type="button" class="btn btn-flat btn-mploy" id="clear-selected-companies" style="margin-left: 8px;">Clear</button>
 
                         </span>
 																			</div>
@@ -322,8 +319,10 @@
 
 																<div class="row">
 																	<div class="col-md-12">
-																		<div class="col-md-offset-10" ><button  id="check_all" class="btn btn-mploy" type="button">Select All</button>
-																			<button type="button" class="btn btn-mploy-submit" data-dismiss="modal">Save</button>
+																		<div class="col-md-offset-6" >
+
+																			<button type="button" class="btn btn-mploy-submit pull-right" style="margin-left: 8px;" data-dismiss="modal">Save</button>
+                                                                            <button  id="check_all" class="btn btn-mploy pull-right" type="button">Select All</button>
 																		</div>
 
 																		<div style="display:none" id="loading"> <h2>Please wait loading results..</h2></div>

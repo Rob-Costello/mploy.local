@@ -39,6 +39,15 @@ class CampaignsModel extends CI_Model
         return $query->row_array();
     }
 
+    function allEmails()
+    {
+        $this->db->select('count(campaign_id) as total, sum(if( date_time > NOW() - INTERVAL 30 DAY,1,0)) as days, ');
+        $this->db->join('mploy_activity_types', 'mploy_activity_types.id = mploy_organisation_contact_history.activity_type_id');
+        $this->db->where('email_tel', 'Email');
+        $query = $this->db->get('mploy_organisation_contact_history');
+        return $query->row_array();
+    }
+
 
     function campaignCalls($id)
     {

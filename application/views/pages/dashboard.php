@@ -217,6 +217,12 @@ function calls ($percent)
 												else {
 													$daysleft = (int)$now->diff($enddate)->days;
 												}
+
+												//Make sure days left is not more than days total
+												if( $daysleft > $days ){
+												    $daysleft = $days;
+                                                }
+
 												if($daysleft <1 || $days < 1){
 													$percent = 0;
 												}else {

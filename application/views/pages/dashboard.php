@@ -43,14 +43,15 @@ function calls ($percent)
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
 	<section class="content-header">
-		<h1>
 
-			<small></small>
-		</h1>
-		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-			<li class="active">Dashboard</li>
-		</ol>
+            <h1 style="padding-left: 15px;">
+
+                <a href="https://mploy.workexperiences.co.uk/sso_key=<?php echo $sso_key?>" target="_blank" class="btn btn-mploy"> WEX</a>
+            </h1>
+            <ol class="breadcrumb" style="padding-right: 20px;">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li class="active">Dashboard</li>
+            </ol>
 	</section>
 
 	<!-- Main content -->

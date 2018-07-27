@@ -46,7 +46,7 @@ function calls ($percent)
 
             <h1 style="padding-left: 15px;">
 
-                <a href="https://mploy.workexperiences.co.uk/sso_key=<?php echo $sso_key?>" target="_blank" class="btn btn-mploy"> WEX</a>
+                <a href="https://mploy.workexperiences.co.uk/?sso_key=<?php echo $sso_key?>" target="_blank" class="btn btn-mploy"> WEX</a>
             </h1>
             <ol class="breadcrumb" style="padding-right: 20px;">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -283,7 +283,11 @@ function calls ($percent)
                                             </div>
                                             <div class="box-body">
                                                 <div class="chart">
-                                                    <canvas id="areaChart" style="height:250px"></canvas>
+
+	                                                <canvas id="areaChart" style="height:250px"></canvas>
+	                                                <div style="width:20px" class="square newuser "> &nbsp; </div> New Users
+	                                                <div style="width:20px" class="square failed "> &nbsp; </div> Failed Login
+	                                                <div style="width:20px" class="square successful "> &nbsp; </div> Successful Login
                                                 </div>
                                             </div>
                                             <!-- /.box-body -->
@@ -315,7 +319,7 @@ function calls ($percent)
                                                 labels  : [<?php foreach ($login_data as $data) { echo "'".$data->day . "/".$data->month ."',"; } ?>],
                                                 datasets: [
                                                     {
-                                                        labels               : ['New Users'],
+                                                        label               : 'New Users',
                                                         fillColor           : 'rgba(210, 214, 222, 1)',
                                                         strokeColor         : 'rgba(210, 214, 222, 1)',
                                                         pointColor          : 'rgba(210, 214, 222, 1)',
@@ -325,7 +329,7 @@ function calls ($percent)
                                                         data                : [<?php foreach ($login_data as $data) { echo $data->created . ','; } ?>]
                                                     },
                                                     {
-                                                        labels               : 'Successful Logins',
+                                                        label               : 'Successful Logins',
                                                         fillColor           : 'rgba(60,141,188,0.9)',
                                                         strokeColor         : 'rgba(60,141,188,0.8)',
                                                         pointColor          : '#3b8bba',
@@ -335,7 +339,7 @@ function calls ($percent)
                                                         data                : [<?php foreach ($login_data as $data) { echo $data->success . ','; } ?>]
                                                     },
                                                     {
-                                                        labels               : 'Failed Logins',
+                                                        label              : 'Failed Logins',
                                                         fillColor           : 'rgba(221,75,57,0.9)',
                                                         strokeColor         : 'rgba(221,75,57,0.8)',
                                                         pointColor          : '#dd4b39',
@@ -345,6 +349,7 @@ function calls ($percent)
                                                         data                : [<?php foreach ($login_data as $data) { echo $data->fail . ','; } ?>]
                                                     }
                                                 ]
+
                                             }
 
                                             var areaChartOptions = {
@@ -381,7 +386,10 @@ function calls ($percent)
                                                 //Boolean - Whether to fill the dataset with a color
                                                 datasetFill             : true,
                                                 //String - A legend template
+	                                            legend: {
+		                                            display: true,
 
+	                                            },
 	                                            legendTemplate          : '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].lineColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>',
                                                 //Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
                                                 maintainAspectRatio     : true,

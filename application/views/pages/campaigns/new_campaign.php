@@ -43,7 +43,7 @@
                             <div class="box">
 
                                 <div class="box-header with-border">
-                                    <h3 class="box-title">Contact Details</h3>
+                                    <h3 class="box-title">Campaign Details</h3>
                                 </div>
 
 

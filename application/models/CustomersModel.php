@@ -62,7 +62,7 @@ class CustomersModel extends CI_Model
 
     function getLastCustomer(){
 
-       return  $this->db->query('select max(school_id) as id from mploy_organisations' )->row_array();
+       return  $this->db->query('select max(id) as id from mploy_organisations  ' )->row_array();
 
     }
 

@@ -593,7 +593,6 @@ class Campaigns extends CI_Controller
 
         }
 
-
         $this->load->view('pages/campaigns/campaign_calendar', $data);
 
     }

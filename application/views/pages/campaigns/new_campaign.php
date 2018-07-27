@@ -35,7 +35,7 @@
 
 							<?php if (isset($error)): ?>
 								<div class="alert alert-danger alert-dismissable">
-								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">Ã—</button>
+								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 								Please complete the highlighted fields
 								</div>
 									<?php endif ?>
@@ -88,9 +88,9 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
 
-                                                    <label class=" ">School</label>
+                                                    <label class=" ">Customer</label>
                                                     <select class="form-control" name="org_id" id="select_school">
-														<option>Select School</option>
+														<option>Select Customer</option>
 	                                                    <?php foreach($schools as $d): ?>
 															<option value="<?php echo $d->id ?>"><?php echo $d->name;?></option>
 														<?php endforeach ?>

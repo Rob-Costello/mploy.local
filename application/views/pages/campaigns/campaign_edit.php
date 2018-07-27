@@ -42,7 +42,7 @@
 							<div class="box">
 
 								<div class="box-header with-border">
-									<h3 class="box-title">Contact Details</h3>
+									<h3 class="box-title">Campaign Details</h3>
 								</div>
 
 
@@ -119,6 +119,23 @@
 											</div><!--end col-->
 
 										</div> <!--end row-->
+										<div class="row">
+
+											<div class="col-md-4">
+												<div class="form-group">
+
+													<label>Type</label>
+													<select class="form-control" name="campaign_type_id" id="select_school" required>
+														<option>Select Type</option>
+														<?php foreach($types as $t): print_r($t) ?>
+															<option <?php if($t->id == $campaign['campaign_type_id']) echo ' selected'?> value="<?php echo $t->id ?>"><?php echo $t->name;?></option>
+														<?php endforeach ?>
+													</select>
+
+												</div>
+											</div>
+
+										</div>
 
 
 										<div class="row">
@@ -141,7 +158,8 @@
 															<th>Start</th>
 															<th>End</th>
 
-															<th>Holiday</th>
+															<th style="width:33%;">Holiday</th>
+															<th></th>
 
 														</tr>
 														</thead>
@@ -160,14 +178,14 @@
 																<td>
 																	<input value="<?php echo $hol['holiday_name']; ?>"" name="holiday[]" type="text" class="form-control">
 																</td>
-																<td> <button type="button" class="btn" style="border:none; background-color: transparent;" onclick="holiday(this,'<?php echo $hol["hol_id"]?>')" > <i class="fa fa-remove" style="font-size:14px;color:red"></i> </button></td>
+																<td style="width:33%"> <button type="button" class="btn" style="border:none; background-color: transparent;" onclick="holiday(this,'<?php echo $hol["hol_id"]?>')" > <i class="fa fa-remove" style="font-size:14px;color:red"></i> </button></td>
 
 															</tr>
 														<?php endforeach ?>
-														<tr id="last_row" style="background-color:#fff;border-color:#fff">
+														<tr  id="last_row" style="background-color:#fff;border-color:#fff">
 															<td></td>
 															<td></td>
-															<td><button type="button" id="add-row" class="btn btn-mploy white-btn">Add Holiday </button> </td>
+															<td class="pull-right"><button type="button" id="add-row" class="btn btn-mploy white-btn">Add Holiday </button> </td>
 														</tr>
 
 														</tbody>
@@ -298,8 +316,11 @@
 																					<input style="margin:20px; padding:19px;" type="text" name="postcode" class="form-control" placeholder="Postcode" id="searchCompanyPostcode" >
 																				</div>
 																				<div class="col-md-2">
-																					<select style="margin:20px; padding:19px;" name="industry_id" class="form-control" id="searchCompanyIndustry">
+																					<select style="margin:20px; padding:19px;" name="line_of_business" class="form-control" id="searchCompanyIndustry">
 																						<option value="">Select Sector</option>
+																						<?php foreach($sector as $s): ?>
+																						<option value="<?php echo $s['line_of_business']; ?>"> <?php echo $s['line_of_business'];?> </option>
+																						<?php endforeach ?>
 																					</select>
 																				</div>
 																				<span class="input-group-btn">

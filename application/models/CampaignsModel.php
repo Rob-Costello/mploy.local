@@ -718,6 +718,15 @@ class CampaignsModel extends CI_Model
 
 	}
 
+	public function getSector(){
+    	$this->db->select('*');
+    	$this->db->group_by('line_of_business');
+    	$query =$this->db->get('mploy_organisations');
+    	return $query->result_array();
+
+
+	}
+
 	public function mailshotResponse($data,$key)
 	{
 

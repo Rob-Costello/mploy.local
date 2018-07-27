@@ -315,7 +315,7 @@ function calls ($percent)
                                                 labels  : [<?php foreach ($login_data as $data) { echo "'".$data->day . "/".$data->month ."',"; } ?>],
                                                 datasets: [
                                                     {
-                                                        label               : 'New Users',
+                                                        labels               : ['New Users'],
                                                         fillColor           : 'rgba(210, 214, 222, 1)',
                                                         strokeColor         : 'rgba(210, 214, 222, 1)',
                                                         pointColor          : 'rgba(210, 214, 222, 1)',
@@ -325,7 +325,7 @@ function calls ($percent)
                                                         data                : [<?php foreach ($login_data as $data) { echo $data->created . ','; } ?>]
                                                     },
                                                     {
-                                                        label               : 'Successful Logins',
+                                                        labels               : 'Successful Logins',
                                                         fillColor           : 'rgba(60,141,188,0.9)',
                                                         strokeColor         : 'rgba(60,141,188,0.8)',
                                                         pointColor          : '#3b8bba',
@@ -335,7 +335,7 @@ function calls ($percent)
                                                         data                : [<?php foreach ($login_data as $data) { echo $data->success . ','; } ?>]
                                                     },
                                                     {
-                                                        label               : 'Failed Logins',
+                                                        labels               : 'Failed Logins',
                                                         fillColor           : 'rgba(221,75,57,0.9)',
                                                         strokeColor         : 'rgba(221,75,57,0.8)',
                                                         pointColor          : '#dd4b39',
@@ -348,7 +348,9 @@ function calls ($percent)
                                             }
 
                                             var areaChartOptions = {
-                                                //Boolean - If we should show the scale at all
+
+
+                                            	//Boolean - If we should show the scale at all
                                                 showScale               : true,
                                                 //Boolean - Whether grid lines are shown across the chart
                                                 scaleShowGridLines      : false,
@@ -379,7 +381,8 @@ function calls ($percent)
                                                 //Boolean - Whether to fill the dataset with a color
                                                 datasetFill             : true,
                                                 //String - A legend template
-                                                legendTemplate          : '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].lineColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>',
+
+	                                            legendTemplate          : '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].lineColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>',
                                                 //Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
                                                 maintainAspectRatio     : true,
                                                 //Boolean - whether to make the chart responsive to window resizing

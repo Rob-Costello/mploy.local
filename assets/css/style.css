@@ -49,6 +49,19 @@ h1,h2,h3,h4{
 /* Hide default HTML checkbox */
 .switch input {display:none;}
 
+.main-header .logo{
+
+	height:60px;
+
+}
+
+.main-sidebar{
+
+	padding-top:70px;
+
+
+}
+
 /* The slider */
 .slider {
 	position: absolute;

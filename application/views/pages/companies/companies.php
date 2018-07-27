@@ -35,8 +35,11 @@
 							<input style="margin:20px; padding:19px;" type="text" name="postcode" class="form-control" placeholder="Postcode" value="<?php if(isset($post_data['postcode'])) echo $post_data['postcode']; ?>">
 						</div>
 						<div class="col-md-2">
-							<select style="margin:20px; padding:19px;" name="industry_id" class="form-control">
+							<select style="margin:20px; padding:19px;" name="line_of_business" class="form-control" id="searchCompanyIndustry">
 								<option value="">Select Sector</option>
+								<?php foreach($sector as $s): ?>
+									<option value="<?php echo $s['line_of_business']; ?>"> <?php echo $s['line_of_business'];?> </option>
+								<?php endforeach ?>
 							</select>
 						</div>
 						<div class="col-md-2">
@@ -46,7 +49,7 @@
                             <button style="z-index:100" type="submit"  id="search-btn" class="btn btn-flat btn-mploy">
                                 <i class=" fa fa-search"></i>
                             </button>
-                            <button class="btn btn-flat btn-mploy" id="clear-form">Clear</button>
+                            <button type="button" class="btn btn-flat btn-mploy" id="clear-selected-companies" style="margin-left: 8px;">Clear</button>
 
                         </span>
 					</div>
@@ -105,6 +108,7 @@
 							<?php echo $company->status;?>
 
 						</td>
+						<td><?php echo $company->line_of_business; ?></td>
 						<td><a class="" href="/companies/view/<?php echo $company->id;?>"> <i class="fa fa-edit"></i> </a></td>
 
 					</tr>

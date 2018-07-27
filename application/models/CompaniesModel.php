@@ -64,6 +64,13 @@ class CompaniesModel extends CI_Model
 
     }
 
+    function getOrganisationTypes(){
+	    $this->db->select('*');
+	    $query = $this->db->get('mploy_ref_organisation_types');
+
+	   return $query->result_array();
+    }
+
     function getCompanies($where = null, $request = null, $limit = null, $offset = null)
     {
         $this->db->select('*, mploy_organisations.id ');

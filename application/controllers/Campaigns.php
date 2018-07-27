@@ -39,7 +39,6 @@ class Campaigns extends CI_Controller
         $offset = 0;
 
         if ($pageNo > 0) {
-
             $offset = $pageNo * $this->perPage;
         }
 
@@ -118,7 +117,7 @@ class Campaigns extends CI_Controller
             }
 
             //Remove posts not needed for campaign update
-            unset($_POST['name'], $_POST['address1'], $_POST['postcode'], $_POST['industry_id'], $_POST['status']);
+            unset($_POST['name'], $_POST['address1'], $_POST['postcode'], $_POST['line_of_business'], $_POST['status']);
 
             $campaignModel->editCampaign($id, $this->input->post());
             $data['message'] = 'Campaign  ' . $this->input->post('campaign_name') . ' Updated ';
@@ -140,7 +139,8 @@ class Campaigns extends CI_Controller
                 'holiday_name' => $hol['holiday_name'],
                 'hol_id' => $hol['id']];
         }
-
+	    $data['sector'] = $campaignModel->getSector();
+        $data['types'] = $campaignModel->getCampaignTypes();
         $data['holiday'] = $holidays;
         $data['schools'] = $campaignModel->getSchools();
         $data['companies'] = $campaignModel->getSelectedEmployers(['campaign_id' => $id, "status like '%%'"]);

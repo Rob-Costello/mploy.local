@@ -28,6 +28,9 @@
 			<li><a style="color:#54667a" href="/campaigns"><i style="color:#f88a00" class="fa fa-briefcase"></i> <span>Campaigns</span><span class=" pull-right-container">
               			<i style="color:#f88a00" class="fa fa-angle-right pull-right"></i>
             		</span></a></li>
+            <li><a style="color:#54667a" href="/campaigns/calendar"><i style="color:#f88a00" class="fa fa-calendar"></i> <span>Calendar</span><span class=" pull-right-container">
+              			<i style="color:#f88a00" class="fa fa-angle-right pull-right"></i>
+            		</span></a></li>
 <!--			<li><a style="color:#54667a" href="/#"><i style="color:#f88a00" class="fa fa-puzzle-piece"></i> <span>Events</span><span class=" pull-right-container">-->
 <!--              			<i style="color:#f88a00" class="fa fa-angle-right pull-right"></i>-->
 <!--            		</span></a></li>-->

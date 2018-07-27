@@ -10,6 +10,7 @@ class Companies extends CI_Controller
 		$this->load->model('login');
 		$this->load->library('ion_auth');
 		$this->load->model('CompaniesModel');
+		$this->load->model('CampaignsModel');
 		$this->login->login_check_force();
 		$this->user = $this->ion_auth->user()->row();
         $this->perPage =20;
@@ -23,9 +24,10 @@ class Companies extends CI_Controller
 	function index( $pageNo = 0 )
 	{
 
-        $companies = new CompaniesModel();
+        $campaignModel =new CampaignsModel();
+		$companies = new CompaniesModel();
         $where = 'organisation_type_id =2 ';
-		$data['headings'] = ['name' => 'Name', 'phone' => 'Main Telephone','first_name'=>'Main Contact','status'=>'Status'];
+		$data['headings'] = ['name' => 'Name', 'phone' => 'Main Telephone','first_name'=>'Main Contact','status'=>'Status','Sector'];
 		$offset=0;
 
         if($pageNo > 0){
@@ -58,6 +60,7 @@ class Companies extends CI_Controller
             $data['pagination_end'] = $data['companies']['count'];
         }
 		$data['message'] = $this->session->flashdata('message');
+		$data['sector'] = $campaignModel->getSector();
         $data['pagination'] = $this->pagination->create_links();
 		$data['user'] = $this->user;
 		$data['title'] = 'Companies';
@@ -180,13 +183,14 @@ class Companies extends CI_Controller
 
 		$data['user'] = $this->user;
 		$company = new CompaniesModel();
+
 		if (!empty($_POST)) {
 			$success = $company->addCompany($this->input->post());
 			$this->session->set_flashdata('message', 'Company' . $this->input->post('name') . ' created');
 			redirect('companies/','refresh');
 
 		}
-
+		$data['organisation_type'] = $company->getOrganisationTypes();
 		$this->load->view('pages/companies/companies_new_company',$data);
 	}
 

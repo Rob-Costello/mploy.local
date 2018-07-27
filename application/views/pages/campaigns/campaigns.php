@@ -101,7 +101,7 @@
 						</td>
 						<?php endforeach ?>
                         <td><a class="btn btn-mploy-submit waves-effect waves-light" href="/campaigns/employers/<?php echo $campaign->id; ?>/0"> RUN </a></td>
-						<td><a class="btn btn-mploy-cancel" href="/campaigns/edit/<?php echo $campaign->id; ?>/0"> EDIT </a></td>
+						<td><a class="btn btn-mploy-cancel" href="/campaigns/edit/<?php echo$campaign->id; ?>/0"> EDIT </a></td>
 					</tr>
 					<?php endforeach ?>
 					</tbody>

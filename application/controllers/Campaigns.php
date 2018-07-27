@@ -39,7 +39,6 @@ class Campaigns extends CI_Controller
         $offset = 0;
 
         if ($pageNo > 0) {
-
             $offset = $pageNo * $this->perPage;
         }
 
@@ -118,7 +117,7 @@ class Campaigns extends CI_Controller
             }
 
             //Remove posts not needed for campaign update
-            unset($_POST['name'], $_POST['address1'], $_POST['postcode'], $_POST['industry_id'], $_POST['status']);
+            unset($_POST['name'], $_POST['address1'], $_POST['postcode'], $_POST['line_of_business'], $_POST['status']);
 
             $campaignModel->editCampaign($id, $this->input->post());
             $data['message'] = 'Campaign  ' . $this->input->post('campaign_name') . ' Updated ';
@@ -140,7 +139,8 @@ class Campaigns extends CI_Controller
                 'holiday_name' => $hol['holiday_name'],
                 'hol_id' => $hol['id']];
         }
-
+	    $data['sector'] = $campaignModel->getSector();
+        $data['types'] = $campaignModel->getCampaignTypes();
         $data['holiday'] = $holidays;
         $data['schools'] = $campaignModel->getSchools();
         $data['companies'] = $campaignModel->getSelectedEmployers(['campaign_id' => $id, "status like '%%'"]);
@@ -247,6 +247,8 @@ class Campaigns extends CI_Controller
         $data['campaign_list'] = $this->availableCampaigns;
         $campaignModel = new campaignsModel();
         $campaign = $campaignModel->lookupCampaign($camp_ref);
+        $this->session->set_userdata('SelectedCustomer', $campaign['org_id']);
+        $this->session->set_userdata('SelectedCampaign', $camp_ref);
         $data['camp_data'] = $campaign;
         $data['call_data'] = $campaignModel->campaignCalls($camp_ref);
         $orderby = 'mploy_organisations.id';
@@ -282,8 +284,8 @@ class Campaigns extends CI_Controller
 	    }
 
         $data['user'] = $this->user;
-        $data['headings'] = ['Name', 'Main Telephone', 'Address', 'Line of Business', 'Last Contacted', 'Status'];
-        $data['fields'] = ['name', 'phone', 'address1', 'line_of_business', 'date_time', 'status'];
+        $data['headings'] = ['Name', 'Main Telephone', 'Address', 'Line of Business', 'Last Contacted', 'Email', 'Status'];
+        $data['fields'] = ['name', 'phone', 'address1', 'line_of_business', 'date_time', 'email', 'status'];
         $offset = 0;
 
 
@@ -477,11 +479,11 @@ class Campaigns extends CI_Controller
             $option = '<option>Select Campaign</option>';
             foreach ($list as $k => $item) {
 
-                if ($item['campaign_id'] == $camp) {
-                    $option .= '<option selected value="' . $item['campaign_id'] . '">' . $item['campaign_name'] . '</option>';
+                if ($item['id'] == $this->session->SelectedCampaign) {
+                    $option .= '<option selected value="' . $item['id'] . '">' . $item['campaign_name'] . '</option>';
                 } else {
 
-                    $option .= '<option value="' . $item['campaign_id'] . '">' . $item['campaign_name'] . '</option>';
+                    $option .= '<option value="' . $item['id'] . '">' . $item['campaign_name'] . '</option>';
                 }
 
             }
@@ -491,17 +493,18 @@ class Campaigns extends CI_Controller
     }
 
 
-    function calendar($id, $campaign = null)
+    function calendar($id = null, $campaign = null)
     {
         $data['title'] = 'Calendar';
         $data['user'] = $this->user;
+        $data['org_id'] = $id;
         $campaign = new campaignsModel();
         $data['campaign_list'] = $this->availableCampaigns;
         $data['school_name'] = $campaign->getSchoolName($id)['name'];
 
         if (!empty($_POST)) {
 
-            $list = $campaign->newCalendarEntry($id, $this->input->post());
+            $campaign->newCalendarEntry($id, $this->input->post());
 
         }
 
@@ -564,13 +567,13 @@ class Campaigns extends CI_Controller
                 if (is_array($d)) {
 
                     //$start = 'start		:$.fullCalendar.formatDate('.strtotime($camp[$d[0]]).',"yyyy-MM-dd"), ';
-                    $id = 'id		:\'cam-' . $camp['campaign_id'] . '\',';
+                    $id = 'id		:\'cam-' . $camp['id'] . '\',';
                     $title = 'title          : \'' . $camp['campaign_name'] . ': ' . str_replace(['_', 'date'], ' ', $d[0]) . '\',';
                     $start = 'start		:\'' . date('Y-m-d H:i:s', strtotime($camp[$d[0]])) . '\',';
                     $end = 'end		:\'' . date('Y-m-d H:i:s', strtotime($camp[$d[1]])) . '\',';
 
                 } else {
-                    $id = 'id		:\'cam-' . $camp['campaign_id'] . '\',';
+                    $id = 'id		:\'cam-' . $camp['id'] . '\',';
                     $title = 'title          : \'' . $camp['campaign_name'] . ': ' . str_replace('_', ' ', $d) . '\',';
                     $start = 'start		:\'' . date('Y-m-d H:i:s', strtotime($camp[$d])) . '\',';
                     $end = 'end		:\'' . date('Y-m-d H:i:s', strtotime($camp[$d])) . '\',';
@@ -750,6 +753,7 @@ class Campaigns extends CI_Controller
 		array_walk($sent,function(&$v, &$k) use (&$emails){$emails[] = "'".$v['receiver']."'";});
 		$sent = implode(",",$emails);
 		$shots = $campaignsModel->getMailshot($camp_id,$sent,$mailshot,true);
+		$data = array();
 
 		foreach($shots as $shot){
 			if ($shot['email'] != '') {
@@ -772,6 +776,7 @@ class Campaigns extends CI_Controller
 
 			}
 		}
+
 		$this->load->view('/pages/emails/mailshot',$data);
     }
 
@@ -805,7 +810,7 @@ class Campaigns extends CI_Controller
 				$shot['key'] = $values['mailshot_key'];
 				$shot['first_name'] = $this->user->first_name;
 				$data = $shot;
-				$this->mail($emails,$shot);
+				//$this->mail($emails,$shot);
 				$campaignsModel->newCall($values);
 				$size = ob_get_length();
 				header("Content-Length: $size");

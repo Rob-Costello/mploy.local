@@ -43,7 +43,7 @@
                             <div class="box">
 
                                 <div class="box-header with-border">
-                                    <h3 class="box-title">Contact Details</h3>
+                                    <h3 class="box-title">Campaign Details</h3>
                                 </div>
 
 
@@ -214,7 +214,7 @@
 		                                                </div>
 
 
-		                                                <input type="text" value="<?php echo date('d/m/Y'); ?>" class=" form-control" id="campaign_date" placeholder="dd/mm/yyyy" name="campaign_start_date" required >
+		                                                <input type="text" value="<?php echo date('d/m/Y'); ?>" class="datepicker form-control" id="campaign_date" placeholder="dd/mm/yyyy" name="campaign_start_date" required >
                                                 </div>
                                                 </div>
 
@@ -575,6 +575,14 @@
 					format: 'DD/MM/YYYY'
 				}
 			}).val('');
+            $('#campaign_date.datepicker').daterangepicker({
+                opens: 'left',
+                singleDatePicker: true,
+                //autoUpdateInput: false,
+                locale: {
+                    format: 'DD/MM/YYYY'
+                }
+            });
 		});
 
 

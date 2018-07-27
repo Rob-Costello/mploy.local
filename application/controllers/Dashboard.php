@@ -17,6 +17,7 @@ class Dashboard extends CI_Controller {
 		$this->user = $this->ion_auth->user()->row();
 		$this->perPage =20;
 		$this->offset =0;
+        $this->load->library('helpers');
 		$this->load->library('pagination');
 	}
 
@@ -49,6 +50,7 @@ class Dashboard extends CI_Controller {
 		$data['user_count'] = count($usersModel->getUsers()['data']);
 		$data['campaigns_count'] = count($campaignsModel->getCampaigns()['data']);
 		$data['campaigns'] = array();
+        $data['sso_key'] = $this->helpers->checkValid($this->user);
 
 		$data['campaigns_display'] = $campaignsModel->getCampaigns('active=2','mploy_campaigns.id' , null, 0)['data'];
 		$callInfo = [];
@@ -79,6 +81,7 @@ class Dashboard extends CI_Controller {
         $data['login_data'] = $loginModel->loginsCount();
 
         $data['total_calls'] = $campaignsModel->allCalls();
+        $data['total_emails'] = $campaignsModel->allEmails();
         $data['callinfo'] = $callInfo;
         $this->load->view('pages/dashboard', $data);
 

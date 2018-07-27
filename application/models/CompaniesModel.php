@@ -64,6 +64,13 @@ class CompaniesModel extends CI_Model
 
     }
 
+    function getOrganisationTypes(){
+	    $this->db->select('*');
+	    $query = $this->db->get('mploy_ref_organisation_types');
+
+	   return $query->result_array();
+    }
+
     function getCompanies($where = null, $request = null, $limit = null, $offset = null)
     {
         $this->db->select('*, mploy_organisations.id ');
@@ -100,9 +107,10 @@ class CompaniesModel extends CI_Model
 
     public function getCompanyPlacements($id){
 
-        $this->db->select('mploy_organisations.*, mploy_campaigns.*, mploy_rel_campaign_employers.*');
+        $this->db->select('mploy_rel_campaign_employers.*,mploy_organisations.*, mploy_campaigns.*, mploy_organisations.wex_org_id, s.name as school');
         $this->db->join('mploy_campaigns', 'mploy_rel_campaign_employers.campaign_id = mploy_campaigns.id');
-        $this->db->join('mploy_organisations', 'mploy_campaigns.org_id = mploy_organisations.id');
+        $this->db->join('mploy_organisations', 'mploy_rel_campaign_employers.org_id = mploy_organisations.id');
+        $this->db->join('mploy_organisations s', 'mploy_campaigns.org_id = s.id');
         $this->db->where('mploy_rel_campaign_employers.org_id=' . $id);
         $this->db->where('mploy_rel_campaign_employers.placements IS NOT NULL');
         $this->db->order_by('campaign_place_start_date', 'DESC');

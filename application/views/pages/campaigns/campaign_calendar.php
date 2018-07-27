@@ -31,8 +31,9 @@
 				<h1 class="text-center"><?php echo $school_name; ?></h1>
 
 			</div>
-			<button style="margin-top:10px; margin-left:10px" type="button" class=" btn btn-mploy-submit waves-effect waves-light" data-toggle="modal" data-target="#myModal">New Calendar Entry</button>
-
+            <?php if($org_id !== null) { ?>
+			    <button style="margin-top:10px; margin-left:10px" type="button" class=" btn btn-mploy-submit waves-effect waves-light" data-toggle="modal" data-target="#myModal">New Calendar Entry</button>
+            <?php } ?>
 			<!-- Modal -->
 			<div id="myModal" class="modal fade" role="dialog">
 				<div class="modal-dialog">
@@ -251,7 +252,8 @@
 			        revertFunc();
 		        }*/
 
-	        }
+	        },
+            displayEventTime: false
 
 
         })
@@ -294,7 +296,7 @@
     })
 </script>
 
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
 <script>
 

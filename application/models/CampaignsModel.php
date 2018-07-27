@@ -39,6 +39,15 @@ class CampaignsModel extends CI_Model
         return $query->row_array();
     }
 
+    function allEmails()
+    {
+        $this->db->select('count(campaign_id) as total, sum(if( date_time > NOW() - INTERVAL 30 DAY,1,0)) as days, ');
+        $this->db->join('mploy_activity_types', 'mploy_activity_types.id = mploy_organisation_contact_history.activity_type_id');
+        $this->db->where('email_tel', 'Email');
+        $query = $this->db->get('mploy_organisation_contact_history');
+        return $query->row_array();
+    }
+
 
     function campaignCalls($id)
     {
@@ -105,7 +114,6 @@ class CampaignsModel extends CI_Model
 
         $this->db->select('*');
         $this->db->limit($limit, $offset);
-        $this->db->order_by($request);
 
         foreach( $where as $k => $v ){
             if( $k == '' ){
@@ -113,6 +121,14 @@ class CampaignsModel extends CI_Model
             } else {
                 $this->db->where($k, $v);
             }
+        }
+
+        foreach( $_GET as $k => $v ){
+
+            if( $v == 'ASC' || $v == 'DESC' ){
+                $this->db->order_by($k, $v);
+            }
+
         }
 
         $this->db->select('mploy_organisation_contact_history.*, mploy_organisations.*');
@@ -123,13 +139,21 @@ class CampaignsModel extends CI_Model
         $this->db->group_by('mploy_organisations.id');
         $query = $this->db->get('mploy_rel_campaign_employers');
 
-        $this->db->order_by($request);
+
         foreach( $where as $k => $v ){
             if( $k == '' ){
                 $this->db->where($v);
             } else {
                 $this->db->where($k, $v);
             }
+        }
+
+        foreach( $_GET as $k => $v ){
+
+            if( $v == 'ASC' || $v == 'DESC' ){
+                $this->db->order_by($k, $v);
+            }
+
         }
 
         $this->db->select('mploy_organisation_contact_history.*, mploy_organisations.*');
@@ -209,8 +233,9 @@ class CampaignsModel extends CI_Model
     public function availableCampaigns()
     {
         $this->db->join('mploy_contacts', 'mploy_campaigns.org_id = mploy_contacts.org_id');
+        $this->db->join('mploy_organisations', 'mploy_campaigns.org_id = mploy_organisations.id');
         $this->db->group_by('mploy_campaigns.org_id');
-        $company = $this->db->get_where('mploy_campaigns', 'active =1');
+        $company = $this->db->get_where('mploy_campaigns', 'active =1 OR active =2');
 
         return $company->result();
 
@@ -367,7 +392,7 @@ class CampaignsModel extends CI_Model
     public function listCampaigns($campaign)
     {
 
-        $query = $this->db->get_where('mploy_campaigns', 'select_school=' . $campaign);
+        $query = $this->db->get_where('mploy_campaigns', 'org_id=' . $campaign);
 
         return $query->result_array();
     }
@@ -383,7 +408,7 @@ class CampaignsModel extends CI_Model
     public function newCalendarEntry($id, $data)
     {
 
-        $values = array_merge(['school_id' => $id], $data);
+        $values = array_merge(['org_id' => $id], $data);
 
         $this->db->insert('mploy_calendar', $values);
 
@@ -413,7 +438,10 @@ class CampaignsModel extends CI_Model
     function getSchoolHoliday($id)
     {
 
-        $query = $this->db->get_where('mploy_organisation_holidays', ['org_id' => $id]);
+        if( $id !== null ){
+            $this->db->where('org_id', $id);
+        }
+        $query = $this->db->get('mploy_organisation_holidays');
         return $query->result_array();
 
     }
@@ -476,16 +504,25 @@ class CampaignsModel extends CI_Model
     public function getCalendarEntries($id)
     {
 
-        $query = $this->db->get_where('mploy_calendar', 'school_id = ' . $id);
-        //$count = $this->db->from('mploy_organisations')->count_all_results();
+        if( $id !== null ){
+            $this->db->where('mploy_campaigns.org_id', $id);
+        }
+
+        $this->db->join('mploy_campaigns', 'mploy_campaigns.org_id = mploy_calendar.org_id');
+        $query = $this->db->get('mploy_calendar');
         return $query->result_array();
+
     }
 
 
     public function getCampaignDates($id)
     {
 
-        $query = $this->db->get_where('mploy_campaigns', 'select_school = ' . $id);
+        if( $id !== null ){
+            $this->db->where('org_id', $id);
+        }
+
+        $query = $this->db->get('mploy_campaigns');
         //$count = $this->db->from('mploy_organisations')->count_all_results();
         return $query->result_array();
 
@@ -566,8 +603,9 @@ class CampaignsModel extends CI_Model
 
         foreach( $data as $v ) {
 
-            $this->db->insert('mploy_rel_campaign_employers',  [ 'campaign_id' => $campaign_id, 'org_id' => $v ]);
-
+            $insert_query = $this->db->insert_string('mploy_rel_campaign_employers', [ 'campaign_id' => $campaign_id, 'org_id' => $v ]);
+            $insert_query = str_replace('INSERT INTO','INSERT IGNORE INTO',$insert_query);
+            $this->db->query($insert_query);
         }
 
     }
@@ -669,12 +707,23 @@ class CampaignsModel extends CI_Model
 			return $query->result_array();
 		}
 
-		$this->db->select('*');
-		$this->db->join('mploy_organisations', 'mploy_rel_campaign_employers.org_id = mploy_organisations.wex_org_id' );
+		$this->db->select('mploy_organisations.*, mploy_contacts.*, mploy_campaigns.*, s.name, mploy_rel_campaign_employers.campaign_id');
+		$this->db->join('mploy_organisations', 'mploy_rel_campaign_employers.org_id = mploy_organisations.id' );
 		$this->db->join('mploy_contacts','mploy_organisations.main_contact_id = mploy_contacts.id','left');
+		$this->db->join('mploy_campaigns','mploy_campaigns.id = mploy_rel_campaign_employers.campaign_id','left');
+        $this->db->join('mploy_organisations s', 'mploy_campaigns.org_id = s.id', 'LEFT' );
 
 		$query = $this->db->get_where('mploy_rel_campaign_employers', 'campaign_id='.$campaign.' '.$emailString);
 		return $query->result_array();
+
+	}
+
+	public function getSector(){
+    	$this->db->select('*');
+    	$this->db->group_by('line_of_business');
+    	$query =$this->db->get('mploy_organisations');
+    	return $query->result_array();
+
 
 	}
 

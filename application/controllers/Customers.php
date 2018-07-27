@@ -216,10 +216,10 @@ class Customers extends CI_Controller
 		$customer = new CustomersModel();
 		$data['user'] = $this->user;
 		$data['messages'] = '';
-		$customerid = $customer->getLastCustomer()['id'];
-	 $customerid+1;
+		//$customerid = $customer->getLastCustomer()['id'];
+	    //$customerid+1;
 		if(!empty($_POST)){
-			$_POST['school_id'] = $customerid + 1;
+			//$_POST['school_id'] = $customerid + 1;
 		    $customer->newcustomer($this->input->post());
 			$this->session->set_flashdata('message', 'Successfully added customer!');
 			redirect('/customers','refresh');

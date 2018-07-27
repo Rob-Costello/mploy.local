@@ -135,6 +135,14 @@
             $(this).closest('form').find('input:text, input:password, select, textarea').val('');
             $(this).closest('form').find('input:radio, input:checkbox').prop('checked', false);
         });
+        $('#clear-selected-companies').on('click', function()
+        {
+            $('#searchCompanyName').val('');
+            $('#searchCompanyAddr').val('');
+            $('#searchCompanyPostcode').val('');
+            $('#searchCompanyIndustry').val('');
+            $('#searchCompanyStatus').val('');
+        });
     });
 
 
@@ -149,6 +157,25 @@
         $('#edit').html('<a href="/campaigns/edit/<?php echo $campaign_dropdown ?>/0"><i class="fa fa-edit fa-2x"</a>');
     });
     <?php endif ?>
+</script>
+<script>
+
+    function appendParmaterURL( paramName, paramValue)
+    {
+
+        url = window.location.href;
+
+        if (paramValue == null) {
+            paramValue = '';
+        }
+        var pattern = new RegExp('\\b('+paramName+'=).*?(&|$)');
+        if (url.search(pattern)>=0) {
+            return url.replace(pattern,'$1' + paramValue + '$2');
+        }
+        url = url.replace(/\?$/,'');
+        return url + (url.indexOf('?')>0 ? '&' : '?') + paramName + '=' + paramValue;
+    }
+
 </script>
 
 </body>

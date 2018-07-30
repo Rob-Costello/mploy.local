@@ -56,7 +56,7 @@
 												<div class="form-group">
 
 													<label class=" ">Campaign Name</label>
-													<input type="text" name="campaign_name" class="form-control" value="<?php echo $campaign['campaign_name'];?>"   placeholder="Campaign Name" >
+													<input type="text" name="campaign_name" class="form-control" value="<?php echo $campaign['campaign_name'];?>"   placeholder="Campaign Name" required >
 
 												</div>
 											</div>
@@ -65,7 +65,7 @@
 
 													<div class="">
 														<label >Places to be sourced by MPLOY</label>
-														<input type="number" name="students_to_place" class="form-control" value="<?php echo $campaign['students_to_place']?>" placeholder="" autocomplete="off" >
+														<input type="number" name="students_to_place" class="form-control" value="<?php echo $campaign['students_to_place']?>" placeholder="" autocomplete="off" required >
 													</div>
 												</div>
 											</div>
@@ -88,7 +88,8 @@
 
 													<label class=" ">Customer</label>
 
-													<select class="form-control" name="org_id" id="select_school">
+													<select class="form-control" name="org_id" id="select_school" required>
+														<option value=""></option>
 														<?php foreach($schools as $school): ?>
 															<option <?php if( $school->id == $org_id ){ echo ' selected ';} ?>value="<?php echo $school->id ?>"><?php echo $school->name;?></option>
 														<?php endforeach ?>
@@ -104,7 +105,7 @@
 
 													<div class="">
 														<label >Placement Start Date</label>
-														<input type="text" name="campaign_place_start_date" class="datepicker form-control" value="<?php echo $campaign['campaign_place_start_date'] ?>" placeholder="01/01/2018" autocomplete="off" >
+														<input type="text" name="campaign_place_start_date" class="datepicker form-control" value="<?php echo $campaign['campaign_place_start_date'] ?>" placeholder="01/01/2018" autocomplete="off" required >
 													</div>
 												</div>
 											</div>
@@ -113,7 +114,7 @@
 												<div class="form-group">
 													<div class="">
 														<label >Placement End Date </label>
-														<input type="text" name="campaign_place_end_date" class="datepicker form-control" value="<?php echo $campaign['campaign_place_end_date'] ?>" placeholder="01/01/2018" autocomplete="off" >
+														<input type="text" name="campaign_place_end_date" class="datepicker form-control" value="<?php echo $campaign['campaign_place_end_date'] ?>" placeholder="01/01/2018" autocomplete="off" required >
 													</div>
 												</div>
 											</div><!--end col-->
@@ -196,7 +197,7 @@
 												<div class="col-md-4">
 													<div class="form-group">
 														<label >Campaign Start Date </label>
-														<input type="text" id="campaign_date" class="datepicker form-control" value="<?php echo $campaign['campaign_start_date'] ?>"  name="campaign_start_date" >
+														<input type="text" id="campaign_date" class="datepicker form-control" value="<?php echo $campaign['campaign_start_date'] ?>"  name="campaign_start_date" required
 													</div>
 
 												</div>
@@ -207,14 +208,14 @@
 												<div class="col-md-4">
 													<div class="form-group">
 														<label >Mailshot 1 Date</label>
-														<input name="mailshot_1_date" value="<?php echo $campaign['mailshot_1_date'] ?>" type="text" class="datepicker form-control" >
+														<input name="mailshot_1_date" value="<?php echo $campaign['mailshot_1_date'] ?>" type="text" class="datepicker form-control" required >
 													</div>
 												</div>
 
 												<div class="col-md-4">
 													<div class="form-group">
 														<label >Mailshot 2 Date</label>
-														<input name="mailshot_2_date" value="<?php echo $campaign['mailshot_2_date'] ?>" type="text" class="datepicker form-control" >
+														<input name="mailshot_2_date" value="<?php echo $campaign['mailshot_2_date'] ?>" type="text" class="datepicker form-control" required>
 													</div>
 												</div>
 
@@ -225,20 +226,20 @@
 												<div class="col-md-4">
 													<div class="form-group">
 														<label >Employer Engagement Start</label>
-														<input name="employer_engagement_start" value="<?php echo $campaign['employer_engagement_start'] ?>" type="text" class="datepicker form-control" >
+														<input name="employer_engagement_start" value="<?php echo $campaign['employer_engagement_start'] ?>" type="text" class="datepicker form-control" required >
 													</div>
 												</div>
 
 												<div class="col-md-4">
 													<div class="form-group">
 														<label >Employer Engagement End</label>
-														<input name="employer_engagement_end" type="text" value="<?php echo $campaign['employer_engagement_end'] ?>" class="datepicker form-control pull-right" id="datepicker">
+														<input name="employer_engagement_end" type="text" value="<?php echo $campaign['employer_engagement_end'] ?>" class="datepicker form-control pull-right" id="datepicker" required>
 													</div>
 												</div>
 												<div class="col-md-4">
 													<div class="form-group">
 														<label >Self Place Deadline</label>
-														<input name="self_place_deadline" value="<?php echo $campaign['self_place_deadline'] ?>" type="text" class="datepicker form-control" >
+														<input name="self_place_deadline" value="<?php echo $campaign['self_place_deadline'] ?>" type="text" class="datepicker form-control" required >
 													</div>
 												</div>
 											</div> <!--end row -->
@@ -250,7 +251,7 @@
 												<div class="col-md-4">
 													<div class="form-group">
 														<label >Matching End</label>
-														<input name="matching_end"  value="<?php echo $campaign['matching_end'] ?>" type="text" class="datepicker form-control" >
+														<input name="matching_end"  value="<?php echo $campaign['matching_end'] ?>" type="text" class="datepicker form-control" required>
 													</div>
 												</div>
 												<div class="col-md-4">

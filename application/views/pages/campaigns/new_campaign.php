@@ -35,7 +35,7 @@
 
 							<?php if (isset($error)): ?>
 								<div class="alert alert-danger alert-dismissable">
-								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">ï¿½</button>
 								Please complete the highlighted fields
 								</div>
 									<?php endif ?>
@@ -143,7 +143,7 @@
 
                                                     <label>Type</label>
                                                     <select class="form-control" name="campaign_type_id" id="select_school" required>
-                                                        <option>Select Type</option>
+                                                        <option value="" required>Select Type</option>
                                                         <?php foreach($types as $t): print_r($t) ?>
                                                             <option value="<?php echo $t->id ?>"><?php echo $t->name;?></option>
                                                         <?php endforeach ?>

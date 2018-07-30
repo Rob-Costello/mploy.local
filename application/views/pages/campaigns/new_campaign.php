@@ -111,7 +111,7 @@
 
 
 
-		                                                    <input type="text" name="campaign_place_start_date" value="<?php if(array_key_exists('campaign_place_start_date',$values)) echo $values['campaign_place_start_date'] ?> " class="datepicker form-control" value="" placeholder="dd/mm/yyyy" autocomplete="off" required >
+		                                                    <input type="text" name="campaign_place_start_date"  class="datepicker form-control" value="" placeholder="dd/mm/yyyy" autocomplete="off" required >
 	                                                    </div>
 	                                                    </div>
                                                 </div>
@@ -128,7 +128,7 @@
 		                                                    </div>
 
 
-		                                                    <input type="text" name="campaign_place_end_date" value="<?php if(array_key_exists('campaign_place_start_date',$values)) echo $values['campaign_place_start_date'] ?> " class="datepicker form-control" value="" placeholder="dd/mm/yyyy" autocomplete="off" required >
+		                                                    <input type="text" name="campaign_place_end_date"  class="datepicker form-control" value="" placeholder="dd/mm/yyyy" autocomplete="off" required >
 	                                                    </div>
 	                                                    </div>
                                                 </div>
@@ -214,7 +214,7 @@
 		                                                </div>
 
 
-		                                                <input type="text" value="<?php echo date('d/m/Y'); ?>" class="datepicker form-control" id="campaign_date" placeholder="dd/mm/yyyy" name="campaign_start_date" required >
+		                                                <input type="text"  class="datepicker form-control" id="campaign_date" placeholder="dd/mm/yyyy" name="campaign_start_date" required >
                                                 </div>
                                                 </div>
 
@@ -232,7 +232,7 @@
 		                                                </div>
 
 
-		                                                <input name="mailshot_1_date" placeholder="dd/mm/yyyy" type="text" value="<?php if(array_key_exists('mailshot_1_date',$values)) echo $values['mailshot_1_date'] ?> " class="datepicker form-control" required >
+		                                                <input name="mailshot_1_date" value="" placeholder="dd/mm/yyyy" type="text"  class="datepicker form-control" autocomplete="off" required >
 	                                                </div>
 	                                                </div>
                                             </div>
@@ -246,7 +246,7 @@
 		                                                    </div>
 
 
-		                                                    <input name="mailshot_2_date" placeholder="dd/mm/yyyy"value="<?php if(array_key_exists('mailshot_2_date',$values)) echo $values['mailshot_2_date'] ?> " type="text" class="datepicker form-control" required>
+		                                                    <input name="mailshot_2_date" value="" placeholder="dd/mm/yyyy" type="text" class="datepicker form-control" autocomplete="off" required>
 	                                                    </div>
 	                                                    </div>
                                             </div>
@@ -264,7 +264,7 @@
 		                                            </div>
 
 
-		                                            <input name="employer_engagement_start" placeholder="dd/mm/yyyy" value="<?php if(array_key_exists('employer_engagement_start',$values)) echo $values['employer_engagement_start'] ?> " type="text" class="datepicker form-control" required >
+		                                            <input name="employer_engagement_start" placeholder="dd/mm/yyyy"  type="text" class="datepicker form-control" autocomplete="off" required >
 	                                            </div>
 	                                            </div>
                                         </div>
@@ -278,7 +278,7 @@
 		                                                </div>
 
 
-		                                                <input name="employer_engagement_end" placeholder="dd/mm/yyyy" type="text" value="<?php if(array_key_exists('employer_engagement_end',$values)) echo $values['employer_engagement_end'] ?> " class="datepicker form-control pull-right" id="datepicker" required>
+		                                                <input name="employer_engagement_end" placeholder="dd/mm/yyyy" type="text"  class="datepicker form-control pull-right" autocomplete="off" id="datepicker" required>
 	                                                </div>
 	                                                </div>
                                         </div>
@@ -291,7 +291,7 @@
 		                                                </div>
 
 
-		                                                <input name="self_place_deadline" placeholder="dd/mm/yyyy" value="<?php if(array_key_exists('self_place_deadline',$values)) echo $values['self_place_deadline'] ?> " type="text"  class="datepicker form-control" required >
+		                                                <input name="self_place_deadline" placeholder="dd/mm/yyyy"  type="text"  class="datepicker form-control" autocomplete="off" required >
 	                                                </div>
 	                                                </div>
                                         </div>
@@ -307,7 +307,7 @@
 		                                                </div>
 
 
-		                                                <input placeholder="dd/mm/yyyy" value="<?php if(array_key_exists('matching_end',$values)) echo $values['matching_end'] ?> " name="matching_end" type="text" class="datepicker form-control" required >
+		                                                <input placeholder="dd/mm/yyyy"  name="matching_end" type="text" class="datepicker form-control" autocomplete="off" required >
 	                                                </div>
 	                                                </div>
                                         </div>
@@ -560,7 +560,7 @@
 		$(function(){
 
 
-			$(".datepicker").inputmask({"mask": "99/99/9999", "placeholder":"dd/mm/yyyy"});
+		//	$(".datepicker").inputmask({"mask": "99/99/9999", "placeholder":"dd/mm/yyyy"});
 
 
 		})

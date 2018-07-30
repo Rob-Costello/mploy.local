@@ -214,6 +214,7 @@ class Campaigns extends CI_Controller
 
             $data['message'] = 'New Campaign  ' . $this->input->post('campaign_name') . ' Created ';
             $this->session->set_flashdata('message', 'New Campaign  ' . $this->input->post('campaign_name') . ' Created ');
+
             redirect('campaigns', 'refresh');
 
         }
@@ -642,7 +643,9 @@ class Campaigns extends CI_Controller
 
 
                 }
-                $dates[] = $h;
+                $h['start_date'] =date('d/m/Y', strtotime( $h['start_date'] ));
+	            $h['end_date'] =date('d/m/Y', strtotime( $h['end_date'] ));
+	            $dates[]=$h;
             }
 
 

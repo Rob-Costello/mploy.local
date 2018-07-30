@@ -58,7 +58,7 @@
                                                 <div class="form-group">
 
                                                     <label class=" ">Campaign Name</label>
-                                                    <input  type="text" name="campaign_name" class="form-control" value="<?php if(array_key_exists('campaign_name',$values)) echo $values['campaign_name'] ?> " placeholder="Campaign Name" required>
+                                                    <input  type="text" name="campaign_name" class="form-control" value="<?php if(array_key_exists('campaign_name',$values)) echo $values['campaign_name'] ?>" placeholder="Campaign Name" required>
 
                                                 </div>
                                             </div>
@@ -89,8 +89,8 @@
                                                 <div class="form-group">
 
                                                     <label class=" ">Customer</label>
-                                                    <select class="form-control" name="org_id" id="select_school">
-														<option>Select Customer</option>
+                                                    <select class="form-control" name="org_id" id="select_school" required>
+														<option value="" >Select Customer</option>
 	                                                    <?php foreach($schools as $d): ?>
 															<option value="<?php echo $d->id ?>"><?php echo $d->name;?></option>
 														<?php endforeach ?>

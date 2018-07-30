@@ -89,7 +89,7 @@
 													<label class=" ">Customer</label>
 
 													<select class="form-control" name="org_id" id="select_school" required>
-
+															<option value="">Select Customer</option>
 														<?php foreach($schools as $school): ?>
 															<option <?php if( $school->id == $org_id ){ echo ' selected ';} ?>value="<?php echo $school->id ?>"><?php echo $school->name;?></option>
 														<?php endforeach ?>

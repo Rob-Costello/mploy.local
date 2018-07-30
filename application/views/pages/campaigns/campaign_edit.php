@@ -89,7 +89,7 @@
 													<label class=" ">Customer</label>
 
 													<select class="form-control" name="org_id" id="select_school" required>
-														<option value=""></option>
+
 														<?php foreach($schools as $school): ?>
 															<option <?php if( $school->id == $org_id ){ echo ' selected ';} ?>value="<?php echo $school->id ?>"><?php echo $school->name;?></option>
 														<?php endforeach ?>
@@ -197,7 +197,7 @@
 												<div class="col-md-4">
 													<div class="form-group">
 														<label >Campaign Start Date </label>
-														<input type="text" id="campaign_date" class="datepicker form-control" value="<?php echo $campaign['campaign_start_date'] ?>"  name="campaign_start_date" required
+														<input type="text" id="campaign_date" class="datepicker form-control" value="<?php echo $campaign['campaign_start_date'] ?>"  name="campaign_start_date" required>
 													</div>
 
 												</div>
@@ -215,7 +215,7 @@
 												<div class="col-md-4">
 													<div class="form-group">
 														<label >Mailshot 2 Date</label>
-														<input name="mailshot_2_date" value="<?php echo $campaign['mailshot_2_date'] ?>" type="text" class="datepicker form-control" required>
+														<input name="mailshot_2_date" value="<?php echo $campaign['mailshot_2_date'] ?>" type="text" class="datepicker form-control" required >
 													</div>
 												</div>
 
@@ -226,7 +226,7 @@
 												<div class="col-md-4">
 													<div class="form-group">
 														<label >Employer Engagement Start</label>
-														<input name="employer_engagement_start" value="<?php echo $campaign['employer_engagement_start'] ?>" type="text" class="datepicker form-control" required >
+														<input name="employer_engagement_start" value="<?php echo $campaign['employer_engagement_start'] ?>" type="text" class="datepicker form-control" required>
 													</div>
 												</div>
 

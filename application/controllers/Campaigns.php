@@ -19,6 +19,7 @@ class Campaigns extends CI_Controller
         $this->offset = 0;
         $this->load->library('pagination');
         $this->load->library('helpers');
+		$this->load->library('xml');
         $campaigns = new CampaignsModel();
         $this->availableCampaigns = $campaigns->availableCampaigns();
     }
@@ -417,6 +418,31 @@ class Campaigns extends CI_Controller
     }
 
 
+	function linkCustomerToWex($company,$school,$placements ){
+
+		$data =
+			['data'=>['companies'=>['company'=>
+				[
+					'comp_id' =>40475,
+					'linked_school_id'=>1147,
+					'linked_school_placements'=>3]
+			]
+			]];
+
+		if(isset($data['company'])){
+
+
+		}
+
+		$status = $this->xml->setXml($data);
+
+		return $status;
+
+	}
+
+
+
+
     function newCall($camp_ref, $id)
     {
 
@@ -427,6 +453,12 @@ class Campaigns extends CI_Controller
 
             $campaign->newCall($this->input->post());
             $this->session->set_flashdata('call_message', 'New Call Logged');
+
+            if($this->input->post('placements') > 0 && $this->input->post('rag_status') ==2){
+				$this->linkCustomerToWex($id,$camp_ref,$this->input->post('placements'));
+
+			}
+
             redirect('campaigns/employerdetails/' . $camp_ref . '/' . $id . '?campid=' . $campid, 'refresh');
 
         }
@@ -434,7 +466,6 @@ class Campaigns extends CI_Controller
         $data['campaign_list'] = $this->availableCampaigns;
         $data['entries'] = $camp_ref;
         $data['campaign_list'] = $this->availableCampaigns;
-
         $data['date'] = date('d/m/Y H:i:s');
         $data['user'] = $this->user;
         $data['activity'] = $campaign->getActivity();

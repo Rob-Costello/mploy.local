@@ -52,7 +52,7 @@ class CampaignsModel extends CI_Model
     function campaignCalls($id)
     {
 
-        $return = array('calls' => 0, 'success' => 0, 'rejected' => 0, 'maybe' => 0, 'placements' => 0);
+        $return = array('calls' => 0, 'success' => 0, 'rejected' => 0, 'maybe' => 0);
 
         $result = $this->db->query("select count(*) as calls, 
 								SUM( CASE WHEN  rag_status= 4 THEN 1 ELSE 0 END )  as rejected, 

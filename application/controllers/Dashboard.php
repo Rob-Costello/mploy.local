@@ -52,7 +52,7 @@ class Dashboard extends CI_Controller {
 		$data['campaigns'] = array();
         $data['sso_key'] = $this->helpers->checkValid($this->user);
 
-		$data['campaigns_display'] = $campaignsModel->getCampaigns('active=2','mploy_campaigns.id' , null, 0)['data'];
+		$data['campaigns_display'] = $campaignsModel->getCampaigns('active=2 OR active=1','mploy_campaigns.id' , null, 0)['data'];
 		$callInfo = [];
 		foreach ($data['campaigns_display'] as $c) {
             //$where = "select_school = " . $c->select_school . " and campaign_place_start_date < now() and campaign_place_end_date > '" . date("Y-m-d") . "'";

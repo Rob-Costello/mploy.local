@@ -53,8 +53,8 @@ class Companies extends CI_Controller
         $data['companies'] = $companies->getCompanies($where, $orderby, $this->perPage, $offset);
         $page = $this->helpers->page($data['companies'],'/companies',$this->perPage,$data['orderby']);
         $this->pagination->initialize($page);
-        $data['pagination_start'] = $offset;
-        $data['pagination_end'] = $data['pagination_start'] + $this->perPage;
+        $data['pagination_start'] = $offset + 1;
+        $data['pagination_end'] = $data['pagination_start'] + $this->perPage - 1;
 
         if($data['pagination_end'] > $data['companies']['count']) {
             $data['pagination_end'] = $data['companies']['count'];

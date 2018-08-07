@@ -109,7 +109,7 @@
 		<!-- /.box -->
 		<div class="box-footer clearfix">
 			<div class="dataTables_info" id="example23_info" role="status" aria-live="polite">
-				Showing <?php echo $pagination_start; ?> to <?php echo $pagination_end ; ?> of <?php $customers['count']-1; ?> entries</div>
+				Showing <?php echo $pagination_start; ?> to <?php echo $pagination_end ; ?> of <?php echo $customers['count']; ?> entries</div>
 			<div class="dataTables_paginate paging_simple_numbers">
 				<?php echo $pagination; ?>
 			</div>

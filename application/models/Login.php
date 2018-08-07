@@ -102,6 +102,8 @@ class login extends CI_Model{
             } else {
 
                 $return[$dt->format("d")] = $temp[$dt->format("j")];
+                $return[$dt->format("d")]->day = $dt->format("d");
+                $return[$dt->format("d")]->month = $dt->format("m");
 
             }
 

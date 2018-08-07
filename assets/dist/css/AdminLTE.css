@@ -285,7 +285,6 @@ a:focus {
   transition: width 0.3s ease-in-out;
   display: block;
   float: left;
-  height: 50px;
   font-size: 20px;
   line-height: 50px;
   text-align: center;
@@ -410,7 +409,7 @@ a:focus {
  */
 .main-sidebar {
   position: absolute;
-  top: 0;
+  top: 15px;
   left: 0;
   padding-top: 50px;
   min-height: 100%;

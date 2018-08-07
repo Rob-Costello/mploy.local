@@ -1,5 +1,5 @@
 
-<?php $this->load->view('templates/header'); ?>
+<?php $this->load->view('templates/campaign_header'); ?>
 
 
 <div class="content-wrapper">
@@ -21,6 +21,7 @@
 
 
                         <section class="">
+                            <form method="POST">
 
                             <!-- Main content School Details-->
                             <!--- Schools contacts -->
@@ -33,7 +34,6 @@
 
                                 <!-- /.box-header -->
                                 <div class="box-body">
-                                    <div role="form"  method="POST">
                                         <!-- text input -->
 
                                         <div class="row">
@@ -41,7 +41,7 @@
                                                 <div class="form-group">
 
                                                     <label class=" ">Company Name *</label>
-                                                    <input type="text" name="name" class="form-control" value="<?php echo $table['name']; ?>" placeholder="School Name" >
+                                                    <input type="text" name="name" class="form-control" value="<?php echo $company['name']; ?>" placeholder="School Name" >
 
                                                 </div>
                                             </div>
@@ -52,7 +52,7 @@
                                                     <label class=" ">
                                                         Address 1
                                                     </label>
-                                                    <input type="text" name="address1" class="form-control" value="<?php echo $table['address1']; ?>" placeholder="123 fake street" >
+                                                    <input type="text" name="address1" class="form-control" value="<?php echo $company['address1']; ?>" placeholder="123 fake street" >
 
                                                 </div>
                                             </div>
@@ -65,7 +65,7 @@
                                                 <div class="form-group">
 
                                                     <label >Address 2</label>
-                                                    <input type="tel" name="address2" class="form-control" value="<?php echo $table['address2'] ?>" placeholder="Fake area" autocomplete="off" >
+                                                    <input type="tel" name="address2" class="form-control" value="<?php echo $company['address2'] ?>" placeholder="Fake area" autocomplete="off" >
                                                 </div>
 
 
@@ -76,7 +76,7 @@
                                                     <label class=" ">
                                                         Town
                                                     </label>
-                                                    <input type="text" name="town" class="form-control" value="<?php echo $table['town']; ?>" placeholder="Fake town" >
+                                                    <input type="text" name="town" class="form-control" value="<?php echo $company['town']; ?>" placeholder="Fake town" >
 
                                                 </div>
                                             </div>
@@ -90,7 +90,7 @@
                                                     </label>
 
 
-                                                    <input type="tel" name="county" class="form-control" value="<?php echo $table['county'] ?>" placeholder="Merseyside" autocomplete="off" >
+                                                    <input type="tel" name="county" class="form-control" value="<?php echo $company['county'] ?>" placeholder="Merseyside" autocomplete="off" >
 
 
                                                 </div>
@@ -102,7 +102,7 @@
                                                     <label class=" ">
                                                         Postcode
                                                     </label>
-                                                    <input type="text" name="postcode" class="form-control" value="<?php echo $table['postcode']; ?>" placeholder="WA10 1PP" >
+                                                    <input type="text" name="postcode" class="form-control" value="<?php echo $company['postcode']; ?>" placeholder="WA10 1PP" >
 
                                                 </div>
                                             </div>
@@ -116,7 +116,7 @@
                                                     </label>
 
 
-                                                    <input type="tel" name="phone_number" class="form-control" value="<?php echo $table['phone_number'] ?>" placeholder="0123 456789" autocomplete="off" >
+                                                    <input type="tel" name="phone_number" class="form-control" value="<?php echo $company['phone_number'] ?>" placeholder="0123 456789" autocomplete="off" >
 
 
                                                 </div>
@@ -153,26 +153,12 @@
                                                     <label class=" ">
                                                         Postcode
                                                     </label>
-                                                    <input type="text" name="postcode" class="form-control" value="<?php echo $table['postcode']; ?>" placeholder="Doe" >
+                                                    <input type="text" name="postcode" class="form-control" value="<?php echo $company['postcode']; ?>" placeholder="Doe" >
 
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label class=" ">
-                                                        Show In Search
-                                                    </label>
 
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox"> Yes
-                                                        </label>
-                                                    </div>
-
-
-                                                </div>
-                                            </div>
                                         </div>
 
                                         <div class="row">
@@ -198,49 +184,7 @@
                                                     <label class=" ">
                                                         Company ERN
                                                     </label>
-                                                    <input type="text" name="comp_ern" class="form-control" value="<?php echo $table['comp_ern']; ?>" placeholder="Doe" >
-
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label class=" ">
-                                                        Status
-                                                    </label>
-
-                                                    <select name="industry" class="form-control">
-                                                       <?php foreach($dropdown as $d):?> 
-                                                        <option value="<?php echo $d->id; ?>">
-                                                        <?php 
-                                                        echo $d->name; ?></option>
-                                                        <?php endforeach ?>
-                                                    </select>
-
-
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-
-                                                    <label class=" ">
-                                                        Website
-                                                    </label>
-                                                    <input type="text" name="line_of_business" class="form-control" value="" placeholder="google.com" >
-
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-
-                                                    <label class=" ">
-                                                        Line of Business
-                                                    </label>
-                                                    <input type="text" name="line_of_business" class="form-control" value="" placeholder="Support" >
+                                                    <input type="text" name="comp_ern" class="form-control" value="<?php echo $company['comp_ern']; ?>" placeholder="Doe" >
 
                                                 </div>
                                             </div>
@@ -253,6 +197,34 @@
 
                                                 </div>
                                             </div>
+
+
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+
+                                                    <label class=" ">
+                                                        Website
+                                                    </label>
+                                                    <input type="text" name="website" class="form-control" value="<?php echo $company['website']; ?>" placeholder="google.com" >
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+
+                                                    <label class=" ">
+                                                        Line of Business
+                                                    </label>
+                                                    <input type="text" name="line_of_business" class="form-control" value="<?php echo $company['line_of_business']; ?>" placeholder="Support" >
+
+                                                </div>
+                                            </div>
+
+
                                         </div>
 
 
@@ -260,9 +232,9 @@
                                 </div>
                                 <input type="submit" class="btn btn-mploy-submit" value="Save Changes">
                                 <input type="button" class="btn btn-mploy-cancel" value="Cancel">
-                                </form>
-                            </div>
 
+                            </div>
+                            </form>
 
                         </section>
 

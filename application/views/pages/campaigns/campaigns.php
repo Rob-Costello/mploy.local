@@ -26,7 +26,7 @@
 
 		<div class="box">
 
-        <div class <div class="col-md-offset-6 col-md-6">
+        <div class="col-md-12">
 				<form  method="POST" class="sidebar-form">
 					<div class="input-group">
 						<input style="margin:20px; padding:19px;" type="text" name="search" class="form-control" placeholder="Search...">
@@ -45,7 +45,20 @@
 				</h2>
 			</div>
 			<!-- /.box-header -->
-			
+			<div style="z-index:100" class="col-md-12">
+				<?php if( $message != '' ) { ?>
+					<div class="alert alert-success alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+						<?php echo $message; ?>
+					</div>
+				<?php } ?>
+			</div>
+			<div style="opacity:0;"  id="message">
+				<?php echo $message; ?>
+
+			</div>
+
+
             <div  class="addButton col-md-offset-9 col-md-3">
 
 					<button class="  btn btn-mploy-submit waves-effect waves-light" style="float:right" onclick="window.location.replace('/campaigns/newcampaign')"><i class="fa fa-plus"></i>
@@ -71,20 +84,24 @@
 					</tr>
 					</thead>
 					<tbody>
-					<?php foreach($campaigns['data'] as $company): ?>
+					<?php foreach($campaigns['data'] as $campaign): ?>
                     <tr>    
                     <?php foreach($headings as $h): ?>
                    
 						<td>
                             <?php if($h == 'campaign_place_start_date' || $h == 'campaign_place_end_date') { ?>
-                                <?php echo date('d/m/Y', strtotime($company->$h)); ?>
-                            <?php } else { ?>
-                                <?php echo $company->$h; ?>
+                                <?php echo date('d/m/Y', strtotime($campaign->$h)); ?>
+                            <?php } else if($h == 'active') { ?>
+
+		                           <img src="<?php echo base_url(); ?>assets/dist/img/<?php echo $campaign->$h; ?>.png" class="img-circle" alt="User Image">
+
+	                         <?php   } else { ?>
+                                <?php echo $campaign->$h; ?>
                             <?php } ?>
 						</td>
 						<?php endforeach ?>
-                        <td><a class="" href="/campaigns/employers/<?php echo $company->campaign_id; ?>/0"> <i class="fa fa-play"></i> </a></td>
-						<td><a class="" href="/campaigns/edit/<?php echo $company->campaign_id; ?>/0"> <i class="fa fa-edit"></i> </a></td>
+                        <td><a class="btn btn-mploy-submit waves-effect waves-light" href="/campaigns/employers/<?php echo $campaign->id; ?>/0"> RUN </a></td>
+						<td><a class="btn btn-mploy-cancel" href="/campaigns/edit/<?php echo$campaign->id; ?>/0"> EDIT </a></td>
 					</tr>
 					<?php endforeach ?>
 					</tbody>

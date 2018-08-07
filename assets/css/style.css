@@ -1,13 +1,13 @@
 
 @font-face {
-	font-family: 'Myriad';
-	src: url('MyriadPro-Regular.woff') format('woff') /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+	font-family: 'PT Sans';
+	src: url('https://fonts.googleapis.com/css?family=PT+Sans')  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 	
 }
 
 @font-face {
-	font-family: 'Myriad-Heading';
-	src: url('MyriadPro-Semibold.woff') format('woff') /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+	font-family: 'PT Sans';
+	src: url('https://fonts.googleapis.com/css?family=PT+Sans')  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 	
 }
 
@@ -15,16 +15,126 @@
 
 
 body{
-font-family:'Myriad', sans-serif;
+font-family:'PT Sans', sans-serif;
 
 }
 
 
 h1,h2,h3,h4{
 
-	font-family:'Myriad-Heading', sans-serif;
+	font-family:'PT Sans', sans-serif;
 
 
+}
+.form-control::-webkit-input-placeholder { color: #eaebed; }  /* WebKit, Blink, Edge */
+.form-control:-moz-placeholder { color: #eaebed; }  /* Mozilla Firefox 4 to 18 */
+.form-control::-moz-placeholder { color: #eaebed; }  /* Mozilla Firefox 19+ */
+.form-control:-ms-input-placeholder { color: #eaebed; }  /* Internet Explorer 10-11 */
+.form-control::-ms-input-placeholder { color: #eaebed; }  /* M
+
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+	color: red;
+	opacity: 1; /* Firefox */
+}
+
+
+
+
+.square {
+	float: left;
+	width: 20px;
+	height: 20px;
+	margin: 5px;
+	border: 1px solid rgba(0, 0, 0, .2);
+}
+
+
+.newuser{
+
+	background:rgba(210, 214, 222, 1)
+}
+
+.failed{
+	background:rgba(221,75,57,0.9);
+
+}
+.successful{
+
+	background: rgba(60,141,188,0.9);
+}
+
+
+/* The switch - the box around the slider */
+.switch {
+	position: relative;
+	display: inline-block;
+	width: 60px;
+	height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {display:none;}
+
+.main-header .logo{
+
+	height:60px;
+
+}
+
+.main-sidebar{
+
+	padding-top:70px;
+
+
+}
+
+/* The slider */
+.slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #ccc;
+	-webkit-transition: .4s;
+	transition: .4s;
+}
+
+.slider:before {
+	position: absolute;
+	content: "";
+	height: 26px;
+	width: 26px;
+	left: 4px;
+	bottom: 4px;
+	background-color: white;
+	-webkit-transition: .4s;
+	transition: .4s;
+}
+
+input:checked + .slider {
+	background-color: #80ba27;
+}
+
+input:focus + .slider {
+	box-shadow: 0 0 1px #80ba27;
+}
+
+input:checked + .slider:before {
+	-webkit-transform: translateX(26px);
+	-ms-transform: translateX(26px);
+	transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+	border-radius: 34px;
+}
+
+.slider.round:before {
+	border-radius: 50%;
 }
 
 .ui-datepicker-calendar{

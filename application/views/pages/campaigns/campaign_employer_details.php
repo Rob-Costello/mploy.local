@@ -5,10 +5,7 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h3>
-
-          
-        </h3>
+        <h3>&nbsp;</h3>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
             <li class="active">School Details</li>
@@ -17,6 +14,19 @@
     </section>
 
     <div class="container-fluid ">
+
+
+            <div class="col-md-4" style="margin-bottom: 20px;">
+                <?php if($prev !== null) { ?><a class="btn btn-mploy-cancel" href="/campaigns/employerdetails/<?php echo $camp_id ?>/<?php echo $prev;?>?campid=<?php echo $campaign ?>">PREV</a><?php } ?>
+            </div>
+
+            <div class="col-md-4" style="margin-bottom: 20px;">
+                <a class="btn btn-mploy-cancel center-block" href="/campaigns/employers/<?php echo $campaign ?>/0">BACK TO CAMPAIGN</a>
+            </div>
+
+            <div class="col-md-4" style="margin-bottom: 20px;">
+                <?php if($next !== null) { ?><a class="btn btn-mploy-submit pull-right" href="/campaigns/employerdetails/<?php echo $camp_id ?>/<?php echo $next;?>?campid=<?php echo $campaign ?>">NEXT</a><?php } ?>
+            </div>
         <div class="col-md-7">
         <div class=" ">
             <div id="exTab1" class="">
@@ -54,7 +64,7 @@
 
                                 <!-- /.box-header -->
                                 <div class="box-body">
-                                    <form role="form"  method="POST">
+                                    <form role="form" action="?campid=<?php echo $campaign ?>" method="POST">
                                         
                                     
                                         <div class="row">
@@ -71,7 +81,7 @@
 
                                                     <div class="">
                                                         <label >Address</label>
-                                                        <input type="text" name="address1" class="form-control" value="<?php echo $employer->address1 ?>" placeholder="999" autocomplete="off" >
+                                                        <input type="text" name="address1" class="form-control" value="<?php echo $employer->address1 ?>" placeholder="" autocomplete="off" >
                                                     </div>
                                                 </div>
                                             </div>
@@ -119,8 +129,7 @@
                 
                                 <div class="row">
                                     <div class="col-md-12">
-                                    <input name="update_company" value="submit" type="submit" class="btn btn-mploy-submit" value="Save Changes">
-                                    <input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/campaigns')">
+                                    <input name="update_company" value="Save" type="submit" class="btn btn-mploy-submit">
                                     </div>
                                 </div>
 
@@ -169,43 +178,28 @@
                                 <div class="box-body">
                                     <form role="form"  method="POST">
                                         
-                                    <table id="example2" class="table table-bordered table-striped">
+                                    <table id="example2" class="table table-bordered table-hover">
                                         <thead>
-                                        <tr>
-                                            <?php foreach($contacts_table as $heading):?>
-                                                <th><?php echo $heading; ?> </th>
-                                            <?php endforeach;?>
+                                            <tr>
+                                                <?php foreach($contacts_table as $heading):?>
+                                                    <th><?php echo $heading; ?> </th>
+                                                <?php endforeach;?>
 
-                                        </tr>
+                                            </tr>
                                         </thead>
                                         <tbody>
-                                        
-                                        <?php foreach($company as $school): ?>
-                                            <tr>
-
-                                               
-
+                                            <?php foreach($company as $school): ?>
+                                                <tr>
                                                     <td><?php echo $school->first_name .' ' .$school->last_name; ?></td>
                                                     <td><?php echo $school->job_title ?></td>
                                                     <td><?php echo $school->phone ?></td>
-                                                    <td><?php echo $school->email ?></td>
-                                              
-
-                                            
-                                        <?php endforeach ?>
-
-                                            </tr>
+                                                    <td><a href="mailto:<?php echo $school->email ?>"><?php echo $school->email ?></a></td>
+                                                </tr>
+                                            <?php endforeach ?>
                                         </tbody>
 
                                     </table>
 
-                                       
-                                            
-                                       
-
-                                       
-                
-                              
                                 <input type="hidden" name="active" value="1">
                                 </form>
                             </div>
@@ -213,105 +207,26 @@
 
                         </section>
 
-
-
                     </div>
 
                 </div> <!-- end tab content -->
-
-
 
             </div>
         </div>
     </div>
     
     
-    <div style="padding-top:20px;" class="col-md-7">
-        <div class=" ">
-            <div id="exTab1" class="">
-
-                <div class="tab-content clearfix">
-
-                    <div class="tab-pane active" id="1a">
-
-                        <section class="">
-                            <!-- Main content School Details-->
-                            <!--- Schools contacts -->
-
-                            <div class="box">
-
-                                <div class="box-header with-border">
-                                    <h3 class="box-title">Call History </h3>
-                                </div>
-
-                                <!-- /.box-header -->
-                                <div class="box-body">
-                                    <div style="z-index:100" class="col-md-12">
-                                        <?php if( $call_message != '' ) { ?>
-                                            <div class="alert alert-success alert-dismissable">
-                                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                                <?php echo $call_message; ?>
-                                            </div>
-                                        <?php } ?>
-                                    </div>
-
-                                    <div style="opacity:0;"  id="message">
-                                        <?php echo $call_message; ?>
-
-                                    </div>
-                                <div  style="padding-bottom:20px;" class="col-md-offset-8 col-md-3">
-                                    <input type="submit" class="btn btn-mploy-submit" value="New Call" onclick="window.location.replace('/campaigns/newcall/<?php echo $camp_id ?>/<?php echo $comp_id ?>')">
-                                </div> 
-                                   
-                                        
-                                    <table id="example2" class="table table-bordered table-striped">
-                                        <thead>
-                                        <tr>
-                                            <?php foreach($call_table as $heading):?>
-                                                <th><?php echo $heading; ?> </th>
-                                            <?php endforeach;?>
-
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        
-                                        <?php foreach($calls as $call): ?>
-                                            <tr>
-                                                    <td><?php echo $call->description ?></td>
-                                                    <td><?php echo $call->notes ?></td>
-                                                    <td><?php echo $call->date_time ?></td>
-                                                    <td>
-														<img src="<?php echo base_url()."assets/";?>dist/img/<?php echo $call->rag_status ?>.png" class="img-circle" alt="Status">
-														</td>
-                                              
-
-                                            
-                                        <?php endforeach ?>
-
-                                            </tr>
-                                        </tbody>
-
-                                    </table>
-
-                            </div>
-
-
-                        </section>
-
-
-
-                    </div>
-
-                </div> <!-- end tab content -->
-
-
-
-            </div>
-        </div>
+    <div style="padding-top:20px;" class="col-md-6">
+        <?php $this->view('pages/companies/components/call_history'); ?>
     </div>
 
 
-    
+    <div style="padding-top:20px;" class="col-md-6">
+        <?php $this->view('pages/companies/components/placements'); ?>
+    </div>
+
+
+
     </div> <!-- end tab container -->
 
     <?php $this->load->view('templates/footer'); ?>

@@ -1,8 +1,9 @@
 <?php
 
 
-class Schools extends CI_Controller
+class Customers extends CI_Controller
 {
+
 
 	public function __construct()
 	{
@@ -10,71 +11,75 @@ class Schools extends CI_Controller
 		$this->load->model('login');
 		$this->load->library('session');
 		$this->load->library('ion_auth');
-		$this->load->model('SchoolsModel');
-		$this->load->model('StudentsModel');
+		$this->load->model('CustomersModel');
 		$this->login->login_check_force();
 		$this->user = $this->ion_auth->user()->row();
 		$this->perPage =20;
 		$this->offset =0;
 		$this->load->library('pagination');
-		$this->tabs = array('School Information' =>'',
-			           'School Contacts'=>'contacts',
-			           'School Placements'=>'placements',
-			           'School Call History'=>'history');
+		$this->tabs = array('Customer Information' =>'',
+			           'Customer Contacts'=>'contacts',
+			           'Campaigns'=>'placements',
+			           'Customer Call History'=>'history');
 	}
 
 	function index($id=0)
 	{
 
 		$sortby="";
-		$orderby = 'org_id';
+		$orderby = 'id';
 		$data['orderby']='';
 		$like = null;
-		$where = 'organisation_type_id =1 ';
+		$where_in = "organisation_type_id in ('1','4','5')";
+		//$where_in = ['1','4','5'];
 		$data['fields'] = ['name','address1','town','county','postcode','phone_number'];
-		$schools = new SchoolsModel();
+		$customer = new CustomersModel();
 		$page = $id;
 		$data['headings'] = ['Name','Address','Town','County','Postcode','Phone Number' ];
 		$offset=0;
-		if($page > 0)
+		$data['message']='';
+		$data['message'] = $this->session->flashdata('message');
+		if($id > 0)
 		{
-			$offset = $page * $this->perPage;
+			$offset = $id * $this->perPage ;
 		}
 
 		if(isset($_GET['orderby'])){
 			$orderby = $this->input->get('orderby');
 			$data['orderby'] = '?orderby='.$orderby;
 		}
-
+        
+		$where = ' ';
+		
 		if(!empty($_POST)){
 
 			$like = $this->input->post('search');
 			$where .= " and name like '%".$like."%'";
-			$data['schools'] = $schools->getSchools($where, $orderby,  null,null);
-			$page = $this->page($data['schools'],'/schools',$this->perPage);
+			$data['customers'] = $customer->getcustomers($where_in . $where, $orderby,  null,null);
+			$page = $this->page($data['customers'],'/customers',$this->perPage);
 		}else{
 
-			$data['schools'] = $schools->getSchools($where, $orderby, $this->perPage, $offset,$sortby);
-			$page = $this->page($data['schools'],'/schools',$this->perPage);
+			$data['customers'] = $customer->getcustomers($where_in, $orderby, $this->perPage, $offset,$sortby);
+			$page = $this->page($data['customers'],'/customers',$this->perPage);
 
 		}
 
 
-		$page = $this->page($data['schools'],'/schools',$this->perPage);
+		//$page = $this->page($data['customers'],'/customers',$this->perPage);
 		$this->pagination->initialize($page);
-		$data['pagination_start'] = $offset + 1;
-		$data['pagination_end'] = $data['pagination_start'] + $this->perPage;
+		$data['pagination_start'] = $offset +1 ;
+		$data['pagination_end'] = $data['pagination_start'] + $this->perPage -1;
 
-		if($data['pagination_end'] > $data['schools']['count'])
+		if($data['pagination_end'] > $data['customers']['count'])
 		{
-			$data['pagination_end'] = $data['schools']['count'];
+			$data['pagination_end'] = $data['customers']['count'];
 		}
 		$data['sortby']=$sortby;
 		$data['pagination'] = $this->pagination->create_links();
 		$data['user'] = $this->user;
-		$data['title'] = 'Schools';
-		$data['nav'] = 'schools';
-		$this->load->view('pages/schools/schools', $data);
+		$data['title'] = 'Customers';
+		$data['nav'] = 'Customers';
+		$this->load->view('pages/customers/customers', $data);
 	
 	}
 
@@ -109,11 +114,11 @@ class Schools extends CI_Controller
 
 		$data['id']=$id;
 		$data['user']=$this->user;
-		$school= new SchoolsModel();
+		$customer= new CustomersModel();
 		$data['messages']='';
 		if(!empty($_POST))
 		{
-			$success = $school->updateSchool($id,$this->input->post());
+			$success = $customer->updateCustomer($id,$this->input->post());
 			$data['messages'] = "Information updated";
 		}
 
@@ -140,18 +145,20 @@ class Schools extends CI_Controller
 
 				default:
 					$data['tabs'] = $this->tabs;
-					$data['table'] = $school->getSchool($id);
-				$this->load->view('pages/schools/schools_view', $data);
+					$data['table'] = $customer->getcustomer($id);
+				$this->load->view('pages/customers/customers_view', $data);
 		}
 
 	}
+
+
 
 
 	function contacts($id, $page=0)
 	{
 		$data['user']=$this->user;
 		$data['id'] = $id;
-		$school = new SchoolsModel();
+		$customer = new CustomersModel();
 
 		$offset=0;
 
@@ -159,8 +166,8 @@ class Schools extends CI_Controller
 		{
 			$offset = $page * $this->perPage;
 		}
-		$data['contacts'] = $school->getContacts(array('school_id'=>$data['id'],'contact_type'=>'3' ), null, $this->perPage, $offset);
-		$page = $this->page($data['contacts'],'/schools/view/'.$id.'/contacts',$this->perPage,$offset);
+		$data['contacts'] = $customer->getContacts(array('org_id'=>$data['id'],'contact_type_id'=>'3' ), null, $this->perPage, $offset);
+		$page = $this->page($data['contacts'],'/customers/view/'.$id.'/contacts',$this->perPage,$offset);
 		$this->pagination->initialize($page);
 		$data['pagination_start'] = $offset + 1;
 		$data['pagination_end'] = $data['pagination_start'] + $this->perPage;
@@ -176,24 +183,49 @@ class Schools extends CI_Controller
 			$pretty[] = ucwords(str_replace('_', ' ', $item));
 		}
 		);
+		$data['message'] = $this->session->flashdata('message');
 		$data['fields'] = $header;
 		$data['table_header'] = $pretty;
 		$data['tabs'] = $this->tabs;
-		$this->load->view('pages/schools/schools_contacts',$data);
+		$this->load->view('pages/customers/customers_contacts',$data);
 	}
 
 
-	function newSchool(){
-		$school = new SchoolsModel();
-		$data['user'] = $this->user;
-		$data['messages'] = '';
-		if(!empty($_POST)){
+	function newContact($id){
 
-			$school->newSchool($this->input->post());
-			$data['messages']='Successfully added school!';
+
+		$data['user']=$this->user;
+		$data['id'] = $id;
+		$customer = new CustomersModel();
+		$required = [];
+
+		if(!empty($_POST)){
+			$customer->newContact($this->input->post());
+			$this->session->set_flashdata('message', 'New Contact Added');
+			redirect('customers/view/'.$id.'/contacts','refresh');
 		}
 
-		$this->load->view('pages/schools/schools_new_school',$data);
+		$this->load->view('pages/customers/customers_new_contact',$data);
+
+	}
+
+
+
+
+	function newcustomer(){
+		$customer = new CustomersModel();
+		$data['user'] = $this->user;
+		$data['messages'] = '';
+		//$customerid = $customer->getLastCustomer()['id'];
+	    //$customerid+1;
+		if(!empty($_POST)){
+			//$_POST['school_id'] = $customerid + 1;
+		    $customer->newcustomer($this->input->post());
+			$this->session->set_flashdata('message', 'Successfully added customer!');
+			redirect('/customers','refresh');
+		}
+
+		$this->load->view('pages/customers/customers_new_customer',$data);
 
 	}
 
@@ -203,16 +235,16 @@ class Schools extends CI_Controller
 
 		$data['user']=$this->user;
 		$data['id']=$id;
-		$school= new SchoolsModel();
+		$customer= new CustomersModel();
 		$data['messages'] = '';
 		if(!empty($_POST))
 		{
-			$success = $school->updateSchoolContact($id,$this->input->post());
+			$success = $customer->updatecustomerContact($id,$this->input->post());
 			$data['messages'] = "Information updated";
 		}
-		$data['table']= $school->getSchoolContact($id);
+		$data['table']= $customer->getcustomerContact($id);
 
-		$this->load->view('pages/schools/school_contact_details',$data);
+		$this->load->view('pages/customers/customer_contact_details',$data);
 
 	}
 
@@ -221,7 +253,8 @@ class Schools extends CI_Controller
 
 		$data['user']=$this->user;
 		$data['id']=$id;
-		$school = new SchoolsModel();
+		$customer = new CustomersModel();
+
 
 		$offset=0;
 
@@ -230,8 +263,8 @@ class Schools extends CI_Controller
 			$offset = $page * $this->perPage;
 		}
 
-		$data['contacts'] = $school->getHistory(['select_school'=>$data['id']], null, $this->perPage, $offset);
-		$page = $this->page($data['contacts'],'/schools/view/'.$id.'/history',$this->perPage);
+		$data['contacts'] = $customer->getHistory(['campaign_id'=>$data['id']], null, $this->perPage, $offset);
+		$page = $this->page($data['contacts'],'/customers/view/'.$id.'/history',$this->perPage);
 		$this->pagination->initialize($page);
 		$data['pagination_start'] = $offset + 1;
 		$data['pagination_end'] = $data['pagination_start'] + $this->perPage;
@@ -241,42 +274,57 @@ class Schools extends CI_Controller
 		}
 		$data['pagination'] = $this->pagination->create_links();
 
+		$header = ['date_time',  'username', 'receiver','description','rag_status','notes'];
 
-
-		$header = ['date', 'time', 'caller', 'receiver','origin','call_notes'];
 		$pretty = [];
 		array_walk($header, function ($item, $key) use (&$pretty)
 		{
 			$pretty[] = ucwords(str_replace('_', ' ', $item));
 		}
 		);
+
+
+		$data['message'] = $this->session->flashdata('message');
 		$data['tabs'] = $this->tabs;
 		$data['fields'] = $header;
 		$data['table_header'] = $pretty;
 
-		$this->load->view('pages/schools/school_history',$data);
+		$this->load->view('pages/customers/customer_history',$data);
 	}
 
 	function call($id){
-		$school = new SchoolsModel();
+		$customer = new CustomersModel();
 		$data['user']=$this->user;
+		$data['date'] =   date('d/m/Y H:i:s');
 		$data['id'] = $id;
-		//$data['id']=$this->session->schoolid;
-		$data['contacts']=$school->getContacts(array('school_id'=>$data['id']));
-		$data['messages']='';
+		$data['camp_id'] = $id;
+		//$customer->getCompanies();
+		$data['companies'] = $customer->getEmployers($id);
+		if(!is_array($data['companies'])){
+			$data['companies'] = ['comp_id' =>'', 'name' => 'None Avaialble, Add a Company to the Campaign'];
+		}
+		//$data['id']=$this->session->customerid;
+
+		$data['contacts']=$customer->getContacts(array('org_id'=>$data['id']));
+
+		$data['activity'] = $customer->getActivity();
+
 		if(!empty($_POST)){
-			//$success = $school->createCall($this->input->post());
-			$data['messages'] = "Call Added";
+			$_POST['date_time'] = date('Y-m-d H:i:s');
+			$customer->createCall($this->input->post());
+			$this->session->set_flashdata('message', 'New Call Added');
+			redirect('customers/view/'.$id.'/history','refresh');
 		}
 
-		$this->load->view('pages/schools/school_call',$data);
+		$this->load->view('pages/customers/customer_call',$data);
 	}
 
 	function placements($id, $page=0){
 		$data['user']=$this->user;
-		$school= new SchoolsModel();
-		$header = ['placement_type', 'start_date', 'end_date', 'class','mploy_self','placed','status','student_id'];
+		$customer= new CustomersModel();
+		$header = ['campaign_name', 'campaign_place_start_date', 'campaign_place_end_date','placed','status'];
 		$pretty = [];
+		$data['message']='';
 		array_walk($header, function ($item, $key) use (&$pretty)
 		{
 			$pretty[] = ucwords(str_replace('_', ' ', $item));
@@ -286,30 +334,56 @@ class Schools extends CI_Controller
 		$data['tabs'] = $this->tabs;
 		$data['table_header'] = $pretty;
 		$data['fields'] = $header;
-		$data['active'] = $school->getPlacements("placement_company_id >0 and placement_end_date > now()");//need to check if placement end date has expired
-		$this->load->view('pages/schools/school_placements',$data);
+		$where = "org_id = ".$id ." and campaign_place_start_date and campaign_place_end_date > '".date("Y-m-d" )."'";
+		$info = $customer->getPlacements($where); //need to check if placement end date has expired
+		$temp = [];
+		foreach($info as $active)
+		{
+			$callstats = $customer->getCallData($id);
+			$call =0;
+
+			foreach($callstats as $stat){
+				if($stat->rag_status =='green')
+				{
+					$call++;
+				}
+			}
+			$data['message'] = $this->session->flashdata('message');
+			$active['placed'] = $call .'/' .$active['students_to_place'];
+			$active['status'] = 'Active';
+			$temp[]=$active;
+		}
+		$data['data'] = $temp;
+		$this->load->view('pages/customers/customer_placements',$data);
 
 	}
 
-	function newplacement($id){
+	function newPlacement($id){
 		$data['user']=$this->user;
-		$school = new SchoolsModel();
+		$customer = new CustomersModel();
 		$data['id']=$id;
-		$data['contacts']=$school->getContacts(array('school_id'=>$id));
 		$data['messages']='';
+		$data['contacts'] = $customer->getContacts(['school_id'=>$id]);
+		$data['companies']  = $customer->getCompanies();
+
 		if(!empty($_POST))
 		{
-			//$success = $school->createCall($this->input->post());
-			$data['messages'] = "Information updated";
+			$_POST['placement_start_date'] = date("Y-m-d", strtotime($this->input->post('placement_start_date')));
+			$_POST['placement_end_date'] = date("Y-m-d", strtotime($this->input->post('placement_end_date')));
+			$id = $this->input->post('id');
+			unset($_POST['id']);
+			$customer->updateCompanyContact($id,$this->input->post());
+			$this->session->set_flashdata('message','Student added to Company' );
+			redirect('customers/view/'.$data['id'].'/placements','refresh');
 		}
-		$this->load->view('pages/schools/schools_new_placement',$data);
+		$this->load->view('pages/customers/customers_new_placement',$data);
 
 	}
 
 
 	function checkFile($file){
 
-		$school = new SchoolsModel();
+		$customer = new CustomersModel();
 		$path_parts = pathinfo($file);
 		$extension =$path_parts['extension'];
 		if($extension == 'csv'){
@@ -320,19 +394,19 @@ class Schools extends CI_Controller
 			});
 			$header = $csv[0];
 			array_shift($csv);
-			$data['header']=$school->getStudentsTableHeader();
+			$data['header']=$customer->getStudentsTableHeader();
 			$data['csv']= $csv;
 			return $data;
 		}
 
 	}
 
-	function getSchools(){
+	function getcustomers(){
 		
-		$school = new SchoolsModel(); 
+		$customer = new CustomersModel();
 		header('Content-Type: application/json');
 		if (isset($_GET['term'])) {           
-		echo json_encode($school->schoolList($_GET['term']));
+		echo json_encode($customer->customerList($_GET['term']));
 	    }
 
 	} 
@@ -349,7 +423,7 @@ class Schools extends CI_Controller
 
 		$data['user'] = $this->user;
 		$data['id'] = $id;
-		$school = new SchoolsModel();
+		$customer = new CustomersModel();
 		$data['message']=null;
 
 		if(!empty($_POST)){
@@ -377,7 +451,7 @@ class Schools extends CI_Controller
 
 		}
 
-		$this->load->view('pages/schools/schools_upload_students',$data);
+		$this->load->view('pages/customers/customers_upload_students',$data);
 
 	}
 

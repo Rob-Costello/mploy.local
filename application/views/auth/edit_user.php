@@ -18,7 +18,22 @@
 				<div class="tab-content clearfix">
 
 					<div class="box-header">
-						<h2 class="box-title">
+						<div class="box-body">
+
+							<div style="z-index:100" class="col-md-12">
+								<?php if( $error != '' ) { ?>
+									<div class="alert alert-success alert-dismissable">
+										<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+										<?php echo $message; ?>
+									</div>
+								<?php } ?>
+							</div>
+							<div style="opacity:0;"  id="message">
+								<?php echo $error; ?>
+
+							</div>
+
+							<h2 class="box-title">
 							<?= $title; ?>
 						</h2>
 					</div>
@@ -35,9 +50,17 @@
 
 
 								<!-- /.box-header -->
+
+
 								<div class="box-body">
 
-									<div id="infoMessage"><?php echo $message;?></div>
+                                    <?php if($message!==null): ?>
+                                    <div class="alert alert-danger alert-dismissable">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                        <?php echo $message; ?>
+                                    </div>
+                                    <?php endif ?>
+
 
 
 

@@ -1,13 +1,11 @@
 
-
-<!-- jQuery 3 -->
-<script src="<?php echo base_url()."assets/";?>bower_components/jquery/dist/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-autocomplete/1.0.7/jquery.auto-complete.js"></script>
-<!-- jQuery UI 1.11.4 -->
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+
+<script src="<?php echo base_url()."assets/";?>bower_components/jquery/dist/jquery.min.js"></script>
+
 <script>
-	$.widget.bridge('uibutton', $.ui.button);
+	//$.widget.bridge('uibutton', $.ui.button);
 </script>
 <!-- Bootstrap 3.3.7 -->
 <script src="<?php echo base_url()."assets/";?>bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -43,6 +41,8 @@
 <!-- Date picker -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 <script>
@@ -51,18 +51,27 @@
     {
         var target = '/campaigns/findCampaigns';
         var data =id;
+        var camp='';
+        <?php if (isset($campaign_dropdown)): ?>
+	    var camp = <?php echo $campaign_dropdown; ?>
+	    <?php endif ?>
+
         $.ajax({
             url: target,
             type: 'POST',
-            data: {school:data},
+            data: {school:data, camp:camp},
             success: function(data, textStatus, XMLHttpRequest)
             {
                 $('#campaign-dropdown').html(data);
+
             }
         });
     }
+
+
     $(function(){
             campaigns($('#school-dropdown').val());
+
     });
     $(function(){
         $('#school-dropdown').change(function(){
@@ -71,9 +80,102 @@
     });
 	$(function(){
 		$('#campaign-dropdown').change(function(){
+
 			window.location.replace('/campaigns/employers/'+$(this).val()+'/0');
 		});
 	});
+
+
+
+
+	$(function(){
+	    $('#campaign-dropdown').change(function(){
+
+		    window.location.replace('/campaigns/employers/'+$(this).val()+'/0');
+	    });
+    });
+
+
+
+	$(function(){
+		$('.paginate_button').each(function(){
+
+			var link = $(this).find("a").attr("href");
+
+			if(link !==undefined) {
+				var lastslashindex = link.lastIndexOf('/');
+				var result= parseInt(link.substring(lastslashindex  + 1));
+				if (isNaN(result)==false) {
+					var val = link.substring(0, lastslashindex);
+					console.log(result);
+					$(this).find("a").attr("href",val+'/'+(result -1));
+
+				}
+
+				//$('.activePage').next('li').addClass('activePage');
+			}
+		})
+
+
+		//$('.activePage').next('li').addClass('activePage');
+		//$('.activePage').removeClass('activePage');
+
+	})
+
+
+	$(document).ready(function()
+    {
+        $('#reset-form').on('click', function()
+        {
+            $(this).closest('form').trigger("reset");
+        });
+
+        $('#clear-form').on('click', function()
+        {
+            $(this).closest('form').find('input:text, input:password, select, textarea').val('');
+            $(this).closest('form').find('input:radio, input:checkbox').prop('checked', false);
+        });
+        $('#clear-selected-companies').on('click', function()
+        {
+            $('#searchCompanyName').val('');
+            $('#searchCompanyAddr').val('');
+            $('#searchCompanyPostcode').val('');
+            $('#searchCompanyIndustry').val('');
+            $('#searchCompanyStatus').val('');
+        });
+    });
+
+
+    <?php if (isset($campaign_dropdown)):?>
+
+    $(function(){
+
+	    //$('#campaign-dropdown option[value="<?php echo $campaign_dropdown ?>"]').attr('selected','selected');;
+	    ////$('#campaign-dropdown').val(<?php echo $campaign_dropdown ?>);
+	    $('#campaign-dropdown').val(<?php echo $campaign_dropdown ?>);
+	    $('#campaign-dropdown').text(<?php echo $campaign_dropdown ?>);
+        $('#edit').html('<a href="/campaigns/edit/<?php echo $campaign_dropdown ?>/0"><i class="fa fa-edit fa-2x"</a>');
+    });
+    <?php endif ?>
+</script>
+<script>
+
+    function appendParmaterURL( paramName, paramValue)
+    {
+
+        url = window.location.href;
+
+        if (paramValue == null) {
+            paramValue = '';
+        }
+        var pattern = new RegExp('\\b('+paramName+'=).*?(&|$)');
+        if (url.search(pattern)>=0) {
+            return url.replace(pattern,'$1' + paramValue + '$2');
+        }
+        url = url.replace(/\?$/,'');
+        return url + (url.indexOf('?')>0 ? '&' : '?') + paramName + '=' + paramValue;
+    }
+
 </script>
 
 </body>

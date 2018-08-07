@@ -11,7 +11,7 @@ class Users extends CI_Controller
 		$this->load->library('session');
 		$this->load->library('ion_auth');
 		$this->load->library('helpers');
-		$this->load->model('CustomersModel');
+		$this->load->model('UsersModel');
 		$this->login->login_check_force();
 		$this->user = $this->ion_auth->user()->row();
 		$this->perPage = 20;
@@ -37,6 +37,7 @@ class Users extends CI_Controller
 
 	function index($id=0)
 	{
+        $data['password_message'] ='';
 
 		$sortby = null;
 		if (!empty($_POST)) {
@@ -51,7 +52,7 @@ class Users extends CI_Controller
 			'Phone' => 'phone',
 				'Company' => 'company'];
 
-		$customers = new CustomersModel();
+		$customers = new UsersModel();
 		$offset=0;
 
 		if($page > 0)
@@ -59,7 +60,7 @@ class Users extends CI_Controller
 			$offset = $page * $this->perPage;
 		}
 
-		$data['users'] = $customers->getCustomers(null, null, $this->perPage, $offset,$sortby);
+		$data['users'] = $customers->getUsers(null, null, $this->perPage, $offset,$sortby);
 		$page = $this->helpers->page($data['users'],'/users',$this->perPage);
 		$this->pagination->initialize($page);
 		$data['pagination_start'] = $offset + 1;
@@ -69,12 +70,14 @@ class Users extends CI_Controller
 		{
 			$data['pagination_end'] = $data['users']['count'];
 		}
-		$data['sortby']=$sortby;
+		$data['password_message'] =  $this->session->flashdata('password_message');
+        //$data['password_message'] = 'test';
+        $data['sortby']=$sortby;
 		$data['pagination'] = $this->pagination->create_links();
 		$data['user'] = $this->user;
 		$data['title'] = 'Users';
 		$data['nav'] = 'Users';
-		$this->load->view('pages/customers/customers', $data);
+		$this->load->view('pages/users/users', $data);
 	}
 
 

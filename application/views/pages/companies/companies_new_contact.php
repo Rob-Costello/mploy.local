@@ -18,7 +18,7 @@
 				</div>
 			<?php } ?>
 		</div>
-			<div class=" ">
+		<div class=" ">
 			<div id="exTab1" class="content">
 
 
@@ -34,7 +34,7 @@
 
 							<h4>
 
-								School Details
+								New Contact
 							</h4>
 							<div class="">
 
@@ -49,8 +49,8 @@
 											<div class="col-md-6">
 												<div class="form-group">
 
-													<label class=" ">School Name</label>
-													<input type="text" name="name" class="form-control"  placeholder="School Name" >
+													<label class=" ">First Name</label>
+													<input type="text" name="first_name" class="form-control"  placeholder="John" required>
 
 												</div>
 											</div>
@@ -58,8 +58,8 @@
 												<div class="form-group">
 
 													<div class="">
-														<label >Type of Institution</label>
-														<input type="text" name="type" class="form-control"  placeholder="Secondary School" autocomplete="off" >
+														<label >Last Name</label>
+														<input type="text" name="last_name" class="form-control"  placeholder="Doe" autocomplete="off" required>
 													</div>
 												</div>
 											</div>
@@ -71,51 +71,23 @@
 												<div class="form-group">
 
 													<label class=" ">
-														Address 1
+														Email
 													</label>
-													<input type="text" name="address1" class="form-control" " placeholder="123 Fake Street" >
+													<input type="text" name="email" class="form-control" " placeholder="your@email.com" >
 
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
 
-													<label >Address 2</label>
-													<input type="tel" name="address2" class="form-control"  placeholder="Fake Road" autocomplete="off" >
+													<label >Address </label>
+													<input type="tel" name="address" class="form-control"  placeholder="Fake Road" autocomplete="off" >
 												</div>
 
 
 											</div>
 											<!--/span-->
 										</div>
-
-										<div class="row">
-											<div class="col-md-6">
-												<div class="form-group">
-
-													<label class=" ">
-														Town
-													</label>
-													<input type="text" name="town" class="form-control"  placeholder="Fake Town" >
-
-												</div>
-											</div>
-											<div class="col-md-6">
-												<div class="form-group">
-													<label class=" ">
-														County
-													</label>
-
-
-													<input type="tel" name="county" class="form-control"  placeholder="Merseyside" autocomplete="off" >
-
-
-												</div>
-											</div>
-											<!--/span-->
-										</div>
-
-
 
 										<div class="row">
 											<div class="col-md-6">
@@ -131,18 +103,36 @@
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class=" ">
-														Phone Number
+														Job Title
 													</label>
 
 
-													<input type="tel" name="phone_number" class="form-control"  placeholder="0123 456789" autocomplete="off" >
+													<input type="text" name="job_title" class="form-control"  placeholder="Job Title" autocomplete="off" >
 
 
 												</div>
 											</div>
 											<!--/span-->
 										</div>
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
 
+													<label class=" ">
+														Telephone
+													</label>
+													<input type="text" name="phone" class="form-control"  placeholder="01234 567890" required>
+
+												</div>
+											</div>
+
+											<!--/span-->
+										</div>
+
+
+
+									<input type="hidden" name="org_id" value="<?php echo $org_id ?>" >
+										<input type="hidden" name="contact_type_id" value="2" >
 
 
 
@@ -151,7 +141,7 @@
 
 								</div>
 								<input type="submit" class="btn btn-mploy-submit" value="Save Changes">
-								<input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/schools')">
+								<input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/companies/view/<?php echo $org_id ?>/contacts/')">
 								</form>
 							</div>
 

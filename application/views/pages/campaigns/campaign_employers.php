@@ -20,77 +20,120 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="box">
+					<div style="padding-top:15px" class=""><h2 class="text-center"><?php echo $campaign_name?></h2></div>
 					<div class="box-header with-border">
-						<h3 class="box-title">Campaign Progress Dashboard</h3>
+						<h3 class="box-title"> Campaign Progress Dashboard</h3>
 
-						<div class="box-tools pull-right">
-							<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-							</button>
-							<div class="btn-group">
-								<button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
-									<i class="fa fa-wrench"></i></button>
-								<ul class="dropdown-menu" role="menu">
-									<li><a href="#">Action</a></li>
-									<li><a href="#">Another action</a></li>
-									<li><a href="#">Something else here</a></li>
-									<li class="divider"></li>
-									<li><a href="#">Separated link</a></li>
-								</ul>
-							</div>
-							<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-						</div>
 					</div>
 					<!-- /.box-header -->
 					<div class="box-body">
 						<div class="row">
 
 							<!-- /.col -->
-							<div class="col-md-11">
-								<p class="text-center">
-									<strong>Goal Completion</strong>
-								</p>
+							<div class="col-md-12">
 
-								<div class="progress-group">
+
+								<!-- <div class="progress-group">
 									<span class="progress-text">Calls completed</span>
-									<span class="progress-number"><b>160</b>/2000</span>
+									<span class="progress-number"><b><?php echo $call_data['calls'] ?></b>/<?php echo (int)count($campaign['data']); ?></span>
 
 									<div class="progress sm">
-										<div class="progress-bar progress-bar-aqua" style="width: 80%"></div>
+
+										<div class="progress-bar progress-bar-aqua" style="width: <?php if ((int)$call_data['calls']  <= 0 || (int)count($campaign['data']) <= 0 ) echo 0; else echo ((int)$call_data['calls']  * 100  / ((int)count($campaign['data']))  )?>%"></div>
 									</div>
-								</div>
+								</div> -->
 								<!-- /.progress-group -->
 								<div class="progress-group">
 									<span class="progress-text">Rejections</span>
-									<span class="progress-number"><b>310</b>/400</span>
+									<span class="progress-number"><b><?php if(is_numeric($call_data['rejected'])) echo $call_data['rejected']; else echo 0; ?></b>/<?php echo $call_data['calls'] ?></span>
 
 									<div class="progress sm">
-										<div class="progress-bar progress-bar-red" style="width: 80%"></div>
+										<div class="progress-bar progress-bar-red" style="width: <?php if ((int)$call_data['rejected']  <= 0  || (int)count($call_data['calls']) <= 0 ) echo 0; else echo (100 / (int)$call_data['calls']) * (int)$call_data['rejected'];  ?>%"></div>
 									</div>
 								</div>
 								<!-- /.progress-group -->
 								<div class="progress-group">
-									<span class="progress-text">Successful Placements</span>
-									<span class="progress-number"><b>480</b>/800</span>
+									<span class="progress-text">Success</span>
+									<span class="progress-number"><b><?php if(is_numeric($call_data['success'])) echo $call_data['success']; else echo 0 ?></b>/<?php echo $call_data['calls'] ?></span>
 
 									<div class="progress sm">
-										<div class="progress-bar progress-bar-green" style="width: 80%"></div>
+										<div class="progress-bar progress-bar-green" style="width: <?php if ((int)$call_data['success']  <= 0 || (int)count($call_data['calls']) <= 0) echo 0; else echo ( 100 / (int)$call_data['calls'] )  * (int)$call_data['success'];  ?>%"></div>
 									</div>
 								</div>
 								<!-- /.progress-group -->
 								<div class="progress-group">
 									<span class="progress-text">Maybe</span>
-									<span class="progress-number"><b>250</b>/500</span>
+									<span class="progress-number"><b><?php if(is_numeric($call_data['maybe'])) echo $call_data['maybe']; else echo 0 ?></b>/<?php echo $call_data['calls'] ?></span>
 
 									<div class="progress sm">
-										<div class="progress-bar progress-bar-yellow" style="width: 80%"></div>
+										<div class="progress-bar progress-bar-yellow" style="width: <?php if ((int)$call_data['maybe']  <= 0 || (int)count($call_data['calls']) <= 0 ) echo 0; else echo (100 / (int)$call_data['calls']) * (int)$call_data['maybe']; ?>%"></div>
 									</div>
 								</div>
 								<!-- /.progress-group -->
 							</div>
 							<!-- /.col -->
+
+							<?php
+
+							function percent ($percent)
+							{
+
+								if ($percent < 50) {
+									$color = 'red';
+								}
+								if ($percent > 51) {
+									$color = '#f39c12';
+								}
+								if ($percent > 85) {
+									$color = '#00a65a';
+
+								}
+								return $color;
+							}
+							$startdate = new DateTime(date('Y-m-d',strtotime($camp_data['campaign_start_date'])));
+							$enddate =  new DateTime(date('Y-m-d',strtotime($camp_data['campaign_place_start_date'])));
+							if($startdate > $enddate){
+								$days = 0;
+							}
+							else {
+								$days = $startdate->diff($enddate)->days;
+							}
+
+							$now = new DateTime(date('Y-m-d'));
+							if($now > $enddate){
+								$daysleft=0;
+							}
+							else {
+								$daysleft = (int)$now->diff($enddate)->days;
+							}
+
+							if($daysleft <1 || $days < 1){
+								$percent = 0;
+
+
+							}else {
+								$percent = ($daysleft * 100 / $days);
+							}
+							$color = percent($percent);
+							?>
+							<div class="col-md-12">
+							<div class="progress-group">
+								<span class="progress-text">Days Remaining</span>
+								<span class="progress-number"><b><?php if(is_numeric($daysleft) || $daysleft >0) echo $daysleft; else echo 0 ?></b>/<?php echo $days?></span>
+
+								<div class="progress sm">
+									<div class="progress-bar progress-bar-yellow" style="width: <?php  echo $percent; ?>%; background-color: <?php echo $color?>;"></div>
+								</div>
+							</div>
+							<!-- /.progress-group -->
 						</div>
-						<!-- /.row -->
-					</div>
+
+
+
+
+
+
+
 					<!-- ./box-body -->
 
 					<!-- /.box-footer -->
@@ -100,14 +143,12 @@
 			<!-- /.col -->
 		</div>
 	</section>
-
-
 	<section style="min-height:100px !important" class="content">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="box">
 					<div class="box-header with-border">
-						<h3 class="box-title">Mode</h3>
+						<h3 class="box-title">Mailshot</h3>
 
 						<div class="box-tools pull-right">
 							<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -128,50 +169,93 @@
 					</div>
 					<!-- /.box-header -->
 					<div class="box-body">
-						<div class="row">
+						<?php if($mailshot==1): ?>
+							<div class="row">
 
-							<div class="col-md-3">
+								<div class="col-md-2">
+									<div id="7"></div>
+									<button class="btn btn-mploy ?>" value="all" onclick="mailshot('7')"> Send Mailshot 1</button>
+								</div>
+								<div class="col-md-2">
 
-								<form method="GET" >
-									<button class="btn <?php if($status == 'all') echo 'btn-mploy' ?>" name="status" value="all"> All</button>
-								</form>
+								</div>
 
+								<div class="col-md-2">
+									<button class="btn btn-mploy disabled ?>" name="status" value="pending" disabled> Send Mailshot 2</button>
+								</div>
+								<div class="col-md-2">
+
+								</div>
+								<div class="col-md-2"  name="status" value="pending"><button class="btn btn-mploy" onclick="window.open('/campaigns/testmailshot/<?php echo $camp_ref ?>/7')"> Test mailshot </button>
+								</div>
+								<!-- /.col -->
+
+								<!-- /.col -->
 							</div>
+							<!-- /.row -->
 
+						<?php else: ?>
+							<?php if($mailshot==2): ?>
+								<div class="row">
 
+									<div class="col-md-2">
+										<button class="btn btn-mploy disabled ?>"  value="all" disabled> Send Mailshot 1</button>
+									</div>
+									<div class="col-md-2">
+										<p>	User: <?php echo $mail[0][0]['username']; ?> </p>
+										<p>	Time: <?php echo date('d/m/Y H:i:s',strtotime($mail[0][0]['date_time'])); ?></p>
+										<p>	Emails Sent: <?php  echo count($mail[0]); ?></p>
 
-							<div class="col-md-3">
+									</div>
+									<div  class="col-md-2">
+										<div id="8"></div>
+										<button class="btn btn-mploy ?>"  value="pending" onclick="mailshot('8')"> Send Mailshot 2</button>
+									</div>
+									<div class="col-md-2">
 
-								<form method="GET" >
-									<button class="btn <?php if($status == 'pending') echo 'btn-mploy' ?>" name="status" value="pending"> Pending</button>
-								</form>
+									</div>
 
-							</div>
+										<div class="col-md-2"  name="status" value="pending"><button class="btn btn-mploy" onclick="window.open('/campaigns/testmailshot/<?php echo $camp_ref ?>/7')"> Test mailshot </button>
+										</div>
 
+									<!-- /.col -->
 
-							<div class="col-md-3">
+									<!-- /.col -->
+								</div>
 
-								<form method="GET" >
-									<button class="btn <?php if($status == 'available') echo 'btn-mploy' ?>"name="status" value="available"> Available</button>
-								</form>
+							<?php else:?>
+								<div class="row">
 
-							</div>
+									<div class="col-md-2">
+										<button class="btn btn-mploy disabled ?>"  value="all" disabled> Send Mailshot 1</button>
+									</div>
+									<div id="7" class="col-md-2">
+                                        <?php if(isset($mail[0][0]['username'])) { ?>
+                                            <p>	User: <?php echo $mail[0][0]['username']; ?> </p>
+                                            <p>	Time: <?php echo date('d/m/Y H:i:s',strtotime($mail[0][0]['date_time'])); ?></p>
+                                            <p>	Emails Sent: <?php  echo count($mail[0]); ?></p>
+                                        <?php } ?>
+									</div>
+									<div class="col-md-2">
+										<button class="btn btn-mploy disabled ?>"  value="pending" disabled> Send Mailshot 2</button>
+									</div>
+									<div id="8" class="col-md-2">
+                                        <?php if(isset($mail[1][0]['username'])) { ?>
+                                            <p>	User: <?php echo $mail[1][0]['username']; ?> </p>
+                                            <p>	Time: <?php echo date('d/m/Y H:i:s',strtotime($mail[1][0]['date_time'])); ?></p>
+                                            <p>	Emails Sent: <?php  echo count($mail[1]); ?></p>
+                                        <?php } ?>
+									</div>
+									<!-- /.col -->
 
+									<!-- /.col -->
+									<div class="col-md-2"  name="status" value="pending"><button class="btn btn-mploy" onclick="window.open('/campaigns/testmailshot/<?php echo $camp_ref ?>/7')"> Test mailshot </button>
+									</div>
+								</div>
 
-							<div class="col-md-3">
+							<?php endif ?>
 
-								<form method="GET" >
-									<button class="btn <?php if($status == 'not willing to take') echo 'btn-mploy' ?>" name="status" value="not willing to take"> Not Willing</button>
-								</form>
-
-							</div>
-
-
-							<!-- /.col -->
-
-							<!-- /.col -->
-						</div>
-						<!-- /.row -->
+						<?php endif ?>
 					</div>
 					<!-- ./box-body -->
 
@@ -189,47 +273,67 @@
 
 
 		<div class="box">
-			<div class <div class="col-md-offset-6 col-md-6">
-				<form  method="POST" class="sidebar-form">
-					<div class="input-group">
-						<input style="margin:20px; padding:19px;" type="text" name="search" class="form-control" placeholder="Search...">
-						<span class="input-group-btn">
-                <button style="z-index:100" type="submit"  id="search-btn" class="btn btn-flat btn-mploy">
-                    <i class=" fa fa-search"></i>
-                </button>
-              </span>
-					</div>
-				</form>
+			<div class="col-md-12">
 
-			<div class="box-header"></div>
-			<div class="box-header">
-				<h2 class="box-title">
-					<?= $title; ?>
-				</h2>
-			</div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3 class="box-title">
+                            <?= $title; ?> (<?php echo $table['count']; ?>)
+                        </h3>
+                    </div>
+                    <div class="col-md-6">
+                        <form  method="GET" class="sidebar-form">
+                            <div class="input-group">
+                                <input style="margin:20px; padding:19px;" type="text" name="search" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                    <button style="z-index:100" type="submit"  id="search-btn" class="btn btn-flat btn-mploy">
+                                        <i class=" fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
 			<!-- /.box-header -->
 			<div class="box-body">
-				<table id="example2" class="table table-bordered table-striped">
+
+
+                <div class="row">
+
+                    <div class="col-md-12">
+
+                        <form action="/campaigns/employers/<?php echo $camp_ref ?>/0/" method="GET">
+                            <button class="btn <?php if($status == 'all') echo 'btn-mploy' ?>" name="status" value="all"> All</button>
+
+                            <button class="btn <?php if($status == '2') echo 'btn-mploy' ?>" name="status" value="2"> Yes</button>
+
+                            <button class="btn <?php if($status == '3') echo 'btn-mploy' ?>"name="status" value="3"> Maybe</button>
+
+                            <button class="btn <?php if($status == '4') echo 'btn-mploy' ?>" name="status" value="4"> No</button>
+                        </form>
+
+                    </div>
+
+
+                    <!-- /.col -->
+
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+
+				<table id="example2" class="table table-bordered table-striped dataTable" style="margin-top: 20px">
 					<thead>
 					<tr>
-
-
-
-
 						<?php for($i=0; $i< count($headings); $i++ ):?>
-							<th>
-								<form method="get">
-									<input type="hidden" name="orderby" value="<?php echo $fields[$i] ?>">
-									<button class="no-button"><?php echo $headings[$i]; ?> <i class=" fa fa-sort"></i></button>
-								</form>
-
-							</th>
+                            <th class="<?php if(isset($_GET[$fields[$i]]) ) { if( $_GET[$fields[$i]] == 'ASC' ) echo 'sorting_asc'; elseif($_GET[$fields[$i]] == 'DESC') echo 'sorting_desc'; } else echo 'sorting'; ?>" rowspan="1" colspan="1" onclick="window.open(appendParmaterURL('<?php echo $fields[$i]; ?>', '<?php if(isset($_GET[$fields[$i]]) && $_GET[$fields[$i]] == 'ASC') echo 'DESC'; else echo 'ASC'; ?>'),'_self');"><?php echo $headings[$i]; ?></th>
 						<?php endfor;?>
 
-					<th></th>
+					    <th></th>
 					</tr>
 					</thead>
 					<tbody>
+
 					<?php foreach($campaign['data'] as $company): ?>
 					<tr>
 						<td><?php echo $company->name; ?>, <?php echo $company->town; ?></td>
@@ -239,10 +343,16 @@
 						<td>
 							<?php echo $company->line_of_business;?>
 						</td>
+                        <td>
+                            <?php if($company->date_time !== null) echo date("d/m/Y H:i", strtotime($company->date_time));?>
+                        </td>
+                        <td>
+                            <?php echo $company->email; ?>
+                        </td>
 						<td>
-							<?php echo $company->status;?>
+                            <img src="<?php echo base_url()."assets/";?>dist/img/<?php if($company->rag_status == null) echo 3; echo $company->rag_status ?>.png" class="img-circle" alt="Status">
 						</td>
-						<td><a class="" href="/campaigns/employerdetails/<?php echo $camp_id ?>/<?php echo $company->comp_id;?>"> <i class="fa fa-edit"></i> </a></td>
+						<td><a class="btn btn-mploy-submit" href="/campaigns/employerdetails/<?php echo $school_id ?>/<?php echo $company->id;?>?campid=<?php echo $camp_ref ?>">CALL</a></td>
 
 					</tr>
 					<?php endforeach ?>
@@ -271,6 +381,31 @@
 </div>
 
 
+
+<script>
+
+	function mailshot(shot){
+
+		if (confirm('Are you sure you want to send this mailshot')) {
+			var target = '/campaigns/sendmailshot/<?php echo $camp_ref?>/'+shot;
+			$.ajax({
+				url: target,
+				type: 'POST',
+				data: {},
+				success: function (data, textStatus, XMLHttpRequest) {
+					//$(item).closest('tr').remove();
+				}
+			});
+			$('#'+shot).html('Messages Added to Queue')
+		} else {
+			// Do nothing!
+		}
+
+
+	}
+
+
+</script>
 
 
 

@@ -27,7 +27,7 @@ class Companies extends CI_Controller
         $campaignModel =new CampaignsModel();
 		$companies = new CompaniesModel();
         $where = 'organisation_type_id =2 ';
-		$data['headings'] = ['name' => 'Name', 'phone' => 'Main Telephone','first_name'=>'Main Contact','status'=>'Status','Sector'];
+		$data['headings'] = ['name' => 'Name', 'postcode' => 'Postcode', 'phone' => 'Main Telephone','first_name'=>'Main Contact','status'=>'Status','Sector'];
 		$offset=0;
 
         if($pageNo > 0){

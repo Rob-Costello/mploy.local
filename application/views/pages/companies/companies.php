@@ -100,6 +100,7 @@
 					<tr>
 						<td><?php echo $company->name; ?>, <?php echo $company->town; ?></td>
 						
+						<td><?php echo $company->postcode; ?></td>
 						<td><?php echo $company->phone; ?></td>
 						<td><?php echo $company->first_name .' '.$company->last_name ; ?></td>
 						<td>

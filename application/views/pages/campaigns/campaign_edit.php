@@ -317,7 +317,7 @@
 																					<input style="margin:20px; padding:19px;" type="text" name="postcode" class="form-control" placeholder="Postcode" id="searchCompanyPostcode" >
 																				</div>
 																				<div class="col-md-2">
-																					<select style="margin:20px; padding:19px;" name="line_of_business" class="form-control" id="searchCompanyIndustry">
+																					<select style="margin:20px;" name="line_of_business" class="form-control" id="searchCompanyIndustry">
 																						<option value="">Select Sector</option>
 																						<?php foreach($sector as $s): ?>
 																						<option value="<?php echo $s['line_of_business']; ?>"> <?php echo $s['line_of_business'];?> </option>

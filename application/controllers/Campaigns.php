@@ -423,9 +423,9 @@ class Campaigns extends CI_Controller
 		$data =
 			['data'=>['companies'=>['company'=>
 				[
-					'comp_id' =>40475,
-					'linked_school_id'=>1147,
-					'linked_school_placements'=>3]
+					'comp_id' =>$company,
+					'linked_school_id'=>$school,
+					'linked_school_placements'=>$placements]
 			]
 			]];
 

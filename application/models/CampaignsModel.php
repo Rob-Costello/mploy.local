@@ -235,7 +235,7 @@ class CampaignsModel extends CI_Model
         $this->db->join('mploy_contacts', 'mploy_campaigns.org_id = mploy_contacts.org_id');
         $this->db->join('mploy_organisations', 'mploy_campaigns.org_id = mploy_organisations.id');
         $this->db->group_by('mploy_campaigns.org_id');
-        $company = $this->db->get_where('mploy_campaigns', 'active =1 OR active =2');
+        $company = $this->db->get_where('mploy_campaigns', 'mploy_campaigns.active =1 OR mploy_campaigns.active =2');
 
         return $company->result();
 
@@ -723,6 +723,15 @@ class CampaignsModel extends CI_Model
     	$this->db->group_by('line_of_business');
     	$query =$this->db->get('mploy_organisations');
     	return $query->result_array();
+
+
+	}
+
+	public function updateOrganisation($data,$where){
+
+		$this->db->set($data);
+		$this->db->where($where);
+		$this->db->update('mploy_organisations');
 
 
 	}

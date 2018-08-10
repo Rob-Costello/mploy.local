@@ -421,24 +421,56 @@ class Campaigns extends CI_Controller
 	function linkCustomerToWex($company,$school,$placements ){
 
 		$data =
-			['data'=>['companies'=>['company'=>
-				[
-					'comp_id' =>40475,
-					'linked_school_id'=>1147,
-					'linked_school_placements'=>3]
-			]
-			]];
+			['data'=>
+				['companies'=>
+					['company'=>
+						['comp_id' =>$company,
+							'linked_school_id'=>$school,
+							'linked_school_placements'=>$placements
+						]
+					]
+				]
+			];
 
-		if(isset($data['company'])){
-
-
-		}
 
 		$status = $this->xml->setXml($data);
 
 		return $status;
 
 	}
+
+	function addCompanyToWex($array){
+
+    	$company_data = ['name'=>$array->name,
+							//'industry' => $array->line_of_business,
+							'address1' => $array->address1,
+							'town' => $array->town,
+							'county' => $array->county,
+							'postcode' => $array->postcode,
+							'contact_first_name' => $array->first_name,
+							'contact_last_name' => $array->last_name,
+							'contact_email'=> $array->email];
+
+		$output = [];
+		foreach($company_data as $k =>$v){
+			if($v ==''){
+				continue;
+			}
+			$output[$k] = $v;
+		}
+    	$data= ['data'=> [
+    				'companies'=> [
+    					'company'=>
+    						$output
+					]
+				]
+			];
+
+		$status = $this->xml->setXml($data);
+		$status = $this->xml->getElement($status, '<comp_id>', '</comp_id>');
+		return $status;
+
+    }
 
 
 
@@ -452,10 +484,22 @@ class Campaigns extends CI_Controller
         if (!empty($_POST)) {
 
             $campaign->newCall($this->input->post());
-            $this->session->set_flashdata('call_message', 'New Call Logged');
+
 
             if($this->input->post('placements') > 0 && $this->input->post('rag_status') ==2){
-				$this->linkCustomerToWex($id,$camp_ref,$this->input->post('placements'));
+
+				$employer = $campaign->getEmployers(['mploy_organisations.id'=>$id]);
+				if($employer['data'][0]->wex_org_id ==0 ||$employer['data'][0]->wex_org_id =='' ) {
+					$response = $this->addCompanyToWex($employer['data'][0]);
+					$campaign->updateOrganisation(['wex_org_id' => $response], 'id =' . $id);
+
+				}
+				$response = $this->linkCustomerToWex($id,$camp_ref,$this->input->post('placements'));
+				$this->session->set_flashdata('call_message', 'New Call Logged');
+
+			}else{
+
+				$this->session->set_flashdata('call_message', 'New Call Logged');
 
 			}
 

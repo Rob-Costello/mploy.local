@@ -421,6 +421,7 @@ class Campaigns extends CI_Controller
 	function linkCustomerToWex($company,$school,$placements ){
 
 		$data =
+
 			['data'=>
 				['companies'=>
 					['company'=>

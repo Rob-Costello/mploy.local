@@ -35,10 +35,10 @@
 							<input style="margin:20px; padding:19px;" type="text" name="postcode" class="form-control" placeholder="Postcode" value="<?php if(isset($post_data['postcode'])) echo $post_data['postcode']; ?>">
 						</div>
 						<div class="col-md-2">
-							<select style="margin:20px; padding:19px;" name="line_of_business" class="form-control" id="searchCompanyIndustry">
+							<select style="margin:20px;" name="line_of_business" class="form-control" id="searchCompanyIndustry">
 								<option value="">Select Sector</option>
 								<?php foreach($sector as $s): ?>
-									<option value="<?php echo $s['line_of_business']; ?>"> <?php echo $s['line_of_business'];?> </option>
+									<option value="<?php echo $s['line_of_business']; ?>" <?php if( isset($post_data['line_of_business']) && $post_data['line_of_business'] == $s['line_of_business']) echo 'selected'; ?>> <?php echo $s['line_of_business'];?> </option>
 								<?php endforeach ?>
 							</select>
 						</div>
@@ -100,6 +100,7 @@
 					<tr>
 						<td><?php echo $company->name; ?>, <?php echo $company->town; ?></td>
 						
+						<td><?php echo $company->postcode; ?></td>
 						<td><?php echo $company->phone; ?></td>
 						<td><?php echo $company->first_name .' '.$company->last_name ; ?></td>
 						<td>
@@ -124,7 +125,7 @@
 		<!-- /.box -->
 		<div class="box-footer clearfix">
 			<div class="dataTables_info" id="example23_info" role="status" aria-live="polite">
-				Showing <?php echo $pagination_start; ?> to <?php echo $pagination_end; ?> of <?php $companies['count']; ?> entries</div>
+				Showing <?php echo $pagination_start; ?> to <?php echo $pagination_end; ?> of <?php echo $companies['count']; ?> entries</div>
 			<div class="dataTables_paginate paging_simple_numbers">
 				<?php echo $pagination; ?>
 			</div>

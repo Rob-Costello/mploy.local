@@ -27,11 +27,11 @@ class Companies extends CI_Controller
         $campaignModel =new CampaignsModel();
 		$companies = new CompaniesModel();
         $where = 'organisation_type_id =2 ';
-		$data['headings'] = ['name' => 'Name', 'phone' => 'Main Telephone','first_name'=>'Main Contact','status'=>'Status','Sector'];
+		$data['headings'] = ['name' => 'Name', 'postcode' => 'Postcode', 'phone' => 'Main Telephone','first_name'=>'Main Contact','status'=>'Status','Sector'];
 		$offset=0;
 
         if($pageNo > 0){
-			$offset = $pageNo * $this->perPage;
+			$offset = ( $pageNo * $this->perPage ) - $this->perPage;
 		}
 
 		$orderby = 'name';
@@ -54,7 +54,7 @@ class Companies extends CI_Controller
         $page = $this->helpers->page($data['companies'],'/companies',$this->perPage,$data['orderby']);
         $this->pagination->initialize($page);
         $data['pagination_start'] = $offset + 1;
-        $data['pagination_end'] = $data['pagination_start'] + $this->perPage;
+        $data['pagination_end'] = $data['pagination_start'] + $this->perPage - 1;
 
         if($data['pagination_end'] > $data['companies']['count']) {
             $data['pagination_end'] = $data['companies']['count'];

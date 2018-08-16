@@ -12,9 +12,9 @@ class Auth extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->database();
-		$this->load->library(array('ion_auth', 'form_validation'));
+		$this->load->library(array('ion_auth', 'form_validation','xml'));
 		$this->load->helper(array('url', 'language'));
-
+		$this->load->model('UsersModel');
 		$this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
 
 		$this->lang->load('auth');
@@ -460,7 +460,21 @@ class Auth extends CI_Controller
 	}
 
 
-	function
+	function link_user_to_wex($first_name,$last_name,$admin){
+
+		$data = ['data'=>
+					['students'=>
+						['student'=>
+							['first_name' =>$first_name,
+								'last_name'=>$last_name,
+								'admin_type'=>$admin
+							]
+						]
+					]
+				];
+			$status = $this->xml->setXml($data);
+			return $status;
+	}
 
 
 	/**
@@ -519,6 +533,16 @@ class Auth extends CI_Controller
 			// check to see if we are creating the user
 			// redirect them back to the admin page
 			$this->session->set_flashdata('password_message', 'User added successfully');
+			$admin=1; //will need to change when creating new user types
+			$response=$this->link_user_to_wex($this->input->post('first_name'),$this->input->post('last_name'),$admin);
+			$wexid=$this->xml->getElement($response, '<member_id>', '</member_id>');
+
+			if(is_numeric($wexid)){
+
+				$users = new UsersModel();
+				$users->setWexId($this->input->post('email'),$wexid);
+
+			}
 
 			redirect("/users", 'refresh');
 		}

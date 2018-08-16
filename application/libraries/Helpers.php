@@ -129,7 +129,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		 $wex = new WexModel();
 		 $session = $wex->getCiSession($username)['id'];
-		 return $this->encrypt($session);
+		 return $session;
+		 //return this->encrypt($session);
 
 	 }
 

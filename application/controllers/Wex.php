@@ -35,6 +35,7 @@ class Wex extends CI_Controller
 	{
 		$wex = new WexModel();
 		$session = $wex->getSession($key);
+
 		return json_encode(['user_id'=>'24813']);
 
 		if ($session == null) {
@@ -90,12 +91,9 @@ class Wex extends CI_Controller
 	function sso(){
 
 		if ($_POST) {
-
 			$encKey = $this->input->post('key');
-
-			$key= $this->decrypt($encKey);
-
-			echo $this->validateUser($key);
+			//$key= $this->decrypt($encKey);
+			echo $this->validateUser($encKey);
 		}
 		else{
 

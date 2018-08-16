@@ -459,6 +459,10 @@ class Auth extends CI_Controller
 		}
 	}
 
+
+	function
+
+
 	/**
 	 * Create a new user
 	 */

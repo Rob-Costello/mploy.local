@@ -19,6 +19,7 @@ class Dashboard extends CI_Controller {
 		$this->offset =0;
         $this->load->library('helpers');
 		$this->load->library('pagination');
+
 	}
 
 	/**

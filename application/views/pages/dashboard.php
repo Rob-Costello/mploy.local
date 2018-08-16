@@ -3,7 +3,7 @@
 <?php
 	function percent ($percent)
 	{
-
+		$color='';
 		if ($percent < 50) {
 			//red
 			$color = 'red';
@@ -22,6 +22,7 @@
 
 function calls ($percent)
 {
+	$color = '';
 
 	if ($percent < 50) {
 		//red

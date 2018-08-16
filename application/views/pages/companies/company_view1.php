@@ -1,5 +1,5 @@
 
-<?php $this->load->view('templates/campaign_header'); ?>
+<?php $this->load->view('templates/header'); ?>
 
 
 <div class="content-wrapper">
@@ -21,7 +21,6 @@
 
 
                         <section class="">
-                            <form method="POST">
 
                             <!-- Main content School Details-->
                             <!--- Schools contacts -->
@@ -34,6 +33,7 @@
 
                                 <!-- /.box-header -->
                                 <div class="box-body">
+                                    <div role="form"  method="POST">
                                         <!-- text input -->
 
                                         <div class="row">
@@ -189,16 +189,19 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-
-                                                    <label for="exampleInputFile">File input</label>
-                                                    <input type="file" id="exampleInputFile">
-
-                                                </div>
-                                            </div>
-
-
+<!--                                            <div class="col-md-3">-->
+<!--                                                <div class="form-group">-->
+<!--                                                    <label class=" ">-->
+<!--                                                        Status-->
+<!--                                                    </label>-->
+<!---->
+<!--                                                    <select name="active" class="form-control">-->
+<!--                                                       <option></option>-->
+<!--                                                    </select>-->
+<!---->
+<!---->
+<!--                                                </div>-->
+<!--                                            </div>-->
                                         </div>
 
                                         <div class="row">
@@ -208,7 +211,7 @@
                                                     <label class=" ">
                                                         Website
                                                     </label>
-                                                    <input type="text" name="website" class="form-control" value="<?php echo $company['website']; ?>" placeholder="google.com" >
+                                                    <input type="text" name="line_of_business" class="form-control" value="" placeholder="google.com" >
 
                                                 </div>
                                             </div>
@@ -219,12 +222,19 @@
                                                     <label class=" ">
                                                         Line of Business
                                                     </label>
-                                                    <input type="text" name="line_of_business" class="form-control" value="<?php echo $company['line_of_business']; ?>" placeholder="Support" >
+                                                    <input type="text" name="line_of_business" class="form-control" value="" placeholder="Support" >
 
                                                 </div>
                                             </div>
 
+                                            <div class="col-md-3">
+                                                <div class="form-group">
 
+                                                    <label for="exampleInputFile">File input</label>
+                                                    <input type="file" id="exampleInputFile">
+
+                                                </div>
+                                            </div>
                                         </div>
 
 
@@ -232,9 +242,9 @@
                                 </div>
                                 <input type="submit" class="btn btn-mploy-submit" value="Save Changes">
                                 <input type="button" class="btn btn-mploy-cancel" value="Cancel">
-
+                                </form>
                             </div>
-                            </form>
+
 
                         </section>
 

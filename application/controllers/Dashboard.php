@@ -17,7 +17,9 @@ class Dashboard extends CI_Controller {
 		$this->user = $this->ion_auth->user()->row();
 		$this->perPage =20;
 		$this->offset =0;
+        $this->load->library('helpers');
 		$this->load->library('pagination');
+
 	}
 
 	/**
@@ -48,42 +50,41 @@ class Dashboard extends CI_Controller {
 		$data['company_count'] = count($companiesModel->getCompanies('organisation_type_id = 2')['data']);
 		$data['user_count'] = count($usersModel->getUsers()['data']);
 		$data['campaigns_count'] = count($campaignsModel->getCampaigns()['data']);
+		$data['campaigns'] = array();
+        $data['sso_key'] = $this->helpers->checkValid($this->user);
 
-		$data['campaigns_display'] = $campaignsModel->getCampaigns('active=1','campaign_id' , null, 0)['data'];
+		$data['campaigns_display'] = $campaignsModel->getCampaigns('active=2 OR active=1','mploy_campaigns.id' , null, 0)['data'];
 		$callInfo = [];
-		$output = [];
-        $call = 0;
 		foreach ($data['campaigns_display'] as $c) {
             //$where = "select_school = " . $c->select_school . " and campaign_place_start_date < now() and campaign_place_end_date > '" . date("Y-m-d") . "'";
-            $where = "select_school = " . $c->select_school . " ";
+            $where = "org_id = " . $c->org_id . " ";
             $information = $customersModel->getPlacements($where); //need to check if placement end date has expired
             $temp = [];
 
             foreach ($information as $active) {
                 //$callstats = $customersModel->getCallData($c->select_school);
-	            $campCalls = $campaignsModel->campaignCalls($c->campaign_id);
-	            $call = $campCalls['success'];
+	            $campCalls = $campaignsModel->campaignCalls($c->id);
+	            $placements = $campaignsModel->getCampaignPlacesCount($c->id);
 
-                $calls = $campaignsModel->callInfo($c->select_school, $c->employer_engagement_end)['calls'];
+                $calls = $campaignsModel->callInfo($c->org_id, $c->employer_engagement_end)['calls'];
 
-                $info = $campaignsModel->callAmmount($c->select_school)['total'];
-	            $employers = $campaignsModel->countEmployers('campaign_ref =' .$c->campaign_id);
+                $info = $campaignsModel->callAmmount($c->org_id)['total'];
+	            $employers = $campaignsModel->countEmployers('campaign_id =' .$c->id);
 
-                $callInfo[$c->campaign_id] = ['call' => $calls, 'info' => $info, 'success' => $call, 'total' => $active['students_to_place'],'all'=>$campCalls['calls'], 'employers'=>$employers];
+                $callInfo[$c->id] = ['call' => $calls, 'info' => $info, 'success' => $placements->placements, 'total' => $active['students_to_place'],'all'=>$campCalls['calls'], 'employers'=>$employers];
 
 
             }
-            $output[]  = ['campaign_display'=>$c,'call_info'=>$callInfo];
+            $data['campaigns'][]  = ['campaign_display'=>$c,'call_info'=>$callInfo];
         }
 
         $loginModel = new login();
         $data['login_data'] = $loginModel->loginsCount();
 
-            $data['total_calls'] = $campaignsModel->allCalls();
-			$data['callinfo'] = $callInfo;
-            $data['output'] = $output;
-			//$data['campaign_calls'] = $campaignsModel->callInfo();
-			$this->load->view('pages/dashboard', $data);
+        $data['total_calls'] = $campaignsModel->allCalls();
+        $data['total_emails'] = $campaignsModel->allEmails();
+        $data['callinfo'] = $callInfo;
+        $this->load->view('pages/dashboard', $data);
 
 
 	}

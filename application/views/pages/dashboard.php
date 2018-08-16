@@ -3,7 +3,7 @@
 <?php
 	function percent ($percent)
 	{
-
+		$color='';
 		if ($percent < 50) {
 			//red
 			$color = 'red';
@@ -22,6 +22,7 @@
 
 function calls ($percent)
 {
+	$color = '';
 
 	if ($percent < 50) {
 		//red
@@ -43,14 +44,15 @@ function calls ($percent)
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
 	<section class="content-header">
-		<h1>
 
-			<small></small>
-		</h1>
-		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-			<li class="active">Dashboard</li>
-		</ol>
+            <h1 style="padding-left: 15px;">
+
+                <a href="https://mploy.workexperiences.co.uk/?sso_key=<?php echo $sso_key?>" target="_blank" class="btn btn-mploy"> WEX</a>
+            </h1>
+            <ol class="breadcrumb" style="padding-right: 20px;">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li class="active">Dashboard</li>
+            </ol>
 	</section>
 
 	<!-- Main content -->
@@ -151,13 +153,13 @@ function calls ($percent)
 							<div class="box-body">
 								<div class="row">
 
-                                <?php foreach($output as   $campaign){
+                                <?php foreach($campaigns as   $campaign){
 
-                                	$key = $campaign['campaign_display']->campaign_id;
+                                	$key = $campaign['campaign_display']->id;
                                 	?>
 
                                     <!-- /.col -->
-									<div class="col-md-2 "><a href="/campaigns/employers/<?php echo $campaign['campaign_display']->campaign_id ?>/0">
+									<div class="col-md-2 "><a href="/campaigns/employers/<?php echo $campaign['campaign_display']->id ?>/0">
                                         <!--										<p class="text-center">-->
                                         <!--											<strong>Goal Completion</strong>-->
                                         <!--										</p>-->
@@ -171,8 +173,7 @@ function calls ($percent)
                                             <span class="progress-number"><b> <?php if($callinfo[$key]['all'] =='') echo 0; else echo $callinfo[$key]['all']; ?>
                                                 </b>/<?php  echo $callinfo[$key]['employers'][0]; ?></span>
                                             <div class="progress sm">
-                                                <div class="progress-bar progress-bar-aqua" style="width: <?php if ((int)$callinfo[$key]['all']  <= 0 ) echo 0; else echo $percent = ((int)$callinfo[$key]['all'] * 100  / (int)$callinfo[$key]['employers'][0]  )?>%;
-	                                                "></div>
+                                                <div class="progress-bar progress-bar-aqua" style="width: <?php if ((int)$callinfo[$key]['all']  <= 0 || (int)$callinfo[$key]['employers'][0] <= 0 ) echo 0; else echo $percent = ((int)$callinfo[$key]['all'] * 100  / (int)$callinfo[$key]['employers'][0]  )?>%;"></div>
                                             </div>
                                         </div>
                                         <!-- /.progress-group -->
@@ -183,8 +184,7 @@ function calls ($percent)
                                                 </b>/ <?php echo  $campaign['campaign_display']->students_to_place;?></span>
 
                                             <div class="progress sm">
-                                                <div class="progress-bar progress-bar-yellow" style="width: <?php if ((int)$callinfo[$key]['success']  <= 0 ) echo 0; echo $percent = ((int)$callinfo[$key]['success'] * 100  / (int)$campaign['campaign_display']->students_to_place );?>%
-	                                                ;"></div>
+                                                <div class="progress-bar progress-bar-yellow" style="width: <?php if ((int)$callinfo[$key]['success']  <= 0 ) echo 0; echo $percent = ((int)$callinfo[$key]['success'] * 100  / (int)$campaign['campaign_display']->students_to_place );?>%; background-color: <?php echo percent($percent); ?>;"></div>
                                             </div>
                                         </div>
                                         <!-- /.progress-group -->
@@ -193,7 +193,7 @@ function calls ($percent)
                                             <span class="progress-number"><b><?php echo round((int)$callinfo[$key]['success'] );?></b>/ <?php if($callinfo[$key]['all'] =='') echo 0; else echo $callinfo[$key]['all']; ?></span>
 
                                             <div class="progress sm">
-	                                            <div class="progress-bar progress-bar-red" style="width: <?php if ((int)$callinfo[$key]['success']  <= 0 || $callinfo[$key]['all']=='' ) echo 0; else echo $percent = ((int)$callinfo[$key]['success'] * 100  / (int)$callinfo[$key]['all']  );?>%
+	                                            <div class="progress-bar progress-bar-aqua" style="width: <?php if ((int)$callinfo[$key]['success']  <= 0 || $callinfo[$key]['all']=='' ) echo 0; else echo $percent = ((int)$callinfo[$key]['success'] * 100  / (int)$callinfo[$key]['all']  );?>%
 		                                            ;"></div>
                                             </div>
                                         </div>
@@ -203,8 +203,8 @@ function calls ($percent)
 
 												<?php
 
-												$startdate = new DateTime(date('Y-m-d',strtotime($campaign['campaign_display']->campaign_start_date)));
-												$enddate =  new DateTime(date('Y-m-d',strtotime($campaign['campaign_display']->campaign_place_start_date)));
+												$startdate = new DateTime(date('Y-m-d',strtotime($campaign['campaign_display']->employer_engagement_start)));
+												$enddate =  new DateTime(date('Y-m-d',strtotime($campaign['campaign_display']->employer_engagement_end)));
 												if($startdate > $enddate){
 													$days = 0;
 												}
@@ -218,6 +218,12 @@ function calls ($percent)
 												else {
 													$daysleft = (int)$now->diff($enddate)->days;
 												}
+
+												//Make sure days left is not more than days total
+												if( $daysleft > $days ){
+												    $daysleft = $days;
+                                                }
+
 												if($daysleft <1 || $days < 1){
 													$percent = 0;
 												}else {
@@ -278,7 +284,11 @@ function calls ($percent)
                                             </div>
                                             <div class="box-body">
                                                 <div class="chart">
-                                                    <canvas id="areaChart" style="height:250px"></canvas>
+
+	                                                <canvas id="areaChart" style="height:250px"></canvas>
+	                                                <div style="width:20px" class="square newuser "> &nbsp; </div> New Users
+	                                                <div style="width:20px" class="square failed "> &nbsp; </div> Failed Login
+	                                                <div style="width:20px" class="square successful "> &nbsp; </div> Successful Login
                                                 </div>
                                             </div>
                                             <!-- /.box-body -->
@@ -330,7 +340,7 @@ function calls ($percent)
                                                         data                : [<?php foreach ($login_data as $data) { echo $data->success . ','; } ?>]
                                                     },
                                                     {
-                                                        label               : 'Failed Logins',
+                                                        label              : 'Failed Logins',
                                                         fillColor           : 'rgba(221,75,57,0.9)',
                                                         strokeColor         : 'rgba(221,75,57,0.8)',
                                                         pointColor          : '#dd4b39',
@@ -340,10 +350,13 @@ function calls ($percent)
                                                         data                : [<?php foreach ($login_data as $data) { echo $data->fail . ','; } ?>]
                                                     }
                                                 ]
+
                                             }
 
                                             var areaChartOptions = {
-                                                //Boolean - If we should show the scale at all
+
+
+                                            	//Boolean - If we should show the scale at all
                                                 showScale               : true,
                                                 //Boolean - Whether grid lines are shown across the chart
                                                 scaleShowGridLines      : false,
@@ -374,7 +387,11 @@ function calls ($percent)
                                                 //Boolean - Whether to fill the dataset with a color
                                                 datasetFill             : true,
                                                 //String - A legend template
-                                                legendTemplate          : '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].lineColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>',
+	                                            legend: {
+		                                            display: true,
+
+	                                            },
+	                                            legendTemplate          : '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].lineColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>',
                                                 //Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
                                                 maintainAspectRatio     : true,
                                                 //Boolean - whether to make the chart responsive to window resizing
@@ -444,12 +461,12 @@ function calls ($percent)
 
 								<div class="info-box-content">
 									<span class="info-box-text">Emails Sent</span>
-									<span class="info-box-number">92,050</span>
-
-									<div class="progress">
-										<div class="progress-bar" style="width: 20%"></div>
-									</div>
-									<span class="progress-description">20% Increase in 30 Days</span>
+									<span class="info-box-number"><?php echo $total_emails['total'] ?></span>
+                                    <?php if($total_emails['days'] > 0) { $percent = $total_emails['days'] * 100 / $total_emails['total']; } else {$percent = 0;} ?>
+                                    <div class="progress">
+                                        <div class="progress-bar" style="width: <?php echo (int)$percent?>%"></div>
+                                    </div>
+                                    <span class="progress-description"><?php   echo (int)$percent ?>% Increase in 30 Days</span>
 								</div>
 								<!-- /.info-box-content -->
 							</div>
@@ -477,7 +494,7 @@ function calls ($percent)
 								<div class="info-box-content">
 									<span class="info-box-text">Calls Logged</span>
 									<span class="info-box-number"><?php echo $total_calls['total'] ?></span>
-										<?php $percent = $total_calls['days'] * 100 / $total_calls['total']; ?>
+										<?php if($total_calls['days'] > 0) { $percent = $total_calls['days'] * 100 / $total_calls['total']; } else {$percent = 0;} ?>
 										<div class="progress">
 											<div class="progress-bar" style="width: <?php echo (int)$percent?>%"></div>
 										</div>

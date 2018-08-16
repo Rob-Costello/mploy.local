@@ -32,7 +32,6 @@ class Xml{
 		$headr[] = 'Content-Type: 	application/xml';
 		$headr[] = 'Authorisation: Basic '.base64_encode($username);
 		$xml = $this->toXmlString($data);
-		$xml = $this->generateXml();
 		$headr[]= "Content-length: " . strlen($xml);
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_HTTPHEADER, $headr);
@@ -65,6 +64,17 @@ class Xml{
 		return $xml;
 
 	}
+
+
+	function getElement($string, $start, $end){
+		$string = ' ' . $string;
+		$ini = strpos($string, $start);
+		if ($ini == 0) return '';
+		$ini += strlen($start);
+		$len = strpos($string, $end, $ini) - $ini;
+		return substr($string, $ini, $len);
+	}
+
 
 
 }

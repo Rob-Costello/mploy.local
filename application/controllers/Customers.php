@@ -27,7 +27,7 @@ class Customers extends CI_Controller
 	{
 
 		$sortby="";
-		$orderby = 'org_id';
+		$orderby = 'id';
 		$data['orderby']='';
 		$like = null;
 		$where_in = "organisation_type_id in ('1','4','5')";
@@ -41,7 +41,7 @@ class Customers extends CI_Controller
 		$data['message'] = $this->session->flashdata('message');
 		if($id > 0)
 		{
-			$offset = $id * $this->perPage ;
+			$offset = ( $id * $this->perPage ) - $this->perPage ;
 		}
 
 		if(isset($_GET['orderby'])){
@@ -68,7 +68,7 @@ class Customers extends CI_Controller
 		//$page = $this->page($data['customers'],'/customers',$this->perPage);
 		$this->pagination->initialize($page);
 		$data['pagination_start'] = $offset +1 ;
-		$data['pagination_end'] = $data['pagination_start'] + $this->perPage -1;
+		$data['pagination_end'] = $data['pagination_start'] + $this->perPage - 1;
 
 		if($data['pagination_end'] > $data['customers']['count'])
 		{
@@ -166,7 +166,7 @@ class Customers extends CI_Controller
 		{
 			$offset = $page * $this->perPage;
 		}
-		$data['contacts'] = $customer->getContacts(array('school_id'=>$data['id'],'contact_type'=>'3' ), null, $this->perPage, $offset);
+		$data['contacts'] = $customer->getContacts(array('org_id'=>$data['id'],'contact_type_id'=>'3' ), null, $this->perPage, $offset);
 		$page = $this->page($data['contacts'],'/customers/view/'.$id.'/contacts',$this->perPage,$offset);
 		$this->pagination->initialize($page);
 		$data['pagination_start'] = $offset + 1;
@@ -216,10 +216,10 @@ class Customers extends CI_Controller
 		$customer = new CustomersModel();
 		$data['user'] = $this->user;
 		$data['messages'] = '';
-		$customerid = $customer->getLastCustomer()['id'];
-	 $customerid+1;
+		//$customerid = $customer->getLastCustomer()['id'];
+	    //$customerid+1;
 		if(!empty($_POST)){
-			$_POST['school_id'] = $customerid + 1;
+			//$_POST['school_id'] = $customerid + 1;
 		    $customer->newcustomer($this->input->post());
 			$this->session->set_flashdata('message', 'Successfully added customer!');
 			redirect('/customers','refresh');
@@ -263,7 +263,7 @@ class Customers extends CI_Controller
 			$offset = $page * $this->perPage;
 		}
 
-		$data['contacts'] = $customer->getHistory(['campaign_ref'=>$data['id']], null, $this->perPage, $offset);
+		$data['contacts'] = $customer->getHistory(['campaign_id'=>$data['id']], null, $this->perPage, $offset);
 		$page = $this->page($data['contacts'],'/customers/view/'.$id.'/history',$this->perPage);
 		$this->pagination->initialize($page);
 		$data['pagination_start'] = $offset + 1;
@@ -305,7 +305,7 @@ class Customers extends CI_Controller
 		}
 		//$data['id']=$this->session->customerid;
 
-		$data['contacts']=$customer->getContacts(array('school_id'=>$data['id']));
+		$data['contacts']=$customer->getContacts(array('org_id'=>$data['id']));
 
 		$data['activity'] = $customer->getActivity();
 
@@ -334,7 +334,7 @@ class Customers extends CI_Controller
 		$data['tabs'] = $this->tabs;
 		$data['table_header'] = $pretty;
 		$data['fields'] = $header;
-		$where = "select_school = ".$id ." and campaign_place_start_date and campaign_place_end_date > '".date("Y-m-d" )."'";
+		$where = "org_id = ".$id ." and campaign_place_start_date and campaign_place_end_date > '".date("Y-m-d" )."'";
 		$info = $customer->getPlacements($where); //need to check if placement end date has expired
 		$temp = [];
 		foreach($info as $active)

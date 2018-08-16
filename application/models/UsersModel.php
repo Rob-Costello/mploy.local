@@ -36,9 +36,10 @@ class UsersModel extends CI_Model
 	}
 
 
-	function register(){
+	function setWexId($email,$wexid){
 
-
+		$this->db->where('email', $email);
+		$this->db->update('users', ['wex_id' => $wexid]);
 
 	}
 

@@ -130,7 +130,11 @@
 													<label class=" ">
 														Organisation Type
 													</label>
-													<input type="hidden" name="organisation_type_id" class="form-control" value="2">
+													<select  name="organisation_type_id" class="form-control" >
+													<?php foreach($organisation_type as $org): ?>
+														<option value="<?php echo $org['id']; ?>"><?php echo $org['name']; ?></option>
+													<?php endforeach ?>
+													</select>
 
 
 
@@ -157,28 +161,8 @@
 											</div>
 
 
-											<div class="col-md-4">
-												<div class="form-group">
-													<label class=" ">
-														Risk
-													</label>
-													<select class="form-control" name="risk">
-														<option value="Low" >Low</option>
-														<option value="Medium" >Medium</option>
-														<option value="High" >High</option>
 
-													</select>
-												</div>
-											</div>
 
-											<div class="col-md-4">
-												<div class="form-group">
-													<label class=" ">
-														Employers Liability Insurance Company
-													</label>
-													<input type="text" name="employers_liability_ins_company" class="form-control"  placeholder="e.g. Norwich Union" required>
-												</div>
-											</div>
 
 											<!--/span-->
 										</div>

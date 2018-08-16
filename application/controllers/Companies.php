@@ -10,6 +10,7 @@ class Companies extends CI_Controller
 		$this->load->model('login');
 		$this->load->library('ion_auth');
 		$this->load->model('CompaniesModel');
+		$this->load->model('CampaignsModel');
 		$this->login->login_check_force();
 		$this->user = $this->ion_auth->user()->row();
         $this->perPage =20;
@@ -23,14 +24,14 @@ class Companies extends CI_Controller
 	function index( $pageNo = 0 )
 	{
 
-
-        $where = 'organisation_type_id =2 ';
-		$data['headings'] = ['name' => 'Name', 'phone' => 'Main Telephone','first_name'=>'Main Contact','status'=>'Status'];
+        $campaignModel =new CampaignsModel();
 		$companies = new CompaniesModel();
-        $offset=0;
+        $where = 'organisation_type_id =2 ';
+		$data['headings'] = ['name' => 'Name', 'postcode' => 'Postcode', 'phone' => 'Main Telephone','first_name'=>'Main Contact','status'=>'Status','Sector'];
+		$offset=0;
 
         if($pageNo > 0){
-			$offset = $pageNo * $this->perPage;
+			$offset = ( $pageNo * $this->perPage ) - $this->perPage;
 		}
 
 		$orderby = 'name';
@@ -41,33 +42,25 @@ class Companies extends CI_Controller
 			$data['orderby'] = '?orderby='.$orderby;
 		}
 
-        if(!empty($_POST)){
+        if(!empty($_POST)) {
 
-            foreach($_POST as $k => $v){
-                $where .= " and mploy_organisations." . $k . " like '%".$v."%'";
+            foreach ($_POST as $k => $v) {
+                $where .= " and mploy_organisations." . $k . " like '%" . $v . "%'";
             }
-            $data['companies'] = $companies->getCompanies($where, $orderby, $this->perPage, $offset);
-            $page = $this->page($data['companies'],'/companies',$this->perPage);
-        }else{
-
-            $data['companies'] = $companies->getCompanies($where, $orderby, $this->perPage, $offset);
-            $page = $this->page($data['companies'],'/companies',$this->perPage);
 
         }
 
-
-		$where = ['organisation_type_id' => '2'] ;
-		//$data['companies'] = $companies->getCompanies($where, $orderby, $this->perPage, $offset);
-        //$data['companies']=$output;
+        $data['companies'] = $companies->getCompanies($where, $orderby, $this->perPage, $offset);
         $page = $this->helpers->page($data['companies'],'/companies',$this->perPage,$data['orderby']);
         $this->pagination->initialize($page);
         $data['pagination_start'] = $offset + 1;
-        $data['pagination_end'] = $data['pagination_start'] + $this->perPage;
+        $data['pagination_end'] = $data['pagination_start'] + $this->perPage - 1;
 
         if($data['pagination_end'] > $data['companies']['count']) {
             $data['pagination_end'] = $data['companies']['count'];
         }
 		$data['message'] = $this->session->flashdata('message');
+		$data['sector'] = $campaignModel->getSector();
         $data['pagination'] = $this->pagination->create_links();
 		$data['user'] = $this->user;
 		$data['title'] = 'Companies';
@@ -190,13 +183,14 @@ class Companies extends CI_Controller
 
 		$data['user'] = $this->user;
 		$company = new CompaniesModel();
+
 		if (!empty($_POST)) {
 			$success = $company->addCompany($this->input->post());
 			$this->session->set_flashdata('message', 'Company' . $this->input->post('name') . ' created');
 			redirect('companies/','refresh');
 
 		}
-
+		$data['organisation_type'] = $company->getOrganisationTypes();
 		$this->load->view('pages/companies/companies_new_company',$data);
 	}
 
@@ -207,13 +201,13 @@ class Companies extends CI_Controller
 
         $company= new CompaniesModel();
         if(!empty($_POST)){
-            $success = $company->updateCompany($id,$this->input->post());
+            $company->updateCompany($id,$this->input->post());
             $data['message'] = "Information updated";
         }
         $data['id'] = $id;
         $data['page'] = $page;
         $data['user']=$this->user;
-        $data['dropdown'] = $company->getDropDown();
+        $data['dropdown'] = array();
         switch($page){
             case 'contacts':
                 $this->contacts($id, $pageNo);
@@ -224,8 +218,8 @@ class Companies extends CI_Controller
                 break;
 
             default:
-                $data['table']= $company->getCompany($id);
-                $this->load->view('pages/campaigns/campaign_view',$data);
+                $data['company']= $company->getCompany($id);
+                $this->load->view('pages/companies/company_view',$data);
 
         }
 
@@ -247,7 +241,7 @@ class Companies extends CI_Controller
         $data['user_string'] =   $this->helpers->encryptSession($username=null);
 
 
-        $data['contacts'] = $company->getHistory(['mploy_campaign_activity.org_id'=>$data['id']], null, $this->perPage, $offset);
+        $data['contacts'] = $company->getHistory(['mploy_organisation_contact_history.org_id'=>$data['id']], null, $this->perPage, $offset);
         $page = $this->page($data['contacts'],'/companies/contacts/',$this->perPage);
         $this->pagination->initialize($page);
         $data['pagination_start'] = $offset + 1;

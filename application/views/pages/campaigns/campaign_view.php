@@ -158,23 +158,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label class=" ">
-                                                        Status
-                                                    </label>
 
-                                                    <select name="industry" class="form-control">
-                                                        <?php foreach($dropdown as $d):?>
-                                                            <option value="<?php echo $d->id; ?>">
-                                                                <?php
-                                                                echo $d->name; ?></option>
-                                                        <?php endforeach ?>
-                                                    </select>
-
-
-                                                </div>
-                                            </div>
                                         </div>
 
                                         <div class="row">

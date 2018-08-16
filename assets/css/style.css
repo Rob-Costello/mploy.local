@@ -1,13 +1,13 @@
 
 @font-face {
-	font-family: 'Myriad';
-	src: url('MyriadPro-Regular.woff') format('woff') /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+	font-family: 'PT Sans';
+	src: url('https://fonts.googleapis.com/css?family=PT+Sans')  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 	
 }
 
 @font-face {
-	font-family: 'Myriad-Heading';
-	src: url('MyriadPro-Semibold.woff') format('woff') /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+	font-family: 'PT Sans';
+	src: url('https://fonts.googleapis.com/css?family=PT+Sans')  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 	
 }
 
@@ -15,14 +15,14 @@
 
 
 body{
-font-family:'Myriad', sans-serif;
+font-family:'PT Sans', sans-serif;
 
 }
 
 
 h1,h2,h3,h4{
 
-	font-family:'Myriad-Heading', sans-serif;
+	font-family:'PT Sans', sans-serif;
 
 
 }
@@ -38,6 +38,33 @@ h1,h2,h3,h4{
 	opacity: 1; /* Firefox */
 }
 
+
+
+
+.square {
+	float: left;
+	width: 20px;
+	height: 20px;
+	margin: 5px;
+	border: 1px solid rgba(0, 0, 0, .2);
+}
+
+
+.newuser{
+
+	background:rgba(210, 214, 222, 1)
+}
+
+.failed{
+	background:rgba(221,75,57,0.9);
+
+}
+.successful{
+
+	background: rgba(60,141,188,0.9);
+}
+
+
 /* The switch - the box around the slider */
 .switch {
 	position: relative;
@@ -48,6 +75,19 @@ h1,h2,h3,h4{
 
 /* Hide default HTML checkbox */
 .switch input {display:none;}
+
+.main-header .logo{
+
+	height:60px;
+
+}
+
+.main-sidebar{
+
+	padding-top:70px;
+
+
+}
 
 /* The slider */
 .slider {

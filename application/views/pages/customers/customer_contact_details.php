@@ -96,7 +96,7 @@
 
                                 </div>
                                 <input type="submit" class="btn btn-mploy-submit" value="Save Changes">
-                                <input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/customers/view/<?php echo $table['customer_id'] ?>/contacts')">
+                                <input type="button" class="btn btn-mploy-cancel" value="Cancel" onclick="window.location.replace('/customers/view/<?php echo $table['id'] ?>/contacts')">
                                 </form>
                             </div>
 

@@ -96,33 +96,6 @@
     });
 
 
-
-	$(function(){
-		$('.paginate_button').each(function(){
-
-			var link = $(this).find("a").attr("href");
-
-			if(link !==undefined) {
-				var lastslashindex = link.lastIndexOf('/');
-				var result= parseInt(link.substring(lastslashindex  + 1));
-				if (isNaN(result)==false) {
-					var val = link.substring(0, lastslashindex);
-					console.log(result);
-					$(this).find("a").attr("href",val+'/'+(result -1));
-
-				}
-
-				//$('.activePage').next('li').addClass('activePage');
-			}
-		})
-
-
-		//$('.activePage').next('li').addClass('activePage');
-		//$('.activePage').removeClass('activePage');
-
-	})
-
-
 	$(document).ready(function()
     {
         $('#reset-form').on('click', function()
@@ -134,6 +107,14 @@
         {
             $(this).closest('form').find('input:text, input:password, select, textarea').val('');
             $(this).closest('form').find('input:radio, input:checkbox').prop('checked', false);
+        });
+        $('#clear-selected-companies').on('click', function()
+        {
+            $('#searchCompanyName').val('');
+            $('#searchCompanyAddr').val('');
+            $('#searchCompanyPostcode').val('');
+            $('#searchCompanyIndustry').val('');
+            $('#searchCompanyStatus').val('');
         });
     });
 
@@ -149,6 +130,25 @@
         $('#edit').html('<a href="/campaigns/edit/<?php echo $campaign_dropdown ?>/0"><i class="fa fa-edit fa-2x"</a>');
     });
     <?php endif ?>
+</script>
+<script>
+
+    function appendParmaterURL( paramName, paramValue)
+    {
+
+        url = window.location.href;
+
+        if (paramValue == null) {
+            paramValue = '';
+        }
+        var pattern = new RegExp('\\b('+paramName+'=).*?(&|$)');
+        if (url.search(pattern)>=0) {
+            return url.replace(pattern,'$1' + paramValue + '$2');
+        }
+        url = url.replace(/\?$/,'');
+        return url + (url.indexOf('?')>0 ? '&' : '?') + paramName + '=' + paramValue;
+    }
+
 </script>
 
 </body>

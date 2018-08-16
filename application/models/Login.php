@@ -67,7 +67,7 @@ class login extends CI_Model{
 	    $temp = array();
 	    $temp2 = array();
 
-        $this->db->select('dayofmonth(`date_time`) as day, month(`date_time`) as month, count(*) as records, SUM(case when success = 1 then 1 else 0 end) as success, SUM(case when success = 0 then 1 else 0 end) as fail');
+        $this->db->select('dayofmonth(`date_time`) as day, month(`date_time`) as month, count(*) as records, SUM(CASE WHEN success = 1 THEN 1 ELSE 0 END) AS success, SUM(CASE WHEN success = 0 THEN 1 ELSE 0 END) AS fail');
         $this->db->group_by('dayofmonth(`date_time`)');
         $query = $this->db->get_where('log_logins','date_time > "'.date('Y-m-d', strtotime('-30 days')).' 00:00:00" AND date_time <=  "'.date('Y-m-d').' 23:59:59"');
         foreach($query->result() as $result){
@@ -92,7 +92,7 @@ class login extends CI_Model{
         $period = new DatePeriod($begin, $interval, $end);
 
         foreach ($period as $dt) {
-            if(!isset($temp[$dt->format("d")])){
+            if(!isset($temp[$dt->format("j")])){
                 $return[$dt->format("d")] = new stdClass();
                 $return[$dt->format("d")]->day = $dt->format("d");
                 $return[$dt->format("d")]->month = $dt->format("m");
@@ -101,16 +101,20 @@ class login extends CI_Model{
                 $return[$dt->format("d")]->fail = 0;
             } else {
 
-                $return[$dt->format("d")] = $temp[$dt->format("d")];
+                $return[$dt->format("d")] = $temp[$dt->format("j")];
+                $return[$dt->format("d")]->day = $dt->format("d");
+                $return[$dt->format("d")]->month = $dt->format("m");
 
             }
 
-            if(!isset($temp2[$dt->format("d")])){
+            if(!isset($temp2[$dt->format("j")])){
                 $return[$dt->format("d")]->created = 0;
             } else {
-                $return[$dt->format("d")]->created = $temp2[$dt->format("d")]->records;
+                $return[$dt->format("d")]->created = $temp2[$dt->format("j")]->records;
             }
         }
+
+        //print_r($return);
         
         return $return;
 

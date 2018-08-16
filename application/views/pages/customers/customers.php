@@ -94,7 +94,7 @@
 						<td><?php echo $customer->postcode; ?></td>
 						<td><?php echo $customer->phone_number; ?></td>
 						
-						<td><a class="" href="/customers/view/<?php echo $customer->school_id;?>"> <i class="fa fa-edit"></i> </a></td>
+						<td><a class="" href="/customers/view/<?php echo $customer->id;?>"> <i class="fa fa-edit"></i> </a></td>
 
 					</tr>
 					<?php endforeach ?>
@@ -109,7 +109,7 @@
 		<!-- /.box -->
 		<div class="box-footer clearfix">
 			<div class="dataTables_info" id="example23_info" role="status" aria-live="polite">
-				Showing <?php echo $pagination_start; ?> to <?php echo $pagination_end ; ?> of <?php $customers['count']-1; ?> entries</div>
+				Showing <?php echo $pagination_start; ?> to <?php echo $pagination_end ; ?> of <?php echo $customers['count']; ?> entries</div>
 			<div class="dataTables_paginate paging_simple_numbers">
 				<?php echo $pagination; ?>
 			</div>

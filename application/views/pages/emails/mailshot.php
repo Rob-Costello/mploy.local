@@ -1,3 +1,18 @@
+<?php
+
+$time = date("H");
+
+if ($time < "12") {
+
+	$greeting = 'Good Morning';
+
+} else{
+
+	$greeting = 'Good Afternoon';
+
+}
+
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.=w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Mploy</title>
@@ -279,24 +294,30 @@ b6d023fbcffbd0f7&amp;id=3Da062f54e1a&amp;e=3D" target="_blank" style="color: #33
 												<td valign="top" style="border-collapse: collapse;">
 												<div style="color: #505050;font-family: Arial;font-size: 14px;line-height: 150%;text-align: left;">
 
-													<p>Good morning,</p>
+													<p><?php echo $greeting;?>,</p>
 
-													<p>My name is <?php echo $first_name?> from Mploy Solutions and I’m working with <?php echo $name?>  to help organise their work experience placements for the forthcoming academic year</p>
-													<p>I am emailing yourself to see if you would consider offering any work experience opportunities for a student from the school.</p>
-													<p>The students are looking for a week block placement from <strong> <?php echo date("d/m/Y", strtotime($campaign_place_start_date)) ." - ". date("d/m/Y", strtotime($campaign_place_end_date)); ?></strong></p>
-													<p>Work experience is a key part of a students education and we looking for local businesses to help guide students through this part of their school curriculum.  After the students have received training they are there to shadow and assist staff members with their day to day duties, which can hopefully relieve some pressure for a week or so.  I know in a few roles they will have to be supervised by a staff member.  This can be a great opportunity for employees, as it gives them a chance to share their knowledge and learn how to train, encourage and motivate new team members. You will also benefit because you will be having a positive impact on your local community in helping mould and guide future talent. The aim of this experience is to gain an insight into the business, the types of roles you offer and the routes into the different areas of this industry. In a few years time your could even see these students returning for possible job opportunities.</p>
-
-													<p>Work experience placements also offer a great opportunity for students to gain an insight into the world of work which is so important for them when considering their future career choices .  Your offer will be matched to a student who has shown an interest in your area of business or sector and you will also have an opportunity to meet the student before their placement begins.   We would be very grateful for any placements you could offer.</p>
-													<p>Please either reply to this email or call the office to confirm. Likewise, if you have any queries or would like to discuss this further, please don’t hesitate to contact me.</p>
-													<p>May I take this opportunity to thank you for supporting Woodchurch High School and their work related learning programmes.</p>
-													<p>I Look forward to hearing from you!
+													<p>Mploy Solutions work with schools, colleges and other providers across the UK, coordinating Work Related Learning Programmes.</p>
+													<p>We are currently working on behalf of <?php echo($name); ?> organising their Work Experience and I am emailing to see if you would consider offering any placements for the following dates:
+													</p>
+													<p> <strong> <?php echo date("d/m/Y", strtotime($campaign_place_start_date)) ." - ". date("d/m/Y", strtotime($campaign_place_end_date)); ?></strong></p>
+													<p>Placements are a great opportunity for learners to gain an insight into the world of work, which is pivotal to their overall learning experience providing them with invaluable knowledge when considering their future career path.
 													</p>
 
-													<p>if you would like to accept a student please click the Yes button below</p>
+
+													<p>Work experience enables businesses to share important knowledge and expertise, nurture future talent and have a positive impact on local communities.
+													</p>
+													<p>Any placements you can offer will be matched to learners who have shown an interest in your industry/sector, with you also having the opportunity to meet them prior to starting,
+													</p>
+													<p>To register your interest, offer any opportunities or to simply find out more, please click the ‘Yes’ button below and a member of the Work Experience Team will be in touch shortly.</p>
+
+
 													<button class="yes"><a href="<?php echo base_url()?>wex/reply?key=<?php echo $key; ?>&response=1">Yes</a></button>
 													<button class="no"><a href="<?php echo base_url()?>wex/reply?key=<?php echo $key; ?>&response=4">No</a></button>
+													<p>May I take this opportunity to thank you for considering work experience and we look forward to hearing from you soon.
+													</p>
 
 													<p>Kind regards</p>
+													<p><?php echo $first_name?> </p>
 													<table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="100%" style="width:100.0%">
 														<tbody>
 														<tr>

@@ -36,7 +36,7 @@ class Wex extends CI_Controller
 		$wex = new WexModel();
 		$session = $wex->getSession($key);
 
-		return json_encode(['user_id'=>'24813']);
+		//return json_encode(['user_id'=>'24813']);
 
 		if ($session == null) {
 			return json_encode(['error' => 'Invalid Session']);

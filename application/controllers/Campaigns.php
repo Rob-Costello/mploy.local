@@ -809,7 +809,7 @@ class Campaigns extends CI_Controller
 	    );
 
 	    $this->email->initialize($config);
-	    $this->email->from( $this->user->email, 'Mploy Support');
+	    $this->email->from( $this->user->email, $this->user->first_name. " ". $this->user->last_name);
 
 	    foreach($emails as $e){
 		    $this->email->to($e);
@@ -888,7 +888,7 @@ class Campaigns extends CI_Controller
 				$shot['key'] = $values['mailshot_key'];
 				$shot['first_name'] = $this->user->first_name;
 				$data = $shot;
-				//$this->mail($emails,$shot);
+				$this->mail($emails,$shot);
 				$campaignsModel->newCall($values);
 				$size = ob_get_length();
 				header("Content-Length: $size");

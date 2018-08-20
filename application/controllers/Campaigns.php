@@ -815,7 +815,7 @@ class Campaigns extends CI_Controller
 		    $this->email->to($e);
 
 		    //$this->email->subject($subject);
-		    $this->email->subject('mail shot');
+		    $this->email->subject('Can you offer a Work Experience opportunity?');
 		    $message = $this->load->view('/pages/emails/mailshot',$data,true);
 		    $this->email->message($message);
 		    $this->email->send();

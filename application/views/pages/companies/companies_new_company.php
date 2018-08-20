@@ -149,13 +149,21 @@
 
 
 										<div class="row">
-											<div class="col-md-4">
-												<div class="form-group">
 
+											<div class="col-md-3">
+												<div class="form-group">
 													<label class=" ">
 														Number of Employees
 													</label>
-													<input type="text" name="no_of_employees" class="form-control"  placeholder="1 - 4" required>
+
+													<select name="no_of_employees" class="form-control">
+														<option value="1-4">1-4</option>
+														<option  value="5-19">5-19</option>
+														<option  value="20-49">20-49</option>
+														<option  value="50-199">50-199</option>
+														<option  value="200+">200+</option>
+													</select>
+
 
 												</div>
 											</div>

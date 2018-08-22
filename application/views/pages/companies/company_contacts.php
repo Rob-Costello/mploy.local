@@ -67,8 +67,11 @@
                                             <tr>
 
                                                 <?php foreach($fields as $contact): ?>
-
-                                                    <td><?php echo $school->$contact; ?></td>
+												<?php if ($contact == 'first_name' && $organisations['main_contact_id'] == $school->id): ?>
+                                                    <td> (Primary Contact) <?php echo $school->$contact; ?> </td>
+													<?php else: ?>
+												<td> <?php echo $school->$contact; ?> </td>
+												<?php endif ?>
 
                                                 <?php endforeach ?>
 

@@ -108,7 +108,7 @@ class Companies extends CI_Controller
         if($page > 0){
             $offset = $page * $this->perPage;
         }
-        
+        $data['organisations'] = $company->getCompany($id);
         $data['contacts'] = $company->getContacts(array('org_id'=>$data['id']), $orderby, $this->perPage, $offset);
         $page = $this->helpers->page($data['contacts'],'/companies/view/'.$id.'/contacts',$this->perPage,$data['orderby']);
         $this->pagination->initialize($page);

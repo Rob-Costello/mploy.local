@@ -810,7 +810,7 @@ class Campaigns extends CI_Controller
 	    $this->email->initialize($config);
 	    $this->email->from( $this->user->email, $this->user->first_name. " ". $this->user->last_name);
 
-	    foreach($email as $e){
+
 		    $this->email->to($e);
 
 		    //$this->email->subject($subject);
@@ -819,7 +819,7 @@ class Campaigns extends CI_Controller
 		    $this->email->message($message);
 		    $this->email->send();
 
-	    }
+	    
     }
 
 

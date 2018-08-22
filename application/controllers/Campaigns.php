@@ -800,7 +800,6 @@ class Campaigns extends CI_Controller
     function mail($email,$data){
 
     	$this->load->library('email');
-    	$emails = array($email);
 	    $config = array (
 		    'mailtype' => 'html',
 		    'charset'  => 'utf-8',
@@ -811,7 +810,7 @@ class Campaigns extends CI_Controller
 	    $this->email->initialize($config);
 	    $this->email->from( $this->user->email, $this->user->first_name. " ". $this->user->last_name);
 
-	    foreach($emails as $e){
+	    foreach($email as $e){
 		    $this->email->to($e);
 
 		    //$this->email->subject($subject);
@@ -875,7 +874,7 @@ class Campaigns extends CI_Controller
 
 		foreach($shots as $shot){
 			if ($shot['email'] != '') {
-				$emails[]=$shot['email'];
+
 				$values = ['activity_type_id' => $mailshot,
 					'campaign_id' => $camp_id,
 					'user_id' => $this->user->id,
@@ -888,7 +887,7 @@ class Campaigns extends CI_Controller
 				$shot['key'] = $values['mailshot_key'];
 				$shot['first_name'] = $this->user->first_name;
 				$data = $shot;
-				$this->mail($emails,$shot);
+				$this->mail($shot['email'],$shot);
 				$campaignsModel->newCall($values);
 				$size = ob_get_length();
 				header("Content-Length: $size");

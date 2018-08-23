@@ -243,6 +243,12 @@ class Campaigns extends CI_Controller
 		return $sent = implode(",",$emails);
 	}
 
+	function validateEmail($email){
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return 0;
+        }
+        return 1;
+    }
 
     function employers($camp_ref, $pageNo = 0)
     {
@@ -266,7 +272,7 @@ class Campaigns extends CI_Controller
         $shots = $campaignModel->getMailshot($camp_ref,$sent,7);
 
         //counts emails
-	    array_walk($shots,function(&$v, &$k) use (&$emails){ if($v['email'] !='' || null!=$v['email'])$emails[] = $v;});
+	    array_walk($shots,function(&$v, &$k) use (&$emails){ if($v['email'] !='' && null!=$v['email'] && !$this->validateEmail($v['email']))$emails[] = $v;});
 
 	    $data['mailshot']=1;
 
@@ -277,7 +283,7 @@ class Campaigns extends CI_Controller
 		    $emails = [];
 
 
-		    array_walk($shots2,function(&$v, &$k) use (&$emails){ if($v['email'] !='')$emails[] = $v;});
+		    array_walk($shots2,function(&$v, &$k) use (&$emails){ if($v['email'] !='' && !$this->validateEmail($v['email']))$emails[] = $v;});
 
 
 		    if( count($emails)==0){

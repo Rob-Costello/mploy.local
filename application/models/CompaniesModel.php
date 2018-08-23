@@ -101,7 +101,7 @@ class CompaniesModel extends CI_Model
         $this->db->join('users', 'users.id = mploy_organisation_contact_history.user_id');
         $this->db->where('org_id=' . $id);
         $this->db->order_by('date_time', 'DESC');
-        $calls = $this->db->get_where('mploy_organisation_contact_history');
+        $calls = $this->db->get('mploy_organisation_contact_history');
         return $calls->result();
     }
 

@@ -421,7 +421,6 @@ class Campaigns extends CI_Controller
 	function linkCustomerToWex($company,$school,$placements ){
 
 		$data =
-
 			['data'=>
 				['companies'=>
 					['company'=>
@@ -433,9 +432,7 @@ class Campaigns extends CI_Controller
 				]
 			];
 
-
 		$status = $this->xml->setXml($data);
-
 		return $status;
 
 	}
@@ -490,13 +487,23 @@ class Campaigns extends CI_Controller
             if($this->input->post('placements') > 0 && $this->input->post('rag_status') ==2){
 
 				$employer = $campaign->getEmployers(['mploy_organisations.id'=>$id]);
-				if($employer['data'][0]->wex_org_id ==0 ||$employer['data'][0]->wex_org_id =='' ) {
+				$error='';
+				$wexid = $employer['data'][0]->wex_org_id;
+				if($wexid ==0 ||$wexid =='' ) {
 					$response = $this->addCompanyToWex($employer['data'][0]);
-					$campaign->updateOrganisation(['wex_org_id' => $response], 'id =' . $id);
 
+					if($response==''){
+
+						$error ='Problem adding Company to WEX Please contact Hyperext';
+
+					}else{
+						$campaign->updateOrganisation(['wex_org_id' => $response], 'id =' . $id);
+						$wexid = $response;
+					}
 				}
-				$response = $this->linkCustomerToWex($id,$camp_ref,$this->input->post('placements'));
-				$this->session->set_flashdata('call_message', 'New Call Logged');
+				$response = $this->linkCustomerToWex($wexid,$camp_ref,$this->input->post('placements'));
+
+				$this->session->set_flashdata('call_message', 'New Call Logged '.$error);
 
 			}else{
 
@@ -800,7 +807,6 @@ class Campaigns extends CI_Controller
     function mail($email,$data){
 
     	$this->load->library('email');
-    	$emails = array($email);
 	    $config = array (
 		    'mailtype' => 'html',
 		    'charset'  => 'utf-8',
@@ -811,7 +817,7 @@ class Campaigns extends CI_Controller
 	    $this->email->initialize($config);
 	    $this->email->from( $this->user->email, $this->user->first_name. " ". $this->user->last_name);
 
-	    foreach($emails as $e){
+
 		    $this->email->to($e);
 
 		    //$this->email->subject($subject);
@@ -820,7 +826,7 @@ class Campaigns extends CI_Controller
 		    $this->email->message($message);
 		    $this->email->send();
 
-	    }
+	    
     }
 
 
@@ -875,7 +881,7 @@ class Campaigns extends CI_Controller
 
 		foreach($shots as $shot){
 			if ($shot['email'] != '') {
-				$emails[]=$shot['email'];
+
 				$values = ['activity_type_id' => $mailshot,
 					'campaign_id' => $camp_id,
 					'user_id' => $this->user->id,
@@ -888,7 +894,7 @@ class Campaigns extends CI_Controller
 				$shot['key'] = $values['mailshot_key'];
 				$shot['first_name'] = $this->user->first_name;
 				$data = $shot;
-				$this->mail($emails,$shot);
+				$this->mail($shot['email'],$shot);
 				$campaignsModel->newCall($values);
 				$size = ob_get_length();
 				header("Content-Length: $size");

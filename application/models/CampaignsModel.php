@@ -692,10 +692,12 @@ class CampaignsModel extends CI_Model
 		if($mailshot == 8){
 
 
-			$this->db->select('org_id,receiver as email');
+			$this->db->select('mploy_organisations.*, mploy_campaigns.*, mploy_organisations.id as org_id, receiver as email');
 			$this->db->where('campaign_id',$campaign);
 			$this->db->where('activity_type_id',7);
 			$this->db->not_like('mailshot_key','Responded');
+            $this->db->join('mploy_organisations', 'mploy_organisation_contact_history.org_id = mploy_organisations.id' );
+            $this->db->join('mploy_campaigns','mploy_campaigns.id = mploy_organisation_contact_history.campaign_id','left');
 
 			if($emails !=''){
 				$query = $this->db->get_where('mploy_organisation_contact_history','receiver not in ('.$emails.')');

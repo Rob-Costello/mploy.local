@@ -311,8 +311,8 @@ b6d023fbcffbd0f7&amp;id=3Da062f54e1a&amp;e=3D" target="_blank" style="color: #33
 													<p>To register your interest, offer any opportunities or to simply find out more, please click the ‘Yes’ button below and a member of the Work Experience Team will be in touch shortly.</p>
 
 
-													<button class="yes"><a href="<?php echo base_url()?>wex/reply?key=<?php echo $key; ?>&response=2">Yes</a></button>
-													<button class="no"><a href="<?php echo base_url()?>wex/reply?key=<?php echo $key; ?>&response=4">No</a></button>
+                                                    <a href="<?php echo base_url()?>wex/reply?key=<?php echo $key; ?>&response=2"><button class="yes">Yes</button></a>
+                                                    <a href="<?php echo base_url()?>wex/reply?key=<?php echo $key; ?>&response=4"><button class="no">No</button></a>
 													<p>May I take this opportunity to thank you for considering work experience and we look forward to hearing from you soon.
 													</p>
 

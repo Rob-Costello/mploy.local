@@ -475,13 +475,19 @@ class Campaigns extends CI_Controller
 
     function newCall($camp_ref, $id)
     {
-
         $campaign = new campaignsModel();
         $campid = $this->input->get('campid');
 
         if (!empty($_POST)) {
 
-            $campaign->newCall($this->input->post());
+
+        	if($_POST['rag_status'] ==0 || $_POST['rag_status'] =='' || isset($_POST['rag_status'])==false ){
+
+				$_POST['rag_status']=3;
+
+			}
+
+			$campaign->newCall($this->input->post());
 
 
             if($this->input->post('placements') > 0 && $this->input->post('rag_status') ==2){
@@ -817,6 +823,7 @@ class Campaigns extends CI_Controller
 	    $this->email->initialize($config);
 	    $this->email->from( $this->user->email, $this->user->first_name. " ". $this->user->last_name);
 
+
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $invalidEmails[] = $email;
         } else {
@@ -831,7 +838,6 @@ class Campaigns extends CI_Controller
 
         return 0;
 
-	    
     }
 
 

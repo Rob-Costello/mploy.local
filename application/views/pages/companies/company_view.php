@@ -162,25 +162,23 @@
                                         </div>
 
                                         <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label class=" ">
+                                                        Number of Employees
+                                                    </label>
+
+                                                    <select name="no_of_employees" class="form-control">
+                                                        <option<?php if ($company['no_of_employees'] =='1-4' ) echo ' selected' ?> value="1-4">1-4</option>
+                                                        <option <?php if ($company['no_of_employees'] == "5-19") echo ' selected' ?> value="5-19">5-19</option>
+														<option <?php if ($company['no_of_employees'] == "20-49") echo ' selected' ?> value="20-49">20-49</option>
+														<option <?php if ($company['no_of_employees'] == "50-199") echo ' selected' ?> value="50-199">50-199</option>
+														<option <?php if ($company['no_of_employees'] == "200+") echo ' selected' ?> value="200+">200+</option>
+                                                    </select>
 
 
-												<div class="col-md-3">
-													<div class="form-group">
-														<label class=" ">
-															Number of Employees
-														</label>
-
-														<select name="no_of_employees" class="form-control">
-															<option<?php if ($company['no_of_employees'] =='1-4' ) echo ' selected' ?> value="1-4">1-4</option>
-															<option <?php if ($company['no_of_employees'] == "5-19") echo ' selected' ?> value="5-19">5-19</option>
-															<option <?php if ($company['no_of_employees'] == "20-49") echo ' selected' ?> value="20-49">20-49</option>
-															<option <?php if ($company['no_of_employees'] == "50-199") echo ' selected' ?> value="50-199">50-199</option>
-															<option <?php if ($company['no_of_employees'] == "200+") echo ' selected' ?> value="200+">200+</option>
-														</select>
-
-
-													</div>
-												</div>
+                                                </div>
+                                            </div>
 
                                             <div class="col-md-6">
                                                 <div class="form-group">

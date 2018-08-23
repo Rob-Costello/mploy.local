@@ -421,7 +421,6 @@ class Campaigns extends CI_Controller
 	function linkCustomerToWex($company,$school,$placements ){
 
 		$data =
-
 			['data'=>
 				['companies'=>
 					['company'=>
@@ -433,9 +432,7 @@ class Campaigns extends CI_Controller
 				]
 			];
 
-
 		$status = $this->xml->setXml($data);
-
 		return $status;
 
 	}
@@ -490,13 +487,23 @@ class Campaigns extends CI_Controller
             if($this->input->post('placements') > 0 && $this->input->post('rag_status') ==2){
 
 				$employer = $campaign->getEmployers(['mploy_organisations.id'=>$id]);
-				if($employer['data'][0]->wex_org_id ==0 ||$employer['data'][0]->wex_org_id =='' ) {
+				$error='';
+				$wexid = $employer['data'][0]->wex_org_id;
+				if($wexid ==0 ||$wexid =='' ) {
 					$response = $this->addCompanyToWex($employer['data'][0]);
-					$campaign->updateOrganisation(['wex_org_id' => $response], 'id =' . $id);
 
+					if($response==''){
+
+						$error ='Problem adding Company to WEX Please contact Hyperext';
+
+					}else{
+						$campaign->updateOrganisation(['wex_org_id' => $response], 'id =' . $id);
+						$wexid = $response;
+					}
 				}
-				$response = $this->linkCustomerToWex($id,$camp_ref,$this->input->post('placements'));
-				$this->session->set_flashdata('call_message', 'New Call Logged');
+				$response = $this->linkCustomerToWex($wexid,$camp_ref,$this->input->post('placements'));
+
+				$this->session->set_flashdata('call_message', 'New Call Logged '.$error);
 
 			}else{
 

@@ -817,14 +817,19 @@ class Campaigns extends CI_Controller
 	    $this->email->initialize($config);
 	    $this->email->from( $this->user->email, $this->user->first_name. " ". $this->user->last_name);
 
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $invalidEmails[] = $email;
+        } else {
 
-		    $this->email->to($e);
+            $this->email->bcc($email);
+            $this->email->subject('Can you offer a Work Experience opportunity?');
+            $message = $this->load->view('/pages/emails/mailshot', $data, true);
+            $this->email->message($message);
+            return $this->email->send();
 
-		    //$this->email->subject($subject);
-		    $this->email->subject('Can you offer a Work Experience opportunity?');
-		    $message = $this->load->view('/pages/emails/mailshot',$data,true);
-		    $this->email->message($message);
-		    $this->email->send();
+        }
+
+        return 0;
 
 	    
     }
@@ -893,9 +898,8 @@ class Campaigns extends CI_Controller
 
 				$shot['key'] = $values['mailshot_key'];
 				$shot['first_name'] = $this->user->first_name;
-				$data = $shot;
-				$this->mail($shot['email'],$shot);
-				$campaignsModel->newCall($values);
+				if($this->mail($shot['email'],$shot))
+				    $campaignsModel->newCall($values);
 				$size = ob_get_length();
 				header("Content-Length: $size");
 				header('Connection: close');

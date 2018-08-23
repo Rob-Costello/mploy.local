@@ -186,7 +186,7 @@ class Companies extends CI_Controller
 
 		if (!empty($_POST)) {
 			$success = $company->addCompany($this->input->post());
-			$this->session->set_flashdata('message', 'Company' . $this->input->post('name') . ' created');
+			$this->session->set_flashdata('message', 'Company ' . $this->input->post('name') . ' created');
 			redirect('companies/','refresh');
 
 		}

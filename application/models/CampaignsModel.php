@@ -707,7 +707,7 @@ class CampaignsModel extends CI_Model
 			return $query->result_array();
 		}
 
-		$this->db->select('mploy_organisations.*, mploy_contacts.*, mploy_campaigns.*, s.name, mploy_rel_campaign_employers.campaign_id');
+		$this->db->select('mploy_organisations.*, mploy_contacts.*, mploy_campaigns.*, s.name, mploy_rel_campaign_employers.campaign_id,mploy_organisations.id as org_id');
 		$this->db->join('mploy_organisations', 'mploy_rel_campaign_employers.org_id = mploy_organisations.id' );
 		$this->db->join('mploy_contacts','mploy_organisations.main_contact_id = mploy_contacts.id','left');
 		$this->db->join('mploy_campaigns','mploy_campaigns.id = mploy_rel_campaign_employers.campaign_id','left');

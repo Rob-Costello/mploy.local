@@ -225,6 +225,17 @@
 
                                                 </div>
                                             </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+
+                                                    <label class=" ">
+                                                       Opt-out
+                                                    </label><br />
+                                                    <input type="hidden" name="optout" value="0">
+                                                    <input type="checkbox" name="optout" value="1" <?php if( $company['optout'] == 1 ) echo 'checked'; ?>>
+
+                                                </div>
+                                            </div>
 
 
                                         </div>

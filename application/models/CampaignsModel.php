@@ -593,7 +593,7 @@ class CampaignsModel extends CI_Model
     public function getCompaniesByPostcode($where, $campaign = null)
     {
 
-        $query = $this->db->query("SELECT * FROM  mploy_organisations o where organisation_type_id =2 " . $where);
+        $query = $this->db->query("SELECT * FROM  mploy_organisations o where organisation_type_id =2 AND optout = 0" . $where);
         return $query->result_array();
 
     }
@@ -688,6 +688,8 @@ class CampaignsModel extends CI_Model
 			$emailString = " AND mploy_contacts.email not in (".$emails.") ";
 
 		}
+
+		$this->db->where('mploy_organisations.optout = 0');
 
 		if($mailshot == 8){
 

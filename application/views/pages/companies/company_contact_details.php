@@ -127,6 +127,19 @@
 
 			                            </div>
 		                            </div>
+											<div class="col-md-6">
+												<div class="form-group">
+
+													<label class=" ">
+														Primary Contact
+													</label>
+													<br>
+													<input type="checkbox" name="main_contact_id" value="1"  style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+												</div>
+											</div>
+											<!--/span-->
+										</div>
 
 
                                 </div>

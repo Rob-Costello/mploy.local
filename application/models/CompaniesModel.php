@@ -131,9 +131,26 @@ class CompaniesModel extends CI_Model
 	public function createCompanyContact($data){
 
 		$this->db->insert('mploy_contacts', $data);
+		$insert_id = $this->db->insert_id();
+
+		return  $insert_id;
 
 
 	}
+
+
+	function updateMainContact($id,$contactId){
+
+
+		$this->db->trans_start();
+		$this->db->where('id', $id);
+		$this->db->update('mploy_organisations', ['main_contact_id' => $contactId]);
+		$this->db->trans_complete();
+		return $this->db->trans_status();
+
+
+	}
+
 
     public function getCompany($id){
 

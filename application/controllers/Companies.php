@@ -139,21 +139,31 @@ class Companies extends CI_Controller
 		$data['id']=$id;
 		$data['page'] = 'history';
 		$data['user']=$this->user;
+		$isMainContact = false;
 
 		if(!empty($_POST))
 		{
+			if($this->input->post('main_contact_id')==1){
 
-			$company->createCompanyContact( $this->input->post());
+				$isMainContact = true;
+				unset($_POST['main_contact_id']);
+
+			}
+
+			$contactId = $company->createCompanyContact( $this->input->post());
+
+			if($isMainContact){
+
+				$company->updateMainContact($id,$contactId);
+
+			}
+
 			$this->session->set_flashdata('message', 'Contact Added to Company ');
 			redirect('companies/view/'.$id.'/contacts/','refresh');
 
 		}
 
-
-
-
 		$this->load->view('pages/companies/companies_new_contact',$data);
-
 
 	}
 
@@ -164,11 +174,19 @@ class Companies extends CI_Controller
         $company= new CompaniesModel();
 	    $data['table']= $company->getCompanyContact($id);
         if(!empty($_POST)){
-            $success = $company->updateCompanyContact($id,$this->input->post());
+
+
+            if($this->input->post('main_contact_id')!==null){
+            	unset($_POST['main_contact_id']);
+				$company->updateMainContact($data['table']['org_id'],$id);
+
+			}
+			$success = $company->updateCompanyContact($id,$this->input->post());
 
 
             $data['message'] = "Information updated";
 	        $this->session->set_flashdata('message', 'Contact Updated');
+
 	        redirect('companies/view/'.$data['table']['org_id'].'/contacts/','refresh');
 
         }
@@ -179,7 +197,6 @@ class Companies extends CI_Controller
 
 	function newCompany()
 	{
-
 
 		$data['user'] = $this->user;
 		$company = new CompaniesModel();

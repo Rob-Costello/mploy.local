@@ -103,12 +103,7 @@
 						<td><?php echo $company->postcode; ?></td>
 						<td><?php echo $company->phone; ?></td>
 						<td><?php echo $company->first_name .' '.$company->last_name ; ?></td>
-						<td>
-						
-							
-							<?php echo $company->status;?>
 
-						</td>
 						<td><?php echo $company->line_of_business; ?></td>
 						<td><a class="" href="/companies/view/<?php echo $company->id;?>"> <i class="fa fa-edit"></i> </a></td>
 

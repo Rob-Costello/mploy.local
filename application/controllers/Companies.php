@@ -27,7 +27,7 @@ class Companies extends CI_Controller
         $campaignModel =new CampaignsModel();
 		$companies = new CompaniesModel();
         $where = 'organisation_type_id =2 ';
-		$data['headings'] = ['name' => 'Name', 'postcode' => 'Postcode', 'phone' => 'Main Telephone','first_name'=>'Main Contact','status'=>'Status','Sector'];
+		$data['headings'] = ['name' => 'Name', 'postcode' => 'Postcode', 'phone' => 'Main Telephone','first_name'=>'Main Contact','Sector'];
 		$offset=0;
 
         if($pageNo > 0){
@@ -217,6 +217,7 @@ class Companies extends CI_Controller
     function view($id=0, $page = null, $pageNo = 0 ){
 
         $company= new CompaniesModel();
+        $campaign = new CampaignsModel();
         if(!empty($_POST)){
             $company->updateCompany($id,$this->input->post());
             $data['message'] = "Information updated";
@@ -225,6 +226,7 @@ class Companies extends CI_Controller
         $data['page'] = $page;
         $data['user']=$this->user;
         $data['dropdown'] = array();
+        $data['industry'] = $campaign->getSector();
         switch($page){
             case 'contacts':
                 $this->contacts($id, $pageNo);

@@ -368,6 +368,7 @@ Company Registration No 079696001<o:p></o:p></span></p>
 										<table border="0" cellpadding="10" cellspacing="0" width="100%">
 											<tr>
 												<td colspan="2" valign="middle" id="social" style="border-collapse: collapse;background-color: #FAFAFA;border: 0;">
+                                                    <small>To opt out of recieving emails from us please <a href="<?php echo base_url()?>wex/optout?id=<?php echo $org_id; ?>&response=1">Click Here</a></small>
 													<!--<div style="color: #707070;font-family: Arial;font-size: 12px;line-height: 125%;text-align: center;">&nbsp;<a href="http://www.bridgingloans.uk.net/policies/privacy-policy/">privacy policy</a>&nbsp;| <a href="http://www.bridgingloans.uk.net/policies/terms-and-conditions/">terms &amp; conditions</a>&nbsp; </div>-->
 												</td>
 											</tr>

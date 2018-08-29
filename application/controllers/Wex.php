@@ -271,6 +271,23 @@ class Wex extends CI_Controller
 
 	}
 
+    function optout()
+    {
+        $this->load->model('CompaniesModel');
+        $company = new CompaniesModel();
+        if(!empty($_GET)){
+            $org_id = $this->input->get('id');
+            $response = $this->input->get('response');
+
+            $company->updateCompany($org_id, ['optout' => $response]);
+        }
+
+        $this->load->view('pages/emails/optout');
+
+
+
+    }
+
 
 	function thankyou(){
 

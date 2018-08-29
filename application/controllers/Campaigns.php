@@ -340,6 +340,18 @@ class Campaigns extends CI_Controller
 
         $this->session->set_userdata('company_nav', $data['campaign']['array']);
 
+        $url='';
+        $i=0;
+       	$params=[];
+        if(isset($_GET['status'])){
+       		$params['status']=$_GET['status'];
+
+		}
+		if(isset($_GET['search'])){
+			$params['search']=$_GET['search'];
+
+		}
+		$url = http_build_query($params);
         $page = $this->helpers->page($data['campaign'], '/campaigns/employers/' . $camp_ref, $this->perPage);
         $this->pagination->initialize($page);
 

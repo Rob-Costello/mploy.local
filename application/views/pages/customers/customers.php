@@ -75,6 +75,13 @@
 						<?php for($i=0; $i< count($headings); $i++ ):?>
 							<th>
 								<form method="get">
+									<?php
+									if(isset($_GET['orderby']) && $_GET['orderby'] == $fields[$i] ){
+										if(strpos( $fields[$i],'asc'))  $fields[$i] = str_replace('asc','desc', $fields[$i]);
+										else  $fields[$i] = str_replace('desc','asc', $fields[$i]);
+									}
+
+									?>
 									<input type="hidden" name="orderby" value="<?php echo $fields[$i] ?>">
 									<button class="no-button"><?php echo $headings[$i]; ?> <i class=" fa fa-sort"></i></button>
 								</form>

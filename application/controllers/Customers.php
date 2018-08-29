@@ -32,7 +32,7 @@ class Customers extends CI_Controller
 		$like = null;
 		$where_in = "organisation_type_id in ('1','4','5')";
 		//$where_in = ['1','4','5'];
-		$data['fields'] = ['name','address1','town','county','postcode','phone_number'];
+		$data['fields'] = ['name desc','address1 desc','town desc','county desc ','postcode desc','phone_number desc'];
 		$customer = new CustomersModel();
 		$page = $id;
 		$data['headings'] = ['Name','Address','Town','County','Postcode','Phone Number' ];

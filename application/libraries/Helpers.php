@@ -135,6 +135,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	 }
 
 
-
+	 function arrayLocation($array,$value){
+		$i=0;
+		foreach($array as $k => $arr){
+			if($value==$k){
+				return $i;
+			}
+			$i++;
+		}
+		return false;
+	}
 
 }

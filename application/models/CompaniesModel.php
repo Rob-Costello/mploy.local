@@ -51,7 +51,6 @@ class CompaniesModel extends CI_Model
 
     public function getCompanyContact($id){
 
-
     	$query = $this->db->get_where('mploy_contacts','id ='.$id);
         return $query->row_array();
 
@@ -73,7 +72,8 @@ class CompaniesModel extends CI_Model
 
     function getCompanies($where = null, $request = null, $limit = null, $offset = null)
     {
-        $this->db->select('*, mploy_organisations.postcode, mploy_organisations.id ');
+
+    	$this->db->select('*, mploy_organisations.postcode, mploy_organisations.id ');
         $this->db->limit($limit, $offset);
         //$this->db->join('mploy_company_contacts mcc', 'mcc.id = mc.contact_id', 'left');
         if( $where == null ) {

@@ -53,7 +53,7 @@ class Customers extends CI_Controller
 		
 		if(!empty($_POST)){
 
-			$like = $this->input->post('search');
+			$like = html_escape($this->input->post('search'));
 			$where .= " and name like '%".$like."%'";
 			$data['customers'] = $customer->getcustomers($where_in . $where, $orderby,  null,null);
 			$page = $this->page($data['customers'],'/customers',$this->perPage);
@@ -150,6 +150,7 @@ class Customers extends CI_Controller
 		}
 
 	}
+
 
 
 

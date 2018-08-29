@@ -21,13 +21,16 @@ class Companies extends CI_Controller
 	}
 
 
+
+
+
 	function index( $pageNo = 0 )
 	{
 
         $campaignModel =new CampaignsModel();
 		$companies = new CompaniesModel();
         $where = 'organisation_type_id =2 ';
-		$data['headings'] = ['name' => 'Name', 'postcode' => 'Postcode', 'phone' => 'Main Telephone','first_name'=>'Main Contact','Sector'];
+
 		$offset=0;
 
         if($pageNo > 0){
@@ -36,16 +39,20 @@ class Companies extends CI_Controller
 
 		$orderby = 'name';
 		$data['orderby']='';
-        if(isset($_GET['orderby'])){
+		$data['headings'] = ['name desc' => 'Name', 'mploy_organisations.postcode desc' => 'Postcode', 'phone desc' => 'Main Telephone','first_name desc'=>'Main Contact', 'line_of_business desc'=>'Sector'];
+
+		if(isset($_GET['orderby'])){
 
         	$orderby = $this->input->get('orderby');
-			$data['orderby'] = '?orderby='.$orderby;
+        	$data['orderby'] = '?orderby='.$orderby;
+
 		}
 
         if(!empty($_POST)) {
 
             foreach ($_POST as $k => $v) {
-                $where .= " and mploy_organisations." . $k . " like '%" . $v . "%'";
+				$v =html_escape($v);
+            	$where .= " and mploy_organisations." . $k . " like '%" . $v . "%'";
             }
 
         }

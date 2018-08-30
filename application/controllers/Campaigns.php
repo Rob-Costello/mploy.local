@@ -47,7 +47,7 @@ class Campaigns extends CI_Controller
 
         if (!empty($_POST)) {
 
-            $where = "campaign_name like '%" . $this->input->post('search') . "%'";
+            $where = "campaign_name like '%" . $v =html_escape($this->input->post('search')) . "%'";
 
         }
 
@@ -323,6 +323,8 @@ class Campaigns extends CI_Controller
 
         if (isset($_GET['search'])) {
 
+        	$_GET['search'] = html_escape($_GET['search']);
+
             $where[] = "( mploy_organisations.name LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.address1 LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.address2 LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.town LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.county LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.country LIKE '%" . $_GET['search'] . "%' OR mploy_organisations.postcode LIKE '%" . $_GET['search'] . "%')";
 
         }
@@ -338,6 +340,18 @@ class Campaigns extends CI_Controller
 
         $this->session->set_userdata('company_nav', $data['campaign']['array']);
 
+        $url='';
+        $i=0;
+       	$params=[];
+        if(isset($_GET['status'])){
+       		$params['status']=$_GET['status'];
+
+		}
+		if(isset($_GET['search'])){
+			$params['search']=$_GET['search'];
+
+		}
+		$url = http_build_query($params);
         $page = $this->helpers->page($data['campaign'], '/campaigns/employers/' . $camp_ref, $this->perPage);
         $this->pagination->initialize($page);
 
@@ -491,7 +505,6 @@ class Campaigns extends CI_Controller
 
         if (!empty($_POST)) {
 
-
         	if($_POST['rag_status'] ==0 || $_POST['rag_status'] =='' || isset($_POST['rag_status'])==false ){
 
 				$_POST['rag_status']=3;
@@ -499,7 +512,6 @@ class Campaigns extends CI_Controller
 			}
 
 			$campaign->newCall($this->input->post());
-
 
             if($this->input->post('placements') > 0 && $this->input->post('rag_status') ==2){
 
@@ -813,7 +825,8 @@ class Campaigns extends CI_Controller
             $where = '';
             foreach ($_POST as $k => $v) {
                 if ($v !== '') {
-                    $where .= " and " . $k . " like '%" . $v . "%'";
+					$v = html_escape($v);
+                	$where .= " and " . $k . " like '%" . $v . "%'";
                 }
             }
             $dates = $campaign->getCompaniesByPostcode($where);

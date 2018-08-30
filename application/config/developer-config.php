@@ -14,7 +14,7 @@ if( DEVELOPER != '' ) {
             define('DB_HOST', 'localhost');
             break;
 
-        case 'Paul':
+        case 'Rob':
             define('DB_NAME', 'hyperext_mploy_crm_new');
             define('DB_USER', 'root');
             define('DB_PASSWORD', 'root');

@@ -21,13 +21,16 @@ class Companies extends CI_Controller
 	}
 
 
+
+
+
 	function index( $pageNo = 0 )
 	{
 
         $campaignModel =new CampaignsModel();
 		$companies = new CompaniesModel();
         $where = 'organisation_type_id =2 ';
-		$data['headings'] = ['name' => 'Name', 'postcode' => 'Postcode', 'phone' => 'Main Telephone','first_name'=>'Main Contact','status'=>'Status','Sector'];
+
 		$offset=0;
 
         if($pageNo > 0){
@@ -36,16 +39,20 @@ class Companies extends CI_Controller
 
 		$orderby = 'name';
 		$data['orderby']='';
-        if(isset($_GET['orderby'])){
+		$data['headings'] = ['name desc' => 'Name', 'mploy_organisations.postcode desc' => 'Postcode', 'phone desc' => 'Main Telephone','first_name desc'=>'Main Contact', 'line_of_business desc'=>'Sector'];
+
+		if(isset($_GET['orderby'])){
 
         	$orderby = $this->input->get('orderby');
-			$data['orderby'] = '?orderby='.$orderby;
+        	$data['orderby'] = '?orderby='.$orderby;
+
 		}
 
         if(!empty($_POST)) {
 
             foreach ($_POST as $k => $v) {
-                $where .= " and mploy_organisations." . $k . " like '%" . $v . "%'";
+				$v =html_escape($v);
+            	$where .= " and mploy_organisations." . $k . " like '%" . $v . "%'";
             }
 
         }
@@ -139,21 +146,31 @@ class Companies extends CI_Controller
 		$data['id']=$id;
 		$data['page'] = 'history';
 		$data['user']=$this->user;
+		$isMainContact = false;
 
 		if(!empty($_POST))
 		{
+			if($this->input->post('main_contact_id')==1){
 
-			$company->createCompanyContact( $this->input->post());
+				$isMainContact = true;
+				unset($_POST['main_contact_id']);
+
+			}
+
+			$contactId = $company->createCompanyContact( $this->input->post());
+
+			if($isMainContact){
+
+				$company->updateMainContact($id,$contactId);
+
+			}
+
 			$this->session->set_flashdata('message', 'Contact Added to Company ');
 			redirect('companies/view/'.$id.'/contacts/','refresh');
 
 		}
 
-
-
-
 		$this->load->view('pages/companies/companies_new_contact',$data);
-
 
 	}
 
@@ -164,11 +181,19 @@ class Companies extends CI_Controller
         $company= new CompaniesModel();
 	    $data['table']= $company->getCompanyContact($id);
         if(!empty($_POST)){
-            $success = $company->updateCompanyContact($id,$this->input->post());
+
+
+            if($this->input->post('main_contact_id')!==null){
+            	unset($_POST['main_contact_id']);
+				$company->updateMainContact($data['table']['org_id'],$id);
+
+			}
+			$success = $company->updateCompanyContact($id,$this->input->post());
 
 
             $data['message'] = "Information updated";
 	        $this->session->set_flashdata('message', 'Contact Updated');
+
 	        redirect('companies/view/'.$data['table']['org_id'].'/contacts/','refresh');
 
         }
@@ -179,7 +204,6 @@ class Companies extends CI_Controller
 
 	function newCompany()
 	{
-
 
 		$data['user'] = $this->user;
 		$company = new CompaniesModel();
@@ -200,6 +224,7 @@ class Companies extends CI_Controller
     function view($id=0, $page = null, $pageNo = 0 ){
 
         $company= new CompaniesModel();
+        $campaign = new CampaignsModel();
         if(!empty($_POST)){
             $company->updateCompany($id,$this->input->post());
             $data['message'] = "Information updated";
@@ -208,6 +233,7 @@ class Companies extends CI_Controller
         $data['page'] = $page;
         $data['user']=$this->user;
         $data['dropdown'] = array();
+        $data['industry'] = $campaign->getSector();
         switch($page){
             case 'contacts':
                 $this->contacts($id, $pageNo);

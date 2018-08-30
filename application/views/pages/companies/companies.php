@@ -36,7 +36,7 @@
 						</div>
 						<div class="col-md-2">
 							<select style="margin:20px;" name="line_of_business" class="form-control" id="searchCompanyIndustry">
-								<option value="">Select Sector</option>
+								<option style="color:#fefefe" value="" selected disabled>Select Sector</option>
 								<?php foreach($sector as $s): ?>
 									<option value="<?php echo $s['line_of_business']; ?>" <?php if( isset($post_data['line_of_business']) && $post_data['line_of_business'] == $s['line_of_business']) echo 'selected'; ?>> <?php echo $s['line_of_business'];?> </option>
 								<?php endforeach ?>
@@ -87,8 +87,15 @@
 					<thead>
 					<tr>
 						<?php foreach($headings as $key => $heading):?>
+							<?php
+								if(isset($_GET['orderby']) && $_GET['orderby'] == $key ){
+									if(strpos($key,'asc')) $key = str_replace('asc','desc',$key);
+									else $key = str_replace('desc','asc',$key);
+								}
+
+							?>
 							<th class="sorting"> <form method="get">
-									<input type="hidden" name="orderby" value="<?php echo $key ?>">
+									<input type="hidden" name="orderby" value="<?php  echo $key ?>">
 									<button class="no-button"><?php echo $heading; ?> <i class=" fa fa-sort"></i></button>
 								</form> </th>
 						<?php endforeach;?>
@@ -103,12 +110,7 @@
 						<td><?php echo $company->postcode; ?></td>
 						<td><?php echo $company->phone; ?></td>
 						<td><?php echo $company->first_name .' '.$company->last_name ; ?></td>
-						<td>
-						
-							
-							<?php echo $company->status;?>
 
-						</td>
 						<td><?php echo $company->line_of_business; ?></td>
 						<td><a class="" href="/companies/view/<?php echo $company->id;?>"> <i class="fa fa-edit"></i> </a></td>
 

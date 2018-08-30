@@ -40,6 +40,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		$pagConfig['next_link'] = 'Next';
 		$pagConfig['next_tag_open'] = '<li class="paginate_button next">';
 		$pagConfig['next_tag_close'] = '</li>';
+		$pagConfig['reuse_query_string'] = true;
 
 		return $pagConfig;
 
@@ -135,6 +136,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	 }
 
 
-
+	 function arrayLocation($array,$value){
+		$i=0;
+		foreach($array as $k => $arr){
+			if($value==$k){
+				return $i;
+			}
+			$i++;
+		}
+		return false;
+	}
 
 }

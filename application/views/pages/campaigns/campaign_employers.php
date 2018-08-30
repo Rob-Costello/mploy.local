@@ -77,7 +77,7 @@
 
 							function percent ($percent)
 							{
-
+								$color='';
 								if ($percent < 50) {
 									$color = 'red';
 								}

@@ -139,8 +139,11 @@
                                                         Industry
                                                     </label>
 
-                                                    <select name="industry" class="form-control">
-                                                        <option>Industry</option>
+                                                    <select name="line_of_business" class="form-control">
+														<?php foreach ($industry as $ind): ?>
+														<option <?php if($ind['line_of_business'] == $company['line_of_business']) echo ' selected '; ?>value="<?php echo $ind['line_of_business']; ?>"><?php echo $ind['line_of_business']; ?></option>
+														<?php endforeach; ?>
+
                                                     </select>
 
 

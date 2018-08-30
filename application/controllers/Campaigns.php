@@ -422,8 +422,6 @@ class Campaigns extends CI_Controller
 
 		}
 
-
-
         $data['prev'] = null;
         $data['next'] = null;
 

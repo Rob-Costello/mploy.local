@@ -80,6 +80,12 @@ class CampaignsModel extends CI_Model
 
     }
 
+    function deleteCall($id){
+
+		$this->db->where('id', $id);
+		$this->db->delete('mploy_organisation_contact_history');
+
+	}
 
     function getCampaigns($where = null, $request = null, $limit = null, $offset = null)
     {

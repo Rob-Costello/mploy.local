@@ -173,11 +173,14 @@
                                     <h3 class="box-title">Contacts </h3>
                                 </div>
 
+								<div class="table-responsive">
+									<table id="example2" style="width: 100% !important;" class="table table-bordered table-hover">
 
                                 <!-- /.box-header -->
                                 <div class="box-body">
                                     <form role="form"  method="POST">
-                                        
+										<div class="table-responsive">
+
                                     <table id="example2" class="table table-bordered table-hover">
                                         <thead>
                                             <tr>
@@ -199,6 +202,7 @@
                                         </tbody>
 
                                     </table>
+										</div>
 
                                 <input type="hidden" name="active" value="1">
                                 </form>

@@ -40,7 +40,7 @@
 
 
                             <div class="col-md-12">
-                                <div class="table-responsive-md">
+                                <div class="table-responsive">
                                     <table id="example2" class="table table-bordered table-hover">
                                         <thead>
                                         <tr>
@@ -54,7 +54,9 @@
 
                                         <?php foreach($calls as $call): ?>
                                         <tr>
-                                            <td><?php echo $call->first_name . ' ' . $call->last_name; ?></td>
+
+
+											<td><?php echo $call->first_name . ' ' . $call->last_name; ?></td>
                                             <td><?php echo $call->description ?></td>
                                             <td><?php echo $call->receiver ?></td>
                                             <td><?php echo $call->notes ?></td>
@@ -62,6 +64,13 @@
                                             <td>
                                                 <img src="<?php echo base_url()."assets/";?>dist/img/<?php echo $call->rag_status ?>.png" class="img-circle" alt="Status">
                                             </td>
+											<?php if($allow_delete): ?>
+											<td>
+												<button type="button" class="btn" style="border:none; background-color: transparent;" onclick="remove(this,<?php echo $call->contact_id?>)" > <i class="fa fa-remove" style="font-size:14px;color:red"></i> </button>
+											</td>
+											<?php endif ?>
+
+
 
 
 
@@ -89,3 +98,21 @@
 
     </div>
 </div>
+
+<script>
+
+
+	function remove(item,id){
+			var target = '/campaigns/deleteCall/'+id;
+			$.ajax({
+				url: target,
+				type: 'POST',
+
+				success: function (data, textStatus, XMLHttpRequest) {
+					$(item).closest('tr').remove();
+				}
+			});
+	}
+
+
+</script>

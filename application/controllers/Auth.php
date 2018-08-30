@@ -701,7 +701,9 @@ class Auth extends CI_Controller
                     $message .= 'Password has been updated <br>';
 				   // $this->session->set_flashdata('password_message', 'Password has been updated');
 				}
-
+				if($this->input->post('super')){
+					$this->ion_auth->add_to_group('3', $id);
+				}
 				// Only allow updating groups if user is admin
 				if ($this->ion_auth->is_admin())
 				{

@@ -96,7 +96,7 @@ class CompaniesModel extends CI_Model
 
     public function getCompanyCalls($id)
     {
-
+		$this->db->select('*,mploy_organisation_contact_history.id as contact_id');
         $this->db->join('mploy_activity_types', 'mploy_activity_types.id = mploy_organisation_contact_history.activity_type_id');
         $this->db->join('users', 'users.id = mploy_organisation_contact_history.user_id');
         $this->db->where('org_id=' . $id);

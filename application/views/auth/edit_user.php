@@ -103,7 +103,7 @@
       </p>
 									<p>
 										<label>Super User</label>
-										<input type="checkbox"  name="super" value="3">
+										<input type="checkbox"  name="super" value="3" <?php if ($super_user ==true) echo ' checked '; ?>>
 									</p>
 
 

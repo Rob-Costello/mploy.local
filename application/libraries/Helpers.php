@@ -57,7 +57,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	 {
 		 $this->CI->load->library('encryption');
 
-		 $ciphertext = $this->CI->encryption->encrypt($text);
+		 $ciphertext = $this->CI->encryption->encrypt($text)    ;
 		 return  $ciphertext;
 	 }
 

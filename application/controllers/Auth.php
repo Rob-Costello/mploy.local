@@ -662,7 +662,12 @@ class Auth extends CI_Controller
 		$user = $this->ion_auth->user($id)->row();
 		$groups = $this->ion_auth->groups()->result_array();
 		$currentGroups = $this->ion_auth->get_users_groups($id)->result();
+		$superUser = false;
+		foreach($currentGroups as $g){
 
+			if($g->id==3) $superUser = true;
+		}
+		$this->data['super_user'] = $superUser;
 		$this->data['current_groups'] = $groups;
 		$this->data['existing_groups'] = $currentGroups;
         // validate form input
@@ -674,8 +679,6 @@ class Auth extends CI_Controller
 		if (isset($_POST) && !empty($_POST))
 		{
 			$message='';
-
-
 
 			// update the password if it was posted
 			if ($this->input->post('password'))
@@ -696,22 +699,27 @@ class Auth extends CI_Controller
 				// update the password if it was posted
 				if ($this->input->post('password'))
 				{
-
 				    $data['password'] = $this->input->post('password');
                     $message .= 'Password has been updated <br>';
-				   // $this->session->set_flashdata('password_message', 'Password has been updated');
 				}
+
+
+
+
+
 
 				// Only allow updating groups if user is admin
 				if ($this->ion_auth->is_admin())
 				{
 					// Update the groups user belongs to
 					$groupData = $this->input->post('groups');
-
+					if($this->input->post('super') ){
+						$groupData[] =3;
+					}
 					if (isset($groupData) && !empty($groupData))
 					{
 
-						$this->ion_auth->remove_from_group('', $id);
+						$this->ion_auth->remove_from_group(3, $id);
 
 						foreach ($groupData as $grp)
 						{

@@ -101,6 +101,10 @@
 		  <?php echo lang('edit_user_password_confirm_label', 'password_confirm');?><br />
             <?php echo form_input($password_confirm);?>
       </p>
+									<p>
+										<label>Super User</label>
+										<input type="checkbox"  name="super" value="3" <?php if ($super_user ==true) echo ' checked '; ?>>
+									</p>
 
 
 

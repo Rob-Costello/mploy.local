@@ -8,6 +8,7 @@ class Campaigns extends CI_Controller
     {
 
         parent::__construct();
+        $this->superUser = false;
         $this->load->model('login');
         $this->load->library('ion_auth');
         $this->load->model('CampaignsModel');
@@ -22,6 +23,11 @@ class Campaigns extends CI_Controller
 		$this->load->library('xml');
         $campaigns = new CampaignsModel();
         $this->availableCampaigns = $campaigns->availableCampaigns();
+		if($this->ion_auth->in_group('super')){
+
+			$this-> superUser=true;
+
+		}
     }
 
 
@@ -292,8 +298,8 @@ class Campaigns extends CI_Controller
 	    }
 
         $data['user'] = $this->user;
-        $data['headings'] = ['Name', 'Main Telephone', 'Address', 'Line of Business', 'Last Contacted', 'Email', 'Status'];
-        $data['fields'] = ['name', 'phone', 'address1', 'line_of_business', 'date_time', 'email', 'status'];
+        $data['headings'] = ['Name', 'Main Telephone', 'Address','Town', 'Line of Business', 'Last Contacted', 'Email', 'Status'];
+        $data['fields'] = ['name', 'phone', 'address1','town', 'line_of_business', 'date_time', 'email', 'status'];
         $offset = 0;
 
 
@@ -410,6 +416,11 @@ class Campaigns extends CI_Controller
         $data['employer'] = $info['company'][0];
         $data['company'] = $info['company'];
         $data['company_message'] = $this->session->flashdata('company_message');
+		$data['allow_delete']=false;
+        if($this->superUser){
+			$data['allow_delete'] =true;
+
+		}
 
         $data['prev'] = null;
         $data['next'] = null;
@@ -419,10 +430,8 @@ class Campaigns extends CI_Controller
             $data['prev'] = $this->session->company_nav[array_search($id, $this->session->company_nav) - 1];
         if (array_search($id, $this->session->company_nav) != count($this->session->company_nav)-1)
             $data['next'] = $this->session->company_nav[array_search($id, $this->session->company_nav) + 1];
+
         $data['sso_key'] = $this->helpers->checkValid($this->user);
-
-
-
         $data['calls'] = $company->getCompanyCalls($id);
         $data['comp_id'] = $id;
         $data['user'] = $this->user;
@@ -899,7 +908,13 @@ class Campaigns extends CI_Controller
 		$this->load->view('/pages/emails/mailshot',$data);
     }
 
+	function deleteCall($id){
 
+    	$id = html_escape($id);
+    	$campaignModel = new CampaignsModel();
+		$campaignModel->deleteCall($id);
+		echo $id;
+	}
 
 
 	function sendMailshot($camp_id,$mailshot =7){
@@ -908,11 +923,8 @@ class Campaigns extends CI_Controller
 		$emails = [];
 		array_walk($sent,function(&$v, &$k) use (&$emails){$emails[] = "'".$v['receiver']."'";});
 		$sent = implode(",",$emails);
-
 		$shots = $campaignsModel->getMailshot($camp_id,$sent,$mailshot);
-
 		ob_start();
-
 
 		foreach($shots as $shot){
 			if ($shot['email'] != '') {
@@ -936,8 +948,6 @@ class Campaigns extends CI_Controller
 				header('Connection: close');
 
 			}
-
-
 		}
 		ob_end_flush();
 		ob_flush();

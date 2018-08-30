@@ -36,7 +36,7 @@
 						</div>
 						<div class="col-md-2">
 							<select style="margin:20px;" name="line_of_business" class="form-control" id="searchCompanyIndustry">
-								<option style="color:#fefefe" value="" selected disabled>Select Sector</option>
+								<option value="" disabled selected>Select Sector</option>
 								<?php foreach($sector as $s): ?>
 									<option value="<?php echo $s['line_of_business']; ?>" <?php if( isset($post_data['line_of_business']) && $post_data['line_of_business'] == $s['line_of_business']) echo 'selected'; ?>> <?php echo $s['line_of_business'];?> </option>
 								<?php endforeach ?>

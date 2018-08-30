@@ -340,6 +340,7 @@
 						
 						<td><?php echo $company->phone; ?></td>
 						<td><?php echo $company->address1 .' '.$company->address2.' '.$company->town.' '.$company->postcode; ?></td>
+						<td><?php echo $company->town ?></td>
 						<td>
 							<?php echo $company->line_of_business;?>
 						</td>
